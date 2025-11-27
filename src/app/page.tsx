@@ -2,9 +2,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { CarterDifference } from "@/components/sections/CarterDifference";
-import LawFirmRevealSection from "@/components/sections/RevealSection";
-import { TrustBar } from "@/components/sections/TrustBar";
-import { CaseTypes } from "@/components/sections/CaseTypes";
+import { PracticeAreas } from "@/components/sections/PracticeAreas";
 import { Results } from "@/components/sections/Results";
 import { Testimonial } from "@/components/sections/Testimonial";
 import { Process } from "@/components/sections/Process";
@@ -20,9 +18,7 @@ export default function Home() {
       <Header />
       <Hero />
       <CarterDifference />
-      <LawFirmRevealSection />
-      <TrustBar />
-      <CaseTypes />
+      <PracticeAreas />
       <Results />
       <Testimonial />
       <Process />

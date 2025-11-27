@@ -1,28 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion } from "framer-motion";
 import { Diamond, Menu, X, Phone } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import Link from "next/link";
 
 export const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 50);
-  });
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? "bg-navy/40 backdrop-blur-xl border-b border-white/10 py-2 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]" 
-          : "bg-transparent py-4"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 bg-navy border-b border-[#D4A960]/30 py-5 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
@@ -37,21 +26,24 @@ export const Header = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="/about" className="text-white/90 hover:text-gold transition-colors font-medium">About</Link>
-            <Link href="/results" className="text-white/90 hover:text-gold transition-colors font-medium">Results</Link>
-            <Link href="/reviews" className="text-white/90 hover:text-gold transition-colors font-medium">Reviews</Link>
-            <Link href="/contact" className="text-white/90 hover:text-gold transition-colors font-medium">Contact</Link>
+            <Link href="/about" className="text-white/90 hover:text-gold transition-colors font-serif tracking-wide">About</Link>
+            <Link href="/results" className="text-white/90 hover:text-gold transition-colors font-serif tracking-wide">Results</Link>
+            <Link href="/reviews" className="text-white/90 hover:text-gold transition-colors font-serif tracking-wide">Reviews</Link>
+            <Link href="/contact" className="text-white/90 hover:text-gold transition-colors font-serif tracking-wide">Contact</Link>
           </nav>
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <a href="tel:5551234567" className="flex items-center gap-2 text-white font-bold hover:text-gold transition-colors">
-              <Phone className="h-4 w-4" />
+            <a href="tel:5551234567" className="group flex items-center gap-2 text-white/70 text-sm font-medium hover:text-white transition-all duration-300">
+              <Phone className="h-3.5 w-3.5 transition-colors duration-300 group-hover:text-[#D4A960]" />
               (555) 123-4567
             </a>
-            <Button size="sm" className="bg-gold hover:bg-gold-hover text-white border-none">
-              Free Case Review
-            </Button>
+            <button className="relative group px-6 py-2 overflow-hidden border-2 border-[#D4A960] bg-transparent text-[#D4A960] font-sans font-bold uppercase tracking-[0.2em] text-xs transition-colors duration-300 hover:text-navy">
+              <span className="absolute inset-0 w-0 bg-[#D4A960] transition-all duration-[250ms] ease-out group-hover:w-full" />
+              <span className="relative z-10 flex items-center gap-2">
+                Free Case Review
+              </span>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -77,9 +69,12 @@ export const Header = () => {
             <Link href="/results" className="text-white hover:text-gold py-2">Results</Link>
             <Link href="/reviews" className="text-white hover:text-gold py-2">Reviews</Link>
             <Link href="/contact" className="text-white hover:text-gold py-2">Contact</Link>
-            <Button className="w-full bg-gold hover:bg-gold-hover text-white mt-2">
-              Free Case Review
-            </Button>
+            <button className="w-full relative group px-6 py-3 overflow-hidden border-2 border-[#D4A960] bg-transparent text-[#D4A960] font-sans font-bold uppercase tracking-[0.2em] text-xs transition-colors duration-300 hover:text-navy mt-2">
+              <span className="absolute inset-0 w-0 bg-[#D4A960] transition-all duration-[250ms] ease-out group-hover:w-full" />
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                Free Case Review
+              </span>
+            </button>
           </Container>
         </motion.div>
       )}

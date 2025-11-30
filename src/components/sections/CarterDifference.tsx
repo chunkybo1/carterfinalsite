@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { motion, useScroll, useTransform, useInView, MotionValue } from "framer-motion";
 
 // PILLAR DATA
 const PILLARS = [
@@ -33,15 +30,13 @@ const PILLARS = [
 
 export const CarterDifference = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Refs for GSAP
-  const headerRef = useRef(null);
-  const pillar1Ref = useRef(null);
-  const pillar2Ref = useRef(null);
-  const pillar3Ref = useRef(null);
-  const indicatorsRef = useRef<(HTMLDivElement | null)[]>([]);
+  // Scroll Progress
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
   // Mobile Detection
   useEffect(() => {
@@ -51,53 +46,33 @@ export const CarterDifference = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // GSAP ScrollTrigger Setup
-  useGSAP(() => {
-    if (isMobile) return;
+  // Transforms
+  // Header: 0-10%
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+  const headerY = useTransform(scrollYProgress, [0, 0.1], [20, 0]);
 
-    gsap.registerPlugin(ScrollTrigger);
+  // Pillar 1: Enter 10%, Exit 35%
+  const pillar1Opacity = useTransform(scrollYProgress, [0.1, 0.15, 0.3, 0.35], [0, 1, 1, 0]);
+  const pillar1Y = useTransform(scrollYProgress, [0.1, 0.15, 0.3, 0.35], [30, 0, 0, -30]);
+  const pillar1Scale = useTransform(scrollYProgress, [0.3, 0.35], [1, 0.95]);
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: true,
-      },
-    });
+  // Pillar 2: Enter 36%, Exit 65%
+  const pillar2Opacity = useTransform(scrollYProgress, [0.36, 0.41, 0.6, 0.65], [0, 1, 1, 0]);
+  const pillar2Y = useTransform(scrollYProgress, [0.36, 0.41, 0.6, 0.65], [30, 0, 0, -30]);
+  const pillar2Scale = useTransform(scrollYProgress, [0.36, 0.41, 0.6, 0.65], [0.95, 1, 1, 0.95]);
 
-    // Overture: Header Entrance (0-10%)
-    tl.fromTo(headerRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.1 }, 0);
+  // Pillar 3: Enter 66%, Exit 95%
+  const pillar3Opacity = useTransform(scrollYProgress, [0.66, 0.71, 0.9, 0.95], [0, 1, 1, 0]);
+  const pillar3Y = useTransform(scrollYProgress, [0.66, 0.71, 0.9, 0.95], [30, 0, 0, -30]);
+  const pillar3Scale = useTransform(scrollYProgress, [0.66, 0.71], [0.95, 1]);
 
-    // Pillar 1: Enter (10%), Exit (35%)
-    tl.fromTo(pillar1Ref.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.05 }, 0.1);
-    tl.to(pillar1Ref.current, { opacity: 0, y: -30, scale: 0.95, duration: 0.05 }, 0.35);
+  // Section Fade Out
+  const contentOpacity = useTransform(scrollYProgress, [0.95, 1], [1, 0]);
 
-    // Pillar 2: Enter (36%), Exit (65%)
-    tl.fromTo(pillar2Ref.current, { opacity: 0, y: 30, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.05 }, 0.36);
-    tl.to(pillar2Ref.current, { opacity: 0, y: -30, scale: 0.95, duration: 0.05 }, 0.65);
-
-    // Pillar 3: Enter (66%), Exit (95%)
-    tl.fromTo(pillar3Ref.current, { opacity: 0, y: 30, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.05 }, 0.66);
-    tl.to(pillar3Ref.current, { opacity: 0, y: -30, scale: 0.95, duration: 0.05 }, 0.95);
-
-    // Section Unpin Opacity (95-100%)
-    tl.to(contentRef.current, { opacity: 0, duration: 0.05 }, 0.95);
-
-    // Indicator Animations
-    // 1 Active: 10-35%
-    tl.to(indicatorsRef.current[0], { opacity: 1, duration: 0.01 }, 0.1);
-    tl.to(indicatorsRef.current[0], { opacity: 0.4, duration: 0.01 }, 0.35);
-
-    // 2 Active: 35-65%
-    tl.to(indicatorsRef.current[1], { opacity: 1, duration: 0.01 }, 0.35);
-    tl.to(indicatorsRef.current[1], { opacity: 0.4, duration: 0.01 }, 0.65);
-
-    // 3 Active: 65-95%
-    tl.to(indicatorsRef.current[2], { opacity: 1, duration: 0.01 }, 0.65);
-    tl.to(indicatorsRef.current[2], { opacity: 0.4, duration: 0.01 }, 0.95);
-
-  }, { scope: containerRef, dependencies: [isMobile] });
+  // Indicators
+  const indicator1Opacity = useTransform(scrollYProgress, [0.1, 0.35], [1, 0.4]);
+  const indicator2Opacity = useTransform(scrollYProgress, [0.35, 0.36, 0.65], [0.4, 1, 0.4]);
+  const indicator3Opacity = useTransform(scrollYProgress, [0.65, 0.66, 0.95], [0.4, 1, 0.4]);
 
   // If Mobile, return the mobile layout
   if (isMobile) {
@@ -105,63 +80,63 @@ export const CarterDifference = () => {
   }
 
   return (
-    <section ref={containerRef} className="relative h-[300vh] w-full bg-[#0f1d2f]">
+    <section ref={containerRef} className="relative h-[300vh] w-full bg-navy">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* BACKGROUND LAYER */}
-        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,#0f1d2f_0%,#0a1628_100%)]">
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--color-navy)_0%,#0a1628_100%)]">
           <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
         </div>
 
         {/* MAIN CONTENT CONTAINER */}
-        <div ref={contentRef} className="relative z-10 h-full w-full flex flex-col opacity-100">
+        <motion.div style={{ opacity: contentOpacity }} className="relative z-10 h-full w-full flex flex-col">
           
           {/* HEADER ZONE (Pinned Top-Left) */}
-          <div 
-            ref={headerRef}
-            className="absolute top-[10vh] left-[6vw] z-20 max-w-md opacity-0"
+          <motion.div 
+            style={{ opacity: headerOpacity, y: headerY }}
+            className="absolute top-[10vh] left-[6vw] z-20 max-w-md"
           >
-            <div className="text-[12px] font-sans uppercase tracking-[0.2em] text-[#c9a55c] mb-3">
+            <div className="text-[12px] font-sans uppercase tracking-[0.2em] text-bronze mb-3">
               Why Carter
             </div>
-            <div className="w-[50px] h-[2px] bg-[#c9a55c] mb-6 origin-left" />
+            <div className="w-[50px] h-[2px] bg-bronze mb-6 origin-left" />
             <h2 className="text-5xl font-serif text-white leading-tight mb-4">
-              The Carter <span className="text-[#c9a55c]">Difference</span>
+              The Carter <span className="text-bronze">Difference</span>
             </h2>
-            <p className="text-[18px] text-[#a89a8c] leading-relaxed">
+            <p className="text-[18px] text-light-steel leading-relaxed">
               What sets us apart isn&apos;t just what we do—it&apos;s how we do it.
             </p>
-          </div>
+          </motion.div>
 
           {/* CONTENT STAGE (Centered) */}
           <div className="flex-grow flex items-center justify-center relative w-full">
             
             {/* PILLAR 1 */}
-            <div ref={pillar1Ref} className="absolute inset-0 flex items-center justify-center opacity-0">
+            <motion.div style={{ opacity: pillar1Opacity, y: pillar1Y, scale: pillar1Scale }} className="absolute inset-0 flex items-center justify-center">
                <PillarContent data={PILLARS[0]} />
-            </div>
+            </motion.div>
 
             {/* PILLAR 2 */}
-            <div ref={pillar2Ref} className="absolute inset-0 flex items-center justify-center opacity-0">
+            <motion.div style={{ opacity: pillar2Opacity, y: pillar2Y, scale: pillar2Scale }} className="absolute inset-0 flex items-center justify-center">
                <PillarContent data={PILLARS[1]} />
-            </div>
+            </motion.div>
 
             {/* PILLAR 3 */}
-            <div ref={pillar3Ref} className="absolute inset-0 flex items-center justify-center opacity-0">
+            <motion.div style={{ opacity: pillar3Opacity, y: pillar3Y, scale: pillar3Scale }} className="absolute inset-0 flex items-center justify-center">
                <PillarContent data={PILLARS[2]} />
-            </div>
+            </motion.div>
 
           </div>
 
           {/* PROGRESS INDICATOR (Pinned Bottom) */}
           <div className="absolute bottom-[8vh] left-0 right-0 flex justify-center items-center gap-4 z-20">
-             <IndicatorItem ref={(el) => { indicatorsRef.current[0] = el }} label="01" active={true} initialOpacity={0.4} />
+             <IndicatorItem label="01" active={true} opacity={indicator1Opacity} />
              <div className="w-[30px] h-[1px] bg-white/20" />
-             <IndicatorItem ref={(el) => { indicatorsRef.current[1] = el }} label="02" active={true} initialOpacity={0.4} />
+             <IndicatorItem label="02" active={true} opacity={indicator2Opacity} />
              <div className="w-[30px] h-[1px] bg-white/20" />
-             <IndicatorItem ref={(el) => { indicatorsRef.current[2] = el }} label="03" active={true} initialOpacity={0.4} />
+             <IndicatorItem label="03" active={true} opacity={indicator3Opacity} />
           </div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -182,18 +157,18 @@ const PillarContent = ({ data }: { data: PillarData }) => {
     <div className="w-full max-w-[1200px] px-6 grid grid-cols-[55%_40%] gap-[5%] items-center">
       {/* Text Column */}
       <div className="text-left">
-        <div className="text-6xl lg:text-[80px] font-serif text-[#c9a55c]/65 leading-none mb-2">
+        <div className="text-6xl lg:text-[80px] font-serif text-bronze/65 leading-none mb-2">
           {data.number}
         </div>
         <div className="flex gap-1 mb-6">
-            <div className="h-[2px] w-[40px] bg-[#c9a55c]" />
-            <div className="h-[2px] w-[40px] bg-[#c9a55c]" />
+            <div className="h-[2px] w-[40px] bg-bronze" />
+            <div className="h-[2px] w-[40px] bg-bronze" />
         </div>
         <h3 className="text-3xl lg:text-[36px] font-serif text-white uppercase tracking-wider mb-2">
           {data.title}
         </h3>
-        <div className="h-[2px] w-[60px] bg-[#c9a55c] mb-8" />
-        <p className="text-[17px] text-[#c4c4c4] leading-relaxed max-w-[440px]">
+        <div className="h-[2px] w-[60px] bg-bronze mb-8" />
+        <p className="text-[17px] text-gray-400 leading-relaxed max-w-[440px]">
           {data.body}
         </p>
       </div>
@@ -208,31 +183,28 @@ const PillarContent = ({ data }: { data: PillarData }) => {
 
 const VisualPlaceholder = ({ type }: { type: string }) => {
   return (
-    <div className="text-[#c9a55c]/50 text-sm uppercase tracking-widest">
+    <div className="text-bronze/50 text-sm uppercase tracking-widest">
       [Abstract: {type}]
     </div>
   );
 };
 
-// Using forwardRef for GSAP access
-const IndicatorItem = React.forwardRef<HTMLDivElement, { label: string, active: boolean, initialOpacity?: number }>(
-  ({ label, active, initialOpacity = 1 }, ref) => {
-    return (
-      <div ref={ref} style={{ opacity: initialOpacity }} className="flex flex-col items-center gap-2">
-        <span className="text-[12px] text-white tracking-[0.15em] font-sans">{label}</span>
-        <div className={`w-2 h-2 rounded-full ${active ? 'bg-[#c9a55c]' : 'border border-white'}`} />
-      </div>
-    );
-  }
-);
-IndicatorItem.displayName = "IndicatorItem";
+// Using motion.div directly in the component for opacity control
+const IndicatorItem = ({ label, active, opacity }: { label: string, active: boolean, opacity: MotionValue<number> }) => {
+  return (
+    <motion.div style={{ opacity }} className="flex flex-col items-center gap-2">
+      <span className="text-[12px] text-white tracking-[0.15em] font-sans">{label}</span>
+      <div className={`w-2 h-2 rounded-full ${active ? 'bg-bronze' : 'border border-white'}`} />
+    </motion.div>
+  );
+};
 
 const MobileLayout = () => {
   return (
-    <section className="bg-[#0f1d2f] py-20 px-6">
+    <section className="bg-navy py-20 px-6">
       <div className="max-w-3xl mx-auto">
         <div className="mb-16 text-center">
-          <span className="text-[12px] font-sans uppercase tracking-[0.2em] text-[#c9a55c] block mb-3">Why Carter</span>
+          <span className="text-[12px] font-sans uppercase tracking-[0.2em] text-bronze block mb-3">Why Carter</span>
           <h2 className="text-3xl font-serif text-white">The Carter Difference</h2>
         </div>
         
@@ -262,7 +234,7 @@ const MobilePillar = ({ data }: { data: PillarData }) => {
          <VisualPlaceholder type={data.visual} />
       </div>
       <div>
-        <div className="text-[40px] font-serif text-[#c9a55c]/65 leading-none mb-2">{data.number}</div>
+        <div className="text-[40px] font-serif text-bronze/65 leading-none mb-2">{data.number}</div>
         <h3 className="text-xl font-serif text-white uppercase tracking-wider mb-4">{data.title}</h3>
         <p className="text-white/70 leading-relaxed">{data.body}</p>
       </div>

@@ -94,7 +94,7 @@ export const TrustBar = () => {
 
               <div className="relative">
                 {/* Display Number */}
-                <div className="text-[72px] lg:text-[96px] font-bold leading-none text-gold drop-shadow-[0_0_25px_rgba(212,175,55,0.2)]">
+                <div className="text-[72px] lg:text-[96px] font-bold leading-none text-bronze drop-shadow-[0_0_25px_rgba(184,149,106,0.2)]">
                   <CountUpNumber value={metric.value} />
                   {metric.suffix}
                 </div>
@@ -130,13 +130,13 @@ export const TrustBar = () => {
             
             {/* Placeholder Image/Video */}
             <div className="absolute inset-0 bg-navy/50">
-                <div className="h-full w-full bg-gradient-to-tr from-navy via-navy/80 to-gold/20 mix-blend-overlay" />
+                <div className="h-full w-full bg-gradient-to-tr from-navy via-navy/80 to-bronze/20 mix-blend-overlay" />
             </div>
 
             {/* Content Inside Cutout */}
             <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center p-6">
-              <div className="h-16 w-16 rounded-full bg-gold/20 backdrop-blur-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-gold/30">
-                <Play className="h-6 w-6 text-gold fill-current ml-1" />
+              <div className="h-16 w-16 rounded-full bg-bronze/20 backdrop-blur-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-bronze/30">
+                <Play className="h-6 w-6 text-bronze fill-current ml-1" />
               </div>
               <h4 className="text-white font-serif text-2xl font-bold mb-2">See The Difference</h4>
               <p className="text-white/60 text-sm">Watch how we change lives.</p>

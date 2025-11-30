@@ -37,7 +37,7 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
   };
 
   return (
-    <div className="relative w-full h-screen bg-[#0A192F] overflow-hidden">
+    <div className="relative w-full h-screen bg-navy overflow-hidden">
       {/* Interaction Layer */}
       <GoldParticles />
 
@@ -51,7 +51,7 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
                  initial="hidden"
                  animate={showContent ? "visible" : "hidden"}
                  variants={headlineVariants}
-                 className="text-5xl md:text-6xl lg:text-[5vw] font-serif font-bold text-[#F8F8F8] leading-tight tracking-tight"
+                 className="text-5xl md:text-6xl lg:text-[5vw] font-serif font-bold text-white leading-tight tracking-tight"
                >
                  We Fight.
                </motion.h1>
@@ -64,7 +64,7 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
                    initial="hidden"
                    animate={showContent ? "visible" : "hidden"}
                    variants={sublineVariants}
-                   className="text-3xl md:text-4xl lg:text-[3.5vw] font-serif font-medium text-[#F8F8F8] leading-tight"
+                   className="text-3xl md:text-4xl lg:text-[3.5vw] font-serif font-medium text-white leading-tight"
                  >
                    Carter Law Wins.
                  </motion.p>
@@ -75,7 +75,7 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
                  initial="hidden"
                  animate={showContent ? "visible" : "hidden"}
                  variants={lineVariants}
-                 className="h-[3px] bg-[#D4AF37] mt-2 absolute bottom-[-8px] left-0 shadow-[0_0_10px_rgba(212,175,55,0.6)]"
+                 className="h-[3px] bg-bronze mt-2 absolute bottom-[-8px] left-0 shadow-[0_0_10px_rgba(184,149,106,0.6)]"
                />
              </div>
 
@@ -86,7 +86,7 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
                transition={{ delay: 2.0, duration: 0.8 }}
                className="mt-12"
              >
-               <button className="px-8 py-3 border border-[#D4AF37] text-[#D4AF37] text-sm tracking-widest uppercase hover:bg-[#D4AF37] hover:text-[#0A192F] transition-all duration-300">
+               <button className="px-8 py-3 border border-bronze text-bronze text-sm tracking-widest uppercase hover:bg-bronze hover:text-navy transition-all duration-300">
                  Talk To Us
                </button>
              </motion.div>
@@ -100,7 +100,7 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
              clipPath: "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)", // Standard diagonal cut
           }}
         >
-           <div className="relative w-full h-full overflow-hidden bg-[#0A192F]">
+           <div className="relative w-full h-full overflow-hidden bg-navy">
               {/* Ken Burns Effect Wrapper */}
               <motion.div
                  className="w-full h-full"
@@ -120,12 +120,12 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
               </motion.div>
 
               {/* Navy Overlay */}
-              <div className="absolute inset-0 bg-[rgba(10,25,47,0.4)] z-10 pointer-events-none" />
+              <div className="absolute inset-0 bg-navy/40 z-10 pointer-events-none" />
            </div>
         </div>
         
         {/* Mobile Overlay Gradient (for text readability if layout shifts) */}
-        <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#0A192F] via-[#0A192F]/80 to-transparent z-15 pointer-events-none" />
+        <div className="md:hidden absolute inset-0 bg-gradient-to-t from-navy via-navy/80 to-transparent z-15 pointer-events-none" />
       </div>
     </div>
   );

@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { motion, useInView } from "framer-motion";
 import { 
   Shield, 
   Activity, 
@@ -90,52 +88,28 @@ const PRACTICE_AREAS: PracticeArea[] = [
 // --- COMPONENTS ---
 
 export const PracticeAreas = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Header Animation
-    const headerTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: headerRef.current,
-        start: "top 85%",
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
       }
-    });
+    }
+  };
 
-    headerTl
-      .fromTo(headerRef.current?.querySelector(".accent-line"), 
-        { width: 0 }, 
-        { width: 50, duration: 0.8, ease: "power2.out" }
-      )
-      .fromTo(headerRef.current?.querySelectorAll(".fade-up"), 
-        { y: 20, opacity: 0 }, 
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1 },
-        "-=0.4"
-      );
-
-    // Grid Staggered Reveal
-    gsap.fromTo(gridRef.current?.children || [], 
-      { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: gridRef.current,
-          start: "top 80%",
-        }
-      }
-    );
-
-  }, { scope: sectionRef });
+  const itemVariants = {
+    hidden: { y: 40, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-32 bg-[#0a1628] overflow-hidden">
+    <section className="relative py-24 md:py-32 bg-navy overflow-hidden">
       {/* Background Noise Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
       
@@ -150,40 +124,69 @@ export const PracticeAreas = () => {
 
       <Container>
         {/* Header */}
-        <div ref={headerRef} className="mb-16 md:mb-24 max-w-2xl">
-          <div className="fade-up text-xs font-sans font-bold text-[#D4AF37] tracking-[0.2em] uppercase mb-4">
+        <div className="mb-16 md:mb-24 max-w-2xl">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-xs font-sans font-bold text-bronze tracking-[0.2em] uppercase mb-4"
+          >
             What We Do
-          </div>
-          <div className="accent-line h-[2px] bg-[#D4AF37] mb-6" />
-          <h2 className="fade-up text-4xl md:text-5xl font-serif text-white mb-6 leading-tight">
-            Areas of <span className="text-[#D4AF37]">Practice</span>
-          </h2>
-          <p className="fade-up text-lg text-gray-400 leading-relaxed">
+          </motion.div>
+          <motion.div 
+            initial={{ width: 0 }}
+            whileInView={{ width: 50 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="h-[2px] bg-bronze mb-6" 
+          />
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-4xl md:text-5xl font-serif text-white mb-6 leading-tight"
+          >
+            Areas of <span className="text-bronze">Practice</span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-lg text-gray-400 leading-relaxed"
+          >
             Every case is different. Our commitment never is. We bring specialized expertise to every battle we fight.
-          </p>
+          </motion.p>
         </div>
 
         {/* Grid */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+        >
           {PRACTICE_AREAS.map((area) => (
-            <PracticeCard key={area.id} data={area} />
+            <motion.div key={area.id} variants={itemVariants}>
+              <PracticeCard data={area} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   );
 };
 
 const PracticeCard = ({ data }: { data: PracticeArea }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-
   return (
     <div
-      ref={cardRef}
       className="group relative bg-[#0f1d2f] border border-white/5 p-8 min-h-[320px] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:-translate-y-2"
     >
       {/* Top Accent Line */}
-      <div className="absolute top-0 left-0 h-[2px] bg-[#D4AF37] w-0 transition-all duration-500 group-hover:w-full" />
+      <div className="absolute top-0 left-0 h-[2px] bg-bronze w-0 transition-all duration-500 group-hover:w-full" />
 
       {/* Content Top */}
       <div className="relative z-10">
@@ -191,16 +194,16 @@ const PracticeCard = ({ data }: { data: PracticeArea }) => {
         <div className="flex justify-end mb-6">
           <div className="relative">
             <data.icon 
-              className="w-12 h-12 text-[#D4AF37] stroke-[1.5px] transition-transform duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]" 
+              className="w-12 h-12 text-bronze stroke-[1.5px] transition-transform duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(184,149,106,0.3)]" 
             />
           </div>
         </div>
 
         {/* Divider */}
-        <div className="h-[1px] w-12 bg-[#D4AF37]/30 mb-6" />
+        <div className="h-[1px] w-12 bg-bronze/30 mb-6" />
 
         {/* Text */}
-        <h3 className="text-xl font-bold uppercase tracking-wide mb-4 text-white transition-colors duration-300 group-hover:text-[#D4AF37]">
+        <h3 className="text-xl font-bold uppercase tracking-wide mb-4 text-white transition-colors duration-300 group-hover:text-bronze">
           {data.title}
         </h3>
         <p className="text-sm text-gray-400 leading-relaxed">
@@ -209,7 +212,7 @@ const PracticeCard = ({ data }: { data: PracticeArea }) => {
       </div>
 
       {/* Learn More Link */}
-      <div className="flex items-center gap-2 text-[#D4AF37] text-sm font-bold mt-6 transition-all duration-500 transform opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0">
+      <div className="flex items-center gap-2 text-bronze text-sm font-bold mt-6 transition-all duration-500 transform opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0">
         <span>Learn More</span>
         <ArrowRight className="w-4 h-4" />
       </div>

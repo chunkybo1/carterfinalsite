@@ -19,9 +19,9 @@ export default function Home() {
       <Hero />
       <CarterDifference />
       <PracticeAreas />
+      <Process />
       <Results />
       <Testimonial />
-      <Process />
       <Attorneys />
       <Coverage />
       <News />

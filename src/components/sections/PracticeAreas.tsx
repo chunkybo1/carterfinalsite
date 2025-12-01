@@ -15,6 +15,7 @@ import {
   ArrowRight 
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { VideoBackground } from "@/components/ui/VideoBackground";
 
 // --- DATA ---
 
@@ -109,9 +110,14 @@ export const PracticeAreas = () => {
   };
 
   return (
-    <section className="relative py-24 md:py-32 bg-navy overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden flex items-center z-30 -mt-[100vh]">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <VideoBackground overlayOpacity={0.85} className="w-full h-full object-cover" />
+      </div>
+
       {/* Background Noise Texture */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-10" />
       
       {/* Optional Faint Grid Background */}
       <div 
@@ -122,31 +128,31 @@ export const PracticeAreas = () => {
         }}
       />
 
-      <Container>
+      <Container className="relative z-20 h-full flex flex-col justify-center py-20">
         {/* Header */}
-        <div className="mb-16 md:mb-24 max-w-2xl">
+        <div className="mb-12 max-w-2xl">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-xs font-sans font-bold text-bronze tracking-[0.2em] uppercase mb-4"
+            className="text-[10px] font-sans font-bold text-bronze tracking-[0.2em] uppercase mb-3"
           >
             What We Do
           </motion.div>
           <motion.div 
             initial={{ width: 0 }}
-            whileInView={{ width: 50 }}
+            whileInView={{ width: 40 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="h-[2px] bg-bronze mb-6" 
+            className="h-[2px] bg-bronze mb-4" 
           />
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-4xl md:text-5xl font-serif text-white mb-6 leading-tight"
+            className="text-3xl md:text-4xl font-serif text-white mb-4 leading-tight"
           >
             Areas of <span className="text-bronze">Practice</span>
           </motion.h2>
@@ -155,7 +161,7 @@ export const PracticeAreas = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg text-gray-400 leading-relaxed"
+            className="text-base text-gray-400 leading-relaxed max-w-lg"
           >
             Every case is different. Our commitment never is. We bring specialized expertise to every battle we fight.
           </motion.p>
@@ -166,8 +172,8 @@ export const PracticeAreas = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
         >
           {PRACTICE_AREAS.map((area) => (
             <motion.div key={area.id} variants={itemVariants}>
@@ -183,7 +189,7 @@ export const PracticeAreas = () => {
 const PracticeCard = ({ data }: { data: PracticeArea }) => {
   return (
     <div
-      className="group relative bg-[#0f1d2f] border border-white/5 p-8 min-h-[320px] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:-translate-y-2"
+      className="group relative bg-[#0f1d2f]/80 backdrop-blur-sm border border-white/5 p-6 min-h-[260px] flex flex-col justify-between transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:-translate-y-2"
     >
       {/* Top Accent Line */}
       <div className="absolute top-0 left-0 h-[2px] bg-bronze w-0 transition-all duration-500 group-hover:w-full" />
@@ -191,30 +197,30 @@ const PracticeCard = ({ data }: { data: PracticeArea }) => {
       {/* Content Top */}
       <div className="relative z-10">
         {/* Icon */}
-        <div className="flex justify-end mb-6">
+        <div className="flex justify-end mb-4">
           <div className="relative">
             <data.icon 
-              className="w-12 h-12 text-bronze stroke-[1.5px] transition-transform duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(184,149,106,0.3)]" 
+              className="w-8 h-8 text-bronze stroke-[1.5px] transition-transform duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(184,149,106,0.3)]" 
             />
           </div>
         </div>
 
         {/* Divider */}
-        <div className="h-[1px] w-12 bg-bronze/30 mb-6" />
+        <div className="h-[1px] w-8 bg-bronze/30 mb-4" />
 
         {/* Text */}
-        <h3 className="text-xl font-bold uppercase tracking-wide mb-4 text-white transition-colors duration-300 group-hover:text-bronze">
+        <h3 className="text-lg font-bold uppercase tracking-wide mb-2 text-white transition-colors duration-300 group-hover:text-bronze">
           {data.title}
         </h3>
-        <p className="text-sm text-gray-400 leading-relaxed">
+        <p className="text-xs text-gray-400 leading-relaxed line-clamp-3">
           {data.description}
         </p>
       </div>
 
       {/* Learn More Link */}
-      <div className="flex items-center gap-2 text-bronze text-sm font-bold mt-6 transition-all duration-500 transform opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0">
+      <div className="flex items-center gap-2 text-bronze text-xs font-bold mt-4 transition-all duration-500 transform opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0">
         <span>Learn More</span>
-        <ArrowRight className="w-4 h-4" />
+        <ArrowRight className="w-3 h-3" />
       </div>
     </div>
   );

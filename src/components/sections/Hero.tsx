@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import { IndustrialHeroAnimation } from "@/components/sections/IndustrialHeroAnimation";
+import { HeroAnimation } from "@/components/sections/hero-animation";
 import { HeroSection } from "@/components/sections/hero-section";
 
 export const Hero = () => {
@@ -14,7 +14,7 @@ export const Hero = () => {
   return (
     <div className="relative w-full">
       {/* The Animation Overlay (Fixed Position initially, then Absolute) */}
-      <IndustrialHeroAnimation 
+      <HeroAnimation 
         onComplete={handleAnimationComplete} 
         isFixed={!animationComplete}
       />

@@ -42,6 +42,22 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
       <GoldParticles />
 
       <div className="relative w-full h-full flex flex-col md:flex-row">
+        {/* Location Text - Absolute Positioned relative to main container, sitting over the navy section */}
+        {/* Diagonal line: from (15%, 0) to (0%, 100%). Angle adjusted for better alignment */}
+        <div className="absolute bottom-[4%] left-[35.5%] z-30 transform -rotate-[80deg] origin-bottom-left hidden md:block pointer-events-none">
+           <span className="text-[10px] font-sans font-bold tracking-[0.4em] text-white uppercase whitespace-nowrap">
+             El Paso, Texas
+           </span>
+        </div>
+
+        {/* Est. Text - Positioned "above" El Paso, aligned with the diagonal */}
+        {/* Same rotation as El Paso, positioned higher up the diagonal line */}
+        <div className="absolute bottom-[26%] left-[37.5%] z-30 transform -rotate-[79.5deg] origin-bottom-left hidden md:block pointer-events-none">
+           <span className="text-[10px] font-sans font-bold tracking-[0.4em] text-white/60 uppercase whitespace-nowrap">
+             Personal Injury • Est 2005
+           </span>
+        </div>
+
         {/* LEFT SIDE: Content (Navy Solid) */}
         <div className="relative z-20 w-full md:w-[45%] h-full flex flex-col justify-center px-6 md:px-12 lg:px-20">
            <div className="relative">

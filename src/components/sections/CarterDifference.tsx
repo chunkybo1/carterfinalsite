@@ -62,12 +62,12 @@ export const CarterDifference = () => {
   const pillar2Scale = useTransform(scrollYProgress, [0.36, 0.41, 0.6, 0.65], [0.95, 1, 1, 0.95]);
 
   // Pillar 3: Enter 66%, Exit 95%
-  const pillar3Opacity = useTransform(scrollYProgress, [0.66, 0.71, 0.9, 0.95], [0, 1, 1, 0]);
-  const pillar3Y = useTransform(scrollYProgress, [0.66, 0.71, 0.9, 0.95], [30, 0, 0, -30]);
+  const pillar3Opacity = useTransform(scrollYProgress, [0.66, 0.71, 0.85, 0.95], [0, 1, 1, 0]);
+  const pillar3Y = useTransform(scrollYProgress, [0.66, 0.71, 0.85, 0.95], [30, 0, 0, -30]);
   const pillar3Scale = useTransform(scrollYProgress, [0.66, 0.71], [0.95, 1]);
 
   // Section Fade Out
-  const contentOpacity = useTransform(scrollYProgress, [0.95, 1], [1, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0.92, 1], [1, 0]);
 
   // Indicators
   const indicator1Opacity = useTransform(scrollYProgress, [0.1, 0.35], [1, 0.4]);
@@ -80,7 +80,7 @@ export const CarterDifference = () => {
   }
 
   return (
-    <section ref={containerRef} className="relative h-[300vh] w-full bg-navy">
+    <section ref={containerRef} data-section="carter-difference" className="relative h-[300vh] w-full bg-navy">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* BACKGROUND LAYER */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--color-navy)_0%,#0a1628_100%)]">
@@ -93,7 +93,7 @@ export const CarterDifference = () => {
           {/* HEADER ZONE (Pinned Top-Left) */}
           <motion.div 
             style={{ opacity: headerOpacity, y: headerY }}
-            className="absolute top-[10vh] left-[6vw] z-20 max-w-md"
+            className="absolute top-[140px] lg:top-[22vh] 2xl:top-[200px] left-[6vw] z-20 max-w-md"
           >
             <div className="text-[12px] font-sans uppercase tracking-[0.2em] text-bronze mb-3">
               Why Carter

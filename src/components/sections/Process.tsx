@@ -1,94 +1,109 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import { Phone, Search, Users, CheckCircle } from "lucide-react";
-import { Container } from "@/components/ui/Container";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
-const steps = [
+const PROCESS_STEPS = [
   {
     id: 1,
-    title: "Free Consultation",
-    description: "Tell us what happened - no cost, no obligation.",
-    icon: Phone,
+    number: "01",
+    title: "We Listen",
+    body: "Every case starts with understanding your story. We take the time to hear what happened, how it affected you, and what you need to move forward. No rushed consultations, no assumptions—just genuine attention to your situation.",
   },
   {
     id: 2,
+    number: "02",
     title: "We Investigate",
-    description: "We build your case while you focus on recovery.",
-    icon: Search,
+    body: "While you focus on recovery, we build your case. Our team digs deep into the facts, gathers evidence, and prepares every detail as if we're going to trial. Because thorough preparation is how you win before you ever step into a courtroom.",
   },
   {
     id: 3,
-    title: "We Negotiate",
-    description: "We fight for maximum compensation from insurance companies.",
-    icon: Users,
-  },
-  {
-    id: 4,
-    title: "You Win",
-    description: "Get the settlement you deserve - we only get paid if you do.",
-    icon: CheckCircle,
+    number: "03",
+    title: "We Fight",
+    body: "When it's time to negotiate or go to trial, we fight with everything we've got. We don't back down from insurance companies or opposing counsel. Your fight is our fight, and we're here to win.",
   },
 ];
 
 export const Process = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+
   return (
-    <section className="py-20 bg-white">
-      <Container>
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl md:text-4xl font-serif font-bold text-navy"
-          >
-            Your Path to Justice Made Simple
-          </motion.h2>
-        </div>
+    <section ref={containerRef} className="relative min-h-screen w-full bg-[#FDFBF8] overflow-hidden">
+      {/* Diagonal Navy Wedge (Left Side) */}
+      <div 
+        className="absolute inset-0 bg-navy z-0"
+        style={{
+          clipPath: "polygon(0 100%, 0 0, 45% 0, 35% 100%)",
+        }}
+      />
 
-        <div className="relative">
-          {/* Connecting Line (Desktop) */}
-          <div className="hidden lg:block absolute top-12 left-0 w-full h-0.5 bg-gray-200 -z-10">
+      {/* Left Zone - Numbers (Navy Background) */}
+      <div className="absolute left-0 top-0 bottom-0 w-[45%] z-10 flex flex-col justify-center items-start pl-[6vw]">
+        <div className="space-y-32">
+          {PROCESS_STEPS.map((step, index) => (
             <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5, delay: 0.5 }}
-              className="h-full bg-gold"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="flex flex-col items-center text-center bg-white p-4"
-              >
-                <div className="relative mb-6">
-                  <div className="h-24 w-24 rounded-full bg-white border-4 border-gold flex items-center justify-center z-10">
-                    <step.icon className="h-10 w-10 text-navy" />
-                  </div>
-                  <div className="absolute -top-2 -right-2 h-8 w-8 rounded-full bg-navy text-white flex items-center justify-center font-bold text-sm border-2 border-white">
-                    {step.id}
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-navy mb-3">{step.title}</h3>
-                <p className="text-gray-600">{step.description}</p>
-              </motion.div>
-            ))}
-          </div>
+              key={step.id}
+              initial={{ opacity: 0, x: -50 }}
+              animate={isInView ? { opacity: 0.15, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              className="text-[180px] lg:text-[240px] font-serif text-white leading-none"
+            >
+              {step.number}
+            </motion.div>
+          ))}
         </div>
-      </Container>
+      </div>
+
+      {/* Right Zone - Content (Cream Background) */}
+      <div className="relative z-20 min-h-screen flex flex-col justify-center py-20 px-6 lg:pl-[50%] lg:pr-[8vw]">
+        <div className="space-y-32 max-w-2xl">
+          {PROCESS_STEPS.map((step, index) => (
+            <ProcessStep key={step.id} data={step} index={index} isInView={isInView} />
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
 
+interface ProcessStepProps {
+  data: {
+    id: number;
+    number: string;
+    title: string;
+    body: string;
+  };
+  index: number;
+  isInView: boolean;
+}
 
+const ProcessStep = ({ data, index, isInView }: ProcessStepProps) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, delay: index * 0.15 }}
+      className="space-y-6"
+    >
+      {/* Number Indicator */}
+      <div className="flex items-center gap-4">
+        <div className="text-4xl lg:text-5xl font-serif text-navy/20">
+          {data.number}
+        </div>
+        <div className="h-[2px] w-16 bg-bronze" />
+      </div>
 
+      {/* Title */}
+      <h3 className="text-3xl lg:text-4xl font-serif text-navy leading-tight">
+        {data.title}
+      </h3>
 
+      {/* Body */}
+      <p className="text-base lg:text-lg font-sans text-gray-700 leading-relaxed max-w-xl">
+        {data.body}
+      </p>
+    </motion.div>
+  );
+};

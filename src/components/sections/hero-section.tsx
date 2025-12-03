@@ -14,7 +14,6 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
       clipPath: "polygon(0 100%, 100% 100%, 100% 0%, 0 0%)", 
       y: 0, 
       opacity: 1,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 } // easeOutExpo approximation
     }
   };
 
@@ -24,7 +23,6 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
       clipPath: "polygon(0 100%, 100% 100%, 100% 0%, 0 0%)", 
       y: 0, 
       opacity: 1,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.9 } // 0.3 + 0.6 delay
     }
   };
 
@@ -32,7 +30,6 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
     hidden: { width: 0 },
     visible: { 
       width: "100%",
-      transition: { duration: 0.5, ease: "easeOut", delay: 1.5 } // after subline
     }
   };
 
@@ -63,12 +60,13 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
            <div className="relative">
              {/* Headline */}
              <div className="overflow-hidden">
-               <motion.h1
-                 initial="hidden"
-                 animate={showContent ? "visible" : "hidden"}
-                 variants={headlineVariants}
-                 className="text-5xl md:text-6xl lg:text-[5vw] font-serif font-bold text-white leading-tight tracking-tight"
-               >
+              <motion.h1
+                initial="hidden"
+                animate={showContent ? "visible" : "hidden"}
+                variants={headlineVariants}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+                className="text-5xl md:text-6xl lg:text-[5vw] font-serif font-bold text-white leading-tight tracking-tight"
+              >
                  We Fight.
                </motion.h1>
              </div>
@@ -76,23 +74,25 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
              {/* Subline */}
              <div className="mt-2 md:mt-4 relative inline-block">
                <div className="overflow-hidden">
-                 <motion.p
-                   initial="hidden"
-                   animate={showContent ? "visible" : "hidden"}
-                   variants={sublineVariants}
-                   className="text-3xl md:text-4xl lg:text-[3.5vw] font-serif font-medium text-white leading-tight"
-                 >
+                <motion.p
+                  initial="hidden"
+                  animate={showContent ? "visible" : "hidden"}
+                  variants={sublineVariants}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.9 }}
+                  className="text-3xl md:text-4xl lg:text-[3.5vw] font-serif font-medium text-white leading-tight"
+                >
                    Carter Law Wins.
                  </motion.p>
                </div>
                
                {/* Gold Accent Line */}
-               <motion.div
-                 initial="hidden"
-                 animate={showContent ? "visible" : "hidden"}
-                 variants={lineVariants}
-                 className="h-[3px] bg-bronze mt-2 absolute bottom-[-8px] left-0 shadow-[0_0_10px_rgba(184,149,106,0.6)]"
-               />
+              <motion.div
+                initial="hidden"
+                animate={showContent ? "visible" : "hidden"}
+                variants={lineVariants}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 1.5 }}
+                className="h-[3px] bg-bronze mt-2 absolute bottom-[-8px] left-0 shadow-[0_0_10px_rgba(184,149,106,0.6)]"
+              />
              </div>
 
              {/* CTA Button (Optional/Extra) */}

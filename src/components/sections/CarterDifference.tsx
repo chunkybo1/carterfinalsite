@@ -56,23 +56,24 @@ export const CarterDifference = () => {
   const pillar1Y = useTransform(scrollYProgress, [0.1, 0.15, 0.3, 0.35], [30, 0, 0, -30]);
   const pillar1Scale = useTransform(scrollYProgress, [0.3, 0.35], [1, 0.95]);
 
-  // Pillar 2: Enter 36%, Exit 65%
-  const pillar2Opacity = useTransform(scrollYProgress, [0.36, 0.41, 0.6, 0.65], [0, 1, 1, 0]);
-  const pillar2Y = useTransform(scrollYProgress, [0.36, 0.41, 0.6, 0.65], [30, 0, 0, -30]);
-  const pillar2Scale = useTransform(scrollYProgress, [0.36, 0.41, 0.6, 0.65], [0.95, 1, 1, 0.95]);
+  // Pillar 2: Enter 36%, Exit 50% (ends earlier to make room for Pillar 3)
+  const pillar2Opacity = useTransform(scrollYProgress, [0.36, 0.41, 0.45, 0.50], [0, 1, 1, 0]);
+  const pillar2Y = useTransform(scrollYProgress, [0.36, 0.41, 0.45, 0.50], [30, 0, 0, -30]);
+  const pillar2Scale = useTransform(scrollYProgress, [0.36, 0.41, 0.45, 0.50], [0.95, 1, 1, 0.95]);
 
-  // Pillar 3: Enter 66%, Exit 95%
-  const pillar3Opacity = useTransform(scrollYProgress, [0.66, 0.71, 0.85, 0.95], [0, 1, 1, 0]);
-  const pillar3Y = useTransform(scrollYProgress, [0.66, 0.71, 0.85, 0.95], [30, 0, 0, -30]);
-  const pillar3Scale = useTransform(scrollYProgress, [0.66, 0.71], [0.95, 1]);
+  // Pillar 3: Enter 50%, fully visible by 55%, stays locked until 75% (long locked period like Pillars 1 & 2)
+  // Then fades out by 80%, leaving gap before PracticeAreas appears
+  const pillar3Opacity = useTransform(scrollYProgress, [0.50, 0.55, 0.75, 0.80], [0, 1, 1, 0]);
+  const pillar3Y = useTransform(scrollYProgress, [0.50, 0.55, 0.75, 0.80], [30, 0, 0, -30]);
+  const pillar3Scale = useTransform(scrollYProgress, [0.50, 0.55, 0.75, 0.80], [0.95, 1, 1, 0.95]);
 
-  // Section Fade Out
-  const contentOpacity = useTransform(scrollYProgress, [0.92, 1], [1, 0]);
+  // Section Fade Out - starts after Pillar 3 has faded out
+  const contentOpacity = useTransform(scrollYProgress, [0.83, 1], [1, 0]);
 
   // Indicators
   const indicator1Opacity = useTransform(scrollYProgress, [0.1, 0.35], [1, 0.4]);
-  const indicator2Opacity = useTransform(scrollYProgress, [0.35, 0.36, 0.65], [0.4, 1, 0.4]);
-  const indicator3Opacity = useTransform(scrollYProgress, [0.65, 0.66, 0.95], [0.4, 1, 0.4]);
+  const indicator2Opacity = useTransform(scrollYProgress, [0.35, 0.36, 0.50], [0.4, 1, 0.4]);
+  const indicator3Opacity = useTransform(scrollYProgress, [0.50, 0.51, 0.80], [0.4, 1, 0.4]);
 
   // If Mobile, return the mobile layout
   if (isMobile) {
@@ -93,7 +94,7 @@ export const CarterDifference = () => {
           {/* HEADER ZONE (Pinned Top-Left) */}
           <motion.div 
             style={{ opacity: headerOpacity, y: headerY }}
-            className="absolute top-[140px] lg:top-[22vh] 2xl:top-[200px] left-[6vw] z-20 max-w-md"
+            className="absolute top-[60px] lg:top-[10vh] 2xl:top-[100px] left-[6vw] z-20 max-w-md"
           >
             <div className="text-[12px] font-sans uppercase tracking-[0.2em] text-bronze mb-3">
               Why Carter
@@ -107,8 +108,8 @@ export const CarterDifference = () => {
             </p>
           </motion.div>
 
-          {/* CONTENT STAGE (Centered) */}
-          <div className="flex-grow flex items-center justify-center relative w-full">
+          {/* CONTENT STAGE (Centered) - Added top padding to prevent overlap with header */}
+          <div className="flex-grow flex items-center justify-center relative w-full pt-[240px] lg:pt-[280px] 2xl:pt-[320px]">
             
             {/* PILLAR 1 */}
             <motion.div style={{ opacity: pillar1Opacity, y: pillar1Y, scale: pillar1Scale }} className="absolute inset-0 flex items-center justify-center">

@@ -1,16 +1,9 @@
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { CarterDifference } from "@/components/sections/CarterDifference";
 import { PracticeAreas } from "@/components/sections/PracticeAreas";
-import { Results } from "@/components/sections/Results";
-import { Testimonial } from "@/components/sections/Testimonial";
 import { Process } from "@/components/sections/Process";
-import { Attorneys } from "@/components/sections/Attorneys";
-import { Coverage } from "@/components/sections/Coverage";
-import { News } from "@/components/sections/News";
-import { Conversion } from "@/components/sections/Conversion";
-import { Chatbot } from "@/components/ui/Chatbot";
+import { Biography } from "@/components/sections/Biography";
 
 export default function Home() {
   return (
@@ -18,16 +11,9 @@ export default function Home() {
       <Header />
       <Hero />
       <CarterDifference />
+      <Biography />
       <PracticeAreas />
       <Process />
-      <Results />
-      <Testimonial />
-      <Attorneys />
-      <Coverage />
-      <News />
-      <Conversion />
-      <Footer />
-      <Chatbot />
     </main>
   );
 }

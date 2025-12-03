@@ -105,12 +105,11 @@ export const PracticeAreas = () => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" }
     }
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden flex items-center z-30 -mt-[100vh]">
+    <section className="relative min-h-screen w-full overflow-hidden flex items-center z-30">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full z-0">
         <VideoBackground overlayOpacity={0.85} className="w-full h-full object-cover" />
@@ -176,7 +175,11 @@ export const PracticeAreas = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
         >
           {PRACTICE_AREAS.map((area) => (
-            <motion.div key={area.id} variants={itemVariants}>
+            <motion.div 
+              key={area.id} 
+              variants={itemVariants}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               <PracticeCard data={area} />
             </motion.div>
           ))}

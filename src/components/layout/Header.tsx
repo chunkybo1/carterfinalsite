@@ -9,7 +9,43 @@ import Image from "next/image";
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [hasCarterDifference, setHasCarterDifference] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const lastScrollYRef = useRef(0);
   const carterDifferenceRef = useRef<HTMLElement | null>(null);
+
+  // Track scroll direction and position
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const lastScrollY = lastScrollYRef.current;
+      
+      // Show border after scrolling past 10px
+      if (currentScrollY > 10) {
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
+
+      // Determine scroll direction
+      if (currentScrollY < 10) {
+        // Always show header at top of page
+        setIsHeaderVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 5) {
+        // Scrolling down - hide header (with threshold to prevent jitter)
+        setIsHeaderVisible(false);
+      } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
+        // Scrolling up - show header (with threshold to prevent jitter)
+        setIsHeaderVisible(true);
+      }
+
+      lastScrollYRef.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Find the CarterDifference section
   useEffect(() => {
@@ -17,6 +53,9 @@ export const Header = () => {
       const section = document.querySelector('[data-section="carter-difference"]') as HTMLElement;
       if (section) {
         carterDifferenceRef.current = section;
+        setHasCarterDifference(true);
+      } else {
+        setHasCarterDifference(false);
       }
     };
     findSection();
@@ -26,32 +65,43 @@ export const Header = () => {
   }, []);
 
   // Track scroll progress relative to CarterDifference section
+  // Always call useScroll (hooks must be called unconditionally)
+  // Pass undefined target if section doesn't exist - useScroll will handle it gracefully
   const { scrollYProgress } = useScroll({
-    target: carterDifferenceRef,
+    target: carterDifferenceRef.current ? carterDifferenceRef : undefined,
     offset: ["start start", "end start"],
   });
 
   // Fade out smoothly when entering (0-0.1), stay faded during (0.1-0.9), fade in when exiting (0.9-1)
-  // Default to 1 (visible) if section not found
-  const headerOpacity = useTransform(
+  // If section doesn't exist, scrollYProgress stays at 0, so header stays visible (opacity 1)
+  // Always use scrollYProgress (it's a MotionValue) - conditionally apply the transform result
+  const headerOpacityTransform = useTransform(
     scrollYProgress,
     [0, 0.1, 0.9, 1],
     [1, 0, 0, 1]
   );
 
+  // Combine opacity from CarterDifference fade with scroll visibility
+  // For the y transform, we need to handle both the scroll-based visibility and CarterDifference fade
+  const headerY = isHeaderVisible ? 0 : -100;
+
   return (
     <motion.header
-      style={{ opacity: headerOpacity }}
-      className="fixed top-0 left-0 right-0 z-50 bg-navy py-5 2xl:py-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      style={{ 
+        opacity: hasCarterDifference ? headerOpacityTransform : 1,
+        y: headerY,
+      }}
+      className={`fixed top-0 left-0 right-0 z-50 bg-navy py-2.5 2xl:py-4 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] ${
+        hasScrolled ? "border-b-[1px] border-bronze" : "border-b-0"
+      }`}
+      initial={{ y: 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       <Container className="2xl:max-w-[95vw]">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex flex-col items-start text-white">
-            <div className="relative h-24 w-[480px] 2xl:h-32 2xl:w-[720px]">
+          {/* Logo - Left Side */}
+          <Link href="/" className="flex items-center text-white">
+            <div className="relative h-16 w-[320px] 2xl:h-20 2xl:w-[480px]">
               <Image
                 src="/carter-logo-white.png"
                 alt="Carter Law Wins - Winning is a Way of Life"
@@ -60,31 +110,31 @@ export const Header = () => {
                 priority
               />
             </div>
-            <span className="text-[11px] font-sans tracking-[0.3em] text-white/70 uppercase pl-1 mt-[-10px]">
-              El Paso Injury Lawyers
-            </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8 2xl:gap-16">
-            <Link href="/about"   className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide 2xl:text-xl">About</Link>
-            <Link href="/services" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide 2xl:text-xl">Services</Link>
-            <Link href="/reviews" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide 2xl:text-xl">Reviews</Link>
-            <Link href="/contact" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide 2xl:text-xl">Contact</Link>
-          </nav>
+          {/* Right Cluster - Nav + CTA grouped together */}
+          <div className="hidden md:flex items-center gap-6 2xl:gap-8">
+            {/* Desktop Nav - Tighter spacing */}
+            <nav className="flex items-center gap-4 2xl:gap-6">
+              <Link href="/about"   className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">About</Link>
+              <Link href="/services" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Services</Link>
+              <Link href="/reviews" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Reviews</Link>
+              <Link href="/contact" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Contact</Link>
+            </nav>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-4 2xl:gap-10">
-            <a href="tel:5551234567" className="group flex items-center gap-2 text-white/70 text-sm 2xl:text-lg font-serif font-medium hover:text-white transition-all duration-300">
-              <Phone className="h-3.5 w-3.5 2xl:h-5 2xl:w-5 transition-colors duration-300 group-hover:text-bronze" />
-              (915) 621-1818
-            </a>
-            <button className="relative group px-6 py-2 2xl:px-10 2xl:py-4 overflow-hidden border-2 border-bronze bg-transparent text-bronze font-serif font-bold uppercase tracking-[0.2em] text-xs 2xl:text-sm transition-colors duration-300 hover:text-navy">
-              <span className="absolute inset-0 w-0 bg-bronze transition-all duration-[250ms] ease-out group-hover:w-full" />
-              <span className="relative z-10 flex items-center gap-2">
+            {/* Divider between nav and CTA */}
+            <div className="h-5 w-[1px] bg-white/20" />
+
+            {/* CTA - Tighter spacing from nav */}
+            <div className="flex items-center gap-3 2xl:gap-4">
+              <a href="tel:5551234567" className="group flex items-center gap-2 text-white/70 text-xs 2xl:text-sm font-serif font-medium hover:text-white transition-all duration-300">
+                <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-bronze" />
+                (915) 621-1818
+              </a>
+              <button className="px-4 py-1.5 2xl:px-6 2xl:py-2 border-2 border-bronze bg-bronze text-navy font-serif font-bold uppercase tracking-[0.2em] text-[10px] 2xl:text-xs transition-opacity duration-300 hover:opacity-90">
                 Free Case Review
-              </span>
-            </button>
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}

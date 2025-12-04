@@ -120,7 +120,7 @@ export const Header = () => {
               <Link href="/services" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Services</Link>
               <Link href="/reviews" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Reviews</Link>
               <Link href="/contact" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Contact</Link>
-            </nav>
+          </nav>
 
             {/* Divider between nav and CTA */}
             <div className="h-5 w-[1px] bg-white/20" />
@@ -130,10 +130,10 @@ export const Header = () => {
               <a href="tel:5551234567" className="group flex items-center gap-2 text-white/70 text-xs 2xl:text-sm font-serif font-medium hover:text-white transition-all duration-300">
                 <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-bronze" />
                 (915) 621-1818
-              </a>
+            </a>
               <button className="px-4 py-1.5 2xl:px-6 2xl:py-2 border-2 border-bronze bg-bronze text-navy font-serif font-bold uppercase tracking-[0.2em] text-[10px] 2xl:text-xs transition-opacity duration-300 hover:opacity-90">
                 Free Case Review
-              </button>
+            </button>
             </div>
           </div>
 

@@ -121,7 +121,7 @@ export const AboutHero = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-lg md:text-xl text-light-steel leading-relaxed"
             >
-              Before Thomas Carter ever stepped into a courtroom, he understood what it meant to stand up for someone who couldn't stand alone. It was the family business—just not in the way you might expect.
+              Thomas Carter grew up watching his grandfather advocate for people with disabilities—work that would take him to the White House for the signing of the ADA. El Paso recognized him as a civil rights hero. Raised by Army officers, Air Force firefighters, and educators, Thomas learned early that standing up for others isn't a profession. It's a responsibility.
             </motion.p>
 
             {/* Supporting Quote */}
@@ -149,7 +149,7 @@ export const AboutHero = () => {
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               className="flex flex-col items-center gap-2 text-bronze/60 hover:text-bronze transition-colors cursor-pointer"
               onClick={() => {
-                const nextSection = document.querySelector('[data-section="the-legacy"]');
+                const nextSection = document.querySelector('[data-section="courtroom-education"]');
                 nextSection?.scrollIntoView({ behavior: "smooth" });
               }}
             >

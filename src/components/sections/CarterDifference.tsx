@@ -192,12 +192,12 @@ const VisualPlaceholder = ({ type }: { type: string }) => {
 
 // Using motion.div directly in the component for opacity control
 const IndicatorItem = ({ label, active, opacity }: { label: string, active: boolean, opacity: MotionValue<number> }) => {
-  return (
+    return (
     <motion.div style={{ opacity }} className="flex flex-col items-center gap-2">
-      <span className="text-[12px] text-white tracking-[0.15em] font-sans">{label}</span>
+        <span className="text-[12px] text-white tracking-[0.15em] font-sans">{label}</span>
       <div className={`w-2 h-2 rounded-full ${active ? 'bg-bronze' : 'border border-white'}`} />
     </motion.div>
-  );
+    );
 };
 
 const MobileLayout = () => {

@@ -43,18 +43,18 @@ export const Process = () => {
       <div className="absolute left-0 top-0 bottom-0 w-[45%] z-10 flex flex-col justify-center items-start pl-[6vw]">
         <div className="space-y-32">
           {PROCESS_STEPS.map((step, index) => (
-            <motion.div
-              key={step.id}
+              <motion.div
+                key={step.id}
               initial={{ opacity: 0, x: -50 }}
               animate={isInView ? { opacity: 0.15, x: 0 } : {}}
               transition={{ duration: 0.8, delay: index * 0.2 }}
               className="text-[180px] lg:text-[240px] font-serif text-white leading-none"
             >
               {step.number}
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
 
       {/* Right Zone - Content (Cream Background) */}
       <div className="relative z-20 min-h-screen flex flex-col justify-center py-20 px-6 lg:pl-[50%] lg:pr-[8vw]">

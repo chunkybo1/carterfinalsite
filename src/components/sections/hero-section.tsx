@@ -95,6 +95,18 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
                />
              </div>
 
+             {/* Tagline Text */}
+             <motion.div
+               initial={{ opacity: 0, y: 10 }}
+               animate={showContent ? { opacity: 1, y: 0 } : {}}
+               transition={{ duration: 0.6, ease: "easeOut", delay: 2.0 }}
+               className="mt-6 md:mt-8"
+             >
+               <p className="text-[10px] md:text-xs font-sans font-light tracking-[0.3em] text-white/70 uppercase">
+                 WINNING IS A WAY OF LIFE
+               </p>
+             </motion.div>
+
              {/* CTA Button (Optional/Extra) */}
              <motion.div
                initial={{ opacity: 0 }}
@@ -127,7 +139,7 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
                   <div className="absolute inset-0 w-full h-full">
                      <iframe
                         className="absolute top-1/2 left-1/2 w-[177.7778vh] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none scale-[1.35]"
-                        src="https://www.youtube.com/embed/b4bjhJ-hPxU?autoplay=1&mute=1&controls=0&loop=1&playlist=b4bjhJ-hPxU&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&vq=hd1080"
+                        src="https://www.youtube.com/embed/Bfr44mx0t9s?autoplay=1&mute=1&controls=0&loop=1&playlist=Bfr44mx0t9s&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&vq=hd1080"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         style={{ filter: "saturate(0.9)" }}
                         allowFullScreen

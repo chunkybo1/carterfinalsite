@@ -52,6 +52,11 @@ export const Header = () => {
     const findSection = () => {
       const section = document.querySelector('[data-section="carter-difference"]') as HTMLElement;
       if (section) {
+        // Ensure the section has a non-static position
+        const computedStyle = window.getComputedStyle(section);
+        if (computedStyle.position === 'static') {
+          section.style.position = 'relative';
+        }
         carterDifferenceRef.current = section;
         setHasCarterDifference(true);
       } else {
@@ -66,9 +71,9 @@ export const Header = () => {
 
   // Track scroll progress relative to CarterDifference section
   // Always call useScroll (hooks must be called unconditionally)
-  // Pass undefined target if section doesn't exist - useScroll will handle it gracefully
+  // Only pass the ref if the section exists and has proper positioning
   const { scrollYProgress } = useScroll({
-    target: carterDifferenceRef.current ? carterDifferenceRef : undefined,
+    target: hasCarterDifference && carterDifferenceRef.current ? carterDifferenceRef : undefined,
     offset: ["start start", "end start"],
   });
 
@@ -101,13 +106,18 @@ export const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo - Left Side */}
           <Link href="/" className="flex items-center text-white">
-            <div className="relative h-16 w-[320px] 2xl:h-20 2xl:w-[480px]">
+            <div className="relative h-24 w-[480px] 2xl:h-[120px] 2xl:w-[720px]">
               <Image
                 src="/carter-logo-white.png"
                 alt="Carter Law Wins - Winning is a Way of Life"
                 fill
                 className="object-contain object-left"
                 priority
+                unoptimized
+                style={{ 
+                  background: 'transparent',
+                  backgroundColor: 'transparent'
+                }}
               />
             </div>
           </Link>

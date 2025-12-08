@@ -158,13 +158,6 @@ const PillarContent = ({ data }: { data: PillarData }) => {
     <div className="w-full max-w-[1200px] px-6 grid grid-cols-[55%_40%] gap-[5%] items-center">
       {/* Text Column */}
       <div className="text-left">
-        <div className="text-6xl lg:text-[80px] font-serif text-bronze/65 leading-none mb-2">
-          {data.number}
-        </div>
-        <div className="flex gap-1 mb-6">
-            <div className="h-[2px] w-[40px] bg-bronze" />
-            <div className="h-[2px] w-[40px] bg-bronze" />
-        </div>
         <h3 className="text-3xl lg:text-[36px] font-serif text-white uppercase tracking-wider mb-2">
           {data.title}
         </h3>
@@ -235,7 +228,6 @@ const MobilePillar = ({ data }: { data: PillarData }) => {
          <VisualPlaceholder type={data.visual} />
       </div>
       <div>
-        <div className="text-[40px] font-serif text-bronze/65 leading-none mb-2">{data.number}</div>
         <h3 className="text-xl font-serif text-white uppercase tracking-wider mb-4">{data.title}</h3>
         <p className="text-white/70 leading-relaxed">{data.body}</p>
       </div>

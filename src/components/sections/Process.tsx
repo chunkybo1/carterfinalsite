@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
 const PROCESS_STEPS = [
   {
@@ -10,7 +11,8 @@ const PROCESS_STEPS = [
     title: "We Listen",
     body: "Every case starts with understanding your story. We take the time to hear what happened, how it affected you, and what you need to move forward. No rushed consultations, no assumptions—just genuine attention to your situation.",
     image: {
-      alt: "Listening and understanding client stories",
+      src: "/process-1.jpg",
+      alt: "Scales of justice, gavel, and law books representing listening and understanding",
       label: "Listen",
     },
   },
@@ -20,7 +22,8 @@ const PROCESS_STEPS = [
     title: "We Investigate",
     body: "While you focus on recovery, we build your case. Our team digs deep into the facts, gathers evidence, and prepares every detail as if we're going to trial. Because thorough preparation is how you win before you ever step into a courtroom.",
     image: {
-      alt: "Building case through investigation and evidence",
+      src: "/process-2.jpg",
+      alt: "Gavel with golden band and scales of justice representing investigation",
       label: "Investigate",
     },
   },
@@ -30,7 +33,8 @@ const PROCESS_STEPS = [
     title: "We Fight",
     body: "When it's time to negotiate or go to trial, we fight with everything we've got. We don't back down from insurance companies or opposing counsel. Your fight is our fight, and we're here to win.",
     image: {
-      alt: "Fighting for justice in courtroom",
+      src: "/process-3.jpg",
+      alt: "Gavel, law book, scales of justice, and legal library representing fighting for justice",
       label: "Fight",
     },
   },
@@ -101,36 +105,26 @@ export const Process = () => {
                   clipPath: `polygon(0 0, ${rightTop}% 0, ${rightBottom}% 100%, 0 100%)`,
                 }}
               >
-                {/* Placeholder Background - Different gradients for each */}
+                {/* Image Background */}
                 <motion.div
-                  className={`absolute inset-0 ${
-                    index === 0
-                      ? "bg-gradient-to-br from-gray-700 via-gray-600 to-gray-800"
-                      : index === 1
-                      ? "bg-gradient-to-br from-amber-900 via-amber-800 to-amber-900"
-                      : "bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900"
-                  }`}
+                  className="absolute inset-0"
                   style={{
                     filter: "saturate(0.7) brightness(0.9)",
                   }}
                   whileHover={{
                     filter: "saturate(0.85) brightness(0.95)",
                     transition: { duration: 0.3 },
-                    y: -4,
                   }}
                 >
-                  {/* Placeholder Content */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-4xl md:text-5xl font-serif font-bold text-white/20 mb-2">
-                        {step.number}
-                      </div>
-                      <div className="text-white/40 text-xs uppercase tracking-[0.2em] font-sans">
-                        {step.image.label}
-                      </div>
-                    </div>
-                  </div>
-
+                  <Image
+                    src={step.image.src}
+                    alt={step.image.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 0vw, 45vw"
+                    quality={90}
+                  />
+                  
                   {/* Navy Overlay (20% opacity) */}
                   <div className="absolute inset-0 bg-navy/20" />
 

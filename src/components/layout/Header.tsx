@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const SERVICE_AREAS = [
   { title: "Personal Injury", href: "/practice-areas/personal-injury" },
-  { title: "Auto & Truck Accidents", href: "/practice-areas/car-accidents" },
+  { title: "Car Accidents", href: "/practice-areas/car-accidents" },
   { title: "Wrongful Death", href: "/practice-areas/wrongful-death" },
   { title: "Medical Malpractice", href: "/practice-areas/medical-malpractice" },
   { title: "Workers' Compensation", href: "/practice-areas/workers-compensation" },
@@ -23,6 +23,7 @@ export const Header = () => {
   const [hasCarterDifference, setHasCarterDifference] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const lastScrollYRef = useRef(0);
   const carterDifferenceRef = useRef<HTMLElement | null>(null);
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
@@ -158,17 +159,26 @@ export const Header = () => {
     }, 150); // Small delay to allow moving to dropdown
   };
 
+  // Determine if header should have background (scrolled OR hovered)
+  const shouldShowBackground = hasScrolled || isHovered;
+
   return (
     <motion.header
       style={{ 
         opacity: hasCarterDifference ? headerOpacityTransform : 1,
         y: headerY,
       }}
-      className={`fixed top-0 left-0 right-0 z-50 bg-navy py-1.5 2xl:py-2 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] ${
+      className={`fixed top-0 left-0 right-0 z-50 py-1.5 2xl:py-2 transition-all duration-300 ${
+        shouldShowBackground 
+          ? "bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]" 
+          : "bg-transparent shadow-none"
+      } ${
         hasScrolled ? "border-b-[0.5px] border-bronze" : "border-b-0"
       }`}
       initial={{ y: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <Container className="2xl:max-w-[95vw]">
         <div className="flex items-center justify-between">

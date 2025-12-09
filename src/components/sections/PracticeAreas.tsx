@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { VideoBackground } from "@/components/ui/VideoBackground";
 import Link from "next/link";
+import Image from "next/image";
 
 // --- DATA ---
 
@@ -307,9 +308,18 @@ const PracticeCard = memo(({ data, index, isInView }: PracticeCardProps) => {
             </h3>
 
             {/* Subtitle */}
-            <p className="text-[10px] md:text-xs text-bronze/80 mb-2 md:mb-3 font-serif uppercase tracking-wider">
-              {data.subtitle}
-            </p>
+            <div className="flex items-center gap-2 mb-2 md:mb-3">
+              <p className="text-[10px] md:text-xs text-bronze/80 font-serif uppercase tracking-wider">
+                {data.subtitle}
+              </p>
+              <Image
+                src="/diamond.png"
+                alt=""
+                width={16}
+                height={16}
+                className="object-contain opacity-80"
+              />
+            </div>
 
             {/* Hook Line */}
             <p className={`text-gray-300 leading-relaxed mb-3 md:mb-4 font-serif ${

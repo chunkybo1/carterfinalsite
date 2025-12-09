@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { GoldParticles } from "@/components/ui/GoldParticles";
 
 export const HeroSection = ({ showContent = false }: { showContent?: boolean }) => {

@@ -75,6 +75,7 @@ export const Biography = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-xl lg:text-2xl font-serif italic text-gray-600 leading-relaxed mt-6"
           >
+            Standing Beside You, Every Step of the Way.
             Your Fight Is My Purpose
           </motion.p>
 
@@ -86,13 +87,7 @@ export const Biography = () => {
             className="space-y-2 mt-12 pt-8 border-t border-gray-300/30"
           >
             <div className="text-sm text-gray-500 font-sans">
-              20+ Years Trial Experience
-            </div>
-            <div className="text-sm text-gray-500 font-sans">
-              Former Criminal Defense Attorney 
-            </div>
-            <div className="text-sm text-gray-500 font-sans">
-              $50M+ Exposed to Jury Verdicts
+              15+ Years Trial Experience
             </div>
           </motion.div>
         </motion.div>

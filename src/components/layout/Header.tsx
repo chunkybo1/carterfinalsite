@@ -37,30 +37,30 @@ export const Header = () => {
       if (rafId !== null) return; // Skip if already scheduled
       
       rafId = requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
-        const lastScrollY = lastScrollYRef.current;
-        
+      const currentScrollY = window.scrollY;
+      const lastScrollY = lastScrollYRef.current;
+      
         // Show border after scrolling past viewport height (to avoid encroaching on hero)
         const viewportHeight = window.innerHeight;
         if (currentScrollY > viewportHeight * 0.8) {
-          setHasScrolled(true);
-        } else {
-          setHasScrolled(false);
-        }
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
 
         // Determine scroll direction - delay hiding until past hero section
         if (currentScrollY < viewportHeight * 0.5) {
           // Always show header at top of page, but keep it minimal during hero
-          setIsHeaderVisible(true);
-        } else if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 5) {
-          // Scrolling down - hide header (with threshold to prevent jitter)
-          setIsHeaderVisible(false);
-        } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
-          // Scrolling up - show header (with threshold to prevent jitter)
-          setIsHeaderVisible(true);
-        }
+        setIsHeaderVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 5) {
+        // Scrolling down - hide header (with threshold to prevent jitter)
+        setIsHeaderVisible(false);
+      } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
+        // Scrolling up - show header (with threshold to prevent jitter)
+        setIsHeaderVisible(true);
+      }
 
-        lastScrollYRef.current = currentScrollY;
+      lastScrollYRef.current = currentScrollY;
         rafId = null;
       });
     };

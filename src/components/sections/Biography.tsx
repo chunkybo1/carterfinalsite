@@ -75,7 +75,7 @@ export const Biography = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-xl lg:text-2xl font-serif italic text-gray-600 leading-relaxed mt-6"
           >
-            Every case is someone&apos;s whole life. I treat it that way.
+            Your Fight Is My Purpose
           </motion.p>
 
           {/* Credential Stack - Minimal, quiet, left-aligned */}
@@ -89,7 +89,7 @@ export const Biography = () => {
               20+ Years Trial Experience
             </div>
             <div className="text-sm text-gray-500 font-sans">
-              Former Playboy
+              Former Criminal Defense Attorney 
             </div>
             <div className="text-sm text-gray-500 font-sans">
               $50M+ Exposed to Jury Verdicts

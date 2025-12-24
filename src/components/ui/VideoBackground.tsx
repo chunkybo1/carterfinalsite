@@ -1,76 +1,52 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import { motion, useReducedMotion, useInView } from "framer-motion";
+import React, { useRef } from "react";
+import { useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { HTML5Video } from "./HTML5Video";
 
 interface VideoBackgroundProps {
-  videoUrl?: string;
+  videoSrc?: string | string[]; // Video source path(s) - can be single path or array for multiple formats
   overlayOpacity?: number; // Control darkness of the overlay (0-1)
   className?: string;
   pauseWhenNotVisible?: boolean; // Pause animation when section is not in viewport
+  shouldAnimate?: boolean; // Externally control animation (e.g. disable Ken Burns)
 }
 
 export const VideoBackground = ({
-  videoUrl = "https://www.youtube.com/embed/b4bjhJ-hPxU?autoplay=1&mute=1&controls=0&loop=1&playlist=b4bjhJ-hPxU&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&vq=hd1080",
+  videoSrc = "/videos/hero-video.mp4", // Default to the only existing video
   overlayOpacity = 0.4,
   className,
   pauseWhenNotVisible = false,
+  shouldAnimate: externalShouldAnimate = true,
 }: VideoBackgroundProps) => {
-  const prefersReducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
-  // Optimize: Use once: true to prevent constant re-checking, or use larger margin to reduce callbacks
-  const isInView = useInView(containerRef, { once: !pauseWhenNotVisible, margin: pauseWhenNotVisible ? "-10%" : "-20%" });
-
-  // Only animate when in view (if pauseWhenNotVisible is true)
-  // Use state to prevent animation restart on every viewport check
-  const [shouldAnimate, setShouldAnimate] = useState(!pauseWhenNotVisible);
   
-  useEffect(() => {
-    if (pauseWhenNotVisible) {
-      setShouldAnimate(isInView);
-    }
-  }, [isInView, pauseWhenNotVisible]);
+  // Optimize: Use larger margin to reduce observer callbacks, once: false to track visibility changes
+  const isInView = useInView(containerRef, { 
+    once: false, // Track visibility changes for pausing
+    margin: pauseWhenNotVisible ? "-20%" : "-30%", // Larger margin reduces callbacks
+    amount: 0.1, // Only trigger when 10% visible
+  });
+
+  // Determine if we should animate (always true unless pauseWhenNotVisible is enabled and not in view)
+  // Also respects external override
+  const shouldAnimate = externalShouldAnimate && (pauseWhenNotVisible ? isInView : true);
 
   return (
-    <div ref={containerRef} className={cn("absolute inset-0 w-full h-full overflow-hidden bg-navy", className)}>
-      {/* Ken Burns Effect Wrapper - Optimized: GPU acceleration and smoother animation */}
-      <motion.div
-        className="w-full h-full"
-        animate={prefersReducedMotion || !shouldAnimate ? {} : { scale: [1.0, 1.08] }}
-        transition={{
-          duration: 20,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "mirror",
-        }}
-        style={{
-          willChange: "transform",
-          transform: "translateZ(0)", // Force GPU acceleration
-          backfaceVisibility: "hidden",
-        }}
-      >
-        {/* Video Element - Optimized: Remove conflicting scale, use single transform */}
-        <div 
-          className="absolute inset-0 w-full h-full"
-          style={{
-            transform: "translateZ(0)", // Force GPU layer
-            willChange: "transform",
-          }}
-        >
-          <iframe
-            className="absolute top-1/2 left-1/2 w-[177.7778vh] min-w-full min-h-[56.25vw] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-            src={videoUrl}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            style={{ 
-              filter: "saturate(0.9)",
-              transform: "translateZ(0) scale(1.35)", // Use inline style for better performance
-              willChange: "transform",
-            }}
-            allowFullScreen
-          />
-        </div>
-      </motion.div>
+    <div ref={containerRef} className={cn("absolute inset-0 w-full h-full overflow-hidden bg-navy", className)} style={{ left: 0, right: 0, width: '100%' }}>
+      {/* HTML5 Video with Ken Burns Effect */}
+      <HTML5Video
+        videoSrc={videoSrc}
+        autoplay={true}
+        loop={true}
+        muted={true}
+        playsInline={true}
+        shouldAnimate={shouldAnimate}
+        pauseWhenNotVisible={pauseWhenNotVisible}
+        containerRef={containerRef}
+        isInView={isInView}
+      />
 
       {/* Navy Overlay */}
       <div 
@@ -80,5 +56,3 @@ export const VideoBackground = ({
     </div>
   );
 };
-
-

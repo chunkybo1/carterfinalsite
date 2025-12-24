@@ -27,6 +27,9 @@ export const TheCourtroomEducation = () => {
         ref={imageRef}
         style={{
           y: imageY,
+          willChange: isInView ? "transform" : "auto", // Optimize: Only hint GPU when animating
+          transform: "translateZ(0)", // Force GPU acceleration
+          backfaceVisibility: "hidden", // Prevent flickering
         }}
         className="absolute inset-0 w-full h-[120%] z-0"
       >

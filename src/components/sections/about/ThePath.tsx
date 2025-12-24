@@ -167,6 +167,9 @@ export const ThePath = () => {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
+                      style={{
+                        willChange: nodeInView[index] ? "transform, opacity" : "auto", // Optimize: Hint browser to optimize infinite pulse animation
+                      }}
                       className="absolute inset-0 border-2 border-bronze rounded-full"
                     />
                   </motion.div>
@@ -189,7 +192,8 @@ export const ThePath = () => {
                       index % 2 === 0 ? "md:mr-auto md:pr-8" : "md:ml-auto md:pl-8"
                     }`}
                   >
-                    <div className="relative bg-navy/50 backdrop-blur-md border border-white/8 p-8 rounded-lg shadow-[0_4px_24px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.4)] transition-shadow duration-300 group">
+                    {/* Optimized: Removed backdrop-blur, used semi-transparent background */}
+                    <div className="relative bg-[#0a1628]/95 border border-white/10 p-8 rounded-lg shadow-[0_4px_24px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.4)] transition-shadow duration-300 group">
                       {/* Gold accent line at top edge */}
                       <div className="absolute top-0 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-bronze/60 to-transparent group-hover:via-bronze/80 transition-colors duration-300" />
 
@@ -224,7 +228,8 @@ export const ThePath = () => {
             }}
             className="mt-20 pt-12"
           >
-            <div className="relative bg-gradient-to-br from-bronze/10 via-navy/60 to-navy/60 backdrop-blur-sm border border-bronze/20 p-10 rounded-lg">
+            {/* Optimized: Removed backdrop-blur */}
+            <div className="relative bg-gradient-to-br from-bronze/10 via-[#0a1628]/90 to-[#0a1628]/90 border border-bronze/20 p-10 rounded-lg">
               {/* Large decorative quotation mark */}
               <div className="absolute top-2 left-4 text-[60px] font-serif text-bronze/10 leading-none">
                 &quot;

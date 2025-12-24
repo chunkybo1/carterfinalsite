@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { smartSmoothScroll } from "@/utils/smoothScroll";
 
 export const AboutCTA = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -26,7 +27,7 @@ export const AboutCTA = () => {
 
             {/* Supporting Copy */}
             <p className="text-lg md:text-xl text-light-steel leading-relaxed max-w-2xl mx-auto mb-8">
-              Everything you've read here—the inherited mission, the decades of experience, the community commitment—becomes context for the relationship being offered. Your case, your fight, becomes the next chapter of this multigenerational advocacy legacy.
+              Your case, your fight, becomes the next chapter of this multigenerational advocacy legacy.
             </p>
 
             <p className="text-lg text-light-steel leading-relaxed max-w-2xl mx-auto mb-12">
@@ -42,7 +43,10 @@ export const AboutCTA = () => {
                 onClick={() => {
                   const element = document.getElementById("consultation-cta");
                   if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
+                    smartSmoothScroll(element, {
+                      duration: 1000,
+                      offset: 80, // Account for fixed header
+                    });
                   } else {
                     window.location.href = "/services#consultation-cta";
                   }

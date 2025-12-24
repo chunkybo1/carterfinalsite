@@ -82,8 +82,8 @@ export const Footer = () => {
                 <li><Link href="/auto-accidents" className="text-gray-400 hover:text-white transition-colors">Auto Accidents</Link></li>
                 <li><Link href="/workplace-injuries" className="text-gray-400 hover:text-white transition-colors">Workplace Injuries</Link></li>
                 <li><Link href="/slip-and-fall" className="text-gray-400 hover:text-white transition-colors">Slip & Fall</Link></li>
-                <li><Link href="/dog-bites" className="text-gray-400 hover:text-white transition-colors">Dog Bites</Link></li>
-                <li><Link href="/product-liability" className="text-gray-400 hover:text-white transition-colors">Product Liability</Link></li>
+                <li><Link href="/medical-malpractice" className="text-gray-400 hover:text-white transition-colors">Medical Malpractice</Link></li>
+                <li><Link href="/wrongful-death" className="text-gray-400 hover:text-white transition-colors">Wrongful Death</Link></li>
               </ul>
             </div>
 

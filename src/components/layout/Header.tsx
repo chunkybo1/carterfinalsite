@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import Link from "next/link";
@@ -20,102 +20,54 @@ const SERVICE_AREAS = [
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [hasCarterDifference, setHasCarterDifference] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  
   const lastScrollYRef = useRef(0);
-  const carterDifferenceRef = useRef<HTMLElement | null>(null);
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Track scroll direction and position - Optimized: Use requestAnimationFrame for better performance
-  useEffect(() => {
-    let rafId: number | null = null;
-    
-    const handleScroll = () => {
-      if (rafId !== null) return; // Skip if already scheduled
-      
-      rafId = requestAnimationFrame(() => {
-      const currentScrollY = window.scrollY;
-      const lastScrollY = lastScrollYRef.current;
-      
-        // Show border after scrolling past viewport height (to avoid encroaching on hero)
-        const viewportHeight = window.innerHeight;
-        if (currentScrollY > viewportHeight * 0.8) {
-        setHasScrolled(true);
-      } else {
-        setHasScrolled(false);
+  // Use Framer Motion's useScroll for performant scroll tracking
+  const { scrollY } = useScroll();
+
+  // Handle scroll events efficiently
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const currentScrollY = latest;
+    const lastScrollY = lastScrollYRef.current;
+    const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 1000;
+
+    // 1. Handle background opacity (hasScrolled)
+    const newHasScrolled = currentScrollY > 50;
+    if (newHasScrolled !== hasScrolled) {
+      setHasScrolled(newHasScrolled);
+    }
+
+    // 2. Handle header visibility (hide on scroll down, show on up)
+    // Only update if significantly changed to prevent jitter
+    if (Math.abs(currentScrollY - lastScrollY) > 5) {
+      let newIsHeaderVisible = isHeaderVisible;
+
+      if (currentScrollY < viewportHeight * 0.5) {
+        // Always visible at the top
+        newIsHeaderVisible = true;
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down -> hide
+        newIsHeaderVisible = false;
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up -> show
+        newIsHeaderVisible = true;
       }
 
-        // Determine scroll direction - delay hiding until past hero section
-        if (currentScrollY < viewportHeight * 0.5) {
-          // Always show header at top of page, but keep it minimal during hero
-        setIsHeaderVisible(true);
-      } else if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 5) {
-        // Scrolling down - hide header (with threshold to prevent jitter)
-        setIsHeaderVisible(false);
-      } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 5) {
-        // Scrolling up - show header (with threshold to prevent jitter)
-        setIsHeaderVisible(true);
+      if (newIsHeaderVisible !== isHeaderVisible) {
+        setIsHeaderVisible(newIsHeaderVisible);
       }
-
+      
+      // Update last scroll position only when direction check happens
       lastScrollYRef.current = currentScrollY;
-        rafId = null;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-      }
-    };
-  }, []);
-
-  // Find the CarterDifference section
-  useEffect(() => {
-    const findSection = () => {
-      const section = document.querySelector('[data-section="carter-difference"]') as HTMLElement;
-      if (section) {
-        // Ensure the section has a non-static position
-        const computedStyle = window.getComputedStyle(section);
-        if (computedStyle.position === 'static') {
-          section.style.position = 'relative';
-        }
-        carterDifferenceRef.current = section;
-        setHasCarterDifference(true);
-      } else {
-        setHasCarterDifference(false);
-      }
-    };
-    findSection();
-    // Re-check after a short delay to ensure DOM is ready
-    const timeout = setTimeout(findSection, 100);
-    return () => clearTimeout(timeout);
-  }, []);
-
-  // Track scroll progress relative to CarterDifference section
-  // Always call useScroll (hooks must be called unconditionally)
-  // Only pass the ref if the section exists and has proper positioning
-  const { scrollYProgress } = useScroll({
-    target: hasCarterDifference && carterDifferenceRef.current ? carterDifferenceRef : undefined,
-    offset: ["start start", "end start"],
+    }
   });
 
-  // Fade out smoothly when entering (0-0.1), stay faded during (0.1-0.9), fade in when exiting (0.9-1)
-  // If section doesn't exist, scrollYProgress stays at 0, so header stays visible (opacity 1)
-  // Always use scrollYProgress (it's a MotionValue) - conditionally apply the transform result
-  // Start fade later to avoid encroaching on hero video
-  const headerOpacityTransform = useTransform(
-    scrollYProgress,
-    [0, 0.15, 0.9, 1],
-    [1, 0, 0, 1]
-  );
-
-  // Combine opacity from CarterDifference fade with scroll visibility
-  // For the y transform, we need to handle both the scroll-based visibility and CarterDifference fade
   const headerY = isHeaderVisible ? 0 : -100;
 
   // Close dropdown when clicking outside
@@ -156,33 +108,37 @@ export const Header = () => {
   const handleMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setIsServicesDropdownOpen(false);
-    }, 150); // Small delay to allow moving to dropdown
+    }, 150);
   };
 
-  // Determine if header should have background (scrolled OR hovered)
-  const shouldShowBackground = hasScrolled || isHovered;
-
+  const headerBackgroundOpacity = hasScrolled ? 1 : 0;
+  
   return (
     <motion.header
       style={{ 
-        opacity: hasCarterDifference ? headerOpacityTransform : 1,
         y: headerY,
       }}
       className={`fixed top-0 left-0 right-0 z-50 py-1.5 2xl:py-2 transition-all duration-300 ${
-        shouldShowBackground 
-          ? "bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]" 
-          : "bg-transparent shadow-none"
-      } ${
-        hasScrolled ? "border-b-[0.5px] border-bronze" : "border-b-0"
+        hasScrolled 
+          ? 'shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[0.5px] border-bronze' 
+          : ''
       }`}
       initial={{ y: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Container className="2xl:max-w-[95vw]">
+      {/* Background layer */}
+      <div 
+        className="absolute inset-0 bg-navy transition-opacity duration-300 pointer-events-none"
+        style={{ 
+          opacity: headerBackgroundOpacity,
+          zIndex: -1,
+        }}
+      />
+      <Container className="2xl:max-w-[95vw] relative z-10">
         <div className="flex items-center justify-between">
-          {/* Logo - Left Side */}
+          {/* Logo */}
           <Link href="/" className="flex items-center text-white">
             <div className="relative h-16 w-[320px] 2xl:h-20 2xl:w-[400px]">
               <Image
@@ -200,13 +156,11 @@ export const Header = () => {
             </div>
           </Link>
 
-          {/* Right Cluster - Nav + CTA grouped together */}
+          {/* Nav & CTA */}
           <div className="hidden md:flex items-center gap-6 2xl:gap-8">
-            {/* Desktop Nav - Tighter spacing */}
             <nav className="flex items-center gap-4 2xl:gap-6">
-              <Link href="/about"   className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">About</Link>
+              <Link href="/about" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">About</Link>
               
-              {/* Service Areas Dropdown */}
               <div 
                 ref={servicesDropdownRef}
                 className="relative"
@@ -227,7 +181,6 @@ export const Header = () => {
                   </svg>
                 </button>
 
-                {/* Dropdown Menu */}
                 {isServicesDropdownOpen && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
@@ -259,12 +212,10 @@ export const Header = () => {
               </div>
               <Link href="/reviews" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Reviews</Link>
               <Link href="/contact" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Contact</Link>
-          </nav>
+            </nav>
 
-            {/* Divider between nav and CTA */}
             <div className="h-5 w-[1px] bg-white/20" />
 
-            {/* CTA - Tighter spacing from nav */}
             <div className="flex items-center gap-3 2xl:gap-4">
               <a href="tel:5551234567" className="group flex items-center gap-2 text-white/70 text-xs 2xl:text-sm font-serif font-medium hover:text-white transition-all duration-300">
                 <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-bronze" />
@@ -276,7 +227,6 @@ export const Header = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -311,7 +261,3 @@ export const Header = () => {
     </motion.header>
   );
 };
-
-
-
-

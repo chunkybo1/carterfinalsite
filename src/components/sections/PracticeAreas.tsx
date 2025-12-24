@@ -4,7 +4,6 @@ import React, { useRef, memo } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { VideoBackground } from "@/components/ui/VideoBackground";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -132,38 +131,42 @@ const PRACTICE_AREAS: PracticeArea[] = [
 export const PracticeAreas = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const [isInitiallyVisible, setIsInitiallyVisible] = React.useState(false);
   
   // Optimize: Single useInView for entire section - prevents multiple observers
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
   const headerInView = useInView(headerRef, { once: true, margin: "-10%" });
+  
+  // Check if section is already visible on mount
+  React.useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const visible = rect.top < window.innerHeight * 1.5 && rect.bottom > -window.innerHeight * 0.5;
+      setIsInitiallyVisible(visible);
+    }
+  }, []);
+  
+  // Use isInView or initial visibility check
+  const shouldShow = isInView || isInitiallyVisible;
 
   // Separate primary and secondary areas
   const primaryAreas = PRACTICE_AREAS.filter(area => area.tier === 'primary');
   const secondaryAreas = PRACTICE_AREAS.filter(area => area.tier === 'secondary');
 
   return (
-    <section ref={containerRef} className="relative w-full z-30 will-change-auto overflow-hidden">
-      {/* Video Background - Optimized: Pause animation when not in view, ensure it covers entire section */}
-      <div className="absolute inset-0 w-full h-full z-0">
-        <VideoBackground overlayOpacity={0.85} className="w-full h-full object-cover" pauseWhenNotVisible={true} />
-      </div>
-
-      {/* Background Noise Texture - Optimized: Use will-change for better performance */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-10 will-change-auto" />
-      
-      {/* Optional Faint Grid Background - Optimized: Use transform instead of background for better performance */}
+    <section ref={containerRef} className="relative w-full min-h-screen z-30 overflow-hidden bg-transparent">
+      {/* Optional Faint Grid Background */}
       <div 
-        className="absolute inset-0 opacity-[0.02] pointer-events-none will-change-auto"
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
           backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
           backgroundSize: '40px 40px',
-          transform: 'translateZ(0)', // Force GPU acceleration
         }}
       />
 
-      <Container className="relative z-20 w-full flex flex-col py-10 md:py-12">
+      <Container className="relative z-20 w-full flex flex-col py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         {/* Header - Optimized: Use single useInView instead of multiple whileInView */}
-        <div ref={headerRef} className="mb-4 md:mb-5 max-w-2xl">
+        <div ref={headerRef} className="mb-4 md:mb-5 max-w-2xl w-full">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
@@ -196,14 +199,8 @@ export const PracticeAreas = () => {
           </motion.p>
         </div>
 
-        {/* Primary Tier - 3 Large Cards - Optimized: Use CSS for opacity to prevent JS recalculations */}
-        <div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-3 md:mb-4 items-stretch"
-          style={{
-            opacity: isInView ? 1 : 0,
-            transition: isInView ? 'opacity 0.6s ease-out 0.4s' : 'none',
-          }}
-        >
+        {/* Primary Tier - 3 Large Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-3 sm:mb-4 items-stretch w-full">
           {primaryAreas.map((area, index) => (
             <PracticeCard 
               key={area.id} 
@@ -214,20 +211,14 @@ export const PracticeAreas = () => {
           ))}
         </div>
 
-        {/* Secondary Tier - 4 Smaller Cards - Optimized: Use CSS for opacity to prevent JS recalculations */}
-        <div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 items-stretch"
-          style={{
-            opacity: isInView ? 1 : 0,
-            transition: isInView ? 'opacity 0.6s ease-out 0.7s' : 'none',
-          }}
-        >
+        {/* Secondary Tier - 4 Smaller Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 items-stretch w-full">
           {secondaryAreas.map((area, index) => (
             <PracticeCard 
               key={area.id} 
               data={area} 
               index={index + primaryAreas.length}
-              isInView={isInView}
+              isInView={shouldShow}
             />
           ))}
         </div>
@@ -243,60 +234,55 @@ interface PracticeCardProps {
 }
 
 const PracticeCard = memo(({ data, index, isInView }: PracticeCardProps) => {
-  // Optimize: Remove individual useInView - use parent's isInView instead
-  // This eliminates 7 separate IntersectionObserver instances
   const isPrimary = data.tier === 'primary';
-  
-  // Calculate animation state once - prevents recalculation on every render
-  const shouldAnimate = isInView;
 
   return (
     <Link href={data.href}>
       <motion.div
-        initial={false} // Optimize: Prevent initial animation calculation
-        animate={shouldAnimate ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 1.03 }}
+        initial={{ opacity: 0, y: 40 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         transition={{ 
           duration: 0.6, 
           delay: index * 0.1,
           ease: [0.16, 1, 0.3, 1],
-          // Optimize: Only animate transform and opacity (GPU-accelerated properties)
           type: "tween"
         }}
         whileHover={{ 
-          y: -8,
-          transition: { duration: 0.3, ease: "easeOut", type: "tween" }
+          y: -4,
+          transition: { duration: 0.2, ease: "easeOut" }
         }}
         whileTap={{ scale: 0.98 }}
         layout={false}
-        className="group relative overflow-hidden cursor-pointer h-full"
+        className="group relative overflow-hidden cursor-pointer h-full w-full"
         style={{ 
           contain: 'layout style paint',
-          // Optimize: Force GPU layer for smoother animations
           transform: 'translateZ(0)',
           backfaceVisibility: 'hidden',
         }}
       >
-        {/* Background Gradient Layer - Optimized: Use will-change and transform for GPU acceleration */}
+        {/* Background Gradient Layer */}
         <div 
-          className="absolute inset-0 opacity-[0.08] transition-opacity duration-500 group-hover:opacity-[0.12] will-change-opacity"
+          className="absolute inset-0 opacity-[0.08] transition-opacity duration-500 group-hover:opacity-[0.12]"
           style={{
             background: `linear-gradient(135deg, rgba(30, 58, 95, 0.6) 0%, rgba(15, 29, 47, 0.8) 100%)`,
-            filter: 'saturate(0.7) brightness(0.9)',
-            transform: 'translateZ(0)', // Force GPU acceleration
+            transform: 'translateZ(0)',
           }}
         />
 
-        {/* Dark Overlay - Optimized: Use will-change for better performance */}
-        <div className="absolute inset-0 bg-[#0f1d2f]/85 group-hover:bg-[#0f1d2f]/75 transition-colors duration-500 will-change-[background-color]" />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-[#0f1d2f]/85 group-hover:bg-[#0f1d2f]/75 transition-colors duration-500" />
 
         {/* Card Content */}
-        <div className="relative z-10 h-full flex flex-col p-4 md:p-6 border border-white/5 group-hover:border-bronze/30 transition-colors duration-500">
-          {/* Top Accent Line - Optimized: Use CSS animation instead of JS */}
-          <div 
+        <div className="relative z-10 h-full flex flex-col p-3 sm:p-4 md:p-6 border border-white/5 group-hover:border-bronze/30 transition-colors duration-500">
+          {/* Top Accent Line */}
+          <motion.div 
             className="absolute top-0 left-0 h-[2px] bg-bronze z-20"
-            style={{
-              width: shouldAnimate ? '100%' : '0%',
-              transition: shouldAnimate ? `width 0.6s ease-out ${index * 0.1 + 0.3}s` : 'none',
+            initial={{ width: 0 }}
+            animate={isInView ? { width: '100%' } : { width: 0 }}
+            transition={{ 
+              duration: 0.6, 
+              delay: index * 0.1 + 0.3,
+              ease: "easeOut"
             }}
           />
 
@@ -310,8 +296,8 @@ const PracticeCard = memo(({ data, index, isInView }: PracticeCardProps) => {
             {/* Subtitle */}
             <div className="flex items-center gap-2 mb-2 md:mb-3">
               <p className="text-[10px] md:text-xs text-bronze/80 font-serif uppercase tracking-wider">
-                {data.subtitle}
-              </p>
+              {data.subtitle}
+            </p>
               <Image
                 src="/diamond.png"
                 alt=""
@@ -356,12 +342,12 @@ const PracticeCard = memo(({ data, index, isInView }: PracticeCardProps) => {
           </div>
         </div>
 
-        {/* Shadow on hover - Optimized: Use CSS instead of motion for better performance */}
+        {/* Shadow on hover */}
         <div
           className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{
             boxShadow: '0 20px 40px -15px rgba(0,0,0,0.5)',
-            transform: 'translateZ(0)', // Force GPU acceleration
+            transform: 'translateZ(0)',
           }}
         />
       </motion.div>

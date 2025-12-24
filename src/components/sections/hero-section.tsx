@@ -1,23 +1,56 @@
 "use client";
 
-import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
-import { GoldParticles } from "@/components/ui/GoldParticles";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { Volume2, VolumeX } from "lucide-react";
+// GoldParticles import removed
+import { HTML5Video } from "@/components/ui/HTML5Video";
 
-export const HeroSection = ({ showContent = false }: { showContent?: boolean }) => {
-  const prefersReducedMotion = useReducedMotion();
-
-  // Animation Variants
-  const headlineVariants = {
-    hidden: { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)", y: 20, opacity: 0 },
-    visible: { 
-      clipPath: "polygon(0 100%, 100% 100%, 100% 0%, 0 0%)", 
-      y: 0, 
-      opacity: 1,
-    }
+export const HeroSection = ({ 
+  showContent = false,
+  videoOnly = false,
+  contentOnly = false
+}: { 
+  showContent?: boolean;
+  videoOnly?: boolean;
+  contentOnly?: boolean;
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Optimize: Track visibility to pause video when not in viewport
+  const isInView = useInView(containerRef, { 
+    once: false, 
+    margin: "-20%", 
+    amount: 0.1 
+  });
+  
+  const [shouldAnimate, setShouldAnimate] = useState(true);
+  const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay compatibility
+  const [videoReady, setVideoReady] = useState(false);
+  
+  // Update animation state based on visibility
+  useEffect(() => {
+    setShouldAnimate(isInView);
+  }, [isInView]);
+  
+  // Handle mute/unmute toggle
+  const handleToggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    
+    const newMutedState = !isMuted;
+    setIsMuted(newMutedState);
+    video.muted = newMutedState;
   };
 
+  // Handle video ready callback
+  const handleVideoReady = () => {
+    setVideoReady(true);
+  };
+
+  // Animation Variants
   const sublineVariants = {
     hidden: { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)", y: 20, opacity: 0 },
     visible: { 
@@ -27,143 +60,123 @@ export const HeroSection = ({ showContent = false }: { showContent?: boolean }) 
     }
   };
 
-  const lineVariants = {
-    hidden: { width: 0 },
-    visible: { 
-      width: "100%",
-    }
-  };
 
   return (
-    <div className="relative w-full h-screen bg-navy overflow-hidden">
-      {/* Interaction Layer */}
-      <GoldParticles />
-
+    <div ref={containerRef} className={`relative w-full h-screen ${contentOnly ? 'bg-transparent pointer-events-none' : 'bg-navy'} overflow-hidden`}>
       <div className="relative w-full h-full flex flex-col md:flex-row">
-        {/* LEFT SIDE: Content (Transparent) */}
-        <div className="relative z-20 w-full md:w-[45%] h-full flex flex-col justify-center px-6 md:px-12 lg:px-20">
-           <div className="relative">
-             {/* Headline */}
-             <div className="overflow-hidden">
-               <motion.h1
-                 initial="hidden"
-                 animate={showContent ? "visible" : "hidden"}
-                 variants={headlineVariants}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-                className="text-5xl md:text-6xl lg:text-[5vw] font-serif font-bold text-white leading-tight tracking-tight"
-               >
-                 We Fight.
-               </motion.h1>
-             </div>
-
-             {/* Subline */}
-             <div className="mt-2 md:mt-4 relative inline-block">
-               <div className="overflow-hidden">
-                 <motion.p
-                   initial="hidden"
-                   animate={showContent ? "visible" : "hidden"}
-                   variants={sublineVariants}
-                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.9 }}
-                  className="text-3xl md:text-4xl lg:text-[3.5vw] font-serif font-bold leading-tight text-white"
-                 >
-                   CARTER LAW WINS.
-                 </motion.p>
-               </div>
-               
-               {/* Gold Accent Line */}
-               <motion.div
-                 initial="hidden"
-                 animate={showContent ? "visible" : "hidden"}
-                 variants={lineVariants}
-                transition={{ duration: 0.5, ease: "easeOut", delay: 1.5 }}
-                className="h-[3px] bg-bronze mt-2 absolute bottom-[-8px] left-0 shadow-[0_0_10px_rgba(184,149,106,0.6)]"
-               />
-             </div>
-
-             {/* Subtle Stats Line */}
-             <motion.div
-               initial={{ opacity: 0, y: 10 }}
-               animate={showContent ? { opacity: 1, y: 0 } : {}}
-               transition={{ duration: 0.6, ease: "easeOut", delay: 1.8 }}
-               className="mt-6 md:mt-8"
-             >
-               <p className="text-xs md:text-sm font-sans font-light tracking-[0.15em] text-white uppercase">
-                 <span className="shiny-text">4.9 Star Rating • 16 Years Fighting • Millions Recovered</span>
-               </p>
-             </motion.div>
-
-             {/* Tagline Text */}
-             <motion.div
-               initial={{ opacity: 0, y: 10 }}
-               animate={showContent ? { opacity: 1, y: 0 } : {}}
-               transition={{ duration: 0.6, ease: "easeOut", delay: 2.0 }}
-               className="mt-2 md:mt-3"
-             >
-               <p className="text-sm md:text-base font-sans font-light tracking-[0.3em] text-white/70 uppercase">
-                 WINNING IS OUR WAY OF LIFE
-               </p>
-             </motion.div>
-
-             {/* CTA Button (Optional/Extra) */}
-             <motion.div
-               initial={{ opacity: 0 }}
-               animate={{ opacity: showContent ? 1 : 0 }}
-               transition={{ delay: 2.0, duration: 0.8 }}
-               className="mt-12"
-             >
-               <button className="px-8 py-3 border border-bronze text-bronze text-sm tracking-widest uppercase hover:bg-bronze hover:text-navy transition-all duration-300">
-                 Talk To Us
-               </button>
-             </motion.div>
-           </div>
-        </div>
-
-        {/* RIGHT SIDE: Video Full Width */}
-        <div 
-          className="absolute top-0 right-0 h-full w-full z-10"
-        >
-           <div className="relative w-full h-full overflow-hidden bg-navy">
-              {/* Ken Burns Effect Wrapper - Optimized: GPU acceleration to prevent jittering */}
-              <motion.div
-                 className="w-full h-full"
-                 animate={prefersReducedMotion ? {} : { scale: [1.0, 1.08] }}
-                 transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "mirror" }}
-                 style={{
-                   willChange: "transform",
-                   transform: "translateZ(0)", // Force GPU acceleration
-                   backfaceVisibility: "hidden",
-                 }}
-              >
-                  {/* Video Element - Optimized: Separate GPU layer, remove conflicting transforms */}
-                  <div 
-                    className="absolute inset-0 w-full h-full"
-                    style={{
-                      transform: "translateZ(0)", // Force GPU layer
-                      willChange: "transform",
-                    }}
+        
+        {/* LEFT SIDE: Content */}
+        {!videoOnly && (
+          <div className="relative z-20 w-full md:w-[45%] h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pointer-events-auto">
+            <div className="relative">
+              {/* Subline */}
+              <div className="mt-2 md:mt-4 relative inline-block">
+                <div className="overflow-hidden">
+                  <motion.div
+                    initial="hidden"
+                    animate={showContent ? "visible" : "hidden"}
+                    variants={sublineVariants}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.9 }}
+                    className="text-4xl md:text-5xl lg:text-[4vw] font-serif font-bold leading-tight tracking-wide steel-text whitespace-nowrap"
                   >
-                     <iframe
-                        className="absolute top-1/2 left-1/2 w-[177.7778vh] min-w-full min-h-full pointer-events-none"
-                        src="https://www.youtube.com/embed/Bfr44mx0t9s?autoplay=1&mute=1&controls=0&loop=1&playlist=Bfr44mx0t9s&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&disablekb=1&vq=hd1080"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        style={{ 
-                          filter: "saturate(0.9)",
-                          transform: "translate(-50%, -50%) translateZ(0) scale(1.35)", // Use inline style, combine transforms
-                          willChange: "transform",
-                        }}
-                        allowFullScreen
-                      />
-                  </div>
+                    CARTER LAW WINS.
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Subtle Stats Line */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={showContent ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 1.8 }}
+                className="mt-6 md:mt-8"
+              >
+                <p className="text-xs md:text-sm font-sans font-light tracking-[0.15em] text-white uppercase">
+                  <span className="shiny-text">4.9 Star Rating • 16 Years Fighting • Millions Recovered</span>
+                </p>
               </motion.div>
 
-              {/* Dark Overlay for better text readability */}
-              <div className="absolute inset-0 bg-black/50 z-10 pointer-events-none" />
-           </div>
-        </div>
+              {/* Tagline Text */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={showContent ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 2.0 }}
+                className="mt-2 md:mt-3"
+              >
+                <p className="text-sm md:text-base font-sans font-medium tracking-[0.3em] text-white/70 uppercase">
+                  WINNING IS OUR WAY OF LIFE
+                </p>
+              </motion.div>
+
+              {/* CTA Button */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: showContent ? 1 : 0 }}
+                transition={{ delay: 2.0, duration: 0.8 }}
+                className="mt-12"
+              >
+                <button className="px-8 py-3 bg-bronze text-navy text-sm tracking-widest uppercase hover:bg-transparent hover:border hover:border-bronze hover:text-bronze transition-all duration-300">
+                  Talk To Us
+                </button>
+              </motion.div>
+            </div>
+          </div>
+        )}
+
+        {/* RIGHT SIDE: Video Full Width */}
+        {!contentOnly && (
+          <div 
+            ref={videoContainerRef}
+            className="absolute right-0 top-0 w-full h-full z-10"
+          >
+            <div className="relative w-full h-full overflow-hidden bg-navy">
+                {/* HTML5 Video with Ken Burns Effect */}
+                <HTML5Video
+                  videoSrc="/videos/hero-video.mp4"
+                  autoplay={true}
+                  loop={true}
+                  muted={isMuted}
+                  playsInline={true}
+                  shouldAnimate={shouldAnimate}
+                  onLoadedData={handleVideoReady}
+                  pauseWhenNotVisible={true}
+                  containerRef={containerRef as React.RefObject<HTMLDivElement | null>}
+                  isInView={isInView}
+                  videoRef={videoRef as React.RefObject<HTMLVideoElement | null>}
+                />
+
+                {/* Dark Overlay for better text readability */}
+                <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
+            </div>
+          </div>
+        )}
         
-        {/* Mobile Overlay Gradient (for text readability if layout shifts) */}
-        <div className="md:hidden absolute inset-0 bg-gradient-to-t from-navy via-navy/80 to-transparent z-15 pointer-events-none" />
+        {/* Mobile Overlay Gradient */}
+        {!contentOnly && (
+          <div className="md:hidden absolute inset-0 bg-gradient-to-t from-navy via-navy/80 to-transparent z-15 pointer-events-none" />
+        )}
       </div>
+      
+      {/* Mute/Unmute Control - Only show if video is present */}
+      {!contentOnly && (
+        <motion.button
+          onClick={handleToggleMute}
+          disabled={!videoReady}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: videoReady ? 1 : 0.5, scale: 1 }}
+          transition={{ delay: 2.5, duration: 0.5, ease: "easeOut" }}
+          whileHover={videoReady ? { scale: 1.1 } : {}}
+          whileTap={videoReady ? { scale: 0.95 } : {}}
+          className="absolute bottom-[34px] left-6 z-40 flex items-center justify-center w-12 h-12 rounded-full bg-bronze backdrop-blur-sm border border-transparent hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl group disabled:cursor-not-allowed disabled:opacity-50"
+          aria-label={isMuted ? "Unmute video" : "Mute video"}
+        >
+          {isMuted ? (
+            <VolumeX className="w-5 h-5 text-navy group-hover:text-navy transition-colors duration-300" />
+          ) : (
+            <Volume2 className="w-5 h-5 text-navy group-hover:text-navy transition-colors duration-300" />
+          )}
+        </motion.button>
+      )}
     </div>
   );
 };

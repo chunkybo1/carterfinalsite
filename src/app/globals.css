@@ -59,11 +59,16 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* Optimize: Enable momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  /* Optimize: Improve scroll performance */
+  scroll-padding-top: 80px; /* Account for fixed header */
 }
 
 /* Shiny Text Effect */
 .shiny-text {
   color: #ffffff;
+  font-weight: 400;
   background: linear-gradient(
     120deg,
     rgba(255, 255, 255, 0.6) 38%,
@@ -80,6 +85,7 @@ html {
   animation: shine 4s linear infinite;
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.3);
   filter: brightness(1.2);
+  will-change: background-position; /* Optimize: Hint browser to optimize this layer for animation */
 }
 
 @keyframes shine {
@@ -93,4 +99,25 @@ html {
 
 .shiny-text.disabled {
   animation: none;
+}
+
+/* Stainless Steel Text Effect */
+.steel-text {
+  background: linear-gradient(135deg, #C0C0C0 0%, #F5F5F5 25%, #808080 50%, #C0C0C0 75%, #F5F5F5 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  animation: steelShine 4s linear infinite;
+  will-change: background-position; /* Optimize: Hint browser to optimize this layer for animation */
+}
+
+@keyframes steelShine {
+  0% {
+    background-position: 200%;
+  }
+  100% {
+    background-position: -200%;
+  }
 }

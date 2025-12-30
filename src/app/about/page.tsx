@@ -3,7 +3,6 @@ import { AboutHero } from "@/components/sections/about/AboutHero";
 import { TheCourtroomEducation } from "@/components/sections/about/TheCourtroomEducation";
 import { ThePath } from "@/components/sections/about/ThePath";
 import { TheCommunity } from "@/components/sections/about/TheCommunity";
-import { CredentialsRecognition } from "@/components/sections/about/CredentialsRecognition";
 import { AboutCTA } from "@/components/sections/about/AboutCTA";
 
 export default function AboutPage() {
@@ -14,7 +13,6 @@ export default function AboutPage() {
       <TheCourtroomEducation />
       <ThePath />
       <TheCommunity />
-      <CredentialsRecognition />
       <AboutCTA />
     </main>
   );

@@ -1,253 +1,228 @@
 "use client";
 
-import React, { useRef, memo } from "react";
-import { motion, useInView } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import Link from "next/link";
 import Image from "next/image";
-
-// --- DATA ---
+import { ArrowRight } from "lucide-react";
 
 interface PracticeArea {
   id: string;
   title: string;
-  subtitle: string;
+  description: string;
   href: string;
-  tier: 'primary' | 'secondary';
+  image: string;
 }
 
 const PRACTICE_AREAS: PracticeArea[] = [
   {
-    id: "personal-injury",
-    title: "Fighting for the Injured",
-    subtitle: "Personal Injury",
-    href: "/practice-areas/personal-injury",
-    tier: 'primary',
+    id: "car-accidents",
+    title: "Car Accidents",
+    description: "When the insurers push back, we push harder. Strategic litigation for high-impact collisions and complex liability disputes.",
+    href: "/practice-areas/car-accidents",
+    image: "/process-1.jpg",
   },
   {
-    id: "car-accidents",
-    title: "After the Wreck",
-    subtitle: "Auto & Truck Accidents",
-    href: "/practice-areas/car-accidents",
-    tier: 'primary',
+    id: "trucking-accidents",
+    title: "Trucking Accidents",
+    description: "Federal regulations, corporate defense, and massive liability. We navigate the complexities of 18-wheeler and commercial vehicle litigation.",
+    href: "/practice-areas/trucking-accidents",
+    image: "/process-2.jpg",
   },
   {
     id: "wrongful-death",
-    title: "Justice for Families",
-    subtitle: "Wrongful Death",
+    title: "Wrongful Death",
+    description: "Securing justice for those who can no longer speak. A steady hand and relentless advocacy through your family's hardest chapter.",
     href: "/practice-areas/wrongful-death",
-    tier: 'primary',
+    image: "/process-3.jpg",
+  },
+  {
+    id: "bicycle-accidents",
+    title: "Bicycle Accidents",
+    description: "Vulnerable road users deserve elite protection. We hold negligent drivers accountable for life-altering cycling injuries.",
+    href: "/practice-areas/bicycle-accidents",
+    image: "/process-1.jpg",
+  },
+  {
+    id: "pedestrian-accidents",
+    title: "Pedestrian Accidents",
+    description: "No protection against 4,000lb machines. We fight for pedestrians struck by inattentive or reckless drivers.",
+    href: "/practice-areas/pedestrian-accidents",
+    image: "/process-2.jpg",
+  },
+  {
+    id: "slip-and-fall",
+    title: "Slip n' Fall's",
+    description: "Property owners have a duty to maintain safe environments. We hold businesses accountable for preventable premises hazards.",
+    href: "/practice-areas/slip-and-fall",
+    image: "/process-3.jpg",
   },
   {
     id: "medical-malpractice",
-    title: "Holding Healthcare Accountable",
-    subtitle: "Medical Malpractice",
+    title: "Medical Malpractice",
+    description: "When trust is violated by professional negligence. We cut through institutional silence to uncover the truth.",
     href: "/practice-areas/medical-malpractice",
-    tier: 'secondary',
-  },
-  {
-    id: "workers-comp",
-    title: "Protecting Workers' Rights",
-    subtitle: "Workers' Compensation",
-    href: "/practice-areas/workers-compensation",
-    tier: 'secondary',
-  },
-  {
-    id: "product-liability",
-    title: "When Products Fail",
-    subtitle: "Product Liability",
-    href: "/practice-areas/product-liability",
-    tier: 'secondary',
-  },
-  {
-    id: "insurance-bad-faith",
-    title: "Insurance Disputes",
-    subtitle: "Insurance Bad Faith",
-    href: "/practice-areas/insurance-bad-faith",
-    tier: 'secondary',
+    image: "/process-1.jpg",
   },
 ];
 
-// --- COMPONENTS ---
-
 export const PracticeAreas = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [isInitiallyVisible, setIsInitiallyVisible] = React.useState(false);
-  
-  // Optimize: Single useInView for entire section - prevents multiple observers
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
-  const headerInView = useInView(headerRef, { once: true, margin: "-10%" });
-  
-  // Check if section is already visible on mount
-  React.useEffect(() => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      const visible = rect.top < window.innerHeight * 1.5 && rect.bottom > -window.innerHeight * 0.5;
-      setIsInitiallyVisible(visible);
-    }
-  }, []);
-  
-  // Use isInView or initial visibility check
-  const shouldShow = isInView || isInitiallyVisible;
-
-  // Separate primary and secondary areas
-  const primaryAreas = PRACTICE_AREAS.filter(area => area.tier === 'primary');
-  const secondaryAreas = PRACTICE_AREAS.filter(area => area.tier === 'secondary');
+  const [activeIndex, setActiveAreaIndex] = useState(0);
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-screen z-30 overflow-hidden bg-transparent">
-      {/* Optional Faint Grid Background */}
-      <div 
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
-          backgroundSize: '40px 40px',
-        }}
-      />
+    <section ref={containerRef} className="relative w-full py-24 lg:py-40 bg-navy overflow-hidden">
+      {/* Background Decorative Element */}
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-bronze/5 skew-x-[-12deg] translate-x-32 pointer-events-none hidden lg:block" />
 
-      <Container className="relative z-20 w-full flex flex-col py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
-        {/* Header - Optimized: Use single useInView instead of multiple whileInView */}
-        <div ref={headerRef} className="mb-4 md:mb-5 max-w-2xl w-full">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="text-xs md:text-sm font-sans font-bold text-bronze tracking-[0.2em] uppercase mb-3"
+      <Container>
+        {/* Header */}
+        <div className="mb-16 lg:mb-24">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4"
           >
-            What We Do
+            Capabilities
           </motion.div>
-          <motion.div 
-            initial={{ width: 0 }}
-            animate={headerInView ? { width: 40 } : {}}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="h-[2px] bg-bronze mb-4" 
-          />
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-2xl md:text-3xl lg:text-4xl font-serif text-white mb-2 md:mb-3 leading-tight"
+          <motion.h2
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-7xl font-serif text-white leading-tight"
           >
-            Areas of <span className="text-bronze">Practice</span>
+            Strategic <span className="italic text-bronze">Expertise.</span>
           </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-xs text-gray-400 leading-relaxed max-w-lg"
-          >
-            Every case is different. Our commitment never is. We bring specialized expertise to every battle we fight.
-          </motion.p>
         </div>
 
-        {/* Primary Tier - 3 Large Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-3 sm:mb-4 items-stretch w-full">
-          {primaryAreas.map((area, index) => (
-            <PracticeCard 
-              key={area.id} 
-              data={area} 
-              index={index}
-              isInView={isInView}
-            />
+        {/* Billboard Layout - Desktop only */}
+        <div className="hidden lg:grid grid-cols-12 gap-12 items-start">
+          
+          {/* Left: Navigation Menu */}
+          <div className="col-span-5 space-y-2">
+            {PRACTICE_AREAS.map((area, index) => (
+              <motion.button
+                key={area.id}
+                onMouseEnter={() => setActiveAreaIndex(index)}
+                onClick={() => setActiveAreaIndex(index)}
+                className={`w-full text-left group relative py-4 transition-all duration-500 ${
+                  activeIndex === index ? "pl-12" : "pl-0 opacity-40 hover:opacity-100"
+                }`}
+              >
+                {/* Active Indicator Line */}
+                {activeIndex === index && (
+                  <motion.div
+                    layoutId="activeLine"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-[2px] bg-bronze"
+                  />
+                )}
+                
+                <span className={`text-4xl font-serif tracking-tight transition-colors duration-500 ${
+                  activeIndex === index ? "text-white" : "text-white/80"
+                }`}>
+                  {area.title}
+                </span>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Right: Billboard Preview */}
+          <div className="col-span-7 sticky top-32 h-[600px] w-full">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={PRACTICE_AREAS[activeIndex].id}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.02 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="relative w-full h-full group"
+              >
+                {/* Image Container */}
+                <div className="relative w-full h-full overflow-hidden border border-white/5 bg-navy/50 backdrop-blur-sm">
+                  <Image
+                    src={PRACTICE_AREAS[activeIndex].image}
+                    alt={PRACTICE_AREAS[activeIndex].title}
+                    fill
+                    className="object-cover opacity-40 scale-105 group-hover:scale-100 transition-transform duration-[2000ms]"
+                  />
+                  
+                  {/* Content Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent flex flex-col justify-end p-12">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="max-w-md space-y-8"
+                    >
+                      <p className="text-xl text-light-steel font-sans leading-relaxed">
+                        {PRACTICE_AREAS[activeIndex].description}
+                      </p>
+                      
+                      <Link 
+                        href={PRACTICE_AREAS[activeIndex].href}
+                        className="inline-flex items-center gap-4 group/btn"
+                      >
+                        <span className="text-sm font-bold text-bronze uppercase tracking-[0.3em] border-b border-bronze/0 group-hover/btn:border-bronze transition-all duration-500">
+                          View Case Strategy
+                        </span>
+                        <div className="w-12 h-12 rounded-full border border-bronze/30 flex items-center justify-center group-hover/btn:bg-bronze group-hover/btn:border-bronze transition-all duration-500">
+                          <ArrowRight className="w-5 h-5 text-bronze group-hover/btn:text-navy transition-colors" />
+                        </div>
+                      </Link>
+                    </motion.div>
+                  </div>
+
+                  {/* Corner Accent */}
+                  <div className="absolute top-0 right-0 p-12 pointer-events-none">
+                    <div className="w-16 h-16 relative opacity-10">
+                      <Image src="/diamond.png" fill className="object-contain" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Mobile Layout - Stacks */}
+        <div className="lg:hidden space-y-12">
+          {PRACTICE_AREAS.map((area, index) => (
+            <motion.div
+              key={area.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="space-y-6"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden border border-white/5">
+                <Image
+                  src={area.image}
+                  alt={area.title}
+                  fill
+                  className="object-cover opacity-50"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy to-transparent" />
+                <div className="absolute bottom-6 left-6">
+                  <h3 className="text-3xl font-serif text-white">{area.title}</h3>
+                </div>
+              </div>
+              <p className="text-light-steel font-sans leading-relaxed">
+                {area.description}
+              </p>
+              <Link 
+                href={area.href}
+                className="inline-flex items-center gap-3 text-bronze font-bold uppercase tracking-widest text-xs"
+              >
+                View Strategy <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
           ))}
         </div>
 
-        {/* Secondary Tier - 4 Smaller Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 items-stretch w-full">
-          {secondaryAreas.map((area, index) => (
-            <PracticeCard 
-              key={area.id} 
-              data={area} 
-              index={index + primaryAreas.length}
-              isInView={shouldShow}
-            />
-          ))}
-        </div>
       </Container>
     </section>
   );
 };
-
-interface PracticeCardProps {
-  data: PracticeArea;
-  index: number;
-  isInView: boolean;
-}
-
-const PracticeCard = memo(({ data, index, isInView }: PracticeCardProps) => {
-  const isPrimary = data.tier === 'primary';
-
-  return (
-    <Link href={data.href}>
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{ 
-          duration: 0.6, 
-          delay: index * 0.1,
-          ease: [0.16, 1, 0.3, 1],
-          type: "tween"
-        }}
-        whileHover={{ 
-          y: -4,
-          transition: { duration: 0.2, ease: "easeOut" }
-        }}
-        whileTap={{ scale: 0.98 }}
-        className="group relative overflow-hidden cursor-pointer h-full w-full aspect-[4/3] md:aspect-auto md:h-56"
-      >
-        {/* Background Layers - Deep stable background */}
-        <div className="absolute inset-0 bg-[#0f1d2f]/95 transition-colors duration-500 group-hover:bg-[#0f1d2f]" />
-        
-        {/* Card Content */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center p-6 border border-white/5 transition-all duration-500">
-          
-          {/* Subtitle / Category */}
-          <p className="text-[10px] text-bronze font-serif uppercase tracking-[0.2em] mb-3 transition-colors duration-500">
-            {data.subtitle}
-          </p>
-
-          {/* Title - Clean & Bold */}
-          <h3 className="text-xl md:text-2xl font-bold text-white text-center transition-colors duration-500 font-serif leading-tight">
-            {data.title}
-          </h3>
-
-          {/* CTA Diamond - Inverts on hover */}
-          <div className="mt-8 relative w-12 h-12 flex items-center justify-center">
-            {/* The "Diamond" shape behind the image */}
-            <div className="absolute inset-0 border border-bronze/30 rotate-45 group-hover:bg-bronze group-hover:border-bronze transition-all duration-500" />
-            
-            {/* The Brand Image */}
-            <div className="relative z-10 w-6 h-6 transition-all duration-500 group-hover:invert group-hover:brightness-0">
-              <Image 
-                src="/diamond.png" 
-                alt="CTA" 
-                fill 
-                className="object-contain"
-              />
-            </div>
-          </div>
-
-          {/* Bottom Accent Line */}
-          <motion.div 
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[1px] bg-bronze/50"
-            initial={{ width: 0 }}
-            animate={isInView ? { width: '40%' } : { width: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
-          />
-        </div>
-
-        {/* Shadow on hover */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{
-            boxShadow: '0 20px 40px -15px rgba(0,0,0,0.5)',
-            transform: 'translateZ(0)',
-          }}
-        />
-      </motion.div>
-    </Link>
-  );
-});
-
-PracticeCard.displayName = 'PracticeCard';

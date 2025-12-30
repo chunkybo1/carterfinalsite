@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { CarAccidentHero } from "@/components/sections/car-accidents/CarAccidentHero";
-import { CarAccidentTrustBar } from "@/components/sections/car-accidents/CarAccidentTrustBar";
-import { TheMomentAfter } from "@/components/sections/car-accidents/TheMomentAfter";
-import { WhatYoureUpAgainst } from "@/components/sections/car-accidents/WhatYoureUpAgainst";
-import { HowThomasFights } from "@/components/sections/car-accidents/HowThomasFights";
-import { TypesOfAccidents } from "@/components/sections/car-accidents/TypesOfAccidents";
-import { CommonInjuries } from "@/components/sections/car-accidents/CommonInjuries";
-import { WhatToDoAfter } from "@/components/sections/car-accidents/WhatToDoAfter";
-import { WhatYourCaseWorth } from "@/components/sections/car-accidents/WhatYourCaseWorth";
-import { TheProcess } from "@/components/sections/car-accidents/TheProcess";
-import { ClientStories } from "@/components/sections/car-accidents/ClientStories";
-import { CarAccidentFAQ } from "@/components/sections/car-accidents/CarAccidentFAQ";
-import { RelatedPracticeAreas } from "@/components/sections/car-accidents/RelatedPracticeAreas";
-import { CarAccidentCTA } from "@/components/sections/car-accidents/CarAccidentCTA";
+import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
+import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
+import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
+import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
+import { StrategicFAQ } from "@/components/sections/practice-areas/StrategicFAQ";
+import { PracticeAreaCTA } from "@/components/sections/practice-areas/PracticeAreaCTA";
+import { PRACTICE_AREAS_DATA } from "@/lib/services-data";
+
+const SLUG = "car-accidents";
+const DATA = PRACTICE_AREAS_DATA.find((area) => area.id === SLUG);
+
+if (!DATA) {
+  throw new Error(`Data for ${SLUG} not found`);
+}
 
 export const metadata: Metadata = {
   title: "El Paso Car Accident Lawyer | Free Consult | Carter Law Wins",
@@ -31,90 +31,58 @@ export const metadata: Metadata = {
 };
 
 export default function CarAccidentPage() {
-  // Schema markup for SEO
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": "https://carterlawwins.com/#organization",
-    name: "Carter Law Wins",
-    image: "https://carterlawwins.com/carter-logo-white.png",
-    url: "https://carterlawwins.com",
-    telephone: "+19156211818",
-    priceRange: "$$",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "El Paso",
-      addressRegion: "TX",
-      addressCountry: "US",
-    },
-  };
-
-  const attorneySchema = {
-    "@context": "https://schema.org",
-    "@type": "Attorney",
-    name: "Thomas Carter",
-    "@id": "https://carterlawwins.com/#attorney",
-    url: "https://carterlawwins.com",
-    telephone: "+19156211818",
-    image: "https://carterlawwins.com/thomas-carter.jpg",
-    worksFor: {
-      "@id": "https://carterlawwins.com/#organization",
-    },
-    areaServed: {
-      "@type": "State",
-      name: ["Texas", "Arizona", "New Mexico"],
-    },
-  };
-
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    serviceType: "Car Accident Lawyer",
-    provider: {
-      "@id": "https://carterlawwins.com/#organization",
-    },
-    areaServed: {
-      "@type": "City",
-      name: "El Paso",
-    },
-    description: "Car accident legal representation in El Paso, Texas. Free consultation. No fee unless we win.",
-  };
+  const caseTypesWithIcons = DATA.caseTypes.map((type) => ({
+    title: type,
+    iconName: getIconForCaseType(type),
+  }));
 
   return (
-    <>
-      {/* Schema Markup */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(attorneySchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+    <main className="min-h-screen flex flex-col bg-navy">
+      <Header />
+      
+      {/* 1. Hero Section: Video + Form */}
+      <PracticeAreaHero 
+        eyebrow="CAR ACCIDENT IN EL PASO?"
+        title="The Insurance Company Has Lawyers. Now You Do Too."
+        description="After a wreck, you're hurt, stressed, and facing an insurance company that wants to pay you as little as possible. Thomas Carter makes sure that doesn't happen."
       />
 
-      <main className="min-h-screen flex flex-col">
-        <Header />
-        <CarAccidentHero />
-        <CarAccidentTrustBar />
-        <TheMomentAfter />
-        <WhatYoureUpAgainst />
-        <HowThomasFights />
-        <TypesOfAccidents />
-        <CommonInjuries />
-        <WhatToDoAfter />
-        <WhatYourCaseWorth />
-        <TheProcess />
-        <ClientStories />
-        <CarAccidentFAQ />
-        <RelatedPracticeAreas />
-        <CarAccidentCTA />
-        <Footer />
-      </main>
-    </>
+      {/* 2. Introduction Section: The Human Element */}
+      <MeetAdvocate 
+        headline="Standing Beside You, Every Step of the Way."
+        text="Thomas Carter founded this firm on a simple principle: every client deserves a champion. With over 15 years in the courtroom, he has built a reputation for taking the cases other firms shy away from. He doesn't just manage cases; he fights battles."
+      />
+
+      {/* 3. The Process Map: Steps 01, 02, 03 */}
+      <ProcessMap />
+
+      {/* 4. Grid Refactor: Types of Cases */}
+      <CaseTypesGrid caseTypes={caseTypesWithIcons.slice(0, 9)} />
+
+      {/* 5. Strategic FAQ: Accordion */}
+      <StrategicFAQ faqs={DATA.faqs} />
+
+      {/* Footer CTA */}
+      <PracticeAreaCTA 
+        title="Your Recovery Starts With a Single Call."
+        subtitle="Don't navigate the complex legal system alone. Put 16 years of trial experience in your corner today."
+      />
+
+      <Footer />
+    </main>
   );
 }
 
+function getIconForCaseType(type: string): string {
+  const t = type.toLowerCase();
+  if (t.includes("rear-end")) return "ArrowDown";
+  if (t.includes("head-on")) return "XCircle";
+  if (t.includes("hit-and-run")) return "Footprints";
+  if (t.includes("drunk")) return "Wine";
+  if (t.includes("distracted")) return "Smartphone";
+  if (t.includes("speeding")) return "Gauge";
+  if (t.includes("weather")) return "CloudRain";
+  if (t.includes("rideshare")) return "Car";
+  if (t.includes("intersection")) return "Split";
+  return "AlertCircle";
+}

@@ -9,13 +9,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 const SERVICE_AREAS = [
-  { title: "Personal Injury", href: "/practice-areas/personal-injury" },
   { title: "Car Accidents", href: "/practice-areas/car-accidents" },
+  { title: "Trucking Accidents", href: "/practice-areas/trucking-accidents" },
+  { title: "Bicycle Accidents", href: "/practice-areas/bicycle-accidents" },
+  { title: "Pedestrian Accidents", href: "/practice-areas/pedestrian-accidents" },
   { title: "Wrongful Death", href: "/practice-areas/wrongful-death" },
+  { title: "Slip n' Fall's", href: "/practice-areas/slip-and-fall" },
   { title: "Medical Malpractice", href: "/practice-areas/medical-malpractice" },
-  { title: "Workers' Compensation", href: "/practice-areas/workers-compensation" },
-  { title: "Product Liability", href: "/practice-areas/product-liability" },
-  { title: "Insurance Bad Faith", href: "/practice-areas/insurance-bad-faith" },
 ];
 
 export const Header = () => {

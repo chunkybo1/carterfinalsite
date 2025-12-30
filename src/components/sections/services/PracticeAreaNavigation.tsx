@@ -5,14 +5,16 @@ import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { PracticeAreaCard } from "@/components/ui/PracticeAreaCard";
 import { PRACTICE_AREAS_DATA } from "@/lib/services-data";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/Button";
 
 export const PracticeAreaNavigation = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const router = useRouter();
 
-  const handleCardClick = (areaId: string) => {
-    const element = document.getElementById(areaId);
-    element?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const handleCardClick = (href: string) => {
+    router.push(href);
   };
 
   const containerVariants = {
@@ -57,7 +59,7 @@ export const PracticeAreaNavigation = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : {}}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16"
         >
           {PRACTICE_AREAS_DATA.map((area, index) => (
             <motion.div
@@ -68,10 +70,38 @@ export const PracticeAreaNavigation = () => {
             >
               <PracticeAreaCard 
                 data={area} 
-                onClick={() => handleCardClick(area.id)}
+                onClick={() => handleCardClick(area.href)}
               />
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Heavy CTA for Overview */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex flex-col items-center text-center p-12 bg-[#0f1d2f] border border-bronze/20 rounded-sm"
+        >
+          <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-4">
+            Not sure which category your case falls into?
+          </h3>
+          <p className="text-light-steel mb-8 max-w-xl">
+            Our strategic team can help you identify the best path forward during a confidential, no-obligation case audit.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button
+              variant="primary"
+              size="lg"
+              className="bg-bronze text-navy hover:opacity-90 font-serif font-bold uppercase tracking-wider"
+              onClick={() => {
+                const element = document.getElementById("consultation-cta");
+                element?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Request Strategic Case Audit
+            </Button>
+          </div>
         </motion.div>
       </Container>
     </section>

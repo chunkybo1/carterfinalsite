@@ -43,23 +43,7 @@
 
 ---
 
-### 4. **Process Component** - MEDIUM-HIGH IMPACT
-**File**: `src/components/sections/Process.tsx`
-
-**Changes**:
-- ✅ Consolidated 7 IntersectionObservers → 1 observer
-- ✅ Removed individual `useInView` hooks for images and steps
-- ✅ All animations now use parent's `isInView` state
-- ✅ Added `hasAnimated` flag to prevent re-triggering
-
-**Impact**: Reduces observer callbacks from 7 to 1 during scroll
-
-**Before**: 7 observers (container + 3 images + 3 steps)  
-**After**: 1 observer (container only)
-
----
-
-### 5. **Header Scroll Handler** - MEDIUM IMPACT
+### 4. **Header Scroll Handler** - MEDIUM IMPACT
 **File**: `src/components/layout/Header.tsx`
 
 **Changes**:
@@ -127,8 +111,7 @@
 1. `src/components/ui/GoldParticles.tsx`
 2. `src/components/ui/VideoBackground.tsx`
 3. `src/components/sections/hero-section.tsx`
-4. `src/components/sections/Process.tsx`
-5. `src/components/layout/Header.tsx`
+4. `src/components/layout/Header.tsx`
 
 ---
 

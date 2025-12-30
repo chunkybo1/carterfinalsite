@@ -6,8 +6,8 @@ import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/sections/Hero";
 import { HeroCTA } from "@/components/sections/HeroCTA";
 import { PracticeAreas } from "@/components/sections/PracticeAreas";
-import { Process } from "@/components/sections/Process";
 import { Biography } from "@/components/sections/Biography";
+import { GoogleReviews } from "@/components/sections/GoogleReviews";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,14 +33,22 @@ export default function Home() {
       </div>
 
       {/* Sliding Content Layer (Everything else) */}
-      <div className="relative z-10 -mt-[100vh]">
+      <div className="relative z-10 -mt-[100vh] pointer-events-none">
         {/* Hero Content now slides up with the page */}
         <Hero contentOnly showContent={true} />
         
-        <Biography />
-        <HeroCTA />
-        <Process />
-        <PracticeAreas />
+        <div className="pointer-events-auto">
+          <Biography />
+        </div>
+        <div className="pointer-events-auto">
+          <HeroCTA />
+        </div>
+        <div className="pointer-events-auto">
+          <PracticeAreas />
+        </div>
+        <div className="pointer-events-auto">
+          <GoogleReviews />
+        </div>
       </div>
     </main>
   );

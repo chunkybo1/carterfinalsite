@@ -39,7 +39,7 @@ export interface PracticeAreaData {
 export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
   {
     id: "car-accidents",
-    title: "Car Accidents",
+    title: "After the Wreck",
     shortDescription: "We handle the insurers so you can focus on healing.",
     icon: Car,
     href: "/practice-areas/car-accidents",
@@ -137,7 +137,7 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
   },
   {
     id: "trucking-accidents",
-    title: "Trucking Accidents",
+    title: "When Big Rigs Collide",
     shortDescription: "Commercial truck accidents demand specialized expertise and aggressive advocacy.",
     icon: Truck,
     href: "/practice-areas/trucking-accidents",
@@ -235,7 +235,7 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
   },
   {
     id: "bicycle-accidents",
-    title: "Bicycle Accidents",
+    title: "When Cyclists Are Hit",
     shortDescription: "Bicycle accidents often result in severe injuries. We fight for cyclists' rights.",
     icon: Bike,
     href: "/practice-areas/bicycle-accidents",
@@ -333,7 +333,7 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
   },
   {
     id: "pedestrian-accidents",
-    title: "Pedestrian Accidents",
+    title: "When Walkers Are Struck",
     shortDescription: "Pedestrian accidents often result in life-altering injuries. We fight for justice.",
     icon: User,
     href: "/practice-areas/pedestrian-accidents",
@@ -431,7 +431,7 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
   },
   {
     id: "wrongful-death",
-    title: "Wrongful Death",
+    title: "Justice for Families",
     shortDescription: "Compassionate advocacy for those left behind by tragedy.",
     icon: Flame,
     href: "/practice-areas/wrongful-death",
@@ -529,7 +529,7 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
   },
   {
     id: "slip-and-fall",
-    title: "Slip n' Fall's",
+    title: "When Premises Fail",
     shortDescription: "Property owners have a duty to keep their premises safe. We hold them accountable.",
     icon: AlertTriangle,
     href: "/practice-areas/slip-and-fall",
@@ -627,7 +627,7 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
   },
   {
     id: "medical-malpractice",
-    title: "Medical Malpractice",
+    title: "Holding Healthcare Accountable",
     shortDescription: "Doctors make mistakes. We make them answer for it.",
     icon: Activity,
     href: "/practice-areas/medical-malpractice",

@@ -68,8 +68,8 @@ export const HeroSection = ({
         
         {/* LEFT SIDE: Content */}
         {!videoOnly && (
-          <div className="relative z-20 w-full md:w-[45%] h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pointer-events-auto">
-            <div className="relative">
+          <div className="relative z-20 w-full md:w-[45%] h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pointer-events-none">
+            <div className="relative pointer-events-auto">
               {/* Subline */}
               <div className="mt-2 md:mt-4 relative inline-block">
                 <div className="overflow-hidden">

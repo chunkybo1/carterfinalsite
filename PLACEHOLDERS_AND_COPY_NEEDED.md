@@ -7,12 +7,6 @@ This document identifies all placeholder content, ambiguous text, and missing as
 ## 📸 **IMAGE PLACEHOLDERS**
 
 ### **Main Page (Home)**
-1. **Process Section** (`/src/components/sections/Process.tsx`)
-   - `/process-1.jpg` - Image for "We Listen" step
-   - `/process-2.jpg` - Image for "We Investigate" step  
-   - `/process-3.jpg` - Image for "We Fight" step
-   - **Note**: Currently using quality 90, but config only allows 75. Update `next.config.ts` or change quality.
-
 2. **Carter Difference Section** (`/src/components/sections/CarterDifference.tsx`)
    - **Visual Placeholders** (3 needed):
      - `[Abstract: preparation]` - Visual for "RELENTLESS PREPARATION" pillar
@@ -143,7 +137,6 @@ This document identifies all placeholder content, ambiguous text, and missing as
 ## 📋 **SUMMARY CHECKLIST**
 
 ### **High Priority (Visible on Main Pages)**
-- [ ] Process section images (3 photos)
 - [ ] Carter Difference visual placeholders (3 graphics/images)
 - [ ] Practice areas background images (7 photos)
 - [ ] Hero section video (`hero-video.mp4`)
@@ -167,7 +160,6 @@ This document identifies all placeholder content, ambiguous text, and missing as
 
 ## 📝 **NOTES**
 
-- **Image Quality Warning**: Process images use quality 90, but `next.config.ts` only allows 75. Either update config to `[75, 90]` or change image quality to 75.
 - **Video Files**: Check if video files exist in `/public/videos/` directory. If missing, either add videos or update components to handle missing videos gracefully.
 - **Attorney Section**: Verify if the three attorneys listed are real team members or placeholders. If placeholders, this entire section may need to be restructured.
 - **Community Organizations**: Verify accuracy of organization names, roles, and descriptions.
@@ -179,6 +171,7 @@ This document identifies all placeholder content, ambiguous text, and missing as
 - Images: ~20+ placeholder images
 - Videos: 3 video placeholders
 - Copywriting: 2 major text placeholders + multiple verification needs
+
 
 
 

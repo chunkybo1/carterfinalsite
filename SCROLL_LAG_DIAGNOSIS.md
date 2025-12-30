@@ -18,7 +18,6 @@ The main page experiences scroll lag due to multiple performance bottlenecks, pr
 **Problem**:
 - Each `useInView` hook creates a separate IntersectionObserver instance
 - During scroll, multiple observers fire simultaneously, causing layout thrashing
-- Process.tsx creates 6+ observers (one per step + container)
 - Biography, PracticeAreas, and other sections each create their own observers
 
 **Evidence**:
@@ -101,7 +100,6 @@ const handleScroll = () => {
 **Problem**:
 - Many components use `whileInView` which creates observers
 - PracticeAreas has 7 cards animating simultaneously
-- Process section has 3 images + 3 content blocks animating
 - All trigger during scroll, causing layout recalculations
 
 **Impact**: Medium - Animation calculations during scroll
@@ -199,10 +197,9 @@ const handleScroll = () => {
 ## Files Requiring Immediate Attention
 
 1. `src/components/ui/GoldParticles.tsx` - Add visibility check
-2. `src/components/sections/Process.tsx` - Consolidate observers
-3. `src/components/layout/Header.tsx` - Optimize scroll handler
-4. `src/components/sections/hero-section.tsx` - Pause video when not visible
-5. `src/components/ui/VideoBackground.tsx` - Add lazy loading
+2. `src/components/layout/Header.tsx` - Optimize scroll handler
+3. `src/components/sections/hero-section.tsx` - Pause video when not visible
+4. `src/components/ui/VideoBackground.tsx` - Add lazy loading
 
 
 

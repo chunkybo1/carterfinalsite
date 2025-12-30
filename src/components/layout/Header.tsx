@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -48,7 +49,7 @@ export const Header = () => {
     if (Math.abs(currentScrollY - lastScrollY) > 5) {
       let newIsHeaderVisible = isHeaderVisible;
 
-      if (currentScrollY < viewportHeight * 0.5) {
+      if (currentScrollY < viewportHeight * 0.2) {
         // Always visible at the top
         newIsHeaderVisible = true;
       } else if (currentScrollY > lastScrollY) {
@@ -217,13 +218,17 @@ export const Header = () => {
             <div className="h-5 w-[1px] bg-white/20" />
 
             <div className="flex items-center gap-3 2xl:gap-4">
-              <a href="tel:5551234567" className="group flex items-center gap-2 text-white/70 text-xs 2xl:text-sm font-serif font-medium hover:text-white transition-all duration-300">
+              <a href="tel:9156211818" className="group flex items-center gap-2 text-white/70 text-xs 2xl:text-sm font-serif font-medium hover:text-white transition-all duration-300">
                 <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-bronze" />
                 (915) 621-1818
-            </a>
-              <button className="px-4 py-1.5 2xl:px-6 2xl:py-2 border-2 border-bronze bg-bronze text-navy font-serif font-bold uppercase tracking-[0.2em] text-[10px] 2xl:text-xs transition-opacity duration-300 hover:opacity-90">
+              </a>
+              <Button 
+                size="sm"
+                noFloat
+                className="px-4 py-1.5 2xl:px-6 2xl:py-2 bg-bronze text-navy hover:bg-navy hover:text-bronze border border-transparent hover:border-bronze font-serif font-bold uppercase tracking-[0.2em] text-[10px] 2xl:text-xs transition-all duration-300"
+              >
                 Free Case Review
-            </button>
+              </Button>
             </div>
           </div>
 
@@ -249,12 +254,13 @@ export const Header = () => {
             <Link href="/results" className="text-white hover:text-bronze py-2">Results</Link>
             <Link href="/reviews" className="text-white hover:text-bronze py-2">Reviews</Link>
             <Link href="/contact" className="text-white hover:text-bronze py-2">Contact</Link>
-            <button className="w-full relative group px-6 py-3 overflow-hidden border-2 border-bronze bg-transparent text-bronze font-sans font-bold uppercase tracking-[0.2em] text-xs transition-colors duration-300 hover:text-navy mt-2">
-              <span className="absolute inset-0 w-0 bg-bronze transition-all duration-[250ms] ease-out group-hover:w-full" />
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                Free Case Review
-              </span>
-            </button>
+            <Button 
+              size="md"
+              noFloat
+              className="w-full bg-bronze text-navy hover:bg-navy hover:text-bronze border border-transparent hover:border-bronze font-serif font-bold uppercase tracking-[0.2em] text-xs transition-all duration-300 mt-2"
+            >
+              Free Case Review
+            </Button>
           </Container>
         </motion.div>
       )}

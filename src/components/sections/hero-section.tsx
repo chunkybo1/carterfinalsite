@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 // GoldParticles import removed
 import { HTML5Video } from "@/components/ui/HTML5Video";
+import { Button } from "@/components/ui/Button";
 
 export const HeroSection = ({ 
   showContent = false,
@@ -77,31 +78,19 @@ export const HeroSection = ({
                     animate={showContent ? "visible" : "hidden"}
                     variants={sublineVariants}
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.9 }}
-                    className="text-4xl md:text-5xl lg:text-[4vw] font-serif font-bold leading-tight tracking-wide steel-text whitespace-nowrap"
+                    className="text-4xl md:text-5xl lg:text-[4vw] font-serif font-bold leading-tight tracking-wide text-white/70 whitespace-nowrap"
                   >
                     CARTER LAW WINS.
                   </motion.div>
                 </div>
               </div>
 
-              {/* Subtle Stats Line */}
+              {/* Tagline Text */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={showContent ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, ease: "easeOut", delay: 1.8 }}
                 className="mt-6 md:mt-8"
-              >
-                <p className="text-xs md:text-sm font-sans font-light tracking-[0.15em] text-white uppercase">
-                  <span className="shiny-text">4.9 Star Rating • 16 Years Fighting • Millions Recovered</span>
-                </p>
-              </motion.div>
-
-              {/* Tagline Text */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={showContent ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 2.0 }}
-                className="mt-2 md:mt-3"
               >
                 <p className="text-sm md:text-base font-sans font-medium tracking-[0.3em] text-white/70 uppercase">
                   WINNING IS OUR WAY OF LIFE
@@ -115,9 +104,13 @@ export const HeroSection = ({
                 transition={{ delay: 2.0, duration: 0.8 }}
                 className="mt-12"
               >
-                <button className="px-8 py-3 bg-bronze text-navy text-sm tracking-widest uppercase hover:bg-transparent hover:border hover:border-bronze hover:text-bronze transition-all duration-300">
+                <Button 
+                  size="lg"
+                  noFloat
+                  className="bg-bronze text-navy hover:bg-navy hover:text-bronze border border-transparent hover:border-bronze font-serif font-bold uppercase tracking-widest text-sm transition-all duration-300"
+                >
                   Talk To Us
-                </button>
+                </Button>
               </motion.div>
             </div>
           </div>

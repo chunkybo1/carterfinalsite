@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/sections/Hero";
 import { HeroCTA } from "@/components/sections/HeroCTA";
-import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { PracticeAreas } from "@/components/sections/PracticeAreas";
 import { Process } from "@/components/sections/Process";
 import { Biography } from "@/components/sections/Biography";
@@ -38,15 +37,10 @@ export default function Home() {
         {/* Hero Content now slides up with the page */}
         <Hero contentOnly showContent={true} />
         
-        <HeroCTA />
-        <WhyChooseUs />
         <Biography />
+        <HeroCTA />
+        <Process />
         <PracticeAreas />
-        
-        {/* Following sections return to normal flow */}
-        <div className="relative z-20 bg-[#FDFBF8]">
-          <Process />
-        </div>
       </div>
     </main>
   );

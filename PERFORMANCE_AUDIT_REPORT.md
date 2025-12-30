@@ -361,3 +361,6 @@ The site should now perform significantly better, especially during scrolling an
 **Next Steps:** Deploy to production and monitor Core Web Vitals
 
 
+
+
+

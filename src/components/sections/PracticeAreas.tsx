@@ -2,7 +2,6 @@
 
 import React, { useRef, memo } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,13 +12,8 @@ interface PracticeArea {
   id: string;
   title: string;
   subtitle: string;
-  description: string;
-  hookLine: string;
-  proofPoints: string[];
-  ctaText: string;
   href: string;
   tier: 'primary' | 'secondary';
-  backgroundImage: string;
 }
 
 const PRACTICE_AREAS: PracticeArea[] = [
@@ -27,102 +21,50 @@ const PRACTICE_AREAS: PracticeArea[] = [
     id: "personal-injury",
     title: "Fighting for the Injured",
     subtitle: "Personal Injury",
-    description: "When negligence causes harm, we fight for the compensation you deserve.",
-    hookLine: "When someone else's negligence turns your life upside down, you need more than a lawyer — you need a fighter who knows how insurance companies operate.",
-    proofPoints: [
-      "Exposed to defense tactics from criminal trial experience",
-      "Exposed to insurance playbooks before they open them"
-    ],
-    ctaText: "Free Case Review",
     href: "/practice-areas/personal-injury",
     tier: 'primary',
-    backgroundImage: "/practice-areas/personal-injury.jpg",
   },
   {
     id: "car-accidents",
     title: "After the Wreck",
     subtitle: "Auto & Truck Accidents",
-    description: "We handle the insurers so you can focus on healing.",
-    hookLine: "The insurance adjuster calling you isn't on your side. We step in immediately to protect your claim, document everything, and fight for maximum compensation.",
-    proofPoints: [
-      "Exposed to lowball settlement tactics",
-      "Exposed to 18-wheeler and commercial vehicle cases"
-    ],
-    ctaText: "Get Help Now",
     href: "/practice-areas/car-accidents",
     tier: 'primary',
-    backgroundImage: "/practice-areas/car-accidents.jpg",
   },
   {
     id: "wrongful-death",
     title: "Justice for Families",
     subtitle: "Wrongful Death",
-    description: "Compassionate advocacy for those left behind by tragedy.",
-    hookLine: "Losing a loved one because of someone else's negligence is devastating. We provide compassionate, fierce advocacy to hold responsible parties accountable and secure the compensation your family deserves.",
-    proofPoints: [
-      "Experienced in complex wrongful death litigation",
-      "Understanding of the full impact on families and futures"
-    ],
-    ctaText: "Learn More",
     href: "/practice-areas/wrongful-death",
     tier: 'primary',
-    backgroundImage: "/practice-areas/wrongful-death.jpg",
   },
   {
     id: "medical-malpractice",
     title: "Holding Healthcare Accountable",
     subtitle: "Medical Malpractice",
-    description: "Doctors make mistakes. We make them answer for it.",
-    hookLine: "When medical professionals fail to meet the standard of care, the consequences can be life-altering. We have the expertise to navigate complex medical cases and hold healthcare providers accountable.",
-    proofPoints: [
-      "Experience with complex medical evidence and expert testimony"
-    ],
-    ctaText: "Get Help Now",
     href: "/practice-areas/medical-malpractice",
     tier: 'secondary',
-    backgroundImage: "/practice-areas/medical-malpractice.jpg",
   },
   {
     id: "workers-comp",
     title: "Protecting Workers' Rights",
     subtitle: "Workers' Compensation",
-    description: "Securing your livelihood when you're hurt on the job.",
-    hookLine: "Workplace injuries shouldn't cost you your financial security. We fight to ensure you receive the full benefits you're entitled to under workers' compensation laws.",
-    proofPoints: [
-      "Knowledge of workers' comp system and employer tactics"
-    ],
-    ctaText: "Free Consultation",
     href: "/practice-areas/workers-compensation",
     tier: 'secondary',
-    backgroundImage: "/practice-areas/workers-comp.jpg",
   },
   {
     id: "product-liability",
     title: "When Products Fail",
     subtitle: "Product Liability",
-    description: "Holding manufacturers responsible for dangerous defects.",
-    hookLine: "Defective products cause serious injuries every day. We hold manufacturers, distributors, and retailers accountable when their products harm consumers.",
-    proofPoints: [
-      "Experience pursuing product liability claims against major corporations"
-    ],
-    ctaText: "Learn More",
     href: "/practice-areas/product-liability",
     tier: 'secondary',
-    backgroundImage: "/practice-areas/product-liability.jpg",
   },
   {
     id: "insurance-bad-faith",
     title: "Insurance Disputes",
     subtitle: "Insurance Bad Faith",
-    description: "Making sure your policy protects you when it counts.",
-    hookLine: "Insurance companies have a duty to act in good faith. When they deny valid claims or delay payments, we hold them accountable and fight for what you're owed.",
-    proofPoints: [
-      "Deep understanding of insurance company tactics and bad faith practices"
-    ],
-    ctaText: "Get Help Now",
     href: "/practice-areas/insurance-bad-faith",
     tier: 'secondary',
-    backgroundImage: "/practice-areas/insurance-bad-faith.jpg",
   },
 ];
 
@@ -252,94 +194,47 @@ const PracticeCard = memo(({ data, index, isInView }: PracticeCardProps) => {
           transition: { duration: 0.2, ease: "easeOut" }
         }}
         whileTap={{ scale: 0.98 }}
-        layout={false}
-        className="group relative overflow-hidden cursor-pointer h-full w-full"
-        style={{ 
-          contain: 'layout style paint',
-          transform: 'translateZ(0)',
-          backfaceVisibility: 'hidden',
-        }}
+        className="group relative overflow-hidden cursor-pointer h-full w-full aspect-[4/3] md:aspect-auto md:h-56"
       >
-        {/* Background Gradient Layer */}
-        <div 
-          className="absolute inset-0 opacity-[0.08] transition-opacity duration-500 group-hover:opacity-[0.12]"
-          style={{
-            background: `linear-gradient(135deg, rgba(30, 58, 95, 0.6) 0%, rgba(15, 29, 47, 0.8) 100%)`,
-            transform: 'translateZ(0)',
-          }}
-        />
-
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-[#0f1d2f]/85 group-hover:bg-[#0f1d2f]/75 transition-colors duration-500" />
-
+        {/* Background Layers - Deep stable background */}
+        <div className="absolute inset-0 bg-[#0f1d2f]/95 transition-colors duration-500 group-hover:bg-[#0f1d2f]" />
+        
         {/* Card Content */}
-        <div className="relative z-10 h-full flex flex-col p-3 sm:p-4 md:p-6 border border-white/5 group-hover:border-bronze/30 transition-colors duration-500">
-          {/* Top Accent Line */}
-          <motion.div 
-            className="absolute top-0 left-0 h-[2px] bg-bronze z-20"
-            initial={{ width: 0 }}
-            animate={isInView ? { width: '100%' } : { width: 0 }}
-            transition={{ 
-              duration: 0.6, 
-              delay: index * 0.1 + 0.3,
-              ease: "easeOut"
-            }}
-          />
+        <div className="relative z-10 h-full flex flex-col items-center justify-center p-6 border border-white/5 transition-all duration-500">
+          
+          {/* Subtitle / Category */}
+          <p className="text-[10px] text-bronze font-serif uppercase tracking-[0.2em] mb-3 transition-colors duration-500">
+            {data.subtitle}
+          </p>
 
-          {/* Content */}
-          <div className="flex-1 flex flex-col min-h-0">
-            {/* Title */}
-            <h3 className="text-base md:text-lg lg:text-xl font-bold uppercase tracking-wide mb-1 text-white transition-colors duration-300 group-hover:text-bronze font-serif">
-              {data.title}
-            </h3>
+          {/* Title - Clean & Bold */}
+          <h3 className="text-xl md:text-2xl font-bold text-white text-center transition-colors duration-500 font-serif leading-tight">
+            {data.title}
+          </h3>
 
-            {/* Subtitle */}
-            <div className="flex items-center gap-2 mb-2 md:mb-3">
-              <p className="text-[10px] md:text-xs text-bronze/80 font-serif uppercase tracking-wider">
-              {data.subtitle}
-            </p>
-              <Image
-                src="/diamond.png"
-                alt=""
-                width={16}
-                height={16}
-                className="object-contain opacity-80"
+          {/* CTA Diamond - Inverts on hover */}
+          <div className="mt-8 relative w-12 h-12 flex items-center justify-center">
+            {/* The "Diamond" shape behind the image */}
+            <div className="absolute inset-0 border border-bronze/30 rotate-45 group-hover:bg-bronze group-hover:border-bronze transition-all duration-500" />
+            
+            {/* The Brand Image */}
+            <div className="relative z-10 w-6 h-6 transition-all duration-500 group-hover:invert group-hover:brightness-0">
+              <Image 
+                src="/diamond.png" 
+                alt="CTA" 
+                fill 
+                className="object-contain"
               />
             </div>
-
-            {/* Hook Line */}
-            <p className={`text-gray-300 leading-relaxed mb-3 md:mb-4 font-serif ${
-              isPrimary ? 'text-xs md:text-sm' : 'text-[10px] md:text-xs'
-            }`}>
-              {data.hookLine}
-            </p>
-
-            {/* Proof Points */}
-            <ul className="space-y-1 md:space-y-1.5 mb-3 md:mb-4 flex-1 min-h-0">
-              {data.proofPoints.map((point, pointIndex) => (
-                <li key={pointIndex} className="flex items-start gap-2">
-                  <span className="text-bronze mt-1 text-[10px] md:text-xs flex-shrink-0">•</span>
-                  <span className={`text-gray-400 leading-relaxed font-serif ${
-                    isPrimary ? 'text-[10px] md:text-xs' : 'text-[10px]'
-                  }`}>
-                    {point}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            {/* CTA - Hidden by default, shows on card hover */}
-            <div className="flex items-center gap-2 text-bronze font-bold mt-auto opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-              <span className={`uppercase tracking-wider font-serif ${
-                isPrimary ? 'text-sm md:text-base' : 'text-xs md:text-sm'
-              }`}>
-                {data.ctaText}
-              </span>
-              <ArrowRight className={`transition-transform duration-300 group-hover:translate-x-1 ${
-                isPrimary ? 'w-5 h-5 md:w-6 md:h-6' : 'w-4 h-4 md:w-5 md:h-5'
-              }`} />
-            </div>
           </div>
+
+          {/* Bottom Accent Line */}
+          <motion.div 
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[1px] bg-bronze/50"
+            initial={{ width: 0 }}
+            animate={isInView ? { width: '40%' } : { width: 0 }}
+            transition={{ duration: 0.8, delay: index * 0.1 }}
+          />
         </div>
 
         {/* Shadow on hover */}

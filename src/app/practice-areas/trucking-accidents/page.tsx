@@ -33,6 +33,8 @@ export const metadata: Metadata = {
 };
 
 export default function TruckingAccidentsPage() {
+  if (!DATA) return null;
+
   const caseTypesWithIcons = DATA.caseTypes.map((type) => ({
     title: type,
     iconName: getIconForCaseType(type),

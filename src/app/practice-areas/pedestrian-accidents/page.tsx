@@ -5,6 +5,7 @@ import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeA
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
+import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
 import { StrategicFAQ } from "@/components/sections/practice-areas/StrategicFAQ";
 import { PracticeAreaCTA } from "@/components/sections/practice-areas/PracticeAreaCTA";
 import { PRACTICE_AREAS_DATA } from "@/lib/services-data";
@@ -46,6 +47,8 @@ export default function PedestrianAccidentsPage() {
         title="Justice for the Most Vulnerable on the Road."
         description="When a vehicle strikes a pedestrian, the results are often catastrophic. Thomas Carter fights to ensure you aren't just another statistic."
       />
+
+      <ResultsGallery />
 
       <MeetAdvocate 
         headline="A Voice for Injured Pedestrians."

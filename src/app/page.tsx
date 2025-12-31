@@ -6,8 +6,10 @@ import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/sections/Hero";
 import { HeroCTA } from "@/components/sections/HeroCTA";
 import { PracticeAreas } from "@/components/sections/PracticeAreas";
+import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
 import { Biography } from "@/components/sections/Biography";
 import { GoogleReviews } from "@/components/sections/GoogleReviews";
+import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -38,6 +40,9 @@ export default function Home() {
         <Hero contentOnly showContent={true} />
         
         <div className="pointer-events-auto">
+          <ResultsGallery />
+        </div>
+        <div className="pointer-events-auto">
           <Biography />
         </div>
         <div className="pointer-events-auto">
@@ -48,6 +53,9 @@ export default function Home() {
         </div>
         <div className="pointer-events-auto">
           <GoogleReviews />
+        </div>
+        <div className="pointer-events-auto">
+          <Footer />
         </div>
       </div>
     </main>

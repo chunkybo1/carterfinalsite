@@ -51,7 +51,7 @@ export const HTML5Video = ({
 
     const handleCanPlay = () => {
       // Try to play if autoplay is enabled
-      if (autoplay && muted) {
+      if (autoplay) {
         video.play().catch(() => {
           // Silently handle autoplay restrictions
         });
@@ -109,9 +109,9 @@ export const HTML5Video = ({
           autoPlay={autoplay}
           loop={loop}
           muted={muted}
-          playsInline={playsInline}
+          playsInline={true}
           poster={poster}
-          preload="metadata" // Load metadata but not full video initially
+          preload="auto" 
           style={{
             filter: "saturate(0.9)",
             transform: "translateZ(0)",

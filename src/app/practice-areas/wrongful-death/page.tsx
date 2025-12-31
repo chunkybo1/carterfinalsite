@@ -5,6 +5,7 @@ import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeA
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
+import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
 import { StrategicFAQ } from "@/components/sections/practice-areas/StrategicFAQ";
 import { PracticeAreaCTA } from "@/components/sections/practice-areas/PracticeAreaCTA";
 import { PRACTICE_AREAS_DATA } from "@/lib/services-data";
@@ -46,6 +47,8 @@ export default function WrongfulDeathPage() {
         title="Holding Negligence Accountable for Your Loss."
         description="Justice cannot replace a loved one, but it can provide your family with the security and the accountability you deserve."
       />
+
+      <ResultsGallery />
 
       <MeetAdvocate 
         headline="Compassionate Support. Fierce Advocacy."

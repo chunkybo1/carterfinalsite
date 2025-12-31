@@ -16,8 +16,8 @@ export const Biography = () => {
         <div className="relative w-full h-full overflow-hidden">
           <Image
             src="/thomas-carter-portrait.png"
-            alt="Thomas Carter"
-            fill
+              alt="Thomas Carter"
+              fill
             className="object-contain"
             style={{ 
               objectPosition: "left bottom",
@@ -40,24 +40,24 @@ export const Biography = () => {
         >
           {/* Small Caps Label */}
           <div className="space-y-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
               className="text-[10px] font-sans font-bold tracking-[0.3em] text-bronze uppercase"
-            >
-              Lead Attorney
-            </motion.div>
+          >
+            Lead Attorney
+          </motion.div>
 
             {/* Name - Large, signature-like */}
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
               className="text-5xl lg:text-6xl font-serif text-white leading-tight tracking-tight"
-            >
-              Thomas Carter
-            </motion.h2>
+          >
+            Thomas Carter
+          </motion.h2>
           </div>
 
           {/* Philosophy Line */}
@@ -71,7 +71,7 @@ export const Biography = () => {
           </motion.p>
 
           {/* Body Text */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.5 }}

@@ -42,28 +42,28 @@ const PRACTICE_AREAS: PracticeArea[] = [
     title: "Bicycle Accidents",
     description: "Vulnerable road users deserve elite protection. We hold negligent drivers accountable for life-altering cycling injuries.",
     href: "/practice-areas/bicycle-accidents",
-    image: "/process-1.jpg",
+    image: "/process-4.jpg",
   },
   {
     id: "pedestrian-accidents",
     title: "Pedestrian Accidents",
     description: "No protection against 4,000lb machines. We fight for pedestrians struck by inattentive or reckless drivers.",
     href: "/practice-areas/pedestrian-accidents",
-    image: "/process-2.jpg",
+    image: "/process-5.jpg",
   },
   {
     id: "slip-and-fall",
     title: "Slip n' Fall's",
     description: "Property owners have a duty to maintain safe environments. We hold businesses accountable for preventable premises hazards.",
     href: "/practice-areas/slip-and-fall",
-    image: "/process-3.jpg",
+    image: "/process-6.jpg",
   },
   {
     id: "medical-malpractice",
     title: "Medical Malpractice",
     description: "When trust is violated by professional negligence. We cut through institutional silence to uncover the truth.",
     href: "/practice-areas/medical-malpractice",
-    image: "/process-1.jpg",
+    image: "/process-7.jpg",
   },
 ];
 
@@ -73,7 +73,7 @@ export const PracticeAreas = () => {
   const [activeIndex, setActiveAreaIndex] = useState(0);
 
   return (
-    <section ref={containerRef} className="relative w-full py-24 lg:py-40 bg-navy overflow-hidden">
+    <section ref={containerRef} className="relative w-full py-24 lg:py-40 bg-transparent overflow-hidden">
       {/* Background Decorative Element */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-bronze/5 skew-x-[-12deg] translate-x-32 pointer-events-none hidden lg:block" />
 

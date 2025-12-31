@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 // GoldParticles import removed
 import { HTML5Video } from "@/components/ui/HTML5Video";
@@ -28,24 +28,41 @@ export const HeroSection = ({
   });
   
   const [shouldAnimate, setShouldAnimate] = useState(true);
-  const [isMuted, setIsMuted] = useState(true); // Start muted for autoplay compatibility
+  const [isMuted, setIsMuted] = useState(true); // Always start muted for browser compatibility
   const [videoReady, setVideoReady] = useState(false);
+  const [showUnmuteCTA, setShowUnmuteCTA] = useState(true);
+  
+  const { scrollY } = useScroll();
+
+  // Handle manual unmute
+  const handleUnmute = () => {
+    const video = videoRef.current || document.querySelector('video');
+    if (video) {
+      video.muted = false;
+      setIsMuted(false);
+      setShowUnmuteCTA(false);
+    }
+  };
+
+  // Mute video when user scrolls down
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 50) {
+      if (videoRef.current && !videoRef.current.muted) {
+        videoRef.current.muted = true;
+        setIsMuted(true);
+        setShowUnmuteCTA(false); // Don't show CTA if they've scrolled
+      }
+    } else if (latest < 10 && !showUnmuteCTA && isMuted) {
+      // Re-show CTA if back at top and still muted
+      // setShowUnmuteCTA(true);
+    }
+  });
   
   // Update animation state based on visibility
   useEffect(() => {
     setShouldAnimate(isInView);
   }, [isInView]);
   
-  // Handle mute/unmute toggle
-  const handleToggleMute = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    
-    const newMutedState = !isMuted;
-    setIsMuted(newMutedState);
-    video.muted = newMutedState;
-  };
-
   // Handle video ready callback
   const handleVideoReady = () => {
     setVideoReady(true);
@@ -149,26 +166,36 @@ export const HeroSection = ({
           <div className="md:hidden absolute inset-0 bg-gradient-to-t from-navy via-navy/80 to-transparent z-15 pointer-events-none" />
         )}
       </div>
-      
-      {/* Mute/Unmute Control - Only show if video is present */}
-      {!contentOnly && (
-        <motion.button
-          onClick={handleToggleMute}
-          disabled={!videoReady}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: videoReady ? 1 : 0.5, scale: 1 }}
-          transition={{ delay: 2.5, duration: 0.5, ease: "easeOut" }}
-          whileHover={videoReady ? { scale: 1.1 } : {}}
-          whileTap={videoReady ? { scale: 0.95 } : {}}
-          className="absolute bottom-[34px] left-6 z-40 flex items-center justify-center w-12 h-12 rounded-full bg-bronze backdrop-blur-sm border border-transparent hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl group disabled:cursor-not-allowed disabled:opacity-50"
-          aria-label={isMuted ? "Unmute video" : "Mute video"}
-        >
-          {isMuted ? (
-            <VolumeX className="w-5 h-5 text-navy group-hover:text-navy transition-colors duration-300" />
-          ) : (
-            <Volume2 className="w-5 h-5 text-navy group-hover:text-navy transition-colors duration-300" />
+
+      {/* Prominent Unmute CTA - Only in Hero Content Layer (Sliding) */}
+      {contentOnly && (
+        <AnimatePresence>
+          {isMuted && showUnmuteCTA && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ delay: 3, duration: 0.8 }}
+              className="absolute bottom-12 right-6 lg:right-20 z-40 flex items-center gap-4 pointer-events-auto"
+            >
+              <button
+                onClick={handleUnmute}
+                className="group relative flex items-center gap-4 bg-bronze hover:bg-white text-navy px-6 py-4 rounded-full shadow-[0_0_30px_rgba(184,149,106,0.4)] transition-all duration-500"
+              >
+                <div className="w-10 h-10 rounded-full bg-navy/10 flex items-center justify-center group-hover:bg-bronze/20 transition-colors">
+                  <VolumeX className="w-5 h-5 text-navy group-hover:text-navy" />
+                </div>
+                <div className="text-left pr-4">
+                  <div className="text-[10px] font-sans font-bold uppercase tracking-widest leading-none mb-1 opacity-70">Experience With Sound</div>
+                  <div className="text-base font-serif font-bold uppercase tracking-wider leading-none">Click to Unmute</div>
+                </div>
+                
+                {/* Pulse Effect */}
+                <div className="absolute inset-0 rounded-full border-2 border-bronze animate-ping opacity-20 pointer-events-none" />
+              </button>
+            </motion.div>
           )}
-        </motion.button>
+        </AnimatePresence>
       )}
     </div>
   );

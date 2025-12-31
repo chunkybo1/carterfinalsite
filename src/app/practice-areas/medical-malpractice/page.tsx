@@ -5,6 +5,7 @@ import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeA
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
+import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
 import { StrategicFAQ } from "@/components/sections/practice-areas/StrategicFAQ";
 import { PracticeAreaCTA } from "@/components/sections/practice-areas/PracticeAreaCTA";
 import { PRACTICE_AREAS_DATA } from "@/lib/services-data";
@@ -46,6 +47,8 @@ export default function MedicalMalpracticePage() {
         title="Doctors Make Mistakes. We Make Them Answer for It."
         description="Medical malpractice cases are complex and highly defended. Thomas Carter has the specialized expertise and the resources to take on hospitals and win."
       />
+
+      <ResultsGallery />
 
       <MeetAdvocate 
         headline="Strategic Litigation for Medical Victims."

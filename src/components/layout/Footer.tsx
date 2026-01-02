@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Linkedin, Instagram, Phone, Mail, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import Link from "next/link";
 import Image from "next/image";
@@ -52,40 +51,7 @@ export const Footer = () => {
         </Container>
       </div>
 
-      {/* 2. Global Footer CTA: The Closing Argument */}
-      <section className="relative bg-navy py-16 lg:py-24 overflow-hidden border-b border-white/5">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-                Your Recovery <br />
-                <span className="text-bronze">Starts With a Call.</span>
-              </h2>
-              <p className="text-light-steel text-xl font-sans max-w-xl leading-relaxed">
-                Thomas Carter has spent 16 years taking the cases other firms shy away from. 
-                Put trial-tested advocacy in your corner today.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-end gap-8">
-              <div className="text-center sm:text-right">
-                <div className="text-[10px] text-bronze uppercase tracking-[0.3em] font-bold mb-1">Direct Hotline</div>
-                <a href="tel:9156211818" className="text-3xl md:text-4xl font-serif font-bold text-white hover:text-bronze transition-colors">
-                  (915) 621-1818
-                </a>
-              </div>
-              <Button 
-                size="lg" 
-                noFloat
-                className="bg-bronze text-navy hover:bg-white hover:text-navy border border-transparent hover:border-navy px-10 transition-all duration-300 font-serif font-bold uppercase tracking-widest shadow-2xl"
-              >
-                Free Case Review
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* 3. Main Footer: Architectural Grid */}
+      {/* Main Footer: Architectural Grid */}
       <footer className="bg-navy text-white pt-20 pb-10">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
@@ -125,7 +91,7 @@ export const Footer = () => {
               </div>
             </div>
 
-            {/* Column 2: Expertise (Practice Areas) */}
+          {/* Column 2: Expertise Areas (Practice Areas) */}
             <div>
               <h4 className="font-serif font-bold text-bronze uppercase tracking-[0.2em] text-[10px] mb-8">Expertise</h4>
               <ul className="space-y-4 text-sm font-sans">
@@ -161,7 +127,7 @@ export const Footer = () => {
                 <div className="flex gap-4">
                   <MapPin className="h-5 w-5 text-bronze shrink-0" />
                   <p className="text-sm text-light-steel font-sans leading-relaxed">
-                    123 N. Mesa Street, Suite 100<br />
+                    124 W. Castellano Drive, Suite 103<br />
                     El Paso, TX 79901
                   </p>
                 </div>

@@ -14,7 +14,7 @@ export const GoogleReviews = () => {
     <section ref={containerRef} className="relative w-full bg-transparent py-24 lg:py-32 overflow-hidden">
       <Container>
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
+        <div className="flex flex-col md:flex-row items-center md:items-end justify-between mb-16 gap-8 text-center md:text-left">
           <div className="max-w-2xl">
             <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
               Client Testimonials
@@ -32,8 +32,8 @@ export const GoogleReviews = () => {
                 <Star key={i} className="w-5 h-5 fill-bronze text-bronze" />
               ))}
             </div>
-            <p className="text-white font-serif text-xl font-bold">4.9 / 5.0 Rating</p>
-            <p className="text-light-steel text-xs uppercase tracking-widest mt-1">Based on 150+ Reviews</p>
+            <p className="text-white font-serif text-xl font-bold">5.0 / 5.0 Rating</p>
+            <p className="text-light-steel text-xs uppercase tracking-widest mt-1">Based on 99+ Reviews</p>
           </div>
         </div>
 

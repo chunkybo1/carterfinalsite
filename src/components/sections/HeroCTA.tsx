@@ -14,13 +14,13 @@ export const HeroCTA = () => {
   return (
     <section
       ref={containerRef}
-      className="group relative w-full bg-bronze py-10 lg:py-12 overflow-hidden transition-colors duration-500 hover:bg-navy"
+      className="relative w-full bg-navy py-16 md:py-24 overflow-hidden"
     >
-      {/* Top Accent Line - Inverts on hover */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-navy/20 transition-colors duration-500 group-hover:bg-bronze/20" />
+      {/* Top Accent Line - Gold */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-bronze/40" />
       
-      {/* Bottom Accent Line - Inverts on hover */}
-      <div className="absolute bottom-0 right-0 w-full h-[1px] bg-navy/20 transition-colors duration-500 group-hover:bg-bronze/20" />
+      {/* Bottom Accent Line - Gold */}
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-bronze/40" />
 
       <Container className="relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
@@ -29,12 +29,12 @@ export const HeroCTA = () => {
             initial={{ opacity: 0, x: -22 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex-1"
+            className="flex-1 text-center lg:text-left"
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-navy transition-colors duration-500 group-hover:text-white mb-2 leading-tight">
-              Injured? <span className="group-hover:text-bronze transition-colors duration-500">We're Here to Help</span>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-white mb-2 leading-tight">
+              Injured? <span className="text-bronze">We're Here to Help</span>
             </h2>
-            <p className="text-base text-navy/70 transition-colors duration-500 group-hover:text-light-steel leading-relaxed">
+            <p className="text-base text-white/70 leading-relaxed">
               Free consultation. No upfront fees. Maximum recovery.
             </p>
           </motion.div>
@@ -49,15 +49,15 @@ export const HeroCTA = () => {
             {/* Phone Number - Large & Prominent */}
             <a
               href="tel:9156211818"
-              className="flex items-center gap-3 text-navy transition-colors duration-500 group-hover:text-white hover:opacity-80"
+              className="flex items-center gap-3 text-white hover:opacity-80 transition-opacity"
             >
               <div
-                className="w-12 h-12 bg-navy/10 rounded-full flex items-center justify-center transition-colors duration-500 group-hover:bg-bronze/20"
+                className="w-12 h-12 bg-bronze/20 rounded-full flex items-center justify-center"
               >
-                <Phone className="w-6 h-6 text-navy transition-colors duration-500 group-hover:text-bronze" />
+                <Phone className="w-6 h-6 text-bronze" />
               </div>
               <div>
-                <div className="text-xs text-navy/60 uppercase tracking-wider mb-0.5 transition-colors duration-500 group-hover:text-light-steel">
+                <div className="text-xs text-bronze/80 uppercase tracking-wider mb-0.5 text-left">
                   Call Now
                 </div>
                 <div className="text-xl md:text-2xl font-serif font-bold">
@@ -66,12 +66,12 @@ export const HeroCTA = () => {
               </div>
             </a>
 
-            {/* CTA Button - Inverts color on hover */}
+            {/* CTA Button */}
             <Button
               variant="primary"
               size="md"
               noFloat
-              className="bg-navy text-bronze hover:bg-bronze hover:text-navy border border-transparent hover:border-navy font-serif font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-300 group-hover:bg-bronze group-hover:text-navy group-hover:hover:bg-white"
+              className="w-full sm:w-auto bg-bronze text-navy hover:bg-white hover:text-navy border border-transparent font-serif font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-300"
               onClick={() => {
                 const element = document.getElementById("consultation-cta");
                 if (element) {

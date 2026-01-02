@@ -5,7 +5,14 @@ import { ThePath } from "@/components/sections/about/ThePath";
 import { TheCommunity } from "@/components/sections/about/TheCommunity";
 import { AboutCTA } from "@/components/sections/about/AboutCTA";
 
-export default function AboutPage() {
+export default async function AboutPage(props: {
+  params: Promise<any>;
+  searchParams: Promise<any>;
+}) {
+  // Next.js 15+ requires unwrapping params and searchParams
+  await props.params;
+  await props.searchParams;
+
   return (
     <main className="min-h-screen flex flex-col">
       <Header />

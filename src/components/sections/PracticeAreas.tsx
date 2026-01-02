@@ -79,11 +79,11 @@ export const PracticeAreas = () => {
 
       <Container>
         {/* Header */}
-        <div className="mb-16 lg:mb-24">
+        <div className="mb-12 sm:mb-16 lg:mb-24 px-2 sm:px-0">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4"
+            className="text-[10px] sm:text-xs font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4"
           >
             Capabilities
           </motion.div>
@@ -91,7 +91,7 @@ export const PracticeAreas = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-7xl font-serif text-white leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-white leading-tight"
           >
             Strategic <span className="italic text-bronze">Expertise.</span>
           </motion.h2>
@@ -165,7 +165,7 @@ export const PracticeAreas = () => {
                         className="inline-flex items-center gap-4 group/btn"
                       >
                         <span className="text-sm font-bold text-bronze uppercase tracking-[0.3em] border-b border-bronze/0 group-hover/btn:border-bronze transition-all duration-500">
-                          View Case Strategy
+                          Learn More
                         </span>
                         <div className="w-12 h-12 rounded-full border border-bronze/30 flex items-center justify-center group-hover/btn:bg-bronze group-hover/btn:border-bronze transition-all duration-500">
                           <ArrowRight className="w-5 h-5 text-bronze group-hover/btn:text-navy transition-colors" />
@@ -186,38 +186,44 @@ export const PracticeAreas = () => {
           </div>
         </div>
 
-        {/* Mobile Layout - Stacks */}
-        <div className="lg:hidden space-y-12">
+        {/* Mobile Layout - Stacks with better spacing */}
+        <div className="lg:hidden flex flex-col gap-16 sm:gap-24">
           {PRACTICE_AREAS.map((area, index) => (
             <motion.div
               key={area.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="space-y-6"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="group flex flex-col gap-6"
             >
-              <div className="relative aspect-[4/3] overflow-hidden border border-white/5">
+              <div className="relative aspect-[16/9] sm:aspect-[21/9] overflow-hidden border border-bronze/20 rounded-sm">
                 <Image
                   src={area.image}
                   alt={area.title}
                   fill
-                  className="object-cover opacity-50"
+                  className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy to-transparent" />
-                <div className="absolute bottom-6 left-6">
-                  <h3 className="text-3xl font-serif text-white">{area.title}</h3>
+                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-3xl sm:text-4xl font-serif text-white leading-tight">{area.title}</h3>
                 </div>
               </div>
-              <p className="text-light-steel font-sans leading-relaxed">
-                {area.description}
-              </p>
-              <Link 
-                href={area.href}
-                className="inline-flex items-center gap-3 text-bronze font-bold uppercase tracking-widest text-xs"
-              >
-                View Strategy <ArrowRight className="w-4 h-4" />
-              </Link>
+              
+              <div className="px-2 space-y-6">
+                <p className="text-light-steel text-base sm:text-lg font-sans leading-relaxed opacity-90">
+                  {area.description}
+                </p>
+                <Link 
+                  href={area.href}
+                  className="inline-flex items-center gap-4 group/btn px-6 py-4 border border-bronze/30 hover:bg-bronze hover:border-bronze transition-all duration-300 rounded-full w-full sm:w-auto justify-center"
+                >
+                  <span className="text-xs font-bold text-bronze group-hover/btn:text-navy uppercase tracking-[0.2em] transition-colors">
+                    Learn More
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-bronze group-hover/btn:text-navy transition-colors" />
+                </Link>
+              </div>
             </motion.div>
           ))}
         </div>

@@ -72,23 +72,38 @@ export const ConsultationCTA = () => {
     
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        caseType: "",
-        description: "",
+    try {
+      const response = await fetch("https://formspree.io/f/mykzwrve", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-    }, 3000);
+      
+      if (response.ok) {
+        setIsSubmitted(true);
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            name: "",
+            phone: "",
+            email: "",
+            caseType: "",
+            description: "",
+          });
+        }, 5000);
+      } else {
+        alert("There was an error submitting your form. Please try again or call us directly at (915) 621-1818.");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("There was an error submitting your form. Please try again or call us directly at (915) 621-1818.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

@@ -32,7 +32,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TruckingAccidentsPage() {
+export default async function TruckingAccidentsPage(props: {
+  params: Promise<any>;
+  searchParams: Promise<any>;
+}) {
+  // Next.js 15+ requires unwrapping params and searchParams
+  await props.params;
+  await props.searchParams;
+
   if (!DATA) return null;
 
   const caseTypesWithIcons = DATA.caseTypes.map((type) => ({

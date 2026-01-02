@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/sections/Hero";
@@ -12,7 +12,15 @@ import { Biography } from "@/components/sections/Biography";
 import { GoogleReviews } from "@/components/sections/GoogleReviews";
 import { Footer } from "@/components/layout/Footer";
 
-export default function Home() {
+export default function Home(props: {
+  params: Promise<any>;
+  searchParams: Promise<any>;
+}) {
+  // Next.js 15+ requires unwrapping params and searchParams
+  // Even if unused, declaring and unwrapping them can prevent "enumeration" warnings from dev tools
+  React.use(props.params);
+  React.use(props.searchParams);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   
@@ -21,7 +29,7 @@ export default function Home() {
   const overlayOpacity = useTransform(scrollY, [0, 600], [0, 0.8]);
 
   return (
-    <main ref={containerRef} className="min-h-screen flex flex-col relative">
+    <main ref={containerRef} className="min-h-screen flex flex-col relative bg-navy">
       <Header />
       
       {/* Sticky Hero Background Layer (Video Only) */}
@@ -42,6 +50,9 @@ export default function Home() {
         
         <div className="pointer-events-auto">
           <ResultsGallery />
+        </div>
+        <div className="pointer-events-auto">
+          <JurisdictionBar />
         </div>
         <div className="pointer-events-auto">
           <Biography />

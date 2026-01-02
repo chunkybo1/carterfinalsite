@@ -23,10 +23,33 @@ export const CaseReviewForm = ({ dark = false }: CaseReviewFormProps) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const response = await fetch("https://formspree.io/f/mykzwrve", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          accidentDate: "",
+          whatHappened: "",
+        });
+      } else {
+        alert("There was an error submitting your form. Please try again or call us directly.");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("There was an error submitting your form. Please try again or call us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

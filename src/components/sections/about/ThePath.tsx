@@ -105,70 +105,51 @@ export const ThePath = () => {
           </motion.div>
 
           {/* Timeline */}
-          <div className="relative">
-            {/* Enhanced Vertical Timeline Line - 2px, gold at 40% opacity */}
+          <div className="relative mt-20">
+            {/* Enhanced Vertical Timeline Line */}
             <motion.div
               ref={timelineLineRef}
               initial={{ scaleY: 0 }}
               animate={timelineLineInView ? { scaleY: 1 } : {}}
               transition={{
                 duration: 1.2,
-                delay: 0,
                 ease: "easeOut",
               }}
               style={{ transformOrigin: "top center" }}
-              className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[2px] bg-bronze/40 hidden md:block"
+              className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[2px] bg-bronze/30"
             />
 
             {/* Milestones */}
-            <div className="space-y-16">
+            <div className="space-y-24 md:space-y-16">
               {PATH_MILESTONES.map((milestone, index) => (
                 <div
                   key={index}
-                  className={`relative flex flex-col md:flex-row items-start gap-8 ${
+                  className={`relative flex flex-col md:flex-row items-start gap-12 md:gap-8 ${
                     index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
                 >
-                  {/* Enhanced Timeline Node - 14px with gold border, navy fill, gold center dot, pulse ring */}
+                  {/* Enhanced Timeline Node */}
                   <motion.div
                     ref={nodeRefs[index]}
                     initial={{ opacity: 0, scale: 0 }}
-                    animate={
-                      nodeInView[index]
-                        ? {
-                            opacity: 1,
-                            scale: 1,
-                          }
-                        : {}
-                    }
+                    animate={nodeInView[index] ? { opacity: 1, scale: 1 } : {}}
                     transition={{
                       duration: 0.4,
-                      delay: 0.3 + index * 0.4,
+                      delay: 0.3,
                       ease: "easeOut",
                     }}
-                    className="absolute left-8 md:left-1/2 w-[14px] h-[14px] bg-navy rounded-full border-2 border-bronze transform -translate-x-1/2 z-10"
+                    className="absolute left-[20px] md:left-1/2 w-[16px] h-[16px] bg-navy rounded-full border-2 border-bronze transform -translate-x-1/2 z-10"
                   >
-                    {/* Gold center dot */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-bronze rounded-full" />
-                    {/* Pulse ring */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-bronze rounded-full" />
                     <motion.div
-                      initial={{ scale: 1, opacity: 0.6 }}
-                      animate={
-                        nodeInView[index]
-                          ? {
-                              scale: [1, 1.8, 1],
-                              opacity: [0.6, 0, 0.6],
-                            }
-                          : {}
-                      }
+                      animate={{
+                        scale: [1, 1.8, 1],
+                        opacity: [0.6, 0, 0.6],
+                      }}
                       transition={{
                         duration: 2,
-                        delay: 0.3 + index * 0.4 + 0.4,
                         repeat: Infinity,
                         ease: "easeInOut",
-                      }}
-                      style={{
-                        willChange: nodeInView[index] ? "transform, opacity" : "auto", // Optimize: Hint browser to optimize infinite pulse animation
                       }}
                       className="absolute inset-0 border-2 border-bronze rounded-full"
                     />
@@ -177,38 +158,32 @@ export const ThePath = () => {
                   {/* Glassmorphism Content Card */}
                   <motion.div
                     ref={cardRefs[index]}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={cardInView[index] ? { opacity: 1, y: 0 } : {}}
+                    initial={{ opacity: 0, x: typeof window !== 'undefined' && window.innerWidth < 768 ? 20 : (index % 2 === 0 ? -20 : 20) }}
+                    animate={cardInView[index] ? { opacity: 1, x: 0 } : {}}
                     transition={{
-                      duration: 0.5,
-                      delay: 0.4 + index * 0.4,
+                      duration: 0.7,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    whileHover={{
-                      y: -4,
-                      transition: { duration: 0.3, ease: "easeOut" },
-                    }}
-                    className={`w-full md:w-[45%] ${
+                    className={`w-full md:w-[45%] pl-14 md:pl-0 ${
                       index % 2 === 0 ? "md:mr-auto md:pr-8" : "md:ml-auto md:pl-8"
                     }`}
                   >
-                    {/* Optimized: Removed backdrop-blur, used semi-transparent background */}
-                    <div className="relative bg-[#0a1628]/95 border border-white/10 p-8 rounded-lg shadow-[0_4px_24px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.4)] transition-shadow duration-300 group">
-                      {/* Gold accent line at top edge */}
-                      <div className="absolute top-0 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-bronze/60 to-transparent group-hover:via-bronze/80 transition-colors duration-300" />
+                    <div className="relative bg-[#0a1628]/95 border border-white/10 p-8 rounded-lg shadow-[0_4px_24px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.4)] transition-all duration-300 group">
+                      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-bronze/40 to-transparent group-hover:via-bronze transition-colors duration-500" />
 
-                      {/* Ghosted number watermark in bottom-right */}
-                      <div className="absolute bottom-4 right-4 text-[60px] font-serif font-bold text-white/4 pointer-events-none">
+                      <div className="absolute bottom-4 right-6 text-6xl md:text-[80px] font-serif font-bold text-white/5 pointer-events-none select-none">
                         {milestone.number}
                       </div>
 
-                      <div className="text-sm font-bold text-bronze uppercase tracking-wider mb-2">
+                      <div className="text-[10px] font-bold text-bronze uppercase tracking-[0.2em] mb-3">
                         {milestone.year}
                       </div>
-                      <h3 className="text-2xl font-serif font-bold text-white mb-4">
+                      <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-4">
                         {milestone.title}
                       </h3>
-                      <p className="text-gray-300 leading-relaxed">{milestone.description}</p>
+                      <p className="text-gray-400 leading-relaxed font-sans text-base">
+                        {milestone.description}
+                      </p>
                     </div>
                   </motion.div>
                 </div>

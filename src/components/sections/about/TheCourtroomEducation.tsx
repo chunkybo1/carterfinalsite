@@ -45,16 +45,16 @@ export const TheCourtroomEducation = () => {
             initial={{ opacity: 0, scale: 1.05 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 flex items-center justify-center overflow-hidden"
           >
             <div className="text-center">
-              <div className="text-[120px] md:text-[180px] font-serif font-bold text-white/5 mb-4 tracking-tight">
+              <div className="text-[100px] sm:text-[140px] md:text-[180px] font-serif font-bold text-white/5 mb-4 tracking-tight select-none">
                 COURTROOM
               </div>
-              <div className="text-white/30 text-xs uppercase tracking-[0.3em] font-sans">
+              <div className="text-white/30 text-xs sm:text-sm uppercase tracking-[0.3em] font-sans">
                 Interior Photography
               </div>
-              <div className="text-white/20 text-[10px] mt-2 uppercase tracking-wider">
+              <div className="text-white/20 text-[10px] sm:text-xs mt-2 uppercase tracking-wider">
                 Coming Soon
               </div>
             </div>
@@ -101,9 +101,9 @@ export const TheCourtroomEducation = () => {
               delay: 0.5,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-8 leading-tight"
+            className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white mb-8 leading-tight"
           >
-            Learned from the Bench
+            Learned from <br className="hidden sm:block" /> the Bench
           </motion.h2>
 
           {/* Divider Line */}
@@ -116,7 +116,7 @@ export const TheCourtroomEducation = () => {
               ease: "easeOut",
             }}
             style={{ transformOrigin: "left center" }}
-            className="h-[1px] w-20 bg-bronze mb-10"
+            className="h-[2px] w-16 sm:w-20 bg-bronze mb-10"
           />
 
           {/* Body Copy */}
@@ -126,13 +126,13 @@ export const TheCourtroomEducation = () => {
             transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
             className="space-y-6 mb-10"
           >
-            <p className="text-lg text-white/85 leading-relaxed max-w-[600px]">
+            <p className="text-base sm:text-lg text-white/85 leading-relaxed max-w-[600px]">
               Thomas knew he wanted to be a trial lawyer before he ever applied
               to law school. As a student, he had the privilege of sitting in
               his uncle's district courtroom in Houston—watching the best
               attorneys in Texas try cases.
             </p>
-            <p className="text-lg text-white/85 leading-relaxed max-w-[600px]">
+            <p className="text-base sm:text-lg text-white/85 leading-relaxed max-w-[600px]">
               But it was his uncle, presiding from the bench, who left the
               deepest impression. Not for his legal acumen, but for how he
               treated every person who entered that room.
@@ -157,7 +157,7 @@ export const TheCourtroomEducation = () => {
               style={{ transformOrigin: "top center" }}
               className="absolute left-0 top-0 bottom-0 w-[2px] bg-bronze"
             />
-            <p className="text-xl md:text-2xl font-serif italic text-white leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl font-serif italic text-white leading-relaxed">
               &quot;He treated everyone with dignity and respect—that taught me
               what fairness actually means.&quot;
             </p>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -34,6 +34,9 @@ export const Header = () => {
 
   // Handle scroll events efficiently
   useMotionValueEvent(scrollY, "change", (latest) => {
+    // If mobile menu is open, don't hide header based on scroll
+    if (isMobileMenuOpen) return;
+
     const currentScrollY = latest;
     const lastScrollY = lastScrollYRef.current;
     const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 1000;
@@ -45,18 +48,14 @@ export const Header = () => {
     }
 
     // 2. Handle header visibility (hide on scroll down, show on up)
-    // Only update if significantly changed to prevent jitter
     if (Math.abs(currentScrollY - lastScrollY) > 5) {
       let newIsHeaderVisible = isHeaderVisible;
 
       if (currentScrollY < viewportHeight * 0.2) {
-        // Always visible at the top
         newIsHeaderVisible = true;
       } else if (currentScrollY > lastScrollY) {
-        // Scrolling down -> hide
         newIsHeaderVisible = false;
       } else if (currentScrollY < lastScrollY) {
-        // Scrolling up -> show
         newIsHeaderVisible = true;
       }
 
@@ -64,12 +63,26 @@ export const Header = () => {
         setIsHeaderVisible(newIsHeaderVisible);
       }
       
-      // Update last scroll position only when direction check happens
       lastScrollYRef.current = currentScrollY;
     }
   });
 
   const headerY = isHeaderVisible ? 0 : -100;
+
+  // Header should be static and opaque on mobile, animated on desktop
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  // Lock scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -117,38 +130,40 @@ export const Header = () => {
   return (
     <motion.header
       style={{ 
-        y: headerY,
+        y: isMobile ? 0 : headerY,
       }}
-      className={`fixed top-0 left-0 right-0 z-50 py-1.5 2xl:py-2 transition-all duration-300 ${
-        hasScrolled 
-          ? 'shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[0.5px] border-bronze' 
-          : ''
+      className={`fixed top-0 left-0 right-0 z-50 py-3 md:py-1.5 2xl:py-2 transition-all duration-300 ${
+        isMobile || hasScrolled 
+          ? 'bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze' 
+          : 'bg-transparent'
       }`}
-      initial={{ y: 0 }}
+      initial={false}
+      animate={{ y: isMobile ? 0 : headerY }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background layer */}
-      <div 
-        className="absolute inset-0 bg-navy transition-opacity duration-300 pointer-events-none"
-        style={{ 
-          opacity: headerBackgroundOpacity,
-          zIndex: -1,
-        }}
-      />
+      {/* Background layer - only for desktop transparency transitions */}
+      {!isMobile && (
+        <div 
+          className="absolute inset-0 bg-navy transition-opacity duration-300 pointer-events-none"
+          style={{ 
+            opacity: headerBackgroundOpacity,
+            zIndex: -1,
+          }}
+        />
+      )}
       <Container className="2xl:max-w-[95vw] relative z-10">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center text-white">
-            <div className="relative h-16 w-[320px] 2xl:h-20 2xl:w-[400px]">
+          <Link href="/" className="flex items-center text-white" onClick={() => setIsMobileMenuOpen(false)}>
+            <div className="relative h-10 w-48 sm:h-12 sm:w-56 md:h-16 md:w-[320px] 2xl:h-20 2xl:w-[400px]">
               <Image
                 src="/carter-logo-white.png"
-                alt="Carter Law Wins - Winning is a Way of Life"
+                alt="Carter Law Wins"
                 fill
                 className="object-contain object-left"
                 priority
-                unoptimized
                 style={{ 
                   background: 'transparent',
                   backgroundColor: 'transparent'
@@ -157,7 +172,7 @@ export const Header = () => {
             </div>
           </Link>
 
-          {/* Nav & CTA */}
+          {/* Nav & CTA - Desktop */}
           <div className="hidden md:flex items-center gap-6 2xl:gap-8">
             <nav className="flex items-center gap-4 2xl:gap-6">
               <Link href="/about" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">About</Link>
@@ -233,37 +248,127 @@ export const Header = () => {
           </div>
 
           <button
-            className="md:hidden text-white"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden relative z-[70] flex items-center justify-center w-10 h-10 text-white focus:outline-none"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+            }}
+            aria-label="Toggle Menu"
           >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMobileMenuOpen ? (
+              <X className="h-8 w-8 text-bronze" />
+            ) : (
+              <Menu className="h-8 w-8 text-white" />
+            )}
           </button>
         </div>
       </Container>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-navy border-t border-white/10"
-        >
-          <Container className="py-4 flex flex-col gap-4">
-            <Link href="/about" className="text-white hover:text-bronze py-2">About</Link>
-            <Link href="/results" className="text-white hover:text-bronze py-2">Results</Link>
-            <Link href="/reviews" className="text-white hover:text-bronze py-2">Reviews</Link>
-            <Link href="/contact" className="text-white hover:text-bronze py-2">Contact</Link>
-            <Button 
-              size="md"
-              noFloat
-              className="w-full bg-bronze text-navy hover:bg-navy hover:text-bronze border border-transparent hover:border-bronze font-serif font-bold uppercase tracking-[0.2em] text-xs transition-all duration-300 mt-2"
+      {/* Full-Screen Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-[65] bg-navy flex flex-col pt-24 pb-12 px-8 overflow-y-auto md:hidden"
+          >
+            {/* Explicit Close Button inside Overlay */}
+            <button 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute top-6 right-6 text-white/50 hover:text-bronze p-2 transition-colors"
+              aria-label="Close Menu"
             >
-              Free Case Review
-            </Button>
-          </Container>
-        </motion.div>
-      )}
+              <X className="h-8 w-8" />
+            </button>
+            <nav className="flex flex-col gap-6 text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <Link 
+                  href="/about" 
+                  className="text-3xl font-serif text-white hover:text-bronze transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  About
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="flex flex-col gap-4"
+              >
+                <span className="text-bronze font-sans uppercase tracking-[0.2em] text-xs font-bold">Service Areas</span>
+                <div className="flex flex-col gap-3">
+                  {SERVICE_AREAS.map((area) => (
+                    <Link
+                      key={area.href}
+                      href={area.href}
+                      className="text-xl font-serif text-white/80 hover:text-bronze transition-colors"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {area.title}
+                    </Link>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Link 
+                  href="/reviews" 
+                  className="text-3xl font-serif text-white hover:text-bronze transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Reviews
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <Link 
+                  href="/contact" 
+                  className="text-3xl font-serif text-white hover:text-bronze transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+              </motion.div>
+            </nav>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="mt-auto flex flex-col gap-6 items-center"
+            >
+              <div className="h-[1px] w-12 bg-bronze/30" />
+              <a href="tel:9156211818" className="flex items-center gap-3 text-white text-xl font-serif">
+                <Phone className="h-5 w-5 text-bronze" />
+                (915) 621-1818
+              </a>
+              <Button 
+                size="lg"
+                noFloat
+                className="w-full bg-bronze text-navy hover:bg-white border-none font-serif font-bold uppercase tracking-[0.2em] text-sm py-5"
+              >
+                Free Case Review
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };

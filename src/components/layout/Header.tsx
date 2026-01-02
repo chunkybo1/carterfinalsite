@@ -70,7 +70,16 @@ export const Header = () => {
   const headerY = isHeaderVisible ? 0 : -100;
 
   // Header should be static and opaque on mobile, animated on desktop
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Lock scroll when mobile menu is open
   useEffect(() => {
@@ -133,10 +142,10 @@ export const Header = () => {
         y: isMobile ? 0 : headerY,
       }}
       className={`fixed top-0 left-0 right-0 z-50 py-3 md:py-1.5 2xl:py-2 transition-all duration-300 ${
-        isMobile || hasScrolled 
+        hasScrolled 
           ? 'bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze' 
           : 'bg-transparent'
-      }`}
+      } ${isMobile ? 'bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze' : ''}`}
       initial={false}
       animate={{ y: isMobile ? 0 : headerY }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -144,15 +153,13 @@ export const Header = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Background layer - only for desktop transparency transitions */}
-      {!isMobile && (
-        <div 
-          className="absolute inset-0 bg-navy transition-opacity duration-300 pointer-events-none"
-          style={{ 
-            opacity: headerBackgroundOpacity,
-            zIndex: -1,
-          }}
-        />
-      )}
+      <div 
+        className={`absolute inset-0 bg-navy transition-opacity duration-300 pointer-events-none ${isMobile ? 'hidden' : ''}`}
+        style={{ 
+          opacity: headerBackgroundOpacity,
+          zIndex: -1,
+        }}
+      />
       <Container className="2xl:max-w-[95vw] relative z-10">
         <div className="flex items-center justify-between">
           {/* Logo */}

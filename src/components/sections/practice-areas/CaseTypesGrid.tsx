@@ -18,17 +18,15 @@ export const CaseTypesGrid = ({ caseTypes }: CaseTypesGridProps) => {
   return (
     <section className="relative w-full bg-navy py-24 lg:py-32 overflow-hidden">
       <Container>
-        <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
-          <div className="max-w-2xl">
+        <div className="flex flex-col items-center text-center mb-16">
+          <div className="max-w-3xl mx-auto">
             <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
               Comprehensive Representation
             </div>
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
-              Types of Cases <br /> 
-              <span className="text-bronze">We Handle.</span>
+              Types of Cases <span className="text-bronze">We Handle.</span>
             </h2>
           </div>
-          <div className="h-[1px] flex-1 bg-white/10 mb-4 hidden md:block" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">

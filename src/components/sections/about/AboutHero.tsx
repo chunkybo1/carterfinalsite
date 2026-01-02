@@ -21,10 +21,10 @@ export const AboutHero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full bg-navy overflow-hidden flex flex-col md:block">
+    <section className="relative min-h-screen w-full bg-navy overflow-hidden flex flex-col md:block pt-[64px] sm:pt-[96px] md:pt-0">
       {/* Photo Zone - Desktop: Absolute Right, Mobile: Relative Top */}
       <div 
-        className="relative md:absolute top-0 right-0 w-full md:w-[50%] h-[50vh] md:h-full z-10 order-1"
+        className="relative md:absolute top-0 right-0 w-full md:w-[50%] h-[70vh] md:h-full z-10 order-1"
         style={{ clipPath }}
       >
         <div className="absolute inset-0 w-full h-full">
@@ -34,7 +34,10 @@ export const AboutHero = () => {
               alt="Thomas Carter"
               fill
               className="object-cover"
-              style={{ filter: "saturate(0.7) contrast(1.1)" }}
+              style={{ 
+                filter: "saturate(0.7) contrast(1.1)",
+                objectPosition: "top center"
+              }}
               priority
             />
             {/* Desaturation overlay for depth */}

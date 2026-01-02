@@ -158,7 +158,7 @@ export const ThePath = () => {
                   {/* Glassmorphism Content Card */}
                   <motion.div
                     ref={cardRefs[index]}
-                    initial={{ opacity: 0, x: typeof window !== 'undefined' && window.innerWidth < 768 ? 20 : (index % 2 === 0 ? -20 : 20) }}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                     animate={cardInView[index] ? { opacity: 1, x: 0 } : {}}
                     transition={{
                       duration: 0.7,

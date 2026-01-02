@@ -1,9 +1,8 @@
 import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import { AboutHero } from "@/components/sections/about/AboutHero";
 import { TheCourtroomEducation } from "@/components/sections/about/TheCourtroomEducation";
 import { ThePath } from "@/components/sections/about/ThePath";
-import { TheCommunity } from "@/components/sections/about/TheCommunity";
-import { AboutCTA } from "@/components/sections/about/AboutCTA";
 
 export default async function AboutPage(props: {
   params: Promise<any>;
@@ -14,13 +13,12 @@ export default async function AboutPage(props: {
   await props.searchParams;
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen flex flex-col bg-navy">
       <Header />
       <AboutHero />
       <TheCourtroomEducation />
       <ThePath />
-      <TheCommunity />
-      <AboutCTA />
+      <Footer />
     </main>
   );
 }

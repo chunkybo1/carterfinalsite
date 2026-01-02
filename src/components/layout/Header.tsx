@@ -141,11 +141,11 @@ export const Header = () => {
       style={{ 
         y: isMobile ? 0 : headerY,
       }}
-      className={`fixed top-0 left-0 right-0 z-50 py-3 md:py-1.5 2xl:py-2 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 py-3 sm:py-5 md:py-1.5 2xl:py-2 transition-all duration-300 ${
         hasScrolled 
           ? 'bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze' 
-          : 'bg-transparent'
-      } ${isMobile ? 'bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze' : ''}`}
+          : isMobile ? 'bg-navy' : 'bg-transparent'
+      }`}
       initial={false}
       animate={{ y: isMobile ? 0 : headerY }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -164,7 +164,7 @@ export const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center text-white" onClick={() => setIsMobileMenuOpen(false)}>
-            <div className="relative h-10 w-48 sm:h-12 sm:w-56 md:h-16 md:w-[320px] 2xl:h-20 2xl:w-[400px]">
+            <div className="relative h-10 w-48 sm:h-14 sm:w-64 md:h-16 md:w-[320px] 2xl:h-20 2xl:w-[400px]">
               <Image
                 src="/carter-logo-white.png"
                 alt="Carter Law Wins"
@@ -255,7 +255,7 @@ export const Header = () => {
           </div>
 
           <button
-            className="md:hidden relative z-[70] flex items-center justify-center w-10 h-10 text-white focus:outline-none"
+            className="md:hidden relative z-[70] flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 text-white focus:outline-none"
             onClick={(e) => {
               e.preventDefault();
               setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -263,9 +263,9 @@ export const Header = () => {
             aria-label="Toggle Menu"
           >
             {isMobileMenuOpen ? (
-              <X className="h-8 w-8 text-bronze" />
+              <X className="h-8 w-8 sm:h-10 sm:w-10 text-bronze" />
             ) : (
-              <Menu className="h-8 w-8 text-white" />
+              <Menu className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             )}
           </button>
         </div>

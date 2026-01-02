@@ -7,6 +7,7 @@ import { Hero } from "@/components/sections/Hero";
 import { HeroCTA } from "@/components/sections/HeroCTA";
 import { PracticeAreas } from "@/components/sections/PracticeAreas";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
+import { JurisdictionBar } from "@/components/sections/JurisdictionBar";
 import { Biography } from "@/components/sections/Biography";
 import { GoogleReviews } from "@/components/sections/GoogleReviews";
 import { Footer } from "@/components/layout/Footer";

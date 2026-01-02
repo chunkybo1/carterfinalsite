@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { VideoBackground } from "@/components/ui/VideoBackground";
+import { HTML5Video } from "@/components/ui/HTML5Video";
 import { CaseReviewForm } from "@/components/ui/CaseReviewForm";
 import { Phone } from "lucide-react";
 
@@ -18,7 +18,11 @@ export const PracticeAreaHero = ({ eyebrow, title, description }: PracticeAreaHe
     <section className="relative w-full min-h-screen bg-navy overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full z-0">
-        <VideoBackground overlayOpacity={0.7} className="w-full h-full object-cover" />
+        <HTML5Video 
+          videoSrc="/videos/hero-video.mp4" 
+          muted={true} 
+          className="w-full h-full object-cover" 
+        />
       </div>
 
       {/* Dark Overlay */}

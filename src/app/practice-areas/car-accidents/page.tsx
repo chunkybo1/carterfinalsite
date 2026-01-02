@@ -9,6 +9,7 @@ import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGall
 import { StrategicFAQ } from "@/components/sections/practice-areas/StrategicFAQ";
 import { PracticeAreaCTA } from "@/components/sections/practice-areas/PracticeAreaCTA";
 import { PRACTICE_AREAS_DATA } from "@/lib/services-data";
+import { getIconForCaseType } from "@/utils/practiceAreaHelpers";
 
 const SLUG = "car-accidents";
 const DATA = PRACTICE_AREAS_DATA.find((area) => area.id === SLUG);
@@ -56,7 +57,7 @@ export default function CarAccidentPage() {
       {/* 3. Introduction Section: The Human Element */}
       <MeetAdvocate 
         headline="Standing Beside You, Every Step of the Way."
-        text="Thomas Carter founded this firm on a simple principle: every client deserves a champion. With over 15 years in the courtroom, he has built a reputation for taking the cases other firms shy away from. He doesn't just manage cases; he fights battles."
+        text="Thomas Carter founded this firm on a simple principle: every client deserves a champion. With over 16 years in the courtroom, he has built a reputation for taking the cases other firms shy away from. He doesn't just manage cases; he fights battles."
       />
 
       {/* 4. The Process Map: Steps 01, 02, 03 */}
@@ -79,16 +80,5 @@ export default function CarAccidentPage() {
   );
 }
 
-function getIconForCaseType(type: string): string {
-  const t = type.toLowerCase();
-  if (t.includes("rear-end")) return "ArrowDown";
-  if (t.includes("head-on")) return "XCircle";
-  if (t.includes("hit-and-run")) return "Footprints";
-  if (t.includes("drunk")) return "Wine";
-  if (t.includes("distracted")) return "Smartphone";
-  if (t.includes("speeding")) return "Gauge";
-  if (t.includes("weather")) return "CloudRain";
-  if (t.includes("rideshare")) return "Car";
-  if (t.includes("intersection")) return "Split";
-  return "AlertCircle";
-}
+// Remove local getIconForCaseType function as it's now imported
+

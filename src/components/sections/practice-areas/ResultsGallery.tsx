@@ -1,54 +1,25 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 
 const RESULTS = [
-  { 
-    id: 1,
-    amount: "$650,000", 
-    category: "18 Wheeler / Semitruck", 
-    details: "Secured maximum recovery for a client involved in a high-speed commercial vehicle collision." 
-  },
-  { 
-    id: 2,
-    amount: "$500,000", 
-    category: "18 Wheeler / Semitruck", 
-    details: "Held a national trucking corporation accountable for safety violations leading to severe injury." 
-  },
-  { 
-    id: 3,
-    amount: "$250,000", 
-    category: "Dog Bite", 
-    details: "Secured justice for a victim of a vicious attack, covering all medical and reconstructive costs." 
-  },
-  { 
-    id: 4,
-    amount: "$100,000", 
-    category: "Car Accident (MTBI)", 
-    details: "Secured compensation for a Mild Traumatic Brain Injury that insurance initially attempted to minimize." 
-  },
-  { 
-    id: 5,
-    amount: "$100,000", 
-    category: "Car Accident", 
-    details: "Proven results in a high-impact collision where liability was initially disputed." 
-  },
-  { 
-    id: 6,
-    amount: "$50,000", 
-    category: "Slip N' Fall", 
-    details: "Recovered damages for a client injured due to preventable premises hazards at a commercial property." 
-  },
+// ... existing results ...
 ];
 
 // Double results for a seamless CSS loop
 const MARQUEE_ITEMS = [...RESULTS, ...RESULTS];
 
 export const ResultsGallery = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { margin: "100px 0px" });
+
   return (
-    <section className="relative w-full py-24 lg:py-32 bg-transparent overflow-hidden border-y border-white/5">
+    <section 
+      ref={containerRef}
+      className="relative w-full py-24 lg:py-32 bg-transparent overflow-hidden border-y border-white/5"
+    >
       <style jsx global>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
@@ -56,6 +27,9 @@ export const ResultsGallery = () => {
         }
         .animate-marquee {
           animation: marquee 60s linear infinite;
+        }
+        .animate-marquee-paused {
+          animation-play-state: paused;
         }
         .animate-marquee:hover {
           animation-play-state: paused;
@@ -76,11 +50,11 @@ export const ResultsGallery = () => {
 
       {/* Optimized CSS Marquee Container */}
       <div className="relative flex whitespace-nowrap">
-        <div className="flex animate-marquee gap-8 px-4 will-change-transform translate-z-0">
+        <div className={`flex animate-marquee ${!isInView ? 'animate-marquee-paused' : ''} gap-8 px-4 will-change-transform translate-z-0`}>
           {MARQUEE_ITEMS.map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
-              className="relative w-[280px] md:w-[340px] h-[450px] md:h-[520px] shrink-0 p-8 md:p-10 backdrop-blur-sm bg-navy/20 border border-bronze/30 shadow-2xl rounded-sm flex flex-col justify-between whitespace-normal transition-all duration-500 hover:border-bronze hover:bg-navy/40 group"
+              className="relative w-[280px] md:w-[340px] h-[450px] md:h-[520px] shrink-0 p-8 md:p-10 bg-navy/40 border border-bronze/30 shadow-2xl rounded-sm flex flex-col justify-between whitespace-normal transition-[background-color,border-color] duration-500 hover:border-bronze hover:bg-navy/60 group"
             >
               {/* Header Content */}
               <div className="space-y-8">

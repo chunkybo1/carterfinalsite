@@ -45,7 +45,7 @@ export const GoogleReviews = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative bg-navy/10 backdrop-blur-sm p-8 border border-white/5 hover:border-bronze/30 transition-all duration-500"
+              className="group relative bg-navy/20 p-8 border border-white/5 hover:border-bronze/30 transition-all duration-500"
             >
               {/* Google 'G' watermark */}
               <div className="absolute top-6 right-8 opacity-10 group-hover:opacity-20 transition-opacity">

@@ -8,14 +8,8 @@
   /* Brand Colors */
   --color-steel: #4A5568; /* Charcoal Steel - Primary Brand */
   --color-navy: #1E3A5F; /* Deep Navy Blue - Secondary/CTAs */
-  --color-bronze: #B8956A; /* Warm Bronze - Accents (replacing gold) */
+  --color-bronze: #B8956A; /* Warm Bronze - Accents */
   --color-light-steel: #8B95A5; /* Light Steel - Supporting Text */
-  
-  /* Legacy Mappings for Compatibility */
-  --color-gold: #B8956A; /* Mapping Bronze to Gold var */
-  --color-gold-hover: #9A7B52; /* Darker Bronze */
-  --color-forest: #4A5568; /* Mapping Forest to Steel */
-  --color-sage: #8B95A5; /* Mapping Sage to Light Steel */
   
   /* Premium Black/Charcoal Palette */
   --color-charcoal: #1a1a1a;
@@ -28,17 +22,12 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  /* New Vars */
+  /* Brand Colors */
   --color-steel: var(--color-steel);
   --color-navy: var(--color-navy);
   --color-bronze: var(--color-bronze);
   --color-light-steel: var(--color-light-steel);
   
-  /* Mapped Vars */
-  --color-gold: var(--color-gold);
-  --color-gold-hover: var(--color-gold-hover);
-  --color-forest: var(--color-forest);
-  --color-sage: var(--color-sage);
   --color-charcoal: var(--color-charcoal);
   --color-black: var(--color-black);
   --color-light-grey: var(--color-light-grey);

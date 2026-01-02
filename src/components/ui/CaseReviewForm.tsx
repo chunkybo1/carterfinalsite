@@ -16,10 +16,17 @@ export const CaseReviewForm = ({ dark = false }: CaseReviewFormProps) => {
     accidentDate: "",
     whatHappened: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
+    setIsSubmitted(true);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -33,6 +40,32 @@ export const CaseReviewForm = ({ dark = false }: CaseReviewFormProps) => {
   const labelColor = dark ? "text-white/70" : "text-navy/70";
   const borderColor = dark ? "border-white/20" : "border-gray-300";
   const inputBg = "bg-transparent";
+
+  if (isSubmitted) {
+    return (
+      <div className={`${dark ? 'bg-navy/40 backdrop-blur-md border border-white/10' : 'bg-white/95 backdrop-blur-sm shadow-2xl'} p-6 md:p-8 rounded-lg text-center py-16`}>
+        <div className="flex justify-center mb-6">
+          <Image
+            src="/diamond.png"
+            alt=""
+            width={48}
+            height={48}
+            className="object-contain"
+          />
+        </div>
+        <h2 className={`text-2xl font-serif font-bold ${textColor} mb-4`}>Message Received</h2>
+        <p className={`${labelColor} font-sans leading-relaxed`}>
+          Thank you for reaching out. Thomas Carter or a senior member of our team will review your case and contact you within 24 hours.
+        </p>
+        <Button 
+          onClick={() => setIsSubmitted(false)}
+          className="mt-8 bg-bronze text-navy hover:bg-navy hover:text-bronze border border-transparent hover:border-bronze"
+        >
+          Send Another Message
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className={`${dark ? 'bg-navy/40 backdrop-blur-md border border-white/10' : 'bg-white/95 backdrop-blur-sm shadow-2xl'} p-6 md:p-8 rounded-lg`}>
@@ -114,9 +147,10 @@ export const CaseReviewForm = ({ dark = false }: CaseReviewFormProps) => {
 
         <Button
           type="submit"
+          disabled={isSubmitting}
           className="w-full bg-bronze text-navy hover:bg-navy hover:text-bronze border border-transparent hover:border-bronze transition-all duration-300 font-serif font-bold uppercase tracking-widest mt-4"
         >
-          Get My Free Consultation
+          {isSubmitting ? "Sending..." : "Get My Free Consultation"}
         </Button>
 
         <p className={`text-[10px] uppercase tracking-tighter text-center ${labelColor} mt-4`}>

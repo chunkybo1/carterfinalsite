@@ -110,7 +110,7 @@ export const HeroSection = ({
                 className="mt-6 md:mt-8"
               >
                 <p className="text-sm md:text-base font-sans font-medium tracking-[0.3em] text-white/70 uppercase">
-                  WINNING IS OUR WAY OF LIFE
+                  EL PASO&apos;S CHAMPION • LICENSED IN TX, AZ, & NM
                 </p>
               </motion.div>
 

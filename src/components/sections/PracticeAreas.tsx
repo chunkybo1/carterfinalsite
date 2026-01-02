@@ -140,7 +140,7 @@ export const PracticeAreas = () => {
                 className="relative w-full h-full group"
               >
                 {/* Image Container */}
-                <div className="relative w-full h-full overflow-hidden border border-white/5 bg-navy/50 backdrop-blur-sm">
+                <div className="relative w-full h-full overflow-hidden border border-white/5 bg-navy/50">
                   <Image
                     src={PRACTICE_AREAS[activeIndex].image}
                     alt={PRACTICE_AREAS[activeIndex].title}

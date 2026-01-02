@@ -169,13 +169,13 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
     ],
     featuredResults: [
       {
-        amount: "$2.3 Million",
-        caseType: "Truck Accident",
+        amount: "$100K",
+        caseType: "Car Accident",
         context: "Client suffered permanent spinal injuries after being rear-ended by a commercial truck on I-10",
         challenge: "Insurance company claimed client was partially at fault and offered $150,000 initial settlement"
       },
       {
-        amount: "$1.8 Million",
+        amount: "$650K",
         caseType: "Semi-Truck Collision",
         context: "Client injured when semi-truck driver fell asleep and crossed median, causing head-on collision",
         challenge: "Trucking company denied driver fatigue, claimed mechanical failure"
@@ -768,39 +768,39 @@ export const METHODOLOGY_PILLARS = [
 // Results and testimonials data
 export const FEATURED_RESULTS = [
   {
-    caseType: "Truck Accident",
-    amount: "$2.3 Million",
-    context: "Client suffered permanent spinal injuries after commercial truck collision on I-10",
-    challenge: "Insurance company claimed comparative fault, offered $150,000 initial settlement",
-    outcome: "Secured full policy limits plus additional compensation through aggressive negotiation"
+    caseType: "Car Accident (TBI)",
+    amount: "$100,000",
+    context: "Client suffered a mild traumatic brain injury following a collision",
+    challenge: "Insurance company disputed the severity and long-term impact of the injury",
+    outcome: "Secured full policy limits for the client's recovery"
   },
   {
-    caseType: "Medical Malpractice",
-    amount: "$3.2 Million",
-    context: "Surgeon operated on wrong spinal level, causing permanent nerve damage",
-    challenge: "Hospital and surgeon denied error, claimed patient's condition was pre-existing",
-    outcome: "Won at trial after extensive medical expert testimony and evidence presentation"
+    caseType: "Dog Bite",
+    amount: "$250,000",
+    context: "Client suffered severe lacerations and scarring from a dog attack",
+    challenge: "Owner denied liability and claimed provocation",
+    outcome: "Proved negligence and secured significant compensation for reconstruction"
   },
   {
-    caseType: "Product Liability",
-    amount: "$2.8 Million",
-    context: "Client injured when vehicle's brake system failed, causing serious accident",
-    challenge: "Manufacturer denied defect, claimed improper maintenance by client",
-    outcome: "Proved design defect through engineering analysis and secured full compensation"
+    caseType: "Slip N' Fall",
+    amount: "$50,000",
+    context: "Client slipped on an unmarked wet floor in a retail store",
+    challenge: "Store claimed warning signs were present and client was distracted",
+    outcome: "Demonstrated negligence through surveillance evidence and secured fair settlement"
   },
   {
-    caseType: "Wrongful Death",
-    amount: "$4.1 Million",
-    context: "Family lost father and husband in collision with commercial truck",
-    challenge: "Trucking company denied liability, claimed driver was independent contractor",
-    outcome: "Established employer-employee relationship and secured justice for grieving family"
+    caseType: "Car Accident",
+    amount: "$100,000",
+    context: "Client involved in a serious motor vehicle collision causing injury",
+    challenge: "Disputed liability by the other driver's insurance",
+    outcome: "Successfully negotiated settlement without need for litigation"
   },
   {
-    caseType: "Workers' Compensation",
-    amount: "$1.2 Million",
-    context: "Worker fell from scaffolding due to safety violations, suffering permanent disability",
-    challenge: "Multiple defendants, workers' comp limitations, third-party claims",
-    outcome: "Pursued all available claims and secured maximum recovery from multiple sources"
+    caseType: "18 Wheeler/Semi-Truck",
+    amount: "$650,000",
+    context: "Client injured in a collision with a commercial semi-truck",
+    challenge: "Trucking company denied driver error and fought liability",
+    outcome: "Secured substantial settlement for medical costs and pain and suffering"
   }
 ];
 

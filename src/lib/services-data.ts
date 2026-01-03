@@ -5,7 +5,8 @@ import {
   Truck,
   Bike,
   User,
-  AlertTriangle, 
+  AlertTriangle,
+  PawPrint,
   LucideIcon,
 } from "lucide-react";
 
@@ -428,6 +429,98 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
       }
     ],
     ctaMessage: "Injured as a pedestrian? These accidents often cause life-altering injuries. We fight for maximum compensation and hold negligent drivers accountable."
+  },
+  {
+    id: "dog-bites",
+    title: "Dog Bites",
+    shortDescription: "Animal attacks leave deep scars, both physical and emotional. We fight for victims.",
+    icon: PawPrint,
+    href: "/practice-areas/dog-bites",
+    overview: "A dog attack is a terrifying experience that can leave permanent physical scarring and deep emotional trauma. In Texas, dog owners have a responsibility to control their animals and can be held liable when their negligence results in an attack. Whether the owner failed to secure their property, violated leash laws, or knew their dog had dangerous tendencies, they must be held accountable. At Carter Law, we've helped victims—many of them children—secure the compensation they need for medical treatment, reconstructive surgery, and the long-term support required to move past such a traumatic event.",
+    whoNeedsThis: "If you or your child has been bitten or attacked by a dog, you need representation that understands Texas 'one-bite rule' and negligence laws. Don't let insurance companies downplay the severity of animal attack injuries.",
+    complexityFactors: [
+      "Proving owner negligence or 'one-bite' knowledge",
+      "Identifying insurance coverage (homeowners or renters insurance)",
+      "Calculating future costs for reconstructive surgery and scar revision",
+      "Addressing psychological trauma and PTSD in children",
+      "Navigating local animal control ordinances and leash laws"
+    ],
+    caseTypes: [
+      "Unprovoked dog attacks",
+      "Leash law violations",
+      "Attacks on public property",
+      "Attacks on private property (invitees/guests)",
+      "Attacks involving known dangerous breeds",
+      "Attacks resulting in permanent scarring",
+      "Attacks causing nerve or tendon damage",
+      "Knock-down injuries caused by dogs",
+      "Attacks on delivery drivers and service workers"
+    ],
+    featuredResults: [
+      {
+        amount: "$250,000",
+        caseType: "Dog Bite",
+        context: "Client suffered severe lacerations and scarring from a dog attack",
+        challenge: "Owner denied liability and claimed provocation"
+      },
+      {
+        amount: "$175,000",
+        caseType: "Child Dog Bite",
+        context: "Young child bitten in the face by a neighbor's unrestrained dog",
+        challenge: "Insurance company claimed the child provoked the animal"
+      },
+      {
+        amount: "$310,000",
+        caseType: "Animal Attack",
+        context: "Delivery driver attacked by two large dogs while on property",
+        challenge: "Property owner claimed the driver was trespassing"
+      }
+    ],
+    processSteps: [
+      {
+        step: "Animal Control Reporting",
+        description: "We ensure the attack is properly reported to local animal control. Their investigation and records are often vital evidence in establishing the dog's history and the owner's liability."
+      },
+      {
+        step: "Insurance Identification",
+        description: "We work to identify the owner's homeowners or renters insurance policy. These policies typically provide the coverage needed to compensate victims for their injuries."
+      },
+      {
+        step: "Medical & Specialist Review",
+        description: "We work with plastic surgeons and specialists to determine the full cost of future treatments, including scar revision and psychological support for trauma."
+      },
+      {
+        step: "Proving Negligence",
+        description: "We gather witness statements, investigate the dog's history, and analyze whether local ordinances were violated to build a strong case for owner liability."
+      },
+      {
+        step: "Maximum Recovery",
+        description: "We fight for compensation that covers all current and future needs, ensuring you aren't left with the financial burden of an attack you didn't cause."
+      }
+    ],
+    faqs: [
+      {
+        question: "Does Texas have a 'one-bite rule'?",
+        answer: "Texas follows a version of the 'one-bite rule,' meaning an owner can be liable if they knew the dog was dangerous. However, you can also recover by proving the owner was negligent in controlling the animal, even if it hadn't bitten anyone before."
+      },
+      {
+        question: "What if the dog owner is a friend or neighbor?",
+        answer: "Most dog bite claims are paid through homeowners or renters insurance, not out of the owner's pocket. Pursuing a claim is about accessing the insurance coverage they pay for precisely for these types of accidents."
+      },
+      {
+        question: "How long do I have to file a dog bite claim?",
+        answer: "In Texas, you generally have two years from the date of the attack to file a lawsuit. For children, the timeline may be different, but it is always best to act immediately to preserve evidence and witness memory."
+      },
+      {
+        question: "What compensation can I receive for a dog bite?",
+        answer: "You can recover for medical bills, future plastic surgery, lost wages, pain and suffering, and psychological trauma. Because dog bites often involve permanent scarring, the non-economic damages can be significant."
+      },
+      {
+        question: "What should I do immediately after a dog bite?",
+        answer: "Seek medical attention immediately—dog bites have a high risk of infection. Take photos of your injuries and the location, get the owner's information, identify any witnesses, and report the attack to animal control."
+      }
+    ],
+    ctaMessage: "Traumatized by a dog attack? Don't suffer in silence. We hold negligent owners accountable and fight for the compensation you need to heal."
   },
   {
     id: "wrongful-death",

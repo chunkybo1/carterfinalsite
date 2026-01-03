@@ -14,6 +14,7 @@ const SERVICE_AREAS = [
   { title: "Bicycle Accidents", href: "/practice-areas/bicycle-accidents" },
   { title: "Pedestrian Accidents", href: "/practice-areas/pedestrian-accidents" },
   { title: "Wrongful Death", href: "/practice-areas/wrongful-death" },
+  { title: "Dog Bites", href: "/practice-areas/dog-bites" },
   { title: "Slip n' Fall's", href: "/practice-areas/slip-and-fall" },
   { title: "Medical Malpractice", href: "/practice-areas/medical-malpractice" },
 ];
@@ -144,7 +145,7 @@ export const Header = () => {
       className={`fixed top-0 left-0 right-0 z-50 py-3 sm:py-5 md:py-1.5 2xl:py-2 transition-all duration-300 ${
         hasScrolled 
           ? 'bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze' 
-          : isMobile ? 'bg-navy' : 'bg-transparent'
+          : 'bg-transparent'
       }`}
       initial={false}
       animate={{ y: isMobile ? 0 : headerY }}

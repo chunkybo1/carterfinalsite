@@ -52,6 +52,13 @@ const PRACTICE_AREAS: PracticeArea[] = [
     image: "/process-5.jpg",
   },
   {
+    id: "dog-bites",
+    title: "Dog Bites",
+    description: "Animal attacks leave deep scars, both physical and emotional. We hold negligent owners accountable and fight for victims' recovery.",
+    href: "/practice-areas/dog-bites",
+    image: "/process-8.jpeg",
+  },
+  {
     id: "slip-and-fall",
     title: "Slip n' Fall's",
     description: "Property owners have a duty to maintain safe environments. We hold businesses accountable for preventable premises hazards.",

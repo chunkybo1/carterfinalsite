@@ -38,6 +38,9 @@ export function getIconForCaseType(type: string): string {
   if (t.includes("brain") || t.includes("tbi")) return "Brain";
   if (t.includes("spinal") || t.includes("paralysis")) return "Activity";
   
+  // Animal / Dog
+  if (t.includes("dog") || t.includes("animal") || t.includes("bite") || t.includes("attack")) return "PawPrint";
+  
   return "AlertCircle";
 }
 

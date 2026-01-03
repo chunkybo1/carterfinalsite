@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Phone, ArrowRight } from "lucide-react";
@@ -9,7 +8,6 @@ import { smartSmoothScroll } from "@/utils/smoothScroll";
 
 export const HeroCTA = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-10%" });
 
   return (
     <section
@@ -25,10 +23,7 @@ export const HeroCTA = () => {
       <Container className="relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
           {/* Left: Message */}
-          <motion.div
-            initial={{ opacity: 0, x: -22 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          <div
             className="flex-1 text-center lg:text-left"
           >
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-white mb-2 leading-tight">
@@ -37,13 +32,10 @@ export const HeroCTA = () => {
             <p className="text-base text-white/70 leading-relaxed">
               Free consultation. No upfront fees. Maximum recovery.
             </p>
-          </motion.div>
+          </div>
 
           {/* Right: Phone & CTA */}
-          <motion.div
-            initial={{ opacity: 0, x: 22 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          <div
             className="flex flex-col sm:flex-row items-center gap-4"
           >
             {/* Phone Number - Large & Prominent */}
@@ -87,7 +79,7 @@ export const HeroCTA = () => {
               Free Consultation
               <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>

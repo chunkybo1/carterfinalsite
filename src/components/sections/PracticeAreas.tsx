@@ -196,12 +196,8 @@ export const PracticeAreas = () => {
         {/* Mobile Layout - Stacks with better spacing */}
         <div className="lg:hidden flex flex-col gap-16 sm:gap-24">
           {PRACTICE_AREAS.map((area, index) => (
-            <motion.div
+            <div
               key={area.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.1 }}
               className="group flex flex-col gap-6"
             >
               <div className="relative aspect-[16/9] sm:aspect-[21/9] overflow-hidden border border-bronze/20 rounded-sm">
@@ -231,7 +227,7 @@ export const PracticeAreas = () => {
                   <ArrowRight className="w-4 h-4 text-bronze group-hover/btn:text-navy transition-colors" />
                 </Link>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

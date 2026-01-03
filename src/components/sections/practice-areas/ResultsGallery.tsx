@@ -56,12 +56,8 @@ export const ResultsGallery = () => {
         {/* Mobile View */}
         <div className="flex flex-col gap-6 px-6 md:hidden">
           {RESULTS.slice(0, 6).map((item, idx) => (
-            <motion.div
+            <div
               key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="relative w-full p-8 bg-navy/40 border border-bronze/30 shadow-xl rounded-sm flex flex-col justify-between"
             >
               <div className="space-y-6">
@@ -81,7 +77,7 @@ export const ResultsGallery = () => {
               <div className="flex items-center gap-4 text-white/10 mt-8">
                 <div className="text-[9px] font-bold uppercase tracking-widest">Official Firm Record</div>
               </div>
-            </motion.div>
+            </div>
           ))}
           
           {/* Subtle CTA to view more on mobile could go here if needed */}

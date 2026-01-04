@@ -4,11 +4,12 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { smartSmoothScroll } from "@/utils/smoothScroll";
+import { useModal } from "@/context/ModalContext";
 
 export const AboutCTA = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const { openModal } = useModal();
 
   return (
     <section ref={containerRef} className="relative w-full bg-navy py-20 lg:py-32">
@@ -40,17 +41,7 @@ export const AboutCTA = () => {
                 variant="primary"
                 size="lg"
                 className="bg-bronze text-navy hover:opacity-90 font-serif font-bold uppercase tracking-wider"
-                onClick={() => {
-                  const element = document.getElementById("consultation-cta");
-                  if (element) {
-                    smartSmoothScroll(element, {
-                      duration: 1000,
-                      offset: 80, // Account for fixed header
-                    });
-                  } else {
-                    window.location.href = "/services#consultation-cta";
-                  }
-                }}
+                onClick={openModal}
               >
                 Schedule Free Consultation
               </Button>

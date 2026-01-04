@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useInView, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useInView, useScroll, useMotionValueEvent, useTransform } from "framer-motion";
+import { Volume2, VolumeX } from "lucide-react";
 // GoldParticles import removed
 import { HTML5Video } from "@/components/ui/HTML5Video";
 import { Button } from "@/components/ui/Button";
+import { useModal } from "@/context/ModalContext";
 
 export const HeroSection = ({ 
   showContent = false,
@@ -18,6 +20,7 @@ export const HeroSection = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { openModal } = useModal();
   
   // Optimize: Track visibility to pause video when not in viewport
   const isInView = useInView(containerRef, { 
@@ -28,8 +31,10 @@ export const HeroSection = ({
   
   const [shouldAnimate, setShouldAnimate] = useState(true);
   const [videoReady, setVideoReady] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   
   const { scrollY } = useScroll();
+  const buttonScrollOpacity = useTransform(scrollY, [0, 200], [1, 0]);
 
   // Update animation state based on visibility
   useEffect(() => {
@@ -103,6 +108,7 @@ export const HeroSection = ({
                   size="lg"
                   noFloat
                   className="w-full sm:w-auto bg-bronze text-navy hover:bg-white border-none font-serif font-bold uppercase tracking-widest text-sm transition-all duration-300 py-6 px-10"
+                  onClick={openModal}
                 >
                   Talk To Us
                 </Button>
@@ -123,7 +129,7 @@ export const HeroSection = ({
                   videoSrc="/videos/hero-video.mp4"
                   autoplay={true}
                   loop={true}
-                  muted={true}
+                  muted={isMuted}
                   playsInline={true}
                   shouldAnimate={shouldAnimate}
                   onLoadedData={handleVideoReady}
@@ -135,6 +141,22 @@ export const HeroSection = ({
 
                 {/* Dark Overlay for better text readability */}
                 <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
+
+                {/* Mute/Unmute Toggle */}
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: videoReady ? 1 : 0 }}
+                  style={{ opacity: buttonScrollOpacity }}
+                  onClick={() => setIsMuted(!isMuted)}
+                  className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-30 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm transition-all duration-300 group"
+                  title={isMuted ? "Unmute" : "Mute"}
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-white transition-colors" />
+                  ) : (
+                    <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-all" />
+                  )}
+                </motion.button>
             </div>
           </div>
         )}

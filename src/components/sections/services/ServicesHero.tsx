@@ -4,10 +4,12 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { ArrowDown } from "lucide-react";
+import { useModal } from "@/context/ModalContext";
 
 export const ServicesHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const { openModal } = useModal();
 
   const handleScrollToPracticeAreas = () => {
     const element = document.getElementById("practice-areas");
@@ -67,10 +69,7 @@ export const ServicesHero = () => {
                 variant="primary"
                 size="lg"
                 className="bg-bronze text-navy hover:opacity-90 font-serif font-bold uppercase tracking-wider"
-                onClick={() => {
-                  const element = document.getElementById("consultation-cta");
-                  element?.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={openModal}
               >
                 Schedule Free Consultation
               </Button>

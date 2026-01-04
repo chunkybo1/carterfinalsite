@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
+import { useModal } from "@/context/ModalContext";
 
 const SERVICE_AREAS = [
   { title: "Car Accidents", href: "/practice-areas/car-accidents" },
@@ -20,6 +21,7 @@ const SERVICE_AREAS = [
 ];
 
 export const Header = () => {
+  const { openModal } = useModal();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
@@ -235,7 +237,7 @@ export const Header = () => {
                 )}
               </div>
               <Link href="/reviews" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Reviews</Link>
-              <Link href="/contact" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Contact</Link>
+              <button onClick={openModal} className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base text-left">Contact</button>
             </nav>
 
             <div className="h-5 w-[1px] bg-white/20" />
@@ -248,6 +250,7 @@ export const Header = () => {
               <Button 
                 size="sm"
                 noFloat
+                onClick={openModal}
                 className="px-4 py-1.5 2xl:px-6 2xl:py-2 bg-bronze text-navy hover:bg-navy hover:text-bronze border border-transparent hover:border-bronze font-serif font-bold uppercase tracking-[0.2em] text-[10px] 2xl:text-xs transition-all duration-300"
               >
                 Free Case Review
@@ -345,13 +348,15 @@ export const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <Link 
-                  href="/contact" 
+                <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    openModal();
+                  }}
                   className="text-3xl font-serif text-white hover:text-bronze transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact
-                </Link>
+                </button>
               </motion.div>
             </nav>
 
@@ -369,6 +374,10 @@ export const Header = () => {
               <Button 
                 size="lg"
                 noFloat
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  openModal();
+                }}
                 className="w-full bg-bronze text-navy hover:bg-white border-none font-serif font-bold uppercase tracking-[0.2em] text-sm py-5"
               >
                 Free Case Review

@@ -67,6 +67,16 @@ export const HTML5Video = ({
     };
   }, [autoplay, muted, onLoadedData]);
 
+  // Sync muted prop with video element property
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    
+    // Some browsers ignore attribute changes for muted after playback starts,
+    // so we set the property directly.
+    video.muted = muted;
+  }, [muted, videoRef]);
+
   // Handle pause/play based on visibility
   useEffect(() => {
     if (!pauseWhenNotVisible) return;

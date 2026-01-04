@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { HTML5Video } from "@/components/ui/HTML5Video";
 import { CaseReviewForm } from "@/components/ui/CaseReviewForm";
-import { Phone } from "lucide-react";
+import { Phone, Volume2, VolumeX } from "lucide-react";
 
 interface PracticeAreaHeroProps {
   eyebrow: string;
@@ -14,19 +14,42 @@ interface PracticeAreaHeroProps {
 }
 
 export const PracticeAreaHero = ({ eyebrow, title, description }: PracticeAreaHeroProps) => {
+  const [isMuted, setIsMuted] = useState(true);
+  const [videoReady, setVideoReady] = useState(false);
+
+  const { scrollY } = useScroll();
+  const buttonScrollOpacity = useTransform(scrollY, [0, 200], [1, 0]);
+
   return (
     <section className="relative w-full min-h-screen bg-navy overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full z-0">
         <HTML5Video 
           videoSrc="/videos/hero-video.mp4" 
-          muted={true} 
+          muted={isMuted} 
+          onLoadedData={() => setVideoReady(true)}
           className="w-full h-full object-cover" 
         />
       </div>
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/50 z-10 pointer-events-none" />
+
+      {/* Mute/Unmute Toggle */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: videoReady ? 1 : 0 }}
+        style={{ opacity: buttonScrollOpacity }}
+        onClick={() => setIsMuted(!isMuted)}
+        className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-30 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm transition-all duration-300 group"
+        title={isMuted ? "Unmute" : "Mute"}
+      >
+        {isMuted ? (
+          <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-white transition-colors" />
+        ) : (
+          <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-all" />
+        )}
+      </motion.button>
 
       <Container className="relative z-20 pt-32 pb-20 md:pt-40 md:pb-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">

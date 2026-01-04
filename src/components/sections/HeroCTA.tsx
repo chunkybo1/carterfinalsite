@@ -4,10 +4,11 @@ import React, { useRef } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Phone, ArrowRight } from "lucide-react";
-import { smartSmoothScroll } from "@/utils/smoothScroll";
+import { useModal } from "@/context/ModalContext";
 
 export const HeroCTA = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { openModal } = useModal();
 
   return (
     <section
@@ -64,17 +65,7 @@ export const HeroCTA = () => {
               size="md"
               noFloat
               className="w-full sm:w-auto bg-bronze text-navy hover:bg-white hover:text-navy border border-transparent font-serif font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-300"
-              onClick={() => {
-                const element = document.getElementById("consultation-cta");
-                if (element) {
-                  smartSmoothScroll(element, {
-                    duration: 1000,
-                    offset: 80,
-                  });
-                } else {
-                  window.location.href = "/services#consultation-cta";
-                }
-              }}
+              onClick={openModal}
             >
               Free Consultation
               <ArrowRight className="w-4 h-4 ml-1.5" />

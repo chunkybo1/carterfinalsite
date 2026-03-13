@@ -20,8 +20,8 @@ export const GoogleReviews = () => {
               Client Testimonials
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight">
-              Verified Excellence <br /> 
-              <span className="text-bronze">On Google.</span>
+              Our Satisfied<br /> 
+              <span className="text-bronze">Clients</span>
             </h2>
           </div>
           

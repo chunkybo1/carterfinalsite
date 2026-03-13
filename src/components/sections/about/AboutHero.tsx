@@ -6,26 +6,34 @@ import Image from "next/image";
 import { smartSmoothScroll } from "@/utils/smoothScroll";
 
 export const AboutHero = () => {
-  const [clipPath, setClipPath] = useState("none");
+  const [isMounted, setIsMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+    setIsDesktop(window.innerWidth >= 768);
+    
     const handleResize = () => {
-      setClipPath(window.innerWidth >= 768 ? "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)" : "none");
+      setIsDesktop(window.innerWidth >= 768);
     };
-
-    // Set initial value
-    handleResize();
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const currentClipPath = isDesktop ? "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)" : "none";
 
   return (
     <section className="relative min-h-screen w-full bg-navy overflow-hidden flex flex-col md:block pt-[64px] sm:pt-[96px] md:pt-0">
       {/* Photo Zone - Desktop: Absolute Right, Mobile: Relative Top */}
       <div 
         className="relative md:absolute top-0 right-0 w-full md:w-[50%] h-[70vh] md:h-full z-10 order-1"
-        style={{ clipPath }}
+        style={{ 
+          clipPath: currentClipPath,
+          WebkitClipPath: currentClipPath,
+          opacity: isMounted ? 1 : 0,
+          transition: "opacity 0.3s ease-in-out"
+        }}
       >
         <div className="absolute inset-0 w-full h-full">
           <div className="relative w-full h-full">

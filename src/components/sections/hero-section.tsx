@@ -107,7 +107,7 @@ export const HeroSection = ({
                 <Button 
                   size="lg"
                   noFloat
-                  className="w-full sm:w-auto bg-bronze text-navy hover:bg-white border-none font-serif font-bold uppercase tracking-widest text-sm transition-all duration-300 py-6 px-10"
+                  className="w-full sm:w-auto text-base bg-navy/40 backdrop-blur-md text-white border border-white/10 hover:bg-navy/60 shadow-xl"
                   onClick={openModal}
                 >
                   Talk To Us

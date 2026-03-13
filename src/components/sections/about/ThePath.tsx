@@ -3,222 +3,284 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Container } from "@/components/ui/Container";
+import { Phone, CheckCircle } from "lucide-react";
+import Image from "next/image";
+import CRMForm from "@/components/ui/CRMForm";
 
-const PATH_MILESTONES = [
+const PILLARS = [
   {
-    year: "Early Years",
-    title: "The Foundation",
-    description: "Thomas was raised by Army officers, Air Force firefighters, and educators—a family that served their country in uniform and in the classroom. But it was his grandfather who showed him what advocacy really meant. A tireless champion for people with disabilities, he fought for the passage of the Americans with Disabilities Act and attended its signing at the White House. El Paso recognized him as a civil rights hero. That's the standard Thomas inherited.",
-    number: "01",
+    label: "The Legacy",
+    headline: "A Century of Service",
+    body: "Army officers. Air Force firefighters. Teachers. A grandfather who fought for the Americans with Disabilities Act and attended its signing at the White House. El Paso recognized him as a civil rights hero. Advocacy isn't a career—it's a family tradition.",
+    image: "/adasigning.jpg",
+    position: "top-left" as const,
   },
   {
-    year: "Education",
-    title: "Acquiring the Tools",
-    description: "Thomas knew he wanted to be a trial lawyer before he ever applied to law school. As a student, he sat in his uncle's district courtroom in Houston, watching the best attorneys in Texas try cases. But it was his uncle—presiding from the bench, treating every person with dignity—who taught him what fairness looks like in practice. Law school gave him the degree. That courtroom gave him the compass.",
-    number: "02",
+    label: "The Training",
+    headline: "Houston District Court",
+    body: "Before law school, Thomas sat in his uncle's courtroom watching Texas's best trial lawyers work. His uncle—the judge—showed him what fairness and dignity look like in practice. That standard shaped everything.",
+    image: "/process-2.jpg",
+    position: "bottom-right" as const,
   },
   {
-    year: "Early Career",
-    title: "Learning to Win",
-    description: "Most personal injury lawyers have never faced a prosecutor. Thomas has. His years as a criminal defense trial attorney—trying cases against the government, against law enforcement—taught him every tactic the other side will use. That experience earned him a reputation as a formidable opponent. Now he uses it to dismantle the insurance companies' playbook before they even open it.",
-    number: "03",
-  },
-  {
-    year: "Carter Law",
-    title: "The Mission Continues",
-    description: "The founding of Carter Law wasn't the start of a practice—it was the continuation of a century of service. Every case, every client, every victory becomes part of a legacy that began with soldiers and firefighters, was carried forward by a civil rights hero, and now lives in every courtroom Thomas enters. The mission doesn't end. It multiplies.",
-    number: "04",
+    label: "The Edge",
+    headline: "Criminal Defense Experience",
+    body: "Most personal injury lawyers have never faced a prosecutor. Thomas has tried 100+ cases against the government and law enforcement. He knows every tactic the other side will use—because he's beaten them before.",
+    image: "/process-3.jpg",
+    position: "center-left" as const,
   },
 ];
 
 export const ThePath = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-10%" });
-
-  // Individual refs for animation timing
-  const timelineLineRef = useRef<HTMLDivElement>(null);
-  const nodeRefs = PATH_MILESTONES.map(() => useRef<HTMLDivElement>(null));
-  const cardRefs = PATH_MILESTONES.map(() => useRef<HTMLDivElement>(null));
-  const quoteRef = useRef<HTMLDivElement>(null);
-
-  const timelineLineInView = useInView(timelineLineRef, { once: true, margin: "-20%" });
-  const nodeInView = nodeRefs.map((ref) => useInView(ref, { once: true, margin: "-20%" }));
-  const cardInView = cardRefs.map((ref) => useInView(ref, { once: true, margin: "-20%" }));
-  const quoteInView = useInView(quoteRef, { once: true, margin: "-20%" });
-
   return (
-    <section ref={containerRef} className="relative w-full py-20 lg:py-32 overflow-hidden">
-      {/* Atmospheric Background - Layered Gradient with Gold Glow Zones */}
-      <div className="absolute inset-0 bg-navy">
-        {/* Base gradient */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 40% at 20% 30%, rgba(201, 169, 98, 0.06) 0%, transparent 50%), radial-gradient(ellipse 50% 50% at 80% 70%, rgba(201, 169, 98, 0.04) 0%, transparent 50%), linear-gradient(180deg, #1A365D 0%, #152847 40%, #1A365D 100%)",
-          }}
-        />
-        {/* Ghosted architectural imagery placeholder on left 40% */}
-        <div className="absolute inset-0 w-[40%] opacity-[0.07] mix-blend-soft-light">
-          <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-transparent" />
-          {/* Subtle pattern */}
-          <div
-            className="absolute inset-0 opacity-30"
-            style={{
-              backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
-              backgroundSize: "40px 40px",
-            }}
-          />
-        </div>
+    <section className="relative w-full overflow-hidden bg-navy">
+      {/* Pillars */}
+      <div className="relative">
+        {PILLARS.map((pillar, index) => (
+          <PillarPanel key={index} pillar={pillar} index={index} />
+        ))}
       </div>
 
-      {/* Section Transition Gradient at Bottom */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-[120px] pointer-events-none z-10"
-        style={{
-          background:
-            "linear-gradient(180deg, transparent 0%, rgba(245,242,237,0.08) 50%, rgba(245,242,237,0.2) 100%)",
-        }}
-      />
+      {/* CTA Section */}
+      <AboutCTASection />
+    </section>
+  );
+};
 
-      <Container className="relative z-20">
-        <div className="max-w-5xl mx-auto">
-          {/* Section Label */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="mb-16"
-          >
-            <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-              The Path
+// Individual Pillar Panel Component
+const PillarPanel = ({ pillar, index }: { pillar: typeof PILLARS[0]; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-20%" });
+
+  // Position configurations for the floating card
+  const positionStyles = {
+    "top-left": {
+      card: "top-12 left-6 md:top-20 md:left-12 lg:left-20",
+      gradient: "bg-gradient-to-br from-navy/95 via-navy/70 to-transparent",
+    },
+    "bottom-right": {
+      card: "bottom-12 right-6 md:bottom-20 md:right-12 lg:right-20",
+      gradient: "bg-gradient-to-tl from-navy/95 via-navy/70 to-transparent",
+    },
+    "center-left": {
+      card: "top-1/2 -translate-y-1/2 left-6 md:left-12 lg:left-20",
+      gradient: "bg-gradient-to-r from-navy/95 via-navy/60 to-transparent",
+    },
+  };
+
+  const config = positionStyles[pillar.position];
+
+  return (
+    <div
+      ref={ref}
+      className="relative w-full min-h-[85vh] md:min-h-screen flex items-center overflow-hidden"
+    >
+      {/* Background Image */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <Image
+          src={pillar.image}
+          alt={pillar.headline}
+          fill
+          className="object-cover"
+          priority={index === 0}
+        />
+        {/* Directional Gradient Overlay */}
+        <div className={`absolute inset-0 ${config.gradient}`} />
+        {/* Additional darkening for text readability */}
+        <div className="absolute inset-0 bg-navy/30" />
+      </div>
+
+      {/* Floating Content Card */}
+      <div className={`absolute ${config.card} z-20 w-[calc(100%-3rem)] md:w-auto md:max-w-xl`}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="relative group"
+        >
+          {/* Card with creative styling */}
+          <div className="relative bg-navy/70 backdrop-blur-md border border-bronze/30 p-8 md:p-10 lg:p-12 overflow-hidden">
+            {/* Bronze accent bar on left */}
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-bronze via-bronze/60 to-transparent" />
+            
+            {/* Subtle inner glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-bronze/5 via-transparent to-transparent pointer-events-none" />
+            
+            {/* Large background number */}
+            <div className="absolute -right-4 -bottom-8 text-[120px] md:text-[180px] font-serif font-bold text-white/[0.03] leading-none select-none">
+              {String(index + 1).padStart(2, '0')}
             </div>
-            <div className="h-[2px] w-20 bg-bronze mb-8" />
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              The <span className="text-bronze">Journey</span>
-            </h2>
-            <p className="text-lg text-light-steel leading-relaxed max-w-3xl">
-              Rather than listing credentials chronologically, this is the story of decisions made in
-              service of the advocacy mission. Every step was taken with purpose—not to build a
-              resume, but to become the fighter clients need.
-            </p>
-          </motion.div>
 
-          {/* Timeline */}
-          <div className="relative mt-20">
-            {/* Enhanced Vertical Timeline Line */}
-            <motion.div
-              ref={timelineLineRef}
-              initial={{ scaleY: 0 }}
-              animate={timelineLineInView ? { scaleY: 1 } : {}}
-              transition={{
-                duration: 1.2,
-                ease: "easeOut",
-              }}
-              style={{ transformOrigin: "top center" }}
-              className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[2px] bg-bronze/30"
-            />
+            {/* Content */}
+            <div className="relative z-10 space-y-6">
+              {/* Label */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex items-center gap-3"
+              >
+                <div className="h-[1px] w-8 bg-bronze" />
+                <span className="text-[10px] md:text-xs font-sans font-bold tracking-[0.3em] text-bronze uppercase">
+                  {pillar.label}
+                </span>
+              </motion.div>
 
-            {/* Milestones */}
-            <div className="space-y-24 md:space-y-16">
-              {PATH_MILESTONES.map((milestone, index) => (
-                <div
-                  key={index}
-                  className={`relative flex flex-col md:flex-row items-start gap-12 md:gap-8 ${
-                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
+              {/* Headline */}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight"
+              >
+                {pillar.headline}
+              </motion.h2>
+
+              {/* Divider */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={isInView ? { scaleX: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="h-[2px] w-16 bg-bronze/50 origin-left"
+              />
+
+              {/* Body */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                className="text-base md:text-lg text-light-steel/90 font-sans leading-relaxed"
+              >
+                {pillar.body}
+              </motion.p>
+            </div>
+
+            {/* Corner accents */}
+            <div className="absolute top-0 right-0 w-6 h-6 border-t border-r border-bronze/20" />
+            <div className="absolute bottom-0 left-0 w-6 h-6 border-b border-l border-bronze/20" />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Panel indicator - subtle */}
+      <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-10">
+        <div className="flex items-center gap-3 text-white/30">
+          <span className="text-xs font-sans font-medium tracking-widest uppercase">{pillar.label}</span>
+          <div className="h-[1px] w-8 bg-white/20" />
+          <span className="text-sm font-serif">{String(index + 1).padStart(2, '0')}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// About Page CTA Section with Form
+const AboutCTASection = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-10%" });
+
+  return (
+    <div ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+      {/* Background treatment */}
+      <div className="absolute inset-0 bg-gradient-to-b from-navy via-[#0f1f35] to-navy" />
+      
+      {/* Subtle grid texture */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
+        backgroundSize: "40px 40px",
+      }} />
+
+      {/* Bronze accent lines */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-bronze/40 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-bronze/40 to-transparent" />
+
+      <Container className="relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left: Copy */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
+          >
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-[1px] w-8 bg-bronze" />
+                <span className="text-[10px] md:text-xs font-sans font-bold tracking-[0.3em] text-bronze uppercase">
+                  Take the First Step
+                </span>
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
+                Ready for a Lawyer Who <span className="text-bronze italic">Fights?</span>
+              </h2>
+              
+              <p className="text-lg text-light-steel/80 leading-relaxed">
+                You've seen where Thomas comes from. Now let him fight for you. 
+                Every consultation is free, confidential, and obligation-free.
+              </p>
+            </div>
+
+            {/* Trust indicators */}
+            <div className="space-y-4">
+              {[
+                "No fees unless we win your case",
+                "Direct access to Thomas Carter",
+                "24/7 availability for emergencies",
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.3 + idx * 0.1 }}
+                  className="flex items-center gap-3"
                 >
-                  {/* Enhanced Timeline Node */}
-                  <motion.div
-                    ref={nodeRefs[index]}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={nodeInView[index] ? { opacity: 1, scale: 1 } : {}}
-                    transition={{
-                      duration: 0.4,
-                      delay: 0.3,
-                      ease: "easeOut",
-                    }}
-                    className="absolute left-[20px] md:left-1/2 w-[16px] h-[16px] bg-navy rounded-full border-2 border-bronze transform -translate-x-1/2 z-10"
-                  >
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-bronze rounded-full" />
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.8, 1],
-                        opacity: [0.6, 0, 0.6],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      className="absolute inset-0 border-2 border-bronze rounded-full"
-                    />
-                  </motion.div>
-
-                  {/* Glassmorphism Content Card */}
-                  <motion.div
-                    ref={cardRefs[index]}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                    animate={cardInView[index] ? { opacity: 1, x: 0 } : {}}
-                    transition={{
-                      duration: 0.7,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    className={`w-full md:w-[45%] pl-14 md:pl-0 ${
-                      index % 2 === 0 ? "md:mr-auto md:pr-8" : "md:ml-auto md:pl-8"
-                    }`}
-                  >
-                    <div className="relative bg-[#0a1628]/95 border border-white/10 p-8 rounded-lg shadow-[0_4px_24px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.4)] transition-all duration-300 group">
-                      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-bronze/40 to-transparent group-hover:via-bronze transition-colors duration-500" />
-
-                      <div className="absolute bottom-4 right-6 text-6xl md:text-[80px] font-serif font-bold text-white/5 pointer-events-none select-none">
-                        {milestone.number}
-                      </div>
-
-                      <div className="text-[10px] font-bold text-bronze uppercase tracking-[0.2em] mb-3">
-                        {milestone.year}
-                      </div>
-                      <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-4">
-                        {milestone.title}
-                      </h3>
-                      <p className="text-gray-400 leading-relaxed font-sans text-base">
-                        {milestone.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                </div>
+                  <CheckCircle className="w-5 h-5 text-bronze flex-shrink-0" />
+                  <span className="text-white/80 font-sans">{item}</span>
+                </motion.div>
               ))}
             </div>
-          </div>
 
-          {/* Elevated Quote Block - Distinct treatment with gold-tinted gradient */}
-          <motion.div
-            ref={quoteRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={quoteInView ? { opacity: 1, y: 0 } : {}}
-            transition={{
-              duration: 0.6,
-              delay: 2.0,
-              ease: "easeOut",
-            }}
-            className="mt-20 pt-12"
-          >
-            {/* Optimized: Removed backdrop-blur */}
-            <div className="relative bg-gradient-to-br from-bronze/10 via-[#0a1628]/90 to-[#0a1628]/90 border border-bronze/20 p-10 rounded-lg">
-              {/* Large decorative quotation mark */}
-              <div className="absolute top-2 left-4 text-[60px] font-serif text-bronze/10 leading-none">
-                &quot;
+            {/* Phone CTA */}
+            <motion.a
+              href="tel:9156211818"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="inline-flex items-center gap-4 group"
+            >
+              <div className="w-14 h-14 bg-bronze/20 rounded-full flex items-center justify-center group-hover:bg-bronze/30 transition-colors">
+                <Phone className="w-6 h-6 text-bronze" />
               </div>
-              <p className="text-xl md:text-2xl font-serif italic text-light-steel leading-relaxed mb-6 relative z-10">
-                &quot;My mother taught me the most about love, empathy, and compassion. I wouldn't
-                be where I am today without her. That's what I bring to every case—not just legal
-                skill, but the understanding that this is someone's whole life.&quot;
-              </p>
-              <p className="text-sm text-gray-400 font-serif relative z-10">— Thomas Carter</p>
+              <div>
+                <div className="text-xs text-bronze/80 uppercase tracking-wider mb-1">
+                  Or Call Directly
+                </div>
+                <div className="text-2xl md:text-3xl font-serif font-bold text-white group-hover:text-bronze transition-colors">
+                  (915) 621-1818
+                </div>
+              </div>
+            </motion.a>
+          </motion.div>
+
+          {/* Right: Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="relative">
+              {/* Decorative corner accents */}
+              <div className="absolute -top-3 -left-3 w-6 h-6 border-l-2 border-t-2 border-bronze/40" />
+              <div className="absolute -bottom-3 -right-3 w-6 h-6 border-r-2 border-b-2 border-bronze/40" />
+
+              <div className="border border-bronze/30 overflow-hidden rounded-sm">
+                <CRMForm />
+              </div>
             </div>
           </motion.div>
         </div>
       </Container>
-    </section>
+    </div>
   );
 };

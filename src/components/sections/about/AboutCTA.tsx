@@ -40,7 +40,6 @@ export const AboutCTA = () => {
               <Button
                 variant="primary"
                 size="lg"
-                className="bg-bronze text-navy hover:opacity-90 font-serif font-bold uppercase tracking-wider"
                 onClick={openModal}
               >
                 Schedule Free Consultation

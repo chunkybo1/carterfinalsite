@@ -23,7 +23,6 @@ const SERVICE_AREAS = [
 export const Header = () => {
   const { openModal } = useModal();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -44,13 +43,7 @@ export const Header = () => {
     const lastScrollY = lastScrollYRef.current;
     const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 1000;
 
-    // 1. Handle background opacity (hasScrolled)
-    const newHasScrolled = currentScrollY > 50;
-    if (newHasScrolled !== hasScrolled) {
-      setHasScrolled(newHasScrolled);
-    }
-
-    // 2. Handle header visibility (hide on scroll down, show on up)
+    // Handle header visibility (hide on scroll down, show on up)
     if (Math.abs(currentScrollY - lastScrollY) > 5) {
       let newIsHeaderVisible = isHeaderVisible;
 
@@ -136,33 +129,19 @@ export const Header = () => {
       setIsServicesDropdownOpen(false);
     }, 150);
   };
-
-  const headerBackgroundOpacity = hasScrolled ? 1 : 0;
   
   return (
     <motion.header
       style={{ 
         y: isMobile ? 0 : headerY,
       }}
-      className={`fixed top-0 left-0 right-0 z-50 py-3 sm:py-5 md:py-1.5 2xl:py-2 transition-all duration-300 ${
-        hasScrolled 
-          ? 'bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze' 
-          : 'bg-transparent'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 py-3 sm:py-5 md:py-1.5 2xl:py-2 transition-all duration-300 bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze"
       initial={false}
       animate={{ y: isMobile ? 0 : headerY }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background layer - only for desktop transparency transitions */}
-      <div 
-        className={`absolute inset-0 bg-navy transition-opacity duration-300 pointer-events-none ${isMobile ? 'hidden' : ''}`}
-        style={{ 
-          opacity: headerBackgroundOpacity,
-          zIndex: -1,
-        }}
-      />
       <Container className="2xl:max-w-[95vw] relative z-10">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -220,9 +199,9 @@ export const Header = () => {
                     <div className="py-2">
                       {SERVICE_AREAS.map((area, index) => (
                         <React.Fragment key={area.href}>
-                          <Link
+                            <Link
                             href={area.href}
-                            className="block px-6 py-3 text-white/90 hover:text-bronze hover:bg-navy/80 transition-colors font-serif text-sm tracking-wide"
+                            className="block px-6 py-3 text-white/90 hover:text-white hover:bg-bronze/10 transition-colors font-serif text-sm tracking-wide"
                             onClick={() => setIsServicesDropdownOpen(false)}
                           >
                             {area.title}
@@ -244,14 +223,14 @@ export const Header = () => {
 
             <div className="flex items-center gap-3 2xl:gap-4">
               <a href="tel:9156211818" className="group flex items-center gap-2 text-white/70 text-xs 2xl:text-sm font-serif font-medium hover:text-white transition-all duration-300">
-                <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-bronze" />
+                <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-white" />
                 (915) 621-1818
               </a>
               <Button 
                 size="sm"
                 noFloat
                 onClick={openModal}
-                className="px-4 py-1.5 2xl:px-6 2xl:py-2 bg-bronze text-navy hover:bg-navy hover:text-bronze border border-transparent hover:border-bronze font-serif font-bold uppercase tracking-[0.2em] text-[10px] 2xl:text-xs transition-all duration-300"
+                className="px-4 py-1.5 2xl:px-6 2xl:py-2"
               >
                 Free Case Review
               </Button>
@@ -378,7 +357,7 @@ export const Header = () => {
                   setIsMobileMenuOpen(false);
                   openModal();
                 }}
-                className="w-full bg-bronze text-navy hover:bg-white border-none font-serif font-bold uppercase tracking-[0.2em] text-sm py-5"
+                className="w-full py-5"
               >
                 Free Case Review
               </Button>

@@ -9,6 +9,7 @@
   --color-steel: #4A5568; /* Charcoal Steel - Primary Brand */
   --color-navy: #1E3A5F; /* Deep Navy Blue - Secondary/CTAs */
   --color-bronze: #B8956A; /* Warm Bronze - Accents */
+  --color-dark-bronze: #8A6D4B; /* Darker Bronze for borders */
   --color-light-steel: #8B95A5; /* Light Steel - Supporting Text */
   
   /* Premium Black/Charcoal Palette */
@@ -26,6 +27,7 @@
   --color-steel: var(--color-steel);
   --color-navy: var(--color-navy);
   --color-bronze: var(--color-bronze);
+  --color-dark-bronze: var(--color-dark-bronze);
   --color-light-steel: var(--color-light-steel);
   
   --color-charcoal: var(--color-charcoal);

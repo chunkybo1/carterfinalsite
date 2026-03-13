@@ -90,10 +90,10 @@ export const PracticeAreaHero = ({ eyebrow, title, description }: PracticeAreaHe
             >
               <a
                 href="tel:9156211818"
-                className="group flex items-center gap-4 bg-bronze text-navy px-8 py-4 font-serif font-bold uppercase tracking-widest hover:bg-navy hover:text-bronze border border-transparent hover:border-bronze transition-all duration-300 shadow-xl"
+                className="group flex items-center gap-4 bg-navy/40 backdrop-blur-md text-white px-7 py-3.5 border border-white/10 font-serif font-bold uppercase tracking-widest hover:bg-navy/60 transition-all duration-300 shadow-xl"
               >
-                <div className="w-10 h-10 rounded-full bg-navy/10 flex items-center justify-center group-hover:bg-bronze/20 transition-colors">
-                  <Phone className="w-5 h-5 text-navy group-hover:text-bronze" />
+                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                  <Phone className="w-5 h-5 text-white" />
                 </div>
                 <div className="text-left">
                   <div className="text-[10px] uppercase tracking-tighter opacity-70">Direct Line</div>
@@ -110,7 +110,7 @@ export const PracticeAreaHero = ({ eyebrow, title, description }: PracticeAreaHe
             transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
             className="w-full max-w-lg mx-auto lg:ml-auto"
           >
-            <CaseReviewForm />
+            <CaseReviewForm dark={true} />
           </motion.div>
         </div>
       </Container>

@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     title: "El Paso Car Accident Lawyer | Free Consult | Carter Law Wins",
     description: "Injured in a car accident in El Paso? Attorney Thomas Carter has 16 years of trial experience fighting insurance companies. Free consultation. No fee unless we win.",
     type: "website",
-    url: "https://carterlawwins.com/practice-areas/car-accidents",
+    url: "https://www.carterlawwins.com/practice-areas/car-accidents",
   },
   alternates: {
-    canonical: "https://carterlawwins.com/practice-areas/car-accidents",
+    canonical: "https://www.carterlawwins.com/practice-areas/car-accidents",
   },
 };
 
@@ -52,14 +52,14 @@ export default async function CarAccidentPage(props: {
     <main className="min-h-screen flex flex-col bg-navy">
       <FAQPageSchema faqs={DATA.faqs} />
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://carterlawwins.com" },
-        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
-        { name: "Car Accidents", url: "https://carterlawwins.com/practice-areas/car-accidents" },
+        { name: "Home", url: "https://www.carterlawwins.com" },
+        { name: "Practice Areas", url: "https://www.carterlawwins.com/services" },
+        { name: "Car Accidents", url: "https://www.carterlawwins.com/practice-areas/car-accidents" },
       ]} />
       <LegalServiceSchema
         name="El Paso Car Accident Lawyer"
         description="Carter Law Firm, P.C. represents car accident victims in El Paso, TX. Free consultation. No fee unless we win."
-        url="https://carterlawwins.com/practice-areas/car-accidents"
+        url="https://www.carterlawwins.com/practice-areas/car-accidents"
       />
       <Header />
       

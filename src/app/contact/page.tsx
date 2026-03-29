@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   title: "Contact an El Paso Personal Injury Lawyer | Carter Law Firm, P.C.",
   description: "Contact The Carter Law Firm, P.C. in El Paso, TX. Free consultations for car accidents, trucking accidents, wrongful death, and more. Call (915) 621-1818 — available 24/7.",
   alternates: {
-    canonical: "https://carterlawwins.com/contact",
+    canonical: "https://www.carterlawwins.com/contact",
   },
   openGraph: {
     title: "Contact an El Paso Personal Injury Lawyer | Carter Law Firm, P.C.",
     description: "Contact The Carter Law Firm, P.C. in El Paso, TX. Free consultations for car accidents, trucking accidents, wrongful death, and more. Call (915) 621-1818 — available 24/7.",
     type: "website",
-    url: "https://carterlawwins.com/contact",
+    url: "https://www.carterlawwins.com/contact",
   },
   twitter: {
     card: "summary_large_image",
@@ -33,8 +33,8 @@ export default async function ContactPage(props: {
   return (
     <main className="min-h-screen flex flex-col bg-navy">
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://carterlawwins.com" },
-        { name: "Contact", url: "https://carterlawwins.com/contact" },
+        { name: "Home", url: "https://www.carterlawwins.com" },
+        { name: "Contact", url: "https://www.carterlawwins.com/contact" },
       ]} />
       <Header />
       <ContactPageContent />

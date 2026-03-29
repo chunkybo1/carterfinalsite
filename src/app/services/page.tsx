@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   title: "Personal Injury Practice Areas in El Paso | Carter Law Firm, P.C.",
   description: "Carter Law Firm, P.C. handles car accidents, trucking accidents, wrongful death, medical malpractice, slip and fall, and more in El Paso, TX. Free consultation — no fee unless we win.",
   alternates: {
-    canonical: "https://carterlawwins.com/services",
+    canonical: "https://www.carterlawwins.com/services",
   },
   openGraph: {
     title: "Personal Injury Practice Areas in El Paso | Carter Law Firm, P.C.",
     description: "Carter Law Firm, P.C. handles car accidents, trucking accidents, wrongful death, medical malpractice, slip and fall, and more in El Paso, TX. Free consultation.",
     type: "website",
-    url: "https://carterlawwins.com/services",
+    url: "https://www.carterlawwins.com/services",
   },
   twitter: {
     card: "summary_large_image",
@@ -36,8 +36,8 @@ export default async function ServicesPage(props: {
   return (
     <main className="min-h-screen flex flex-col">
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://carterlawwins.com" },
-        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
+        { name: "Home", url: "https://www.carterlawwins.com" },
+        { name: "Practice Areas", url: "https://www.carterlawwins.com/services" },
       ]} />
       <Header />
       <ServicesHero />

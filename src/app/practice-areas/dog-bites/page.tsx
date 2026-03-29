@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     title: "El Paso Dog Bite Lawyer | Animal Attack Attorney | Carter Law Wins",
     description: "Bitten or attacked by a dog in El Paso? Attorney Thomas Carter fights for victims of animal attacks. Free consultation. No fee unless we win.",
     type: "website",
-    url: "https://carterlawwins.com/practice-areas/dog-bites",
+    url: "https://www.carterlawwins.com/practice-areas/dog-bites",
   },
   alternates: {
-    canonical: "https://carterlawwins.com/practice-areas/dog-bites",
+    canonical: "https://www.carterlawwins.com/practice-areas/dog-bites",
   },
 };
 
@@ -52,14 +52,14 @@ export default async function DogBitePage(props: {
     <main className="min-h-screen flex flex-col bg-navy">
       <FAQPageSchema faqs={DATA.faqs} />
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://carterlawwins.com" },
-        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
-        { name: "Dog Bites", url: "https://carterlawwins.com/practice-areas/dog-bites" },
+        { name: "Home", url: "https://www.carterlawwins.com" },
+        { name: "Practice Areas", url: "https://www.carterlawwins.com/services" },
+        { name: "Dog Bites", url: "https://www.carterlawwins.com/practice-areas/dog-bites" },
       ]} />
       <LegalServiceSchema
         name="El Paso Dog Bite Lawyer"
         description="Carter Law Firm, P.C. represents dog bite and animal attack victims in El Paso, TX. Free consultation. No fee unless we win."
-        url="https://carterlawwins.com/practice-areas/dog-bites"
+        url="https://www.carterlawwins.com/practice-areas/dog-bites"
       />
       <Header />
       

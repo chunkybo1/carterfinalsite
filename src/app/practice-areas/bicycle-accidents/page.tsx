@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "El Paso Bicycle Accident Lawyer — Free Consultation | Carter Law Wins",
     description: "Injured in a bicycle accident in El Paso? The Carter Law Firm, P.C. fights for cyclists' rights. Free consultation. No fee unless we win.",
     type: "website",
-    url: `https://carterlawwins.com${DATA.href}`,
+    url: `https://www.carterlawwins.com${DATA.href}`,
   },
   twitter: {
     card: "summary_large_image",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: "Injured in a bicycle accident in El Paso? Free consultation. No fee unless we win. (915) 621-1818.",
   },
   alternates: {
-    canonical: `https://carterlawwins.com${DATA.href}`,
+    canonical: `https://www.carterlawwins.com${DATA.href}`,
   },
 };
 
@@ -57,14 +57,14 @@ export default async function BicycleAccidentsPage(props: {
     <main className="min-h-screen flex flex-col bg-navy">
       <FAQPageSchema faqs={DATA.faqs} />
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://carterlawwins.com" },
-        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
-        { name: "Bicycle Accidents", url: "https://carterlawwins.com/practice-areas/bicycle-accidents" },
+        { name: "Home", url: "https://www.carterlawwins.com" },
+        { name: "Practice Areas", url: "https://www.carterlawwins.com/services" },
+        { name: "Bicycle Accidents", url: "https://www.carterlawwins.com/practice-areas/bicycle-accidents" },
       ]} />
       <LegalServiceSchema
         name="El Paso Bicycle Accident Lawyer"
         description="Carter Law Firm, P.C. represents bicycle accident victims in El Paso, TX. Free consultation. No fee unless we win."
-        url="https://carterlawwins.com/practice-areas/bicycle-accidents"
+        url="https://www.carterlawwins.com/practice-areas/bicycle-accidents"
       />
       <Header />
       

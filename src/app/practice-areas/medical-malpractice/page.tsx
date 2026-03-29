@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "El Paso Medical Malpractice Lawyer — Free Consultation | Carter Law Wins",
     description: "Victim of medical negligence in El Paso? The Carter Law Firm, P.C. takes on hospitals and doctors. Free consultation. No fee unless we win.",
     type: "website",
-    url: `https://carterlawwins.com${DATA.href}`,
+    url: `https://www.carterlawwins.com${DATA.href}`,
   },
   twitter: {
     card: "summary_large_image",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: "Victim of medical negligence in El Paso? Free consultation. No fee unless we win. (915) 621-1818.",
   },
   alternates: {
-    canonical: `https://carterlawwins.com${DATA.href}`,
+    canonical: `https://www.carterlawwins.com${DATA.href}`,
   },
 };
 
@@ -57,14 +57,14 @@ export default async function MedicalMalpracticePage(props: {
     <main className="min-h-screen flex flex-col bg-navy">
       <FAQPageSchema faqs={DATA.faqs} />
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://carterlawwins.com" },
-        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
-        { name: "Medical Malpractice", url: "https://carterlawwins.com/practice-areas/medical-malpractice" },
+        { name: "Home", url: "https://www.carterlawwins.com" },
+        { name: "Practice Areas", url: "https://www.carterlawwins.com/services" },
+        { name: "Medical Malpractice", url: "https://www.carterlawwins.com/practice-areas/medical-malpractice" },
       ]} />
       <LegalServiceSchema
         name="El Paso Medical Malpractice Lawyer"
         description="Carter Law Firm, P.C. represents victims of medical negligence in El Paso, TX. Free consultation. No fee unless we win."
-        url="https://carterlawwins.com/practice-areas/medical-malpractice"
+        url="https://www.carterlawwins.com/practice-areas/medical-malpractice"
       />
       <Header />
       

@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   title: "About Thomas Carter | El Paso Personal Injury Attorney | Carter Law Firm, P.C.",
   description: "Meet Thomas Carter — El Paso personal injury attorney with 16+ years of trial experience. Raised by advocates, trained in the courtroom. Licensed in TX, AZ & NM.",
   alternates: {
-    canonical: "https://carterlawwins.com/about",
+    canonical: "https://www.carterlawwins.com/about",
   },
   openGraph: {
     title: "About Thomas Carter | El Paso Personal Injury Attorney | Carter Law Firm, P.C.",
     description: "Meet Thomas Carter — El Paso personal injury attorney with 16+ years of trial experience. Raised by advocates, trained in the courtroom. Licensed in TX, AZ & NM.",
     type: "website",
-    url: "https://carterlawwins.com/about",
+    url: "https://www.carterlawwins.com/about",
   },
   twitter: {
     card: "summary_large_image",
@@ -36,8 +36,8 @@ export default async function AboutPage(props: {
   return (
     <main className="min-h-screen flex flex-col bg-navy">
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://carterlawwins.com" },
-        { name: "About Thomas Carter", url: "https://carterlawwins.com/about" },
+        { name: "Home", url: "https://www.carterlawwins.com" },
+        { name: "About Thomas Carter", url: "https://www.carterlawwins.com/about" },
       ]} />
       <Header />
       <AboutHero />

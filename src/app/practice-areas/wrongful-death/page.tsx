@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "El Paso Wrongful Death Lawyer — Free Consultation | Carter Law Wins",
     description: "Lost a loved one due to negligence in El Paso? The Carter Law Firm, P.C. fights for families seeking justice. Free consultation. No fee unless we win.",
     type: "website",
-    url: `https://carterlawwins.com${DATA.href}`,
+    url: `https://www.carterlawwins.com${DATA.href}`,
   },
   twitter: {
     card: "summary_large_image",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: "Families trust The Carter Law Firm, P.C. for wrongful death cases in El Paso. Free consultation. No fee unless we win.",
   },
   alternates: {
-    canonical: `https://carterlawwins.com${DATA.href}`,
+    canonical: `https://www.carterlawwins.com${DATA.href}`,
   },
 };
 
@@ -57,14 +57,14 @@ export default async function WrongfulDeathPage(props: {
     <main className="min-h-screen flex flex-col bg-navy">
       <FAQPageSchema faqs={DATA.faqs} />
       <BreadcrumbSchema items={[
-        { name: "Home", url: "https://carterlawwins.com" },
-        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
-        { name: "Wrongful Death", url: "https://carterlawwins.com/practice-areas/wrongful-death" },
+        { name: "Home", url: "https://www.carterlawwins.com" },
+        { name: "Practice Areas", url: "https://www.carterlawwins.com/services" },
+        { name: "Wrongful Death", url: "https://www.carterlawwins.com/practice-areas/wrongful-death" },
       ]} />
       <LegalServiceSchema
         name="El Paso Wrongful Death Lawyer"
         description="Carter Law Firm, P.C. represents families of wrongful death victims in El Paso, TX. Free consultation. No fee unless we win."
-        url="https://carterlawwins.com/practice-areas/wrongful-death"
+        url="https://www.carterlawwins.com/practice-areas/wrongful-death"
       />
       <Header />
       

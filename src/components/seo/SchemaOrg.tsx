@@ -6,12 +6,12 @@ export function LocalBusinessSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "Attorney"],
-    "@id": "https://carterlawwins.com/#organization",
+    "@id": "https://www.carterlawwins.com/#organization",
     name: "The Carter Law Firm, P.C.",
     alternateName: "Carter Law Wins",
-    url: "https://carterlawwins.com",
-    logo: "https://carterlawwins.com/carter-logo-white.png",
-    image: "https://carterlawwins.com/thomas-carter-portrait.jpg",
+    url: "https://www.carterlawwins.com",
+    logo: "https://www.carterlawwins.com/carter-logo-white.png",
+    image: "https://www.carterlawwins.com/thomas-carter-portrait.jpg",
     description:
       "The Carter Law Firm, P.C. is a personal injury law firm in El Paso, TX, representing accident victims across Texas, Arizona, and New Mexico. Led by attorney Thomas Carter.",
     telephone: "+19156211818",
@@ -94,7 +94,7 @@ export function AggregateRatingSchema({
   const schema = {
     "@context": "https://schema.org",
     "@type": "Attorney",
-    "@id": "https://carterlawwins.com/#organization",
+    "@id": "https://www.carterlawwins.com/#organization",
     name: "The Carter Law Firm, P.C.",
     aggregateRating: {
       "@type": "AggregateRating",
@@ -192,7 +192,7 @@ export function LegalServiceSchema({
     url,
     provider: {
       "@type": "Attorney",
-      "@id": "https://carterlawwins.com/#organization",
+      "@id": "https://www.carterlawwins.com/#organization",
       name: "The Carter Law Firm, P.C.",
     },
     areaServed: {

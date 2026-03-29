@@ -17,22 +17,30 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "El Paso Personal Injury Lawyer | The Carter Law Firm, P.C.",
   description: "Injured in El Paso? The Carter Law Firm, P.C. fights for accident victims in TX, AZ & NM. Free consultation. No fee unless we win. Call (915) 621-1818.",
-  metadataBase: new URL("https://carterlawwins.com"),
+  metadataBase: new URL("https://www.carterlawwins.com"),
   openGraph: {
     siteName: "The Carter Law Firm, P.C.",
     type: "website",
     locale: "en_US",
     title: "El Paso Personal Injury Lawyer | The Carter Law Firm, P.C.",
     description: "Injured in El Paso? The Carter Law Firm, P.C. fights for accident victims in TX, AZ & NM. Free consultation. No fee unless we win. Call (915) 621-1818.",
-    url: "https://carterlawwins.com",
+    url: "https://www.carterlawwins.com",
+    images: [
+      {
+        url: "https://www.carterlawwins.com/carter-logo-white.png",
+        width: 1200,
+        alt: "The Carter Law Firm, P.C.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "El Paso Personal Injury Lawyer | The Carter Law Firm, P.C.",
     description: "Injured in El Paso? Free consultation. No fee unless we win. Call (915) 621-1818.",
+    images: ["https://www.carterlawwins.com/carter-logo-white.png"],
   },
   alternates: {
-    canonical: "https://carterlawwins.com",
+    canonical: "https://www.carterlawwins.com",
   },
 };
 

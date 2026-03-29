@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
+import { LocalBusinessSchema } from "@/components/seo/SchemaOrg";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +15,25 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Carter Law Firm | Champion for the Injured",
-  description: "Texas, Arizona & New Mexico's Champion for the Injured. When you're hurt and overwhelmed, you need more than a lawyer—you need a fighter who treats you like family.",
+  title: "El Paso Personal Injury Lawyer | The Carter Law Firm, P.C.",
+  description: "Injured in El Paso? The Carter Law Firm, P.C. fights for accident victims in TX, AZ & NM. Free consultation. No fee unless we win. Call (915) 621-1818.",
+  metadataBase: new URL("https://carterlawwins.com"),
+  openGraph: {
+    siteName: "The Carter Law Firm, P.C.",
+    type: "website",
+    locale: "en_US",
+    title: "El Paso Personal Injury Lawyer | The Carter Law Firm, P.C.",
+    description: "Injured in El Paso? The Carter Law Firm, P.C. fights for accident victims in TX, AZ & NM. Free consultation. No fee unless we win. Call (915) 621-1818.",
+    url: "https://carterlawwins.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "El Paso Personal Injury Lawyer | The Carter Law Firm, P.C.",
+    description: "Injured in El Paso? Free consultation. No fee unless we win. Call (915) 621-1818.",
+  },
+  alternates: {
+    canonical: "https://carterlawwins.com",
+  },
 };
 
 export default function RootLayout({
@@ -25,6 +43,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <LocalBusinessSchema />
+      </head>
       <body
         className={`${geistSans.variable} ${playfair.variable} antialiased`}
       >

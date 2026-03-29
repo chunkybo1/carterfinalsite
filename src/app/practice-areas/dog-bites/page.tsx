@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FAQPageSchema, BreadcrumbSchema, LegalServiceSchema } from "@/components/seo/SchemaOrg";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
@@ -49,12 +50,23 @@ export default async function DogBitePage(props: {
 
   return (
     <main className="min-h-screen flex flex-col bg-navy">
+      <FAQPageSchema faqs={DATA.faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://carterlawwins.com" },
+        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
+        { name: "Dog Bites", url: "https://carterlawwins.com/practice-areas/dog-bites" },
+      ]} />
+      <LegalServiceSchema
+        name="El Paso Dog Bite Lawyer"
+        description="Carter Law Firm, P.C. represents dog bite and animal attack victims in El Paso, TX. Free consultation. No fee unless we win."
+        url="https://carterlawwins.com/practice-areas/dog-bites"
+      />
       <Header />
       
       {/* 1. Hero Section: Video + Form */}
       <PracticeAreaHero 
         eyebrow="DOG BITE IN EL PASO?"
-        title="Serious Injuries Demand Serious Advocacy."
+        title="El Paso Dog Bite Lawyer — Free Consultation"
         description="Animal attacks leave deep scars, physical and emotional. Thomas Carter holds negligent owners accountable and fights for the compensation you need to heal."
       />
 

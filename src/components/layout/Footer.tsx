@@ -73,17 +73,19 @@ export const Footer = () => {
               </p>
               <div className="flex gap-4">
                 <a 
-                  href="https://linkedin.com" 
+                  href="https://www.linkedin.com/company/carter-law-firm-pc" 
                   target="_blank" 
                   rel="noopener noreferrer"
+                  aria-label="Carter Law Firm on LinkedIn"
                   className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-bronze hover:border-bronze transition-all duration-300"
                 >
                   <Linkedin className="h-4 w-4" />
                 </a>
                 <a 
-                  href="https://instagram.com" 
+                  href="https://www.instagram.com/carterlawwins" 
                   target="_blank" 
                   rel="noopener noreferrer"
+                  aria-label="Carter Law Firm on Instagram"
                   className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-bronze hover:border-bronze transition-all duration-300"
                 >
                   <Instagram className="h-4 w-4" />
@@ -127,8 +129,8 @@ export const Footer = () => {
                 <div className="flex gap-4">
                   <MapPin className="h-5 w-5 text-bronze shrink-0" />
                   <p className="text-sm text-light-steel font-sans leading-relaxed">
-                    124 W. Castellano Drive, Suite 103<br />
-                    El Paso, TX 79901
+                    124 W. Castellano Drive, UNIT 103<br />
+                    El Paso, TX 79912
                   </p>
                 </div>
                 <div className="flex gap-4">
@@ -153,10 +155,10 @@ export const Footer = () => {
               <div className="flex flex-wrap justify-center lg:justify-start gap-8 text-[10px] uppercase tracking-widest font-bold text-white/30 font-sans">
                 <Link href="/privacy" className="hover:text-bronze transition-colors">Privacy Policy</Link>
                 <Link href="/terms" className="hover:text-bronze transition-colors">Terms of Service</Link>
-                <Link href="/disclaimer" className="hover:text-bronze transition-colors">Sitemap</Link>
+                <Link href="/disclaimer" className="hover:text-bronze transition-colors">Disclaimer</Link>
               </div>
               <p className="text-[10px] text-white/20 uppercase tracking-[0.2em] font-sans font-bold">
-                © {new Date().getFullYear()} Carter Law Wins. All Rights Reserved.
+                © {new Date().getFullYear()} The Carter Law Firm, P.C. All Rights Reserved.
               </p>
             </div>
             

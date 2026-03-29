@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FAQPageSchema, BreadcrumbSchema, LegalServiceSchema } from "@/components/seo/SchemaOrg";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
@@ -19,13 +20,18 @@ if (!DATA) {
 }
 
 export const metadata: Metadata = {
-  title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-  description: DATA.shortDescription,
+  title: "El Paso Medical Malpractice Lawyer — Free Consultation | Carter Law Wins",
+  description: "Victim of medical negligence in El Paso? The Carter Law Firm, P.C. takes on hospitals and doctors. Specialized expertise. Free consultation. No fee unless we win.",
   openGraph: {
-    title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-    description: DATA.shortDescription,
+    title: "El Paso Medical Malpractice Lawyer — Free Consultation | Carter Law Wins",
+    description: "Victim of medical negligence in El Paso? The Carter Law Firm, P.C. takes on hospitals and doctors. Free consultation. No fee unless we win.",
     type: "website",
     url: `https://carterlawwins.com${DATA.href}`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "El Paso Medical Malpractice Lawyer — Free Consultation | Carter Law Wins",
+    description: "Victim of medical negligence in El Paso? Free consultation. No fee unless we win. (915) 621-1818.",
   },
   alternates: {
     canonical: `https://carterlawwins.com${DATA.href}`,
@@ -49,11 +55,22 @@ export default async function MedicalMalpracticePage(props: {
 
   return (
     <main className="min-h-screen flex flex-col bg-navy">
+      <FAQPageSchema faqs={DATA.faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://carterlawwins.com" },
+        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
+        { name: "Medical Malpractice", url: "https://carterlawwins.com/practice-areas/medical-malpractice" },
+      ]} />
+      <LegalServiceSchema
+        name="El Paso Medical Malpractice Lawyer"
+        description="Carter Law Firm, P.C. represents victims of medical negligence in El Paso, TX. Free consultation. No fee unless we win."
+        url="https://carterlawwins.com/practice-areas/medical-malpractice"
+      />
       <Header />
       
       <PracticeAreaHero 
         eyebrow="MEDICAL ERROR OR NEGLIGENCE?"
-        title="Doctors Make Mistakes. We Make Them Answer for It."
+        title="El Paso Medical Malpractice Lawyer — Free Consultation"
         description="Medical malpractice cases are complex and highly defended. Thomas Carter has the specialized expertise and the resources to take on hospitals and win."
       />
 

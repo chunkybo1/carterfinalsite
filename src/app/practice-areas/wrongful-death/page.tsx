@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FAQPageSchema, BreadcrumbSchema, LegalServiceSchema } from "@/components/seo/SchemaOrg";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
@@ -19,13 +20,18 @@ if (!DATA) {
 }
 
 export const metadata: Metadata = {
-  title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-  description: DATA.shortDescription,
+  title: "El Paso Wrongful Death Lawyer — Free Consultation | Carter Law Wins",
+  description: "Lost a loved one due to negligence in El Paso? The Carter Law Firm, P.C. fights for families seeking justice and accountability. Free consultation. No fee unless we win.",
   openGraph: {
-    title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-    description: DATA.shortDescription,
+    title: "El Paso Wrongful Death Lawyer — Free Consultation | Carter Law Wins",
+    description: "Lost a loved one due to negligence in El Paso? The Carter Law Firm, P.C. fights for families seeking justice. Free consultation. No fee unless we win.",
     type: "website",
     url: `https://carterlawwins.com${DATA.href}`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "El Paso Wrongful Death Lawyer — Free Consultation | Carter Law Wins",
+    description: "Families trust The Carter Law Firm, P.C. for wrongful death cases in El Paso. Free consultation. No fee unless we win.",
   },
   alternates: {
     canonical: `https://carterlawwins.com${DATA.href}`,
@@ -49,11 +55,22 @@ export default async function WrongfulDeathPage(props: {
 
   return (
     <main className="min-h-screen flex flex-col bg-navy">
+      <FAQPageSchema faqs={DATA.faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://carterlawwins.com" },
+        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
+        { name: "Wrongful Death", url: "https://carterlawwins.com/practice-areas/wrongful-death" },
+      ]} />
+      <LegalServiceSchema
+        name="El Paso Wrongful Death Lawyer"
+        description="Carter Law Firm, P.C. represents families of wrongful death victims in El Paso, TX. Free consultation. No fee unless we win."
+        url="https://carterlawwins.com/practice-areas/wrongful-death"
+      />
       <Header />
       
       <PracticeAreaHero 
         eyebrow="FACING THE UNTHINKABLE?"
-        title="Holding Negligence Accountable for Your Loss."
+        title="El Paso Wrongful Death Lawyer — Compassionate, Fierce Advocacy"
         description="Justice cannot replace a loved one, but it can provide your family with the security and the accountability you deserve."
       />
 

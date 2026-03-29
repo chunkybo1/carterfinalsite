@@ -10,6 +10,7 @@ import { StrategicFAQ } from "@/components/sections/practice-areas/StrategicFAQ"
 import { PracticeAreaCTA } from "@/components/sections/practice-areas/PracticeAreaCTA";
 import { PRACTICE_AREAS_DATA } from "@/lib/services-data";
 import { getIconForCaseType } from "@/utils/practiceAreaHelpers";
+import { FAQPageSchema, BreadcrumbSchema, LegalServiceSchema } from "@/components/seo/SchemaOrg";
 
 const SLUG = "trucking-accidents";
 const DATA = PRACTICE_AREAS_DATA.find((area) => area.id === SLUG);
@@ -19,13 +20,18 @@ if (!DATA) {
 }
 
 export const metadata: Metadata = {
-  title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-  description: DATA.shortDescription,
+  title: "El Paso Trucking Accident Lawyer — Free Consultation | Carter Law Wins",
+  description: "Injured by a commercial truck in El Paso? The Carter Law Firm, P.C. takes on trucking companies and their insurers. 16 years trial experience. No fee unless we win. (915) 621-1818.",
   openGraph: {
-    title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-    description: DATA.shortDescription,
+    title: "El Paso Trucking Accident Lawyer — Free Consultation | Carter Law Wins",
+    description: "Injured by a commercial truck in El Paso? The Carter Law Firm, P.C. takes on trucking companies and their insurers. No fee unless we win.",
     type: "website",
     url: `https://carterlawwins.com${DATA.href}`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "El Paso Trucking Accident Lawyer — Free Consultation | Carter Law Wins",
+    description: "Injured by a commercial truck in El Paso? Free consultation. No fee unless we win. (915) 621-1818.",
   },
   alternates: {
     canonical: `https://carterlawwins.com${DATA.href}`,
@@ -49,11 +55,22 @@ export default async function TruckingAccidentsPage(props: {
 
   return (
     <main className="min-h-screen flex flex-col bg-navy">
+      <FAQPageSchema faqs={DATA.faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://carterlawwins.com" },
+        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
+        { name: "Trucking Accidents", url: "https://carterlawwins.com/practice-areas/trucking-accidents" },
+      ]} />
+      <LegalServiceSchema
+        name="El Paso Trucking Accident Lawyer"
+        description="Carter Law Firm, P.C. represents victims of commercial truck accidents in El Paso, TX. Free consultation. No fee unless we win."
+        url="https://carterlawwins.com/practice-areas/trucking-accidents"
+      />
       <Header />
       
       <PracticeAreaHero 
         eyebrow="COMMERCIAL TRUCK ACCIDENT?"
-        title="When an 80,000lb Truck Hits You, We Hit Back."
+        title="El Paso Trucking Accident Lawyer — Free Consultation"
         description="Trucking companies have immediate response teams on the scene. You need Thomas Carter to level the playing field and protect your future."
       />
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FAQPageSchema, BreadcrumbSchema, LegalServiceSchema } from "@/components/seo/SchemaOrg";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
@@ -19,13 +20,18 @@ if (!DATA) {
 }
 
 export const metadata: Metadata = {
-  title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-  description: DATA.shortDescription,
+  title: "El Paso Slip and Fall Lawyer — Free Consultation | Carter Law Wins",
+  description: "Injured in a slip and fall in El Paso? The Carter Law Firm, P.C. holds negligent property owners accountable. Free consultation. No fee unless we win. (915) 621-1818.",
   openGraph: {
-    title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-    description: DATA.shortDescription,
+    title: "El Paso Slip and Fall Lawyer — Free Consultation | Carter Law Wins",
+    description: "Injured in a slip and fall in El Paso? The Carter Law Firm, P.C. holds property owners accountable. Free consultation. No fee unless we win.",
     type: "website",
     url: `https://carterlawwins.com${DATA.href}`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "El Paso Slip and Fall Lawyer — Free Consultation | Carter Law Wins",
+    description: "Injured in a slip and fall in El Paso? Free consultation. No fee unless we win. (915) 621-1818.",
   },
   alternates: {
     canonical: `https://carterlawwins.com${DATA.href}`,
@@ -49,11 +55,22 @@ export default async function SlipAndFallPage(props: {
 
   return (
     <main className="min-h-screen flex flex-col bg-navy">
+      <FAQPageSchema faqs={DATA.faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://carterlawwins.com" },
+        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
+        { name: "Slip and Fall", url: "https://carterlawwins.com/practice-areas/slip-and-fall" },
+      ]} />
+      <LegalServiceSchema
+        name="El Paso Slip and Fall Lawyer"
+        description="Carter Law Firm, P.C. represents slip and fall victims in El Paso, TX. Free consultation. No fee unless we win."
+        url="https://carterlawwins.com/practice-areas/slip-and-fall"
+      />
       <Header />
       
       <PracticeAreaHero 
         eyebrow="INJURED ON SOMEONE'S PROPERTY?"
-        title="Property Owners Have a Duty to Keep You Safe."
+        title="El Paso Slip and Fall Lawyer — Free Consultation"
         description="When negligence leads to a fall, the consequences can be life-altering. Thomas Carter holds property owners accountable for the hazards they ignore."
       />
 

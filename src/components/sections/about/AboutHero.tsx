@@ -67,11 +67,13 @@ export const AboutHero = () => {
           {/* Headline */}
           <div className="space-y-1">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] tracking-tight">
-              Advocacy Runs
+              El Paso Personal Injury Attorney{" "}
+              <span className="text-bronze italic">Thomas Carter</span>
             </h1>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] tracking-tight">
-              <span className="text-bronze">in the</span> <span className="text-bronze italic">Family.</span>
-            </h1>
+            <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] tracking-tight">
+              <span className="text-bronze">Advocacy Runs</span>{" "}
+              <span className="text-bronze italic">in the Family.</span>
+            </p>
           </div>
 
           {/* Opening Hook */}

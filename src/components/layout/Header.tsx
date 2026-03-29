@@ -216,7 +216,7 @@ export const Header = () => {
                 )}
               </div>
               <Link href="/reviews" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Reviews</Link>
-              <button onClick={openModal} className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base text-left">Contact</button>
+              <Link href="/contact" onClick={openModal} className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base text-left">Contact</Link>
             </nav>
 
             <div className="h-5 w-[1px] bg-white/20" />

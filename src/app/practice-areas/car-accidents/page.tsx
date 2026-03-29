@@ -10,6 +10,7 @@ import { StrategicFAQ } from "@/components/sections/practice-areas/StrategicFAQ"
 import { PracticeAreaCTA } from "@/components/sections/practice-areas/PracticeAreaCTA";
 import { PRACTICE_AREAS_DATA } from "@/lib/services-data";
 import { getIconForCaseType } from "@/utils/practiceAreaHelpers";
+import { FAQPageSchema, BreadcrumbSchema, LegalServiceSchema } from "@/components/seo/SchemaOrg";
 
 const SLUG = "car-accidents";
 const DATA = PRACTICE_AREAS_DATA.find((area) => area.id === SLUG);
@@ -49,12 +50,23 @@ export default async function CarAccidentPage(props: {
 
   return (
     <main className="min-h-screen flex flex-col bg-navy">
+      <FAQPageSchema faqs={DATA.faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://carterlawwins.com" },
+        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
+        { name: "Car Accidents", url: "https://carterlawwins.com/practice-areas/car-accidents" },
+      ]} />
+      <LegalServiceSchema
+        name="El Paso Car Accident Lawyer"
+        description="Carter Law Firm, P.C. represents car accident victims in El Paso, TX. Free consultation. No fee unless we win."
+        url="https://carterlawwins.com/practice-areas/car-accidents"
+      />
       <Header />
       
       {/* 1. Hero Section: Video + Form */}
       <PracticeAreaHero 
         eyebrow="CAR ACCIDENT IN EL PASO?"
-        title="The Insurance Company Has Lawyers. Now You Do Too."
+        title="El Paso Car Accident Lawyer — Free Consultation"
         description="After a wreck, you're hurt, stressed, and facing an insurance company that wants to pay you as little as possible. Thomas Carter makes sure that doesn't happen."
       />
 

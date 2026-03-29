@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FAQPageSchema, BreadcrumbSchema, LegalServiceSchema } from "@/components/seo/SchemaOrg";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
@@ -19,13 +20,18 @@ if (!DATA) {
 }
 
 export const metadata: Metadata = {
-  title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-  description: DATA.shortDescription,
+  title: "El Paso Pedestrian Accident Lawyer — Free Consultation | Carter Law Wins",
+  description: "Struck by a vehicle as a pedestrian in El Paso? The Carter Law Firm, P.C. fights for injured pedestrians. Free consultation. No fee unless we win. (915) 621-1818.",
   openGraph: {
-    title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-    description: DATA.shortDescription,
+    title: "El Paso Pedestrian Accident Lawyer — Free Consultation | Carter Law Wins",
+    description: "Struck by a vehicle as a pedestrian in El Paso? The Carter Law Firm, P.C. fights for injured pedestrians. Free consultation. No fee unless we win.",
     type: "website",
     url: `https://carterlawwins.com${DATA.href}`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "El Paso Pedestrian Accident Lawyer — Free Consultation | Carter Law Wins",
+    description: "Struck by a vehicle as a pedestrian in El Paso? Free consultation. No fee unless we win. (915) 621-1818.",
   },
   alternates: {
     canonical: `https://carterlawwins.com${DATA.href}`,
@@ -49,11 +55,22 @@ export default async function PedestrianAccidentsPage(props: {
 
   return (
     <main className="min-h-screen flex flex-col bg-navy">
+      <FAQPageSchema faqs={DATA.faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://carterlawwins.com" },
+        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
+        { name: "Pedestrian Accidents", url: "https://carterlawwins.com/practice-areas/pedestrian-accidents" },
+      ]} />
+      <LegalServiceSchema
+        name="El Paso Pedestrian Accident Lawyer"
+        description="Carter Law Firm, P.C. represents pedestrian accident victims in El Paso, TX. Free consultation. No fee unless we win."
+        url="https://carterlawwins.com/practice-areas/pedestrian-accidents"
+      />
       <Header />
       
       <PracticeAreaHero 
         eyebrow="STRUCK BY A VEHICLE?"
-        title="Justice for the Most Vulnerable on the Road."
+        title="El Paso Pedestrian Accident Lawyer — Free Consultation"
         description="When a vehicle strikes a pedestrian, the results are often catastrophic. Thomas Carter fights to ensure you aren't just another statistic."
       />
 

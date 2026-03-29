@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FAQPageSchema, BreadcrumbSchema, LegalServiceSchema } from "@/components/seo/SchemaOrg";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
@@ -19,13 +20,18 @@ if (!DATA) {
 }
 
 export const metadata: Metadata = {
-  title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-  description: DATA.shortDescription,
+  title: "El Paso Bicycle Accident Lawyer — Free Consultation | Carter Law Wins",
+  description: "Injured in a bicycle accident in El Paso? The Carter Law Firm, P.C. fights for cyclists' rights against negligent drivers and their insurers. No fee unless we win.",
   openGraph: {
-    title: `${DATA.title} | El Paso Lawyer | Carter Law Wins`,
-    description: DATA.shortDescription,
+    title: "El Paso Bicycle Accident Lawyer — Free Consultation | Carter Law Wins",
+    description: "Injured in a bicycle accident in El Paso? The Carter Law Firm, P.C. fights for cyclists' rights. Free consultation. No fee unless we win.",
     type: "website",
     url: `https://carterlawwins.com${DATA.href}`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "El Paso Bicycle Accident Lawyer — Free Consultation | Carter Law Wins",
+    description: "Injured in a bicycle accident in El Paso? Free consultation. No fee unless we win. (915) 621-1818.",
   },
   alternates: {
     canonical: `https://carterlawwins.com${DATA.href}`,
@@ -49,11 +55,22 @@ export default async function BicycleAccidentsPage(props: {
 
   return (
     <main className="min-h-screen flex flex-col bg-navy">
+      <FAQPageSchema faqs={DATA.faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://carterlawwins.com" },
+        { name: "Practice Areas", url: "https://carterlawwins.com/services" },
+        { name: "Bicycle Accidents", url: "https://carterlawwins.com/practice-areas/bicycle-accidents" },
+      ]} />
+      <LegalServiceSchema
+        name="El Paso Bicycle Accident Lawyer"
+        description="Carter Law Firm, P.C. represents bicycle accident victims in El Paso, TX. Free consultation. No fee unless we win."
+        url="https://carterlawwins.com/practice-areas/bicycle-accidents"
+      />
       <Header />
       
       <PracticeAreaHero 
         eyebrow="INJURED WHILE CYCLING?"
-        title="Protecting the Rights of El Paso's Cyclists."
+        title="El Paso Bicycle Accident Lawyer — Free Consultation"
         description="Insurance companies often try to blame the cyclist. Thomas Carter flips the script and holds negligent drivers accountable for the damage they cause."
       />
 

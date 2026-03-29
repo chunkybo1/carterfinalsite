@@ -73,17 +73,29 @@ export const HeroSection = ({
               {/* Subline */}
               <div className="mt-2 md:mt-4 relative inline-block w-full">
                 <div className="overflow-hidden">
-                  <motion.div
+                  <motion.h1
                     initial="hidden"
                     animate={showContent ? "visible" : "hidden"}
                     variants={sublineVariants}
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.9 }}
                     className="text-5xl sm:text-6xl md:text-7xl lg:text-[6vw] font-serif font-bold leading-[0.9] tracking-tight text-white/90 break-words whitespace-normal"
                   >
-                    CARTER LAW<br className="sm:hidden" /> WINS.
-                  </motion.div>
+                    El Paso Personal Injury Lawyer
+                  </motion.h1>
                 </div>
               </div>
+
+              {/* Visual brand name below H1 */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={showContent ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
+                className="mt-3 md:mt-4"
+              >
+                <p className="text-3xl sm:text-4xl md:text-5xl lg:text-[4vw] font-serif font-bold text-bronze/80 tracking-tight leading-none">
+                  Carter Law Wins.
+                </p>
+              </motion.div>
 
               {/* Tagline Text */}
               <motion.div

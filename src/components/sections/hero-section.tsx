@@ -68,44 +68,35 @@ export const HeroSection = ({
         
         {/* LEFT SIDE: Content */}
         {!videoOnly && (
-          <div className="relative z-20 w-full md:w-[55%] h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pointer-events-none">
-            <div className="relative pointer-events-auto pt-20 md:pt-0">
+          <div className="relative z-20 w-full h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pointer-events-none text-center items-center">
+            <div className="relative pointer-events-auto pt-20 md:pt-0 max-w-4xl">
+              {/* Visually Hidden H1 for SEO */}
+              <h1 className="sr-only">El Paso personal injury lawyer</h1>
+
               {/* Subline */}
               <div className="mt-2 md:mt-4 relative inline-block w-full">
-                <div className="overflow-hidden">
-                  <motion.h1
+                <div className="overflow-hidden pb-3">
+                  <motion.h2
                     initial="hidden"
                     animate={showContent ? "visible" : "hidden"}
                     variants={sublineVariants}
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.9 }}
-                    className="text-5xl sm:text-6xl md:text-7xl lg:text-[6vw] font-serif font-bold leading-[0.9] tracking-tight text-white/90 break-words whitespace-normal"
+                    className="text-5xl sm:text-6xl md:text-7xl lg:text-[6vw] font-serif font-bold leading-[1.1] tracking-tight text-white/90 break-words whitespace-normal pb-3"
                   >
-                    El Paso Personal Injury Lawyer
-                  </motion.h1>
+                    El Paso&apos;s Personal Injury Champion
+                  </motion.h2>
                 </div>
               </div>
-
-              {/* Visual brand name below H1 */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={showContent ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
-                className="mt-3 md:mt-4"
-              >
-                <p className="text-3xl sm:text-4xl md:text-5xl lg:text-[4vw] font-serif font-bold text-bronze/80 tracking-tight leading-none">
-                  Carter Law Wins.
-                </p>
-              </motion.div>
 
               {/* Tagline Text */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={showContent ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 1.8 }}
-                className="mt-6 md:mt-8 max-w-sm md:max-w-none"
+                transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
+                className="mt-6 md:mt-8"
               >
                 <p className="text-xs sm:text-sm md:text-base font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] text-white/70 uppercase leading-relaxed">
-                  EL PASO&apos;S CHAMPION<br className="sm:hidden" /> • LICENSED IN TX, AZ, & NM
+                  LICENSED IN TX, AZ, & NM
                 </p>
               </motion.div>
 
@@ -114,12 +105,12 @@ export const HeroSection = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: showContent ? 1 : 0 }}
                 transition={{ delay: 2.0, duration: 0.8 }}
-                className="mt-10 md:mt-12"
+                className="mt-10 md:mt-12 flex justify-center"
               >
                 <Button 
                   size="lg"
                   noFloat
-                  className="w-full sm:w-auto text-base bg-navy/40 backdrop-blur-md text-white border border-white/10 hover:bg-navy/60 shadow-xl"
+                  className="w-full sm:w-auto text-base bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm transition-all duration-300 shadow-xl"
                   onClick={openModal}
                 >
                   Talk To Us

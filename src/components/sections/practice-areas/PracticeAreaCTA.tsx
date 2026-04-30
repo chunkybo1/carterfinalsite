@@ -29,7 +29,7 @@ export const PracticeAreaCTA = ({ title, subtitle }: PracticeAreaCTAProps) => {
             className="text-white"
           >
             <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-6">
-              Final Consultation
+              Free Consultation
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-8 leading-tight">
               {title}

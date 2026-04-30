@@ -80,10 +80,16 @@ export const Biography = () => {
             className="space-y-4 md:space-y-6 text-sm md:text-base text-gray-400 font-sans leading-relaxed"
           >
             <p>
-              Thomas Carter founded this firm on a simple principle: every client deserves a champion. With over 15 years in the courtroom, he has built a reputation for taking the cases other firms shy away from.
+              Thomas Carter founded this firm on a simple principle: every client deserves a champion. With over 15 years in the courtroom, he has built a reputation for taking the cases other firms shy away from. His journey in law began with a commitment to serving the El Paso community, where he has witnessed firsthand the impact that a dedicated legal advocate can have on the lives of accident victims and their families.
             </p>
             <p>
-              He doesn&apos;t just manage cases; he fights battles. By limiting the firm&apos;s caseload, Thomas ensures that every family he represents receives his direct attention and the full weight of his trial experience.
+              He doesn&apos;t just manage cases; he fights battles. By limiting the firm&apos;s caseload, Thomas ensures that every family he represents receives his direct attention and the full weight of his trial experience. This selective approach allows for a level of meticulous preparation that is rare in the legal field. From the initial investigation to the final verdict or settlement, Thomas is personally involved in every strategic decision, ensuring that no detail is overlooked and every opportunity for recovery is pursued.
+            </p>
+            <p>
+              In El Paso, the legal landscape is unique, shaped by both state laws and local court procedures. Thomas Carter&apos;s deep understanding of the El Paso County court system, combined with his extensive experience across Texas, Arizona, and New Mexico, provides his clients with a distinct advantage. He knows the local judges, the opposing counsel, and the specific challenges that arise in El Paso personal injury cases. Whether it&apos;s a complex trucking accident on I-10 or a medical malpractice claim against a local hospital, Thomas brings a level of localized expertise that is essential for achieving the best possible outcomes.
+            </p>
+            <p>
+              Beyond the courtroom, Thomas is a dedicated member of the El Paso community. He believes that a lawyer&apos;s duty extends beyond legal representation to include supporting the community they serve. This commitment to El Paso is reflected in the firm&apos;s approach to client service, where compassion and respect are just as important as legal skill. When you choose Carter Law, you&apos;re not just hiring a lawyer; you&apos;re gaining a partner who is genuinely invested in your recovery and your future.
             </p>
           </motion.div>
 

@@ -9,7 +9,7 @@ export const ContactPageContent = () => {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-16 lg:pt-44 lg:pb-20 bg-navy overflow-hidden">
+      <section className="relative pt-36 pb-16 lg:pt-44 lg:pb-20 bg-navy overflow-hidden">
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <div
             className="absolute inset-0"

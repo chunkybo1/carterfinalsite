@@ -115,7 +115,7 @@ export const HTML5Video = ({
       >
         <video
           ref={videoRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          className="absolute top-[calc(50%+10px)] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
           autoPlay={autoplay}
           loop={loop}
           muted={muted}

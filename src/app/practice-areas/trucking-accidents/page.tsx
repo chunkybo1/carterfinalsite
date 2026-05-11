@@ -3,6 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
+import { PracticeAreaOverview } from "@/components/sections/practice-areas/PracticeAreaOverview";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
@@ -69,7 +70,6 @@ export default async function TruckingAccidentsPage(props: {
       <Header />
       
       <PracticeAreaHero 
-        eyebrow="COMMERCIAL TRUCK ACCIDENT?"
         title="El Paso Trucking Accident Lawyer — Free Consultation"
         description="Trucking companies have immediate response teams on the scene. You need Thomas Carter to level the playing field and protect your future."
       />
@@ -79,6 +79,12 @@ export default async function TruckingAccidentsPage(props: {
       <MeetAdvocate 
         headline="Compassion for Victims. Fearless Against Corporations."
         text="Thomas Carter understands the specialized regulations that govern the trucking industry. He doesn't just look at the crash; he investigates the logs, the maintenance, and the corporate negligence that led to your injury."
+      />
+
+      <PracticeAreaOverview 
+        title={DATA.title}
+        overview={DATA.overview}
+        whoNeedsThis={DATA.whoNeedsThis}
       />
 
       <ProcessMap />

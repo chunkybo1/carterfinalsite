@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
+import { PracticeAreaOverview } from "@/components/sections/practice-areas/PracticeAreaOverview";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
@@ -65,7 +66,6 @@ export default async function DogBitePage(props: {
       
       {/* 1. Hero Section: Video + Form */}
       <PracticeAreaHero 
-        eyebrow="DOG BITE IN EL PASO?"
         title="El Paso Dog Bite Lawyer — Free Consultation"
         description="Animal attacks leave deep scars, physical and emotional. Thomas Carter holds negligent owners accountable and fights for the compensation you need to heal."
       />
@@ -77,6 +77,12 @@ export default async function DogBitePage(props: {
       <MeetAdvocate 
         headline="Compassionate Care. Fierce Representation."
         text="A dog attack is a traumatic event, especially for children. Thomas Carter approaches every case with the compassion victims deserve and the tenacity needed to win against insurance companies."
+      />
+
+      <PracticeAreaOverview 
+        title={DATA.title}
+        overview={DATA.overview}
+        whoNeedsThis={DATA.whoNeedsThis}
       />
 
       {/* 4. The Process Map: Steps 01, 02, 03 */}

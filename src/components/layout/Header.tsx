@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
@@ -20,16 +21,32 @@ const SERVICE_AREAS = [
   { title: "Medical Malpractice", href: "/practice-areas/medical-malpractice" },
 ];
 
+const LOCATIONS = [
+  { title: "El Paso, TX", href: "/" },
+  { title: "Dallas, TX", href: "/locations/dallas" },
+  { title: "Phoenix, AZ", href: "/locations/phoenix" },
+];
+
 export const Header = () => {
   const { openModal } = useModal();
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isLocationsDropdownOpen, setIsLocationsDropdownOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   
   const lastScrollYRef = useRef(0);
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
+  const locationsDropdownRef = useRef<HTMLDivElement>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const locationsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Determine current location display name
+  const currentLocation = LOCATIONS.find(loc => {
+    if (loc.href === "/") return pathname === "/";
+    return pathname.startsWith(loc.href);
+  })?.title || "Locations";
 
   // Use Framer Motion's useScroll for performant scroll tracking
   const { scrollY } = useScroll();
@@ -63,7 +80,7 @@ export const Header = () => {
     }
   });
 
-  const headerY = isHeaderVisible ? 0 : -100;
+  const headerY = isHeaderVisible ? 0 : -180;
 
   // Header should be static and opaque on mobile, animated on desktop
   const [isMobile, setIsMobile] = useState(false);
@@ -95,9 +112,12 @@ export const Header = () => {
       if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(event.target as Node)) {
         setIsServicesDropdownOpen(false);
       }
+      if (locationsDropdownRef.current && !locationsDropdownRef.current.contains(event.target as Node)) {
+        setIsLocationsDropdownOpen(false);
+      }
     };
 
-    if (isServicesDropdownOpen) {
+    if (isServicesDropdownOpen || isLocationsDropdownOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
@@ -111,6 +131,9 @@ export const Header = () => {
     return () => {
       if (dropdownTimeoutRef.current) {
         clearTimeout(dropdownTimeoutRef.current);
+      }
+      if (locationsTimeoutRef.current) {
+        clearTimeout(locationsTimeoutRef.current);
       }
     };
   }, []);
@@ -129,100 +152,115 @@ export const Header = () => {
       setIsServicesDropdownOpen(false);
     }, 150);
   };
+
+  const handleLocationsMouseEnter = () => {
+    if (locationsTimeoutRef.current) {
+      clearTimeout(locationsTimeoutRef.current);
+      locationsTimeoutRef.current = null;
+    }
+    setIsLocationsDropdownOpen(true);
+  };
+
+  const handleLocationsMouseLeave = () => {
+    locationsTimeoutRef.current = setTimeout(() => {
+      setIsLocationsDropdownOpen(false);
+    }, 150);
+  };
   
+  const navLinks = (
+    <>
+      <Link href="/about" className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm">About</Link>
+      
+      <div 
+        ref={servicesDropdownRef}
+        className="relative"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <button
+          className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm flex items-center gap-1"
+        >
+          Service Areas
+          <svg 
+            className={`w-4 h-4 transition-transform duration-200 ${isServicesDropdownOpen ? 'rotate-180' : ''}`}
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        {isServicesDropdownOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-navy border border-bronze shadow-xl z-50"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="py-2">
+              {SERVICE_AREAS.map((area, index) => (
+                <React.Fragment key={area.href}>
+                    <Link
+                    href={area.href}
+                    className="block px-6 py-3 text-white/90 hover:text-white hover:bg-bronze/10 transition-colors font-sans text-xs tracking-[0.2em] uppercase"
+                    onClick={() => setIsServicesDropdownOpen(false)}
+                  >
+                    {area.title}
+                  </Link>
+                  {index < SERVICE_AREAS.length - 1 && (
+                    <div className="h-[1px] bg-bronze/30 mx-4" />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </div>
+      <Link href="/reviews" className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm">Reviews</Link>
+      <Link href="/contact" onClick={openModal} className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm text-left">Contact</Link>
+    </>
+  );
+
   return (
     <motion.header
       style={{ 
         y: isMobile ? 0 : headerY,
       }}
-      className="fixed top-0 left-0 right-0 z-50 py-3 sm:py-5 md:py-1.5 2xl:py-2 transition-all duration-300 bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze"
       initial={false}
       animate={{ y: isMobile ? 0 : headerY }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Container className="2xl:max-w-[95vw] relative z-10">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center text-white" onClick={() => setIsMobileMenuOpen(false)}>
-            <div className="relative h-10 w-48 sm:h-14 sm:w-64 md:h-16 md:w-[320px] 2xl:h-20 2xl:w-[400px]">
-              <Image
-                src="/carter-logo-white.png"
-                alt="Carter Law Wins"
-                fill
-                className="object-contain object-left"
-                priority
-                style={{ 
-                  background: 'transparent',
-                  backgroundColor: 'transparent'
-                }}
-              />
-            </div>
-          </Link>
-
-          {/* Nav & CTA - Desktop */}
-          <div className="hidden md:flex items-center gap-6 2xl:gap-8">
-            <nav className="flex items-center gap-4 2xl:gap-6">
-              <Link href="/about" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">About</Link>
-              
-              <div 
-                ref={servicesDropdownRef}
-                className="relative"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <button
-                  className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base flex items-center gap-1"
-                >
-                  Service Areas
-                  <svg 
-                    className={`w-4 h-4 transition-transform duration-200 ${isServicesDropdownOpen ? 'rotate-180' : ''}`}
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                {isServicesDropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-4 w-64 bg-navy border border-bronze shadow-xl z-50"
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <div className="py-2">
-                      {SERVICE_AREAS.map((area, index) => (
-                        <React.Fragment key={area.href}>
-                            <Link
-                            href={area.href}
-                            className="block px-6 py-3 text-white/90 hover:text-white hover:bg-bronze/10 transition-colors font-serif text-sm tracking-wide"
-                            onClick={() => setIsServicesDropdownOpen(false)}
-                          >
-                            {area.title}
-                          </Link>
-                          {index < SERVICE_AREAS.length - 1 && (
-                            <div className="h-[1px] bg-bronze/30 mx-4" />
-                          )}
-                        </React.Fragment>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
+      {/* Top Row: Logo, Phone, CTA */}
+      <div className="py-2 sm:py-3 md:py-2">
+        <Container className="2xl:max-w-[95vw] relative z-10">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center text-white" onClick={() => setIsMobileMenuOpen(false)}>
+              <div className="relative h-10 w-48 sm:h-14 sm:w-64 md:h-20 md:w-[400px] 2xl:h-24 2xl:w-[480px]">
+                <Image
+                  src="/carter-logo-white.png"
+                  alt="Carter Law Wins"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                  style={{ 
+                    background: 'transparent',
+                    backgroundColor: 'transparent'
+                  }}
+                />
               </div>
-              <Link href="/reviews" className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base">Reviews</Link>
-              <Link href="/contact" onClick={openModal} className="text-white/90 hover:text-bronze transition-colors font-serif tracking-wide text-sm 2xl:text-base text-left">Contact</Link>
-            </nav>
+            </Link>
 
-            <div className="h-5 w-[1px] bg-white/20" />
-
-            <div className="flex items-center gap-3 2xl:gap-4">
-              <a href="tel:9156211818" className="group flex items-center gap-2 text-white/70 text-xs 2xl:text-sm font-serif font-medium hover:text-white transition-all duration-300">
+            {/* Phone & CTA - Desktop */}
+            <div className="hidden md:flex items-center gap-6 2xl:gap-8">
+              <a href="tel:9156211818" className="group flex items-center gap-2 text-white/70 text-[10px] 2xl:text-xs font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase hover:text-white transition-all duration-300">
                 <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-white" />
                 (915) 621-1818
               </a>
@@ -230,29 +268,95 @@ export const Header = () => {
                 size="sm"
                 noFloat
                 onClick={openModal}
-                className="px-4 py-1.5 2xl:px-6 2xl:py-2"
+                className="px-4 py-1.5 2xl:px-6 2xl:py-2 gold-button"
               >
                 Free Case Review
               </Button>
             </div>
-          </div>
 
-          <button
-            className="md:hidden relative z-[70] flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 text-white focus:outline-none"
-            onClick={(e) => {
-              e.preventDefault();
-              setIsMobileMenuOpen(!isMobileMenuOpen);
-            }}
-            aria-label="Toggle Menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-8 w-8 sm:h-10 sm:w-10 text-bronze" />
-            ) : (
-              <Menu className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
-            )}
-          </button>
-        </div>
-      </Container>
+            {/* Mobile Menu Toggle */}
+            <button
+              className="md:hidden relative z-[70] flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 text-white focus:outline-none"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+              }}
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-8 w-8 sm:h-10 sm:w-10 text-bronze" />
+              ) : (
+                <Menu className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
+              )}
+            </button>
+          </div>
+        </Container>
+      </div>
+
+      {/* Bottom Row: Desktop Navigation */}
+      <div className="hidden md:block border-t border-bronze/20 bg-navy/50 backdrop-blur-sm">
+        <Container className="2xl:max-w-[95vw]">
+          <div className="flex items-center justify-between py-2.5">
+            {/* Left/Center: Main Links */}
+            <div className="flex-1 flex justify-center">
+              <nav className="flex items-center gap-12 2xl:gap-20">
+                {navLinks}
+              </nav>
+            </div>
+
+            {/* Right: Locations Dropdown */}
+            <div 
+              ref={locationsDropdownRef}
+              className="relative"
+              onMouseEnter={handleLocationsMouseEnter}
+              onMouseLeave={handleLocationsMouseLeave}
+            >
+              <button
+                className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm flex items-center gap-1"
+              >
+                {currentLocation}
+                <svg 
+                  className={`w-4 h-4 transition-transform duration-200 ${isLocationsDropdownOpen ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {isLocationsDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full right-0 mt-2 w-48 bg-navy border border-bronze shadow-xl z-50"
+                  onMouseEnter={handleLocationsMouseEnter}
+                  onMouseLeave={handleLocationsMouseLeave}
+                >
+                  <div className="py-2">
+                    {LOCATIONS.map((loc, index) => (
+                      <React.Fragment key={loc.href}>
+                        <Link
+                          href={loc.href}
+                          className="block px-6 py-3 text-white/90 hover:text-white hover:bg-bronze/10 transition-colors font-sans text-xs tracking-[0.2em] uppercase"
+                          onClick={() => setIsLocationsDropdownOpen(false)}
+                        >
+                          {loc.title}
+                        </Link>
+                        {index < LOCATIONS.length - 1 && (
+                          <div className="h-[1px] bg-bronze/30 mx-4" />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </div>
+        </Container>
+      </div>
 
       {/* Full-Screen Mobile Menu Overlay */}
       <AnimatePresence>
@@ -280,7 +384,7 @@ export const Header = () => {
               >
                 <Link 
                   href="/about" 
-                  className="text-3xl font-serif text-white hover:text-bronze transition-colors"
+                  className="text-2xl font-sans font-bold text-white hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   About
@@ -293,13 +397,13 @@ export const Header = () => {
                 transition={{ delay: 0.2 }}
                 className="flex flex-col gap-4"
               >
-                <span className="text-bronze font-sans uppercase tracking-[0.2em] text-xs font-bold">Service Areas</span>
+                <span className="text-bronze font-sans uppercase tracking-[0.3em] text-[10px] font-bold">Service Areas</span>
                 <div className="flex flex-col gap-3">
                   {SERVICE_AREAS.map((area) => (
                     <Link
                       key={area.href}
                       href={area.href}
-                      className="text-xl font-serif text-white/80 hover:text-bronze transition-colors"
+                      className="text-lg font-sans font-medium text-white/80 hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {area.title}
@@ -312,10 +416,31 @@ export const Header = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
+                className="flex flex-col gap-4"
+              >
+                <span className="text-bronze font-sans uppercase tracking-[0.3em] text-[10px] font-bold">Locations</span>
+                <div className="flex flex-col gap-3">
+                  {LOCATIONS.map((loc) => (
+                    <Link
+                      key={loc.href}
+                      href={loc.href}
+                      className="text-lg font-sans font-medium text-white/80 hover:text-bronze transition-colors tracking-[0.2em] uppercase"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {loc.title}
+                    </Link>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
               >
                 <Link 
                   href="/reviews" 
-                  className="text-3xl font-serif text-white hover:text-bronze transition-colors"
+                  className="text-2xl font-sans font-bold text-white hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Reviews
@@ -325,14 +450,14 @@ export const Header = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.5 }}
               >
                 <button 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     openModal();
                   }}
-                  className="text-3xl font-serif text-white hover:text-bronze transition-colors"
+                  className="text-2xl font-sans font-bold text-white hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                 >
                   Contact
                 </button>
@@ -346,7 +471,7 @@ export const Header = () => {
               className="mt-auto flex flex-col gap-6 items-center"
             >
               <div className="h-[1px] w-12 bg-bronze/30" />
-              <a href="tel:9156211818" className="flex items-center gap-3 text-white text-xl font-serif">
+              <a href="tel:9156211818" className="flex items-center gap-3 text-white text-lg font-sans font-bold tracking-[0.2em] uppercase">
                 <Phone className="h-5 w-5 text-bronze" />
                 (915) 621-1818
               </a>
@@ -357,7 +482,7 @@ export const Header = () => {
                   setIsMobileMenuOpen(false);
                   openModal();
                 }}
-                className="w-full py-5"
+                className="w-full py-5 gold-button"
               >
                 Free Case Review
               </Button>

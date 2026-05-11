@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
+import { PracticeAreaOverview } from "@/components/sections/practice-areas/PracticeAreaOverview";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
@@ -69,7 +70,6 @@ export default async function SlipAndFallPage(props: {
       <Header />
       
       <PracticeAreaHero 
-        eyebrow="INJURED ON SOMEONE'S PROPERTY?"
         title="El Paso Slip and Fall Lawyer — Free Consultation"
         description="When negligence leads to a fall, the consequences can be life-altering. Thomas Carter holds property owners accountable for the hazards they ignore."
       />
@@ -79,6 +79,12 @@ export default async function SlipAndFallPage(props: {
       <MeetAdvocate 
         headline="Proven Results in Premises Liability."
         text="Thomas Carter knows how to cut through the excuses of property owners and their insurers. He investigates the maintenance logs and security footage to prove exactly how negligence caused your injury."
+      />
+
+      <PracticeAreaOverview 
+        title={DATA.title}
+        overview={DATA.overview}
+        whoNeedsThis={DATA.whoNeedsThis}
       />
 
       <ProcessMap />

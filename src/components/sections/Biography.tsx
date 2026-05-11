@@ -10,37 +10,39 @@ export const Biography = () => {
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
 
   return (
-    <section ref={containerRef} data-section="biography" className="relative w-full bg-transparent overflow-visible flex flex-col md:flex-row min-h-[80vh] py-20 md:py-32">
-      {/* Photo Zone - Left 50% on desktop, Top on mobile */}
-      <div className="relative w-full md:w-1/2 h-[50vh] md:h-auto z-10 flex items-end justify-center md:justify-end">
-        <div className="relative w-full h-full md:aspect-[4/5] lg:aspect-[3/4] max-h-[800px] overflow-hidden md:mb-[30px]">
+    <section ref={containerRef} data-section="biography" className="relative w-full bg-transparent overflow-visible flex flex-col py-20 md:py-32 px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto">
+      
+      {/* Top Wide Rectangle */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="w-full border-2 border-bronze/50 bg-navy/60 md:bg-navy/10 backdrop-blur-md md:backdrop-blur-sm p-8 md:p-12 mb-8 md:mb-12 z-20 relative"
+      >
+        {/* Logo in top right corner */}
+        <div className="absolute top-6 right-6 md:top-8 md:right-8 hidden sm:block">
           <Image
-            src="/thomas-carter-portrait.png"
-            alt="Thomas Carter"
-            fill
-            className="object-contain"
-            style={{ 
-              objectPosition: "center bottom",
-            }}
-            priority
+            src="/carter-logo-white.png"
+            alt="Carter Law Logo"
+            width={240}
+            height={80}
+            className="object-contain opacity-100"
           />
-          {/* Subtle desaturation overlay */}
-          <div className="absolute inset-0 bg-navy/10" />
-          {/* Mobile gradient mask to transition image to content */}
-          <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent md:hidden" />
         </div>
-      </div>
+        
+        {/* Mobile Logo (slightly smaller to fit) */}
+        <div className="absolute top-6 right-6 sm:hidden">
+          <Image
+            src="/carter-logo-white.png"
+            alt="Carter Law Logo"
+            width={160}
+            height={50}
+            className="object-contain opacity-100"
+          />
+        </div>
 
-      {/* Content Zone - Right 50% on desktop, Bottom on mobile */}
-      <div className="relative z-20 w-full md:w-1/2 flex items-end justify-start px-6 py-12 md:px-12 lg:px-20 bg-navy md:bg-transparent">
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-xl w-full space-y-6 md:space-y-8 p-6 md:p-12 border-2 border-bronze/50 bg-navy/60 md:bg-navy/10 backdrop-blur-md md:backdrop-blur-sm mb-0"
-        >
-          {/* Small Caps Label */}
+        <div className="space-y-6 relative z-10">
           <div className="space-y-2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -51,7 +53,6 @@ export const Biography = () => {
               Lead Attorney
             </motion.div>
 
-            {/* Name - Large, signature-like */}
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -62,26 +63,58 @@ export const Biography = () => {
             </motion.h2>
           </div>
 
-          {/* Philosophy Line */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg sm:text-xl lg:text-2xl font-serif italic text-light-steel leading-relaxed"
+            className="text-lg sm:text-xl lg:text-2xl font-serif italic text-light-steel leading-relaxed max-w-4xl"
           >
             &quot;Standing Beside You, Every Step of the Way. Your Fight Is My Purpose.&quot;
           </motion.p>
 
-          {/* Body Text */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-sm md:text-base text-white font-sans leading-relaxed max-w-5xl"
+          >
+            Thomas Carter founded this firm on a simple principle: every client deserves a champion. With over 15 years in the courtroom, he has built a reputation for taking the cases other firms shy away from. His journey in law began with a commitment to serving the El Paso community, where he has witnessed firsthand the impact that a dedicated legal advocate can have on the lives of accident victims and their families.
+          </motion.p>
+        </div>
+      </motion.div>
+
+      {/* Bottom Section: Pic + Right Rectangle */}
+      <div className="flex flex-col md:flex-row w-full gap-8 md:gap-12 relative z-20 items-stretch">
+        
+        {/* Photo Zone - Left 50% */}
+        <div className="relative w-full md:w-1/2 min-h-[50vh] md:min-h-0 flex items-end justify-center">
+          <div className="relative w-full h-full min-h-[400px] overflow-hidden border-2 border-transparent">
+            <Image
+              src="/thomas-carter-portrait.png"
+              alt="Thomas Carter"
+              fill
+              className="object-contain object-bottom"
+              priority
+            />
+            <div className="absolute inset-0 bg-navy/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent md:hidden" />
+          </div>
+        </div>
+
+        {/* Content Zone - Right 50% */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="w-full md:w-1/2 border-2 border-bronze/50 bg-navy/60 md:bg-navy/10 backdrop-blur-md md:backdrop-blur-sm p-6 md:p-12 flex flex-col justify-center space-y-6 md:space-y-8"
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="space-y-4 md:space-y-6 text-sm md:text-base text-gray-400 font-sans leading-relaxed"
+            className="space-y-4 md:space-y-6 text-sm md:text-base text-white font-sans leading-relaxed"
           >
-            <p>
-              Thomas Carter founded this firm on a simple principle: every client deserves a champion. With over 15 years in the courtroom, he has built a reputation for taking the cases other firms shy away from. His journey in law began with a commitment to serving the El Paso community, where he has witnessed firsthand the impact that a dedicated legal advocate can have on the lives of accident victims and their families.
-            </p>
             <p>
               He doesn&apos;t just manage cases; he fights battles. By limiting the firm&apos;s caseload, Thomas ensures that every family he represents receives his direct attention and the full weight of his trial experience. This selective approach allows for a level of meticulous preparation that is rare in the legal field. From the initial investigation to the final verdict or settlement, Thomas is personally involved in every strategic decision, ensuring that no detail is overlooked and every opportunity for recovery is pursued.
             </p>

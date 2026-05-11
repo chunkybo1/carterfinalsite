@@ -8,7 +8,7 @@ import { CaseReviewForm } from "@/components/ui/CaseReviewForm";
 import { Phone, Volume2, VolumeX } from "lucide-react";
 
 interface PracticeAreaHeroProps {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
 }
@@ -55,14 +55,16 @@ export const PracticeAreaHero = ({ eyebrow, title, description }: PracticeAreaHe
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Side - Content */}
           <div className="text-white">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-sm md:text-base font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-6"
-            >
-              {eyebrow}
-            </motion.div>
+            {eyebrow && (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-sm md:text-base font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-6"
+              >
+                {eyebrow}
+              </motion.div>
+            )}
 
             <motion.h1
               initial={{ opacity: 0, x: -20 }}

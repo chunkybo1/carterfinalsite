@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
+import { PracticeAreaOverview } from "@/components/sections/practice-areas/PracticeAreaOverview";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
@@ -69,7 +70,6 @@ export default async function PedestrianAccidentsPage(props: {
       <Header />
       
       <PracticeAreaHero 
-        eyebrow="STRUCK BY A VEHICLE?"
         title="El Paso Pedestrian Accident Lawyer — Free Consultation"
         description="When a vehicle strikes a pedestrian, the results are often catastrophic. Thomas Carter fights to ensure you aren't just another statistic."
       />
@@ -79,6 +79,12 @@ export default async function PedestrianAccidentsPage(props: {
       <MeetAdvocate 
         headline="A Voice for Injured Pedestrians."
         text="Thomas Carter understands the life-altering impact of pedestrian accidents. He provides the compassionate support you need and the fierce litigation required to hold negligent drivers accountable."
+      />
+
+      <PracticeAreaOverview 
+        title={DATA.title}
+        overview={DATA.overview}
+        whoNeedsThis={DATA.whoNeedsThis}
       />
 
       <ProcessMap />

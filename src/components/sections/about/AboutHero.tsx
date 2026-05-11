@@ -24,7 +24,7 @@ export const AboutHero = () => {
   const currentClipPath = isDesktop ? "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)" : "none";
 
   return (
-    <section className="relative min-h-screen w-full bg-navy overflow-hidden flex flex-col md:block pt-[64px] sm:pt-[96px] md:pt-0">
+    <section className="relative min-h-screen w-full bg-navy overflow-hidden flex flex-col md:block pt-[64px] sm:pt-[96px] md:pt-[150px]">
       {/* Photo Zone - Desktop: Absolute Right, Mobile: Relative Top */}
       <div 
         className="relative md:absolute top-0 right-0 w-full md:w-[50%] h-[70vh] md:h-full z-10 order-1"

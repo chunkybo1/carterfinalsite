@@ -69,7 +69,7 @@ export const HeroSection = ({
         {/* LEFT SIDE: Content */}
         {!videoOnly && (
           <div className="relative z-20 w-full h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pointer-events-none text-center items-center">
-            <div className="relative pointer-events-auto pt-20 md:pt-0 max-w-4xl">
+            <div className="relative pointer-events-auto pt-32 md:pt-40 max-w-4xl">
               {/* Visually Hidden H1 for SEO */}
               <h1 className="sr-only">El Paso personal injury lawyer</h1>
 
@@ -96,7 +96,7 @@ export const HeroSection = ({
                 className="mt-6 md:mt-8"
               >
                 <p className="text-xs sm:text-sm md:text-base font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] text-white/70 uppercase leading-relaxed">
-                  LICENSED IN TX, AZ, & NM
+                Over $2.1 Million Recovered for the Injured. We don’t just take cases—we win them.
                 </p>
               </motion.div>
 
@@ -110,7 +110,7 @@ export const HeroSection = ({
                 <Button 
                   size="lg"
                   noFloat
-                  className="w-full sm:w-auto text-base bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm transition-all duration-300 shadow-xl"
+                  className="w-full sm:w-auto text-base gold-button shadow-xl"
                   onClick={openModal}
                 >
                   Talk To Us

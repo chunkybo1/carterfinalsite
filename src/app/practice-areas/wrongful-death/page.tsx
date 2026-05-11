@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
+import { PracticeAreaOverview } from "@/components/sections/practice-areas/PracticeAreaOverview";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
@@ -69,7 +70,6 @@ export default async function WrongfulDeathPage(props: {
       <Header />
       
       <PracticeAreaHero 
-        eyebrow="FACING THE UNTHINKABLE?"
         title="El Paso Wrongful Death Lawyer — Compassionate, Fierce Advocacy"
         description="Justice cannot replace a loved one, but it can provide your family with the security and the accountability you deserve."
       />
@@ -79,6 +79,12 @@ export default async function WrongfulDeathPage(props: {
       <MeetAdvocate 
         headline="Compassionate Support. Fierce Advocacy."
         text="Thomas Carter approaches wrongful death cases with the utmost respect and dedication. He works tirelessly to uncover the truth and ensure that those responsible are held fully accountable for their actions."
+      />
+
+      <PracticeAreaOverview 
+        title={DATA.title}
+        overview={DATA.overview}
+        whoNeedsThis={DATA.whoNeedsThis}
       />
 
       <ProcessMap />

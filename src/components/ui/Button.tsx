@@ -22,9 +22,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizes = {
-      sm: "px-4 py-1.5 text-sm font-serif font-bold uppercase tracking-wider",
-      md: "px-5 py-2.5 text-base font-serif font-bold uppercase tracking-wider",
-      lg: "px-7 py-3.5 text-lg font-serif font-bold uppercase tracking-wider",
+      sm: "px-4 py-1.5 text-sm font-sans font-bold uppercase tracking-wider",
+      md: "px-5 py-2.5 text-base font-sans font-bold uppercase tracking-wider",
+      lg: "px-7 py-3.5 text-lg font-sans font-bold uppercase tracking-wider",
     };
 
     return (

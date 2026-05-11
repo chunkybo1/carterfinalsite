@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
+import { PracticeAreaOverview } from "@/components/sections/practice-areas/PracticeAreaOverview";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
@@ -69,7 +70,6 @@ export default async function BicycleAccidentsPage(props: {
       <Header />
       
       <PracticeAreaHero 
-        eyebrow="INJURED WHILE CYCLING?"
         title="El Paso Bicycle Accident Lawyer — Free Consultation"
         description="Insurance companies often try to blame the cyclist. Thomas Carter flips the script and holds negligent drivers accountable for the damage they cause."
       />
@@ -79,6 +79,12 @@ export default async function BicycleAccidentsPage(props: {
       <MeetAdvocate 
         headline="Justice for Those on Two Wheels."
         text="Cyclists have the same rights to the road as anyone else. When those rights are violated, Thomas Carter provides the aggressive advocacy needed to secure full compensation for your injuries and your bike."
+      />
+
+      <PracticeAreaOverview 
+        title={DATA.title}
+        overview={DATA.overview}
+        whoNeedsThis={DATA.whoNeedsThis}
       />
 
       <ProcessMap />

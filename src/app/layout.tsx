@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Playfair_Display } from "next/font/google";
+import { Geist, Playfair_Display, Libre_Baskerville, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { LocalBusinessSchema } from "@/components/seo/SchemaOrg";
@@ -11,6 +11,17 @@ const geistSans = Geist({
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
+  subsets: ["latin"],
+});
+
+const libreBaskerville = Libre_Baskerville({
+  weight: ["400", "700"],
+  variable: "--font-libre-baskerville",
+  subsets: ["latin"],
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
 });
 
@@ -55,7 +66,7 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body
-        className={`${geistSans.variable} ${playfair.variable} antialiased`}
+        className={`${geistSans.variable} ${playfair.variable} ${libreBaskerville.variable} ${montserrat.variable} antialiased`}
       >
         <Providers>
           {children}

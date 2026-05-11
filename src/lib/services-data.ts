@@ -44,7 +44,11 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
     shortDescription: "We handle the insurers so you can focus on healing.",
     icon: Car,
     href: "/practice-areas/car-accidents",
-    overview: "Car accidents are among the most common causes of personal injury in El Paso, and they can happen in an instant—changing lives forever. According to recent Texas Department of Transportation data, El Paso sees thousands of traffic collisions annually, with a significant number occurring along major corridors like I-10, Loop 375, and Gateway Boulevard. Whether you were hit by a distracted driver, rear-ended at a stoplight, or involved in a multi-vehicle pileup, the aftermath is overwhelming. Medical bills pile up, you can't work, and insurance companies start calling with lowball offers. At Carter Law, we've handled thousands of car accident cases across El Paso and throughout Texas. We know the tactics insurance companies use to minimize payouts, and we fight back. Our goal is simple: get you the maximum compensation so you can focus on recovery, not financial stress. In El Paso, the legal process for a car accident claim involves several critical steps, from filing a police report with the EPPD to navigating the local court system if a trial becomes necessary. We guide you through every phase, ensuring your rights are protected under Texas law.",
+    overview: `
+      <p>Car accidents are among the most common causes of personal injury in El Paso, and they can happen in an instant—changing lives forever. If you've been involved in a collision, seeking an experienced <strong>El Paso car accident lawyer</strong> is the most critical step you can take toward securing your future.</p>
+      <p>According to recent Texas Department of Transportation data, El Paso sees thousands of traffic collisions annually, with a significant number occurring along major corridors like I-10, Loop 375, and Gateway Boulevard. Whether you were hit by a distracted driver, rear-ended at a stoplight, or involved in a multi-vehicle pileup, the aftermath is overwhelming. Medical bills pile up, you can't work, and insurance companies start calling with lowball offers.</p>
+      <p>At Carter Law, we've handled thousands of cases as a leading <strong>car accident attorney in El Paso</strong>. We know the tactics insurance companies use to minimize payouts, and we fight back. Our goal is simple: get you the <strong>maximum compensation</strong> so you can focus on recovery, not financial stress. Whether you need an <strong>auto accident lawyer</strong> or a <strong>car crash attorney</strong>, we provide the aggressive representation necessary to win your <strong>personal injury claim</strong>.</p>
+    `,
     whoNeedsThis: "If you've been injured in a car accident in El Paso—whether as a driver, passenger, pedestrian, or cyclist—you need experienced representation. Even seemingly minor accidents can result in serious injuries that develop over time. Don't accept the first settlement offer without legal counsel. In El Paso, accidents involving commercial vehicles or rideshare services like Uber and Lyft add layers of complexity that require a lawyer who understands both state and local regulations.",
     complexityFactors: [
       "Dealing with multiple insurance companies",
@@ -142,7 +146,11 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
     shortDescription: "Commercial truck accidents demand specialized expertise and aggressive advocacy.",
     icon: Truck,
     href: "/practice-areas/trucking-accidents",
-    overview: "Commercial truck accidents are among the most devastating collisions on our roads, particularly in El Paso, which serves as a major international shipping hub. With the heavy flow of commercial traffic from I-10 and the various international ports of entry, El Paso residents are at a higher risk for catastrophic trucking accidents. When an 80,000-pound semi-truck collides with a passenger vehicle, the results are catastrophic. These cases are complex, involving federal regulations, multiple insurance policies, and often multiple defendants—the driver, the trucking company, the cargo owner, and maintenance providers. At Carter Law, we've successfully represented victims of commercial truck accidents across Texas. We understand the Federal Motor Carrier Safety Regulations, we know how to investigate driver fatigue and violations, and we fight to hold all responsible parties accountable. In El Paso, trucking accidents often involve cross-border logistics companies, adding another layer of legal complexity that our firm is uniquely equipped to handle.",
+    overview: `
+      <p>Commercial truck accidents are among the most devastating collisions on our roads, particularly in El Paso, which serves as a major international shipping hub. When you need an <strong>18-wheeler accident lawyer</strong> who understands the high stakes of a <strong>commercial truck crash</strong>, Carter Law is ready to fight for you.</p>
+      <p>With the heavy flow of commercial traffic from I-10 and the various international ports of entry, El Paso residents are at a higher risk for catastrophic trucking accidents. When an 80,000-pound semi-truck collides with a passenger vehicle, the results are often life-altering. These cases are complex, involving federal regulations, multiple insurance policies, and often multiple defendants—the driver, the trucking company, the cargo owner, and maintenance providers.</p>
+      <p>As an experienced <strong>truck accident attorney in El Paso</strong>, Thomas Carter understands the Federal Motor Carrier Safety Regulations (FMCSR). We know how to investigate <strong>trucking company negligence</strong>, driver fatigue, and maintenance violations. We fight to hold all responsible parties accountable for your <strong>semi-truck accident</strong> injuries.</p>
+    `,
     whoNeedsThis: "If you or a loved one has been injured in an accident involving a commercial truck, semi-truck, 18-wheeler, or other large commercial vehicle in the El Paso area, you need representation that understands the complexity of these cases. Don't let trucking companies and their insurers minimize your claim. The I-10 corridor through El Paso is one of the busiest trucking routes in the United States, and we have extensive experience litigating accidents that occur on this stretch of highway.",
     complexityFactors: [
       "Navigating federal trucking regulations and compliance",
@@ -240,7 +248,11 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
     shortDescription: "Bicycle accidents often result in severe injuries. We fight for cyclists' rights.",
     icon: Bike,
     href: "/practice-areas/bicycle-accidents",
-    overview: "Bicycle accidents are among the most dangerous collisions on our roads. When a cyclist is hit by a vehicle, the results are often catastrophic—cyclists have no protection from the impact. These cases require understanding of traffic laws, bicycle safety regulations, and the unique challenges cyclists face. At Carter Law, we've represented cyclists injured by negligent drivers, poor road conditions, and defective equipment. We fight to ensure cyclists receive the same justice and compensation as other accident victims, and we hold negligent drivers and municipalities accountable.",
+    overview: `
+      <p>Bicycle accidents are among the most dangerous collisions on our roads. When a cyclist is hit by a vehicle, the results are often catastrophic—cyclists have no protection from the impact. If you've been injured, you need an <strong>El Paso bicycle accident lawyer</strong> who will fight for your rights.</p>
+      <p>These cases require a deep understanding of Texas traffic laws and the unique challenges cyclists face. At Carter Law, we've represented cyclists injured by negligent drivers, poor road conditions, and defective equipment. We fight to ensure cyclists receive the same justice and compensation as other accident victims.</p>
+      <p>As a dedicated <strong>bicycle accident attorney in El Paso</strong>, Thomas Carter holds negligent drivers and municipalities accountable. We work to secure full compensation for your medical bills, lost wages, and the long-term impact of your injuries.</p>
+    `,
     whoNeedsThis: "If you've been injured while cycling—whether hit by a car, injured due to road defects, or harmed by defective bicycle equipment—you need representation that understands the unique challenges cyclists face. Don't let insurance companies blame you for simply riding a bicycle.",
     complexityFactors: [
       "Overcoming bias against cyclists in insurance negotiations",
@@ -338,7 +350,11 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
     shortDescription: "Pedestrian accidents often result in life-altering injuries. We fight for justice.",
     icon: User,
     href: "/practice-areas/pedestrian-accidents",
-    overview: "Pedestrian accidents are among the most devastating collisions. When a person on foot is hit by a vehicle, the results are catastrophic—pedestrians have no protection from the impact. These accidents often occur at crosswalks, intersections, and parking lots, and they frequently involve driver inattention, speeding, or failure to yield. At Carter Law, we've represented pedestrians injured by negligent drivers, and we fight to ensure they receive full compensation for their life-altering injuries. We understand the unique challenges pedestrians face and hold drivers accountable for failing to exercise reasonable care.",
+    overview: `
+      <p>Pedestrian accidents are among the most devastating collisions. When a person on foot is struck by a vehicle, the results are catastrophic. If you've been injured, you need an <strong>El Paso pedestrian accident lawyer</strong> who will demand the justice you deserve.</p>
+      <p>These accidents often occur at crosswalks, intersections, and parking lots, and they frequently involve driver inattention, speeding, or failure to yield. At Carter Law, we've represented pedestrians across El Paso who have suffered life-altering injuries due to negligent drivers.</p>
+      <p>As a leading <strong>pedestrian accident attorney in El Paso</strong>, Thomas Carter understands the unique challenges victims face. We hold drivers accountable for failing to exercise reasonable care and fight to ensure you receive full compensation for your medical bills and recovery.</p>
+    `,
     whoNeedsThis: "If you've been injured as a pedestrian—whether hit by a car, truck, or other vehicle—you need representation that understands the severity of these injuries and fights for maximum compensation. Don't let insurance companies minimize your claim.",
     complexityFactors: [
       "Proving driver negligence in pedestrian accidents",
@@ -436,7 +452,11 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
     shortDescription: "Animal attacks leave deep scars, both physical and emotional. We fight for victims.",
     icon: PawPrint,
     href: "/practice-areas/dog-bites",
-    overview: "A dog attack is a terrifying experience that can leave permanent physical scarring and deep emotional trauma. In Texas, dog owners have a responsibility to control their animals and can be held liable when their negligence results in an attack. Whether the owner failed to secure their property, violated leash laws, or knew their dog had dangerous tendencies, they must be held accountable. At Carter Law, we've helped victims—many of them children—secure the compensation they need for medical treatment, reconstructive surgery, and the long-term support required to move past such a traumatic event.",
+    overview: `
+      <p>A dog attack is a terrifying experience that can leave permanent physical scarring and deep emotional trauma. If you or a loved one has been harmed, consulting a <strong>dog bite lawyer in El Paso</strong> is essential to holding negligent owners accountable.</p>
+      <p>In Texas, dog owners have a responsibility to control their animals. Whether the owner failed to secure their property, violated leash laws, or knew their dog had dangerous tendencies, they must be held accountable. At Carter Law, we've helped victims—many of them children—secure the compensation they need for medical treatment and reconstructive surgery.</p>
+      <p>As an experienced <strong>animal attack attorney</strong>, Thomas Carter understands the "one-bite rule" and negligence laws in Texas. We fight to ensure you aren't left with the financial burden of a <strong>vicious dog attack</strong> that you didn't cause.</p>
+    `,
     whoNeedsThis: "If you or your child has been bitten or attacked by a dog, you need representation that understands Texas 'one-bite rule' and negligence laws. Don't let insurance companies downplay the severity of animal attack injuries.",
     complexityFactors: [
       "Proving owner negligence or 'one-bite' knowledge",
@@ -528,7 +548,11 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
     shortDescription: "Compassionate advocacy for those left behind by tragedy.",
     icon: Flame,
     href: "/practice-areas/wrongful-death",
-    overview: "Losing a loved one is devastating. When that loss is caused by someone else's negligence or wrongdoing, the grief is compounded by anger, confusion, and the overwhelming burden of financial responsibility. In El Paso, wrongful death claims allow surviving family members to seek justice and compensation for their loss under the Texas Wrongful Death Act. These cases are among the most emotionally challenging we handle, and we approach them with the compassion, respect, and fierce advocacy that families deserve. We've helped families across El Paso and Texas hold negligent parties accountable while securing the financial resources needed to move forward. Whether the tragedy occurred on an El Paso highway, in a local hospital, or at a workplace, we are committed to uncovering the truth and holding the responsible parties accountable for their actions.",
+    overview: `
+      <p>Losing a loved one is a profound tragedy. When that loss is caused by negligence, you need an <strong>El Paso wrongful death lawyer</strong> who will fight for the justice your family deserves.</p>
+      <p>In Texas, wrongful death claims allow surviving family members to seek accountability. Whether the tragedy occurred on an El Paso highway, in a hospital, or at a workplace, Carter Law is committed to uncovering the truth.</p>
+      <p>As a compassionate <strong>wrongful death attorney in El Paso</strong>, Thomas Carter provides the fierce advocacy needed to secure your family's financial future. We handle the legal burden so you can focus on honoring your loved one's memory.</p>
+    `,
     whoNeedsThis: "If you've lost a family member in El Paso due to someone else's negligence—whether in an accident, medical malpractice, workplace incident, or other preventable tragedy—you may have a wrongful death claim. Surviving spouses, children, and parents may be eligible to file claims. In Texas, the statute of limitations for wrongful death is generally two years from the date of death, making it critical to seek legal counsel as soon as possible to preserve your family's rights.",
     complexityFactors: [
       "Calculating the full value of a lost life",
@@ -626,7 +650,11 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
     shortDescription: "Property owners have a duty to keep their premises safe. We hold them accountable.",
     icon: AlertTriangle,
     href: "/practice-areas/slip-and-fall",
-    overview: "Slip and fall accidents happen when property owners fail to maintain safe premises. Whether it's a wet floor in a grocery store, a broken sidewalk, or inadequate lighting in a parking lot, property owners have a legal duty to keep their premises reasonably safe. These cases require proving that the property owner knew or should have known about the dangerous condition and failed to fix it or warn visitors. At Carter Law, we've successfully represented clients injured in slip and fall accidents, holding property owners, businesses, and municipalities accountable for unsafe conditions.",
+    overview: `
+      <p>Slip and fall accidents can occur anywhere, from grocery stores to parking lots. If you've been injured due to a property owner's negligence, you need an <strong>El Paso slip and fall lawyer</strong> who knows how to prove premises liability.</p>
+      <p>Property owners have a legal duty to keep their premises reasonably safe. Whether it's a wet floor, a broken sidewalk, or inadequate lighting, they must be held accountable. At Carter Law, we've successfully represented clients injured in slip and fall accidents across El Paso.</p>
+      <p>As an experienced <strong>premises liability attorney</strong>, Thomas Carter investigates maintenance logs and security footage to build a strong case. We fight to ensure you receive full compensation for your injuries and recovery.</p>
+    `,
     whoNeedsThis: "If you've been injured in a slip and fall accident—whether at a store, restaurant, parking lot, or public property—you may have a premises liability claim. Property owners have a duty to maintain safe conditions, and we fight to hold them accountable when they fail.",
     complexityFactors: [
       "Proving the property owner knew or should have known about the dangerous condition",
@@ -724,7 +752,11 @@ export const PRACTICE_AREAS_DATA: PracticeAreaData[] = [
     shortDescription: "Doctors make mistakes. We make them answer for it.",
     icon: Activity,
     href: "/practice-areas/medical-malpractice",
-    overview: "When you place your trust in a healthcare provider in El Paso, you expect competent, careful treatment. Unfortunately, medical errors happen far more often than most people realize. Medical malpractice occurs when a healthcare provider deviates from the accepted standard of care, causing injury or death. These cases are among the most complex in personal injury law, requiring deep understanding of medical procedures, expert testimony, and meticulous case preparation. At Carter Law, we've successfully represented clients in El Paso who have suffered from surgical errors, misdiagnoses, medication mistakes, and other forms of medical negligence at local hospitals and clinics. We work with leading medical experts to build cases that hold healthcare providers accountable. Navigating the Texas Medical Liability Act requires specialized knowledge, and we have the experience necessary to handle the unique challenges of medical malpractice litigation in the El Paso region.",
+    overview: `
+      <p>When you place your trust in a healthcare provider in El Paso, you expect careful treatment. If a medical error occurs, you need an <strong>El Paso medical malpractice lawyer</strong> who can navigate the complexities of the law.</p>
+      <p>Medical malpractice occurs when a provider deviates from the accepted standard of care. At Carter Law, we've successfully represented clients who have suffered from surgical errors, misdiagnoses, and medication mistakes at local hospitals.</p>
+      <p>As a specialized <strong>medical negligence attorney</strong>, Thomas Carter works with leading experts to build cases that hold providers accountable. We have the experience necessary to handle the unique challenges of medical malpractice litigation in Texas.</p>
+    `,
     whoNeedsThis: "If you or a loved one has been harmed by a medical error in El Paso—whether during surgery, diagnosis, treatment, or medication management—you may have a medical malpractice claim. These cases require immediate action due to strict deadlines and the need to preserve evidence. In Texas, a 'Certificate of Merit' or an expert report is often required early in the litigation process, making it essential to have a law firm that can quickly engage the right medical experts to evaluate your claim.",
     complexityFactors: [
       "Proving deviation from standard of care",
@@ -929,4 +961,3 @@ export const RECOGNITIONS = [
   "El Paso Bar Association Member",
   "American Association for Justice Member"
 ];
-

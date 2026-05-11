@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
+import { PracticeAreaOverview } from "@/components/sections/practice-areas/PracticeAreaOverview";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
@@ -69,7 +70,6 @@ export default async function MedicalMalpracticePage(props: {
       <Header />
       
       <PracticeAreaHero 
-        eyebrow="MEDICAL ERROR OR NEGLIGENCE?"
         title="El Paso Medical Malpractice Lawyer — Free Consultation"
         description="Medical malpractice cases are complex and highly defended. Thomas Carter has the specialized expertise and the resources to take on hospitals and win."
       />
@@ -79,6 +79,12 @@ export default async function MedicalMalpracticePage(props: {
       <MeetAdvocate 
         headline="Strategic Litigation for Medical Victims."
         text="Thomas Carter works with leading medical experts to cut through the institutional silence of hospitals. He meticulously builds cases that expose the truth and recover the compensation needed for life-altering injuries."
+      />
+
+      <PracticeAreaOverview 
+        title={DATA.title}
+        overview={DATA.overview}
+        whoNeedsThis={DATA.whoNeedsThis}
       />
 
       <ProcessMap />

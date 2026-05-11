@@ -126,7 +126,7 @@ export const PracticeAreas = () => {
                   />
                 )}
                 
-                <span className={`text-4xl font-serif tracking-tight transition-colors duration-500 ${
+                <span className={`text-2xl xl:text-3xl 2xl:text-4xl font-serif tracking-tight transition-colors duration-500 ${
                   activeIndex === index ? "text-white" : "text-white/80"
                 }`}>
                   {area.title}
@@ -156,14 +156,15 @@ export const PracticeAreas = () => {
                   />
                   
                   {/* Content Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent flex flex-col justify-end p-12">
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent flex flex-col justify-end p-8 xl:p-12">
                     <motion.div
+                      key={PRACTICE_AREAS[activeIndex].id + "-content"}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
-                      className="max-w-md space-y-8"
+                      className="max-w-xl space-y-6"
                     >
-                      <p className="text-xl text-light-steel font-sans leading-relaxed">
+                      <p className="text-base xl:text-lg text-white font-sans leading-relaxed">
                         {PRACTICE_AREAS[activeIndex].description}
                       </p>
                       
@@ -209,7 +210,7 @@ export const PracticeAreas = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-3xl sm:text-4xl font-serif text-white leading-tight">{area.title}</h3>
+                  <h3 className="text-2xl sm:text-3xl font-serif text-white leading-tight">{area.title}</h3>
                 </div>
               </div>
               

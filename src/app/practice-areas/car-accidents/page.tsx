@@ -3,6 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PracticeAreaHero } from "@/components/sections/practice-areas/PracticeAreaHero";
 import { MeetAdvocate } from "@/components/sections/practice-areas/MeetAdvocate";
+import { PracticeAreaOverview } from "@/components/sections/practice-areas/PracticeAreaOverview";
 import { ProcessMap } from "@/components/sections/practice-areas/ProcessMap";
 import { CaseTypesGrid } from "@/components/sections/practice-areas/CaseTypesGrid";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
@@ -65,7 +66,6 @@ export default async function CarAccidentPage(props: {
       
       {/* 1. Hero Section: Video + Form */}
       <PracticeAreaHero 
-        eyebrow="CAR ACCIDENT IN EL PASO?"
         title="El Paso Car Accident Lawyer — Free Consultation"
         description="After a wreck, you're hurt, stressed, and facing an insurance company that wants to pay you as little as possible. Thomas Carter makes sure that doesn't happen."
       />
@@ -77,6 +77,13 @@ export default async function CarAccidentPage(props: {
       <MeetAdvocate 
         headline="Standing Beside You, Every Step of the Way."
         text="Thomas Carter founded this firm on a simple principle: every client deserves a champion. With over 16 years in the courtroom, he has built a reputation for taking the cases other firms shy away from. He doesn't just manage cases; he fights battles."
+      />
+
+      {/* 3.5 SEO Overview Section */}
+      <PracticeAreaOverview 
+        title={DATA.title}
+        overview={DATA.overview}
+        whoNeedsThis={DATA.whoNeedsThis}
       />
 
       {/* 4. The Process Map: Steps 01, 02, 03 */}

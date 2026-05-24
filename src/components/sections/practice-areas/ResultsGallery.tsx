@@ -19,7 +19,7 @@ const MARQUEE_ITEMS = [...RESULTS, ...RESULTS];
 export const ResultsGallery = () => {
   return (
     <section 
-      className="relative w-full py-24 lg:py-32 bg-transparent overflow-hidden border-y border-white/5"
+      className="relative w-full py-24 lg:py-32 bg-white overflow-hidden border-y border-navy/5"
     >
       <style jsx global>{`
         @keyframes marquee {
@@ -44,7 +44,7 @@ export const ResultsGallery = () => {
           <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
             Proven Outcomes
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy mb-6">
             Our Recent <span className="text-bronze italic">Results.</span>
           </h2>
           <div className="h-[2px] w-12 bg-bronze mx-auto" />
@@ -55,32 +55,30 @@ export const ResultsGallery = () => {
       <div className="relative">
         {/* Mobile View */}
         <div className="flex flex-col gap-6 px-6 md:hidden">
-          {RESULTS.slice(0, 6).map((item, idx) => (
+          {RESULTS.slice(0, 6).map((item) => (
             <div
               key={item.id}
-              className="relative w-full p-8 bg-navy/40 border border-bronze/30 shadow-xl rounded-sm flex flex-col justify-between"
+              className="relative w-full p-8 bg-white border border-navy/10 shadow-lg rounded-sm flex flex-col justify-between"
             >
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-bronze/70">
+                  <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-bronze">
                     {item.category}
                   </div>
-                  <h3 className="text-4xl font-serif font-bold text-white tracking-tight">
+                  <h3 className="text-4xl font-serif font-bold text-navy tracking-tight">
                     {item.amount}
                   </h3>
                 </div>
-                <div className="h-[1px] w-12 bg-bronze/50" />
-                <p className="text-light-steel text-base leading-relaxed font-sans italic opacity-90">
+                <div className="h-[1px] w-12 bg-bronze/30" />
+                <p className="text-steel text-base leading-relaxed font-sans italic">
                   &quot;{item.details}&quot;
                 </p>
               </div>
-              <div className="flex items-center gap-4 text-white/10 mt-8">
+              <div className="flex items-center gap-4 text-navy/10 mt-8">
                 <div className="text-[9px] font-bold uppercase tracking-widest">Official Firm Record</div>
               </div>
             </div>
           ))}
-          
-          {/* Subtle CTA to view more on mobile could go here if needed */}
         </div>
 
         {/* Desktop View: Marquee */}
@@ -89,28 +87,28 @@ export const ResultsGallery = () => {
             {MARQUEE_ITEMS.map((item, idx) => (
               <div
                 key={`${item.id}-${idx}`}
-                className="relative w-[340px] h-[520px] shrink-0 p-10 bg-navy/40 border border-bronze/30 shadow-2xl rounded-sm flex flex-col justify-between whitespace-normal transition-[background-color,border-color] duration-300 hover:border-bronze hover:bg-navy/60 group"
+                className="relative w-[340px] h-[520px] shrink-0 p-10 bg-white border border-navy/10 shadow-xl rounded-sm flex flex-col justify-between whitespace-normal transition-all duration-300 hover:border-bronze hover:shadow-2xl group"
               >
                 {/* Header Content */}
                 <div className="space-y-8">
                   <div className="space-y-4">
-                    <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-bronze/70">
+                    <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-bronze">
                       {item.category}
                     </div>
-                    <h3 className="text-5xl font-serif font-bold text-white tracking-tight">
+                    <h3 className="text-5xl font-serif font-bold text-navy tracking-tight group-hover:text-bronze transition-colors">
                       {item.amount}
                     </h3>
                   </div>
 
-                  <div className="h-[1px] w-12 bg-bronze/50" />
+                  <div className="h-[1px] w-12 bg-bronze/30" />
 
-                  <p className="text-light-steel text-lg leading-relaxed font-sans italic opacity-80 group-hover:opacity-100 transition-opacity">
+                  <p className="text-steel text-lg leading-relaxed font-sans italic opacity-90 group-hover:opacity-100 transition-opacity">
                     &quot;{item.details}&quot;
                   </p>
                 </div>
 
                 {/* Footer Label */}
-                <div className="flex items-center gap-4 text-white/10 mt-auto">
+                <div className="flex items-center gap-4 text-navy/10 mt-auto">
                   <div className="text-[9px] font-bold uppercase tracking-widest">Official Firm Record</div>
                 </div>
               </div>

@@ -26,19 +26,19 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "El Paso Personal Injury Lawyer | The Carter Law Firm, P.C.",
-  description: "Injured in El Paso? The Carter Law Firm, P.C. fights for accident victims in TX, AZ & NM. Free consultation. No fee unless we win. Call (915) 621-1818.",
+  title: "El Paso Truck Accident Lawyer | The Carter Law Firm, P.C.",
+  description: "Injured in a truck accident in El Paso? The Carter Law Firm, P.C. fights for accident victims in TX, AZ & NM. Free consultation. No fee unless we win. Call (915) 621-1818.",
   metadataBase: new URL("https://www.carterlawwins.com"),
-  openGraph: {
+    openGraph: {
     siteName: "The Carter Law Firm, P.C.",
     type: "website",
     locale: "en_US",
-    title: "El Paso Personal Injury Lawyer | The Carter Law Firm, P.C.",
-    description: "Injured in El Paso? The Carter Law Firm, P.C. fights for accident victims in TX, AZ & NM. Free consultation. No fee unless we win. Call (915) 621-1818.",
+    title: "El Paso Truck Accident Lawyer | The Carter Law Firm, P.C.",
+    description: "Injured in a truck accident in El Paso? The Carter Law Firm, P.C. fights for accident victims in TX, AZ & NM. Free consultation. No fee unless we win. Call (915) 621-1818.",
     url: "https://www.carterlawwins.com",
     images: [
       {
-        url: "https://www.carterlawwins.com/carter-logo-white.png",
+        url: "https://www.carterlawwins.com/carter-logo-v2.png",
         width: 1200,
         alt: "The Carter Law Firm, P.C.",
       },
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "El Paso Personal Injury Lawyer | The Carter Law Firm, P.C.",
-    description: "Injured in El Paso? Free consultation. No fee unless we win. Call (915) 621-1818.",
-    images: ["https://www.carterlawwins.com/carter-logo-white.png"],
+    title: "El Paso Truck Accident Lawyer | The Carter Law Firm, P.C.",
+    description: "Injured in a truck accident in El Paso? Free consultation. No fee unless we win. Call (915) 621-1818.",
+    images: ["https://www.carterlawwins.com/carter-logo-v2.png"],
   },
   alternates: {
     canonical: "https://www.carterlawwins.com",

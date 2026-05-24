@@ -15,7 +15,7 @@ export const LandingHeader = () => {
           <Link href="/" className="flex items-center text-white">
             <div className="relative h-10 w-48 sm:h-12 sm:w-56 md:h-14 md:w-64">
               <Image
-                src="/carter-logo-white.png"
+                src="/carter-logo-v2.png"
                 alt="Carter Law Wins"
                 fill
                 className="object-contain object-left"

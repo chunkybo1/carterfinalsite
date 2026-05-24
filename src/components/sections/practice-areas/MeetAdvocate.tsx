@@ -68,7 +68,7 @@ export const MeetAdvocate = ({ headline, text }: MeetAdvocateProps) => {
 
             <div className="pt-8 border-t border-white/10">
               <Image
-                src="/carter-logo-white.png"
+                src="/carter-logo-v2.png"
                 alt="Carter Law Wins"
                 width={180}
                 height={40}

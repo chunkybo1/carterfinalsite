@@ -2,8 +2,8 @@
 
 :root {
   /* New Palette */
-  --background: #FDFBF8; /* Warm White */
-  --foreground: #1a1a1a; /* Charcoal */
+  --background: #FFFFFF; /* Clean White */
+  --foreground: #1A1A1A; /* Dark Charcoal */
   
   /* Brand Colors */
   --color-steel: #4A5568; /* Charcoal Steel - Primary Brand */
@@ -12,8 +12,8 @@
   --color-dark-bronze: #8A6D4B; /* Darker Bronze for borders */
   --color-light-steel: #8B95A5; /* Light Steel - Supporting Text */
   
-  /* Premium Black/Charcoal Palette */
-  --color-charcoal: #1a1a1a;
+  /* Premium Palette */
+  --color-charcoal: #1A1A1A;
   --color-black: #000000;
   --color-dark-charcoal: #111111;
   --color-light-grey: #F8F9FA;
@@ -42,8 +42,7 @@
 }
 
 body {
-  background: #000033; /* Fallback navy */
-  background: var(--color-navy);
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden; /* Prevent horizontal scroll from animations */

@@ -169,7 +169,7 @@ export const Header = () => {
   
   const navLinks = (
     <>
-      <Link href="/about" className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm">About</Link>
+      <Link href="/about" className="text-navy hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm">About</Link>
       
       <div 
         ref={servicesDropdownRef}
@@ -178,7 +178,7 @@ export const Header = () => {
         onMouseLeave={handleMouseLeave}
       >
         <button
-          className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm flex items-center gap-1"
+          className="text-navy hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm flex items-center gap-1"
         >
           Service Areas
           <svg 
@@ -197,7 +197,7 @@ export const Header = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-navy border border-bronze shadow-xl z-50"
+            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white border border-navy/10 shadow-xl z-50"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
@@ -206,13 +206,13 @@ export const Header = () => {
                 <React.Fragment key={area.href}>
                     <Link
                     href={area.href}
-                    className="block px-6 py-3 text-white/90 hover:text-white hover:bg-bronze/10 transition-colors font-sans text-xs tracking-[0.2em] uppercase"
+                    className="block px-6 py-3 text-navy hover:text-bronze hover:bg-navy/5 transition-colors font-sans text-xs tracking-[0.2em] uppercase"
                     onClick={() => setIsServicesDropdownOpen(false)}
                   >
                     {area.title}
                   </Link>
                   {index < SERVICE_AREAS.length - 1 && (
-                    <div className="h-[1px] bg-bronze/30 mx-4" />
+                    <div className="h-[1px] bg-navy/5 mx-4" />
                   )}
                 </React.Fragment>
               ))}
@@ -220,8 +220,8 @@ export const Header = () => {
           </motion.div>
         )}
       </div>
-      <Link href="/reviews" className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm">Reviews</Link>
-      <Link href="/contact" onClick={openModal} className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm text-left">Contact</Link>
+      <Link href="/reviews" className="text-navy hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm">Reviews</Link>
+      <Link href="/contact" onClick={openModal} className="text-navy hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm text-left">Contact</Link>
     </>
   );
 
@@ -230,22 +230,22 @@ export const Header = () => {
       style={{ 
         y: isMobile ? 0 : headerY,
       }}
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-navy shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] border-b-[1px] border-bronze"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       initial={false}
       animate={{ y: isMobile ? 0 : headerY }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Top Row: Logo, Phone, CTA */}
-      <div className="py-2 sm:py-3 md:py-2">
+      {/* Main Header: Logo, Nav, Phone, CTA */}
+      <div className="bg-white shadow-sm border-b-[1px] border-navy/10 py-2 sm:py-3 md:py-4">
         <Container className="2xl:max-w-[95vw] relative z-10">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-8">
             {/* Logo */}
-            <Link href="/" className="flex items-center text-white" onClick={() => setIsMobileMenuOpen(false)}>
-              <div className="relative h-10 w-48 sm:h-14 sm:w-64 md:h-20 md:w-[400px] 2xl:h-24 2xl:w-[480px]">
+            <Link href="/" className="flex items-center text-navy shrink-0" onClick={() => setIsMobileMenuOpen(false)}>
+              <div className="relative h-10 w-48 sm:h-14 sm:w-64 md:h-16 md:w-[320px] 2xl:h-20 2xl:w-[400px]">
                 <Image
-                  src="/carter-logo-white.png"
+                  src="/carter-logo-v2.png"
                   alt="Carter Law Wins"
                   fill
                   className="object-contain object-left"
@@ -258,10 +258,15 @@ export const Header = () => {
               </div>
             </Link>
 
+            {/* Desktop Navigation - Center */}
+            <nav className="hidden md:flex items-center gap-8 2xl:gap-12 flex-1 justify-center">
+              {navLinks}
+            </nav>
+
             {/* Phone & CTA - Desktop */}
-            <div className="hidden md:flex items-center gap-6 2xl:gap-8">
-              <a href="tel:9156211818" className="group flex items-center gap-2 text-white/70 text-[10px] 2xl:text-xs font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase hover:text-white transition-all duration-300">
-                <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-white" />
+            <div className="hidden md:flex items-center gap-6 2xl:gap-8 shrink-0">
+              <a href="tel:9156211818" className="group flex items-center gap-2 text-navy/70 text-[10px] 2xl:text-xs font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase hover:text-navy transition-all duration-300">
+                <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-navy" />
                 (915) 621-1818
               </a>
               <Button 
@@ -276,7 +281,7 @@ export const Header = () => {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden relative z-[70] flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 text-white focus:outline-none"
+              className="md:hidden relative z-[70] flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 text-navy focus:outline-none"
               onClick={(e) => {
                 e.preventDefault();
                 setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -286,25 +291,17 @@ export const Header = () => {
               {isMobileMenuOpen ? (
                 <X className="h-8 w-8 sm:h-10 sm:w-10 text-bronze" />
               ) : (
-                <Menu className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
+                <Menu className="h-8 w-8 sm:h-10 sm:w-10 text-navy" />
               )}
             </button>
           </div>
         </Container>
       </div>
 
-      {/* Bottom Row: Desktop Navigation */}
-      <div className="hidden md:block border-t border-bronze/20 bg-navy/50 backdrop-blur-sm">
+      {/* Standalone Location Bar */}
+      <div className="hidden md:block bg-light-grey/80 backdrop-blur-sm border-b border-navy/5">
         <Container className="2xl:max-w-[95vw]">
-          <div className="flex items-center justify-between py-2.5">
-            {/* Left/Center: Main Links */}
-            <div className="flex-1 flex justify-center">
-              <nav className="flex items-center gap-12 2xl:gap-20">
-                {navLinks}
-              </nav>
-            </div>
-
-            {/* Right: Locations Dropdown */}
+          <div className="flex justify-end py-1.5">
             <div 
               ref={locationsDropdownRef}
               className="relative"
@@ -312,11 +309,11 @@ export const Header = () => {
               onMouseLeave={handleLocationsMouseLeave}
             >
               <button
-                className="text-white/90 hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm flex items-center gap-1"
+                className="text-navy/60 hover:text-bronze transition-colors font-sans font-bold tracking-[0.2em] uppercase text-[10px] flex items-center gap-1.5"
               >
-                {currentLocation}
+                <span className="text-bronze/50">Office:</span> {currentLocation}
                 <svg 
-                  className={`w-4 h-4 transition-transform duration-200 ${isLocationsDropdownOpen ? 'rotate-180' : ''}`}
+                  className={`w-3 h-3 transition-transform duration-200 ${isLocationsDropdownOpen ? 'rotate-180' : ''}`}
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -327,26 +324,26 @@ export const Header = () => {
 
               {isLocationsDropdownOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
+                  initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
+                  exit={{ opacity: 0, y: -5 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-full right-0 mt-2 w-48 bg-navy border border-bronze shadow-xl z-50"
+                  className="absolute top-full right-0 mt-1 w-48 bg-white border border-navy/10 shadow-xl z-50"
                   onMouseEnter={handleLocationsMouseEnter}
                   onMouseLeave={handleLocationsMouseLeave}
                 >
-                  <div className="py-2">
+                  <div className="py-1">
                     {LOCATIONS.map((loc, index) => (
                       <React.Fragment key={loc.href}>
                         <Link
                           href={loc.href}
-                          className="block px-6 py-3 text-white/90 hover:text-white hover:bg-bronze/10 transition-colors font-sans text-xs tracking-[0.2em] uppercase"
+                          className="block px-4 py-2.5 text-navy hover:text-bronze hover:bg-navy/5 transition-colors font-sans text-[10px] tracking-[0.2em] uppercase font-medium"
                           onClick={() => setIsLocationsDropdownOpen(false)}
                         >
                           {loc.title}
                         </Link>
                         {index < LOCATIONS.length - 1 && (
-                          <div className="h-[1px] bg-bronze/30 mx-4" />
+                          <div className="h-[1px] bg-navy/5 mx-2" />
                         )}
                       </React.Fragment>
                     ))}
@@ -366,12 +363,12 @@ export const Header = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[65] bg-navy flex flex-col pt-24 pb-12 px-8 overflow-y-auto md:hidden"
+            className="fixed inset-0 z-[65] bg-white flex flex-col pt-24 pb-12 px-8 overflow-y-auto md:hidden"
           >
             {/* Explicit Close Button inside Overlay */}
             <button 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute top-6 right-6 text-white/50 hover:text-bronze p-2 transition-colors"
+              className="absolute top-6 right-6 text-navy/50 hover:text-bronze p-2 transition-colors"
               aria-label="Close Menu"
             >
               <X className="h-8 w-8" />
@@ -384,7 +381,7 @@ export const Header = () => {
               >
                 <Link 
                   href="/about" 
-                  className="text-2xl font-sans font-bold text-white hover:text-bronze transition-colors tracking-[0.2em] uppercase"
+                  className="text-2xl font-sans font-bold text-navy hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   About
@@ -403,7 +400,7 @@ export const Header = () => {
                     <Link
                       key={area.href}
                       href={area.href}
-                      className="text-lg font-sans font-medium text-white/80 hover:text-bronze transition-colors tracking-[0.2em] uppercase"
+                      className="text-lg font-sans font-medium text-navy/80 hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {area.title}
@@ -424,7 +421,7 @@ export const Header = () => {
                     <Link
                       key={loc.href}
                       href={loc.href}
-                      className="text-lg font-sans font-medium text-white/80 hover:text-bronze transition-colors tracking-[0.2em] uppercase"
+                      className="text-lg font-sans font-medium text-navy/80 hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {loc.title}
@@ -440,7 +437,7 @@ export const Header = () => {
               >
                 <Link 
                   href="/reviews" 
-                  className="text-2xl font-sans font-bold text-white hover:text-bronze transition-colors tracking-[0.2em] uppercase"
+                  className="text-2xl font-sans font-bold text-navy hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Reviews
@@ -457,7 +454,7 @@ export const Header = () => {
                     setIsMobileMenuOpen(false);
                     openModal();
                   }}
-                  className="text-2xl font-sans font-bold text-white hover:text-bronze transition-colors tracking-[0.2em] uppercase"
+                  className="text-2xl font-sans font-bold text-navy hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                 >
                   Contact
                 </button>
@@ -471,7 +468,7 @@ export const Header = () => {
               className="mt-auto flex flex-col gap-6 items-center"
             >
               <div className="h-[1px] w-12 bg-bronze/30" />
-              <a href="tel:9156211818" className="flex items-center gap-3 text-white text-lg font-sans font-bold tracking-[0.2em] uppercase">
+              <a href="tel:9156211818" className="flex items-center gap-3 text-navy text-lg font-sans font-bold tracking-[0.2em] uppercase">
                 <Phone className="h-5 w-5 text-bronze" />
                 (915) 621-1818
               </a>

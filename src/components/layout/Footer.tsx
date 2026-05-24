@@ -52,22 +52,22 @@ export const Footer = () => {
       </div>
 
       {/* Main Footer: Architectural Grid */}
-      <footer className="bg-navy text-white pt-20 pb-10">
+      <footer className="bg-navy text-white pt-24 pb-12">
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
             {/* Column 1: Brand & Social */}
             <div className="space-y-8">
               <Link href="/" className="block">
                 <div className="relative h-16 w-64">
                   <Image
-                    src="/carter-logo-white.png"
+                    src="/carter-logo-v2.png"
                     alt="Carter Law Wins"
                     fill
                     className="object-contain object-left"
                   />
                 </div>
               </Link>
-              <p className="text-light-steel text-sm leading-relaxed max-w-xs font-sans">
+              <p className="text-white/60 text-sm leading-relaxed max-w-xs font-sans">
                 Winning is more than a result—it&apos;s a way of life. Thomas Carter provides 
                 elite trial advocacy for the injured in El Paso and across Texas.
               </p>
@@ -95,7 +95,7 @@ export const Footer = () => {
 
           {/* Column 2: Expertise Areas (Practice Areas) */}
             <div>
-              <h4 className="font-serif font-bold text-bronze uppercase tracking-[0.2em] text-[10px] mb-8">Expertise</h4>
+              <h4 className="font-sans font-bold text-bronze uppercase tracking-[0.2em] text-xs mb-8">Expertise</h4>
               <ul className="space-y-4 text-sm font-sans">
                 {PRACTICE_AREAS.map((area) => (
                   <li key={area.href}>
@@ -110,7 +110,7 @@ export const Footer = () => {
 
             {/* Column 3: Firm Navigation */}
             <div>
-              <h4 className="font-serif font-bold text-bronze uppercase tracking-[0.2em] text-[10px] mb-8">Firm</h4>
+              <h4 className="font-sans font-bold text-bronze uppercase tracking-[0.2em] text-xs mb-8">Firm</h4>
               <ul className="space-y-4 text-sm font-sans">
                 {QUICK_LINKS.map((link) => (
                   <li key={link.href}>
@@ -124,11 +124,11 @@ export const Footer = () => {
 
             {/* Column 4: Headquarters */}
             <div className="space-y-8">
-              <h4 className="font-serif font-bold text-bronze uppercase tracking-[0.2em] text-[10px] mb-8">Office</h4>
+              <h4 className="font-sans font-bold text-bronze uppercase tracking-[0.2em] text-xs mb-8">Contact</h4>
               <div className="space-y-6">
                 <div className="flex gap-4">
                   <MapPin className="h-5 w-5 text-bronze shrink-0" />
-                  <p className="text-sm text-light-steel font-sans leading-relaxed">
+                  <p className="text-sm text-white/60 font-sans leading-relaxed">
                     124 W. Castellano Drive, UNIT 103<br />
                     El Paso, TX 79912
                   </p>

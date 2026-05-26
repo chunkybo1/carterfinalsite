@@ -1,27 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Playfair_Display, Libre_Baskerville, Montserrat } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { LocalBusinessSchema } from "@/components/seo/SchemaOrg";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-});
-
-const libreBaskerville = Libre_Baskerville({
-  weight: ["400", "700"],
-  variable: "--font-libre-baskerville",
-  subsets: ["latin"],
-});
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -66,7 +56,7 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body
-        className={`${geistSans.variable} ${playfair.variable} ${libreBaskerville.variable} ${montserrat.variable} antialiased`}
+        className={`${cormorant.variable} ${inter.variable} antialiased`}
       >
         <Providers>
           {children}

@@ -31,7 +31,7 @@ export const Header = () => {
   const { openModal } = useModal();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isLocationsDropdownOpen, setIsLocationsDropdownOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -58,26 +58,27 @@ export const Header = () => {
 
     const currentScrollY = latest;
     const lastScrollY = lastScrollYRef.current;
-    const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 1000;
+    
+    // Threshold for showing the header after scrolling away from the top
+    const scrollThreshold = 100;
 
-    // Handle header visibility (hide on scroll down, show on up)
-    if (Math.abs(currentScrollY - lastScrollY) > 5) {
-      let newIsHeaderVisible = isHeaderVisible;
-
-      if (currentScrollY < viewportHeight * 0.2) {
-        newIsHeaderVisible = true;
-      } else if (currentScrollY > lastScrollY) {
-        newIsHeaderVisible = false;
-      } else if (currentScrollY < lastScrollY) {
-        newIsHeaderVisible = true;
+    if (currentScrollY < scrollThreshold) {
+      // Hide at the very top
+      setIsHeaderVisible(false);
+    } else {
+      // Logic for showing on scroll up, hiding on scroll down
+      if (Math.abs(currentScrollY - lastScrollY) > 5) {
+        if (currentScrollY > lastScrollY) {
+          // Scrolling down - hide
+          setIsHeaderVisible(false);
+        } else {
+          // Scrolling up - show
+          setIsHeaderVisible(true);
+        }
       }
-
-      if (newIsHeaderVisible !== isHeaderVisible) {
-        setIsHeaderVisible(newIsHeaderVisible);
-      }
-      
-      lastScrollYRef.current = currentScrollY;
     }
+    
+    lastScrollYRef.current = currentScrollY;
   });
 
   const headerY = isHeaderVisible ? 0 : -180;

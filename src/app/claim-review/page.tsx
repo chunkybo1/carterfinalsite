@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { UnbrandedHeader } from "@/components/sections/landing/UnbrandedHeader";
 import { UnbrandedFooter } from "@/components/sections/landing/UnbrandedFooter";
-import { ClaimEvaluationQuiz } from "@/components/sections/landing/ClaimEvaluationQuiz";
+import { TruckAccidentEvaluator } from "@/components/sections/landing/TruckAccidentEvaluator";
 
 export const metadata: Metadata = {
   title: "Free Truck Accident Claim Evaluation | See What You're Owed",
@@ -61,7 +61,7 @@ export default function ClaimReviewPage() {
 
       {/* Quiz Section */}
       <section className="py-12 bg-[#F2F4F7] flex-1">
-        <ClaimEvaluationQuiz />
+        <TruckAccidentEvaluator />
       </section>
 
       <UnbrandedFooter />

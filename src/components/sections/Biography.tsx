@@ -39,12 +39,12 @@ export const Biography = () => {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="absolute -bottom-8 -right-8 bg-bronze p-6 rounded-xl shadow-xl hidden md:block"
+              className="absolute -bottom-8 -right-8 bg-white/90 backdrop-blur-md px-10 py-4 rounded-sm shadow-2xl border-2 border-bronze hidden md:block z-20 text-left"
             >
-              <div className="text-white font-sans font-bold text-sm tracking-widest uppercase mb-1">
+              <div className="text-bronze font-serif font-bold text-xs tracking-[0.3em] uppercase mb-0.5">
                 15+ Years
               </div>
-              <div className="text-navy font-serif font-bold text-xl">
+              <div className="text-navy font-serif font-bold text-lg leading-tight">
                 Trial Experience
               </div>
             </motion.div>
@@ -90,19 +90,19 @@ export const Biography = () => {
               className="space-y-6 text-steel font-sans text-lg leading-relaxed"
             >
               <p className="font-serif italic text-xl text-navy border-l-4 border-bronze pl-6 py-2">
-                &quot;Standing Beside You, Every Step of the Way. Your Fight Is My Purpose.&quot;
+                &quot;Winning isn&apos;t just a goal—it&apos;s the standard. Your recovery is my mission.&quot;
               </p>
               
               <p>
-                Thomas Carter founded this firm on a simple principle: every client deserves a champion. With over 15 years in the courtroom, he has built a reputation for taking the cases other firms shy away from. His journey in law began with a commitment to serving the El Paso community, where he has witnessed firsthand the impact that a dedicated legal advocate can have on the lives of accident victims and their families.
+                Thomas Carter founded this firm on a single objective: delivering elite results for the injured. With over 15 years of high-stakes trial experience, he has built a reputation for winning the cases other firms can&apos;t. His practice is defined by a relentless drive to secure maximum compensation for El Paso families, ensuring that every legal strategy is engineered for victory.
               </p>
               
               <p>
-                He doesn&apos;t just manage cases; he fights battles. By limiting the firm&apos;s caseload, Thomas ensures that every family he represents receives his direct attention and the full weight of his trial experience. This selective approach allows for a level of meticulous preparation that is rare in the legal field.
+                He doesn&apos;t just manage cases; he dominates the courtroom. By strictly limiting the firm&apos;s caseload, Thomas ensures that every client receives the full weight of his tactical expertise and trial-ready preparation. This aggressive, detail-oriented approach has consistently turned complex liability disputes into multi-million dollar recoveries.
               </p>
 
               <p>
-                In El Paso, the legal landscape is unique, shaped by both state laws and local court procedures. Thomas Carter&apos;s deep understanding of the El Paso County court system, combined with his extensive experience across Texas, Arizona, and New Mexico, provides his clients with a distinct advantage.
+                In El Paso, success depends on localized intelligence and a proven track record. Thomas Carter&apos;s deep understanding of the El Paso County court system provides his clients with a decisive competitive advantage. He knows the local landscape, the opposing counsel, and exactly what it takes to win in this jurisdiction. When you choose Carter Law, you aren&apos;t just hiring an attorney—you&apos;re securing a powerhouse advocate dedicated to your financial and physical recovery.
               </p>
             </motion.div>
 

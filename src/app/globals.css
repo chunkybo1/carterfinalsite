@@ -35,10 +35,8 @@
   --color-light-grey: var(--color-light-grey);
   --color-dark-charcoal: var(--color-dark-charcoal);
   
-  --font-sans: var(--font-montserrat);
-  --font-serif: var(--font-playfair);
-  --font-baskerville: var(--font-libre-baskerville);
-  --font-montserrat: var(--font-montserrat);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
 }
 
 body {

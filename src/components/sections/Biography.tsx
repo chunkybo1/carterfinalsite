@@ -1,134 +1,85 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React from "react";
 import Image from "next/image";
-import { Container } from "@/components/ui/Container";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
+/**
+ * Biography — homepage section per REDESIGN-PLAN.md §4.5 (Phase 4).
+ *
+ * Changes from the previous version:
+ *   • Italic-bronze on "Wins." removed. Italic-bronze is reserved for the
+ *     Hero (one instance per page, Q2). The headline is now plain Cormorant
+ *     bold without decorative emphasis.
+ *   • Decorative scrapbook backplate (-translate-x-4 -translate-y-4 light-grey
+ *     offset behind the portrait) replaced with a single subtle backplate
+ *     using the new tokens, no offset, no rotation. Same treatment as the
+ *     Hero portrait per Q7.
+ *   • Eyebrow inline cluster -> .eyebrow utility class.
+ *   • The dark-overlay gradient on the portrait stays (functional contrast,
+ *     not decoration).
+ *   • The decorative "Read His Story" arrow path was malformed (it pointed
+ *     left/down rather than right). Replaced with lucide ArrowRight for
+ *     visual consistency with the rest of the site.
+ */
 export const Biography = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-10%" });
-
   return (
-    <section ref={containerRef} data-section="biography" className="relative w-full bg-white overflow-hidden py-24 lg:py-32">
-      <Container>
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-          
-          {/* Left Column: Profile Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full lg:w-5/12 relative"
-          >
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border border-navy/5">
-              <Image
-                src="/thomas-carter-portrait.png"
-                alt="Thomas Carter"
-                fill
-                className="object-cover object-top"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent" />
-            </div>
-            
-            {/* Floating Credential Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="absolute -bottom-8 -right-8 bg-white/90 backdrop-blur-md px-10 py-4 rounded-sm shadow-2xl border-2 border-bronze hidden md:block z-20 text-left"
-            >
-              <div className="text-bronze font-serif font-bold text-xs tracking-[0.3em] uppercase mb-0.5">
-                15+ Years
-              </div>
-              <div className="text-navy font-serif font-bold text-lg leading-tight">
-                Trial Experience
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column: Content */}
-          <div className="w-full lg:w-7/12 space-y-10">
-            <div className="space-y-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="text-[10px] md:text-xs font-sans font-bold tracking-[0.3em] text-bronze uppercase"
-              >
-                Lead Attorney
-              </motion.div>
-
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-navy leading-tight tracking-tight"
-              >
-                Thomas Carter
-              </motion.h2>
-              
-              <motion.div
-                initial={{ opacity: 0, scaleX: 0 }}
-                whileInView={{ opacity: 1, scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="h-[2px] w-24 bg-bronze origin-left"
-              />
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="space-y-6 text-steel font-sans text-lg leading-relaxed"
-            >
-              <p className="font-serif italic text-xl text-navy border-l-4 border-bronze pl-6 py-2">
-                &quot;Winning isn&apos;t just a goal—it&apos;s the standard. Your recovery is my mission.&quot;
-              </p>
-              
-              <p>
-                Thomas Carter founded this firm on a single objective: delivering elite results for the injured. With over 15 years of high-stakes trial experience, he has built a reputation for winning the cases other firms can&apos;t. His practice is defined by a relentless drive to secure maximum compensation for El Paso families, ensuring that every legal strategy is engineered for victory.
-              </p>
-              
-              <p>
-                He doesn&apos;t just manage cases; he dominates the courtroom. By strictly limiting the firm&apos;s caseload, Thomas ensures that every client receives the full weight of his tactical expertise and trial-ready preparation. This aggressive, detail-oriented approach has consistently turned complex liability disputes into multi-million dollar recoveries.
-              </p>
-
-              <p>
-                In El Paso, success depends on localized intelligence and a proven track record. Thomas Carter&apos;s deep understanding of the El Paso County court system provides his clients with a decisive competitive advantage. He knows the local landscape, the opposing counsel, and exactly what it takes to win in this jurisdiction. When you choose Carter Law, you aren&apos;t just hiring an attorney—you&apos;re securing a powerhouse advocate dedicated to your financial and physical recovery.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="pt-8 border-t border-navy/10 flex flex-wrap gap-8"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-light-grey flex items-center justify-center">
-                  <div className="w-2 h-2 rounded-full bg-bronze" />
-                </div>
-                <span className="text-xs font-sans font-bold uppercase tracking-widest text-navy">Millions Recovered</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-light-grey flex items-center justify-center">
-                  <div className="w-2 h-2 rounded-full bg-bronze" />
-                </div>
-                <span className="text-xs font-sans font-bold uppercase tracking-widest text-navy">Board Certified</span>
-              </div>
-            </motion.div>
+    <section
+      data-section="biography"
+      className="bg-white py-24 lg:py-32 px-6"
+      aria-labelledby="biography-heading"
+    >
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* Image — single subtle backplate, no scrapbook offset */}
+        <div className="relative aspect-[4/5] order-1 md:order-2">
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 rounded-[12px] bg-light-grey"
+          />
+          <div className="relative h-full w-full overflow-hidden rounded-[12px]">
+            <Image
+              src="/thomas-carter-portrait.jpg"
+              alt="Thomas Carter, founder of The Carter Law Firm, P.C."
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            {/* Functional dark overlay for contrast on portrait edges; not decorative. */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent"
+            />
           </div>
         </div>
-      </Container>
+
+        {/* Content */}
+        <div className="order-2 md:order-1">
+          <p className="eyebrow mb-4">Meet your advocate</p>
+          <h2
+            id="biography-heading"
+            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy mb-6 leading-tight"
+          >
+            Thomas Carter wins.
+          </h2>
+          <p className="text-base md:text-lg text-steel mb-6 leading-relaxed font-sans">
+            Thomas Carter has dedicated his career to representing those who have been wronged. With over 16 years of experience as a trial attorney, he brings unwavering dedication and aggressive advocacy to every case.
+          </p>
+          <p className="text-base md:text-lg text-steel mb-8 leading-relaxed font-sans">
+            Licensed in Texas, Arizona, and New Mexico, Thomas understands the complexities of multi-state litigation and the unique challenges faced by accident victims in the Southwest.
+          </p>
+          <Link
+            href="/about"
+            className="inline-flex items-center gap-2 eyebrow text-bronze hover:text-dark-bronze focus-visible:outline-none focus-visible:underline group"
+          >
+            Read his story
+            <ArrowRight
+              className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform duration-200"
+              aria-hidden="true"
+            />
+          </Link>
+        </div>
+      </div>
     </section>
   );
 };

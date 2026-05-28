@@ -1,160 +1,174 @@
 @import "tailwindcss";
 
+/* ===========================================================================
+   The Carter Law Firm — Design tokens
+   See REDESIGN-PLAN.md §3 for the full system. Do not bypass these tokens with
+   raw hex values in components.
+   =========================================================================== */
+
 :root {
-  /* New Palette */
-  --background: #FFFFFF; /* Clean White */
-  --foreground: #1A1A1A; /* Dark Charcoal */
-  
-  /* Brand Colors */
-  --color-steel: #4A5568; /* Charcoal Steel - Primary Brand */
-  --color-navy: #1E3A5F; /* Deep Navy Blue - Secondary/CTAs */
-  --color-bronze: #B8956A; /* Warm Bronze - Accents */
-  --color-dark-bronze: #8A6D4B; /* Darker Bronze for borders */
-  --color-light-steel: #8B95A5; /* Light Steel - Supporting Text */
-  
-  /* Premium Palette */
-  --color-charcoal: #1A1A1A;
-  --color-black: #000000;
-  --color-dark-charcoal: #111111;
-  --color-light-grey: #F8F9FA;
+  /* --- Surfaces (tinted neutrals; never pure white/black) --- */
+  --surface-white:   oklch(99.5% 0.003 250);
+  --surface-fog:     oklch(96.5% 0.005 250);
+  --surface-mist:    oklch(94% 0.005 250);
+
+  /* --- Ink --- */
+  --ink-charcoal:    oklch(20.5% 0.005 250);
+  --ink-steel:       oklch(40% 0.02 250);
+  --ink-muted:       oklch(63% 0.025 250);
+  --ink-onbrand:     oklch(99.5% 0.003 250);
+
+  /* --- Brand --- */
+  --brand-navy:        oklch(31% 0.06 250);
+  --brand-navy-deep:   oklch(22% 0.05 250);
+  --brand-bronze:      oklch(70% 0.075 75);
+  --brand-bronze-deep: oklch(55% 0.07 75);
+
+  /* --- Semantic --- */
+  --color-focus:       var(--brand-bronze-deep);
+  --color-divider:     oklch(90% 0.005 250);
+
+  /* --- Typography --- */
+  --font-display:  var(--font-cormorant), Georgia, serif;
+  --font-body:     var(--font-inter), system-ui, sans-serif;
+
+  --type-display:  clamp(2.5rem, 6vw, 5rem);
+  --type-headline: clamp(2rem, 4vw, 3rem);
+  --type-title:    1.5rem;
+  --type-body-lg:  1.125rem;
+  --type-body:     1rem;
+  --type-label:    0.75rem;
+
+  --leading-display:  1.05;
+  --leading-headline: 1.1;
+  --leading-body:     1.6;
+
+  --tracking-label:   0.18em;
+
+  /* --- Shadows (semantic, three levels) --- */
+  --shadow-card:     0 1px 2px oklch(20% 0.005 250 / 0.04),
+                     0 4px 12px oklch(20% 0.005 250 / 0.06);
+  --shadow-elevated: 0 4px 8px oklch(20% 0.005 250 / 0.05),
+                     0 12px 24px oklch(20% 0.005 250 / 0.08);
+  --shadow-overlay:  0 8px 16px oklch(20% 0.005 250 / 0.08),
+                     0 24px 48px oklch(20% 0.005 250 / 0.12);
+
+  /* --- Radii --- */
+  --radius-sm:    4px;
+  --radius-card:  12px;
+  --radius-full:  9999px;
+
+  /* --- Motion --- */
+  --motion-fast:    160ms;
+  --motion-medium:  320ms;
+  --motion-slow:    480ms;
+  --ease-out:       cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft:  cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ===========================================================================
+     Legacy aliases (back-compat — DO NOT use these in new code; they exist so
+     the existing components that reference text-navy / bg-bronze / text-steel
+     etc. keep working until each component is migrated to the new tokens.)
+     =========================================================================== */
+  --background: var(--surface-white);
+  --foreground: var(--ink-charcoal);
+
+  --color-steel:        var(--ink-steel);
+  --color-navy:         var(--brand-navy);
+  --color-bronze:       var(--brand-bronze);
+  --color-dark-bronze:  var(--brand-bronze-deep);
+  --color-light-steel:  var(--ink-muted);
+  --color-charcoal:     var(--ink-charcoal);
+  --color-dark-charcoal: oklch(15% 0.005 250);
+  --color-black:        oklch(0% 0 0);
+  --color-light-grey:   var(--surface-fog);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  
-  /* Brand Colors */
-  --color-steel: var(--color-steel);
-  --color-navy: var(--color-navy);
-  --color-bronze: var(--color-bronze);
-  --color-dark-bronze: var(--color-dark-bronze);
-  --color-light-steel: var(--color-light-steel);
-  
-  --color-charcoal: var(--color-charcoal);
-  --color-black: var(--color-black);
-  --color-light-grey: var(--color-light-grey);
-  --color-dark-charcoal: var(--color-dark-charcoal);
-  
-  --font-sans: var(--font-inter);
+  /* Surfaces / ink — exposed to Tailwind so utilities like bg-surface-fog,
+     text-ink-charcoal, etc. become available alongside the legacy aliases. */
+  --color-surface-white:   var(--surface-white);
+  --color-surface-fog:     var(--surface-fog);
+  --color-surface-mist:    var(--surface-mist);
+  --color-ink-charcoal:    var(--ink-charcoal);
+  --color-ink-steel:       var(--ink-steel);
+  --color-ink-muted:       var(--ink-muted);
+  --color-ink-onbrand:     var(--ink-onbrand);
+
+  /* Brand */
+  --color-brand-navy:        var(--brand-navy);
+  --color-brand-navy-deep:   var(--brand-navy-deep);
+  --color-brand-bronze:      var(--brand-bronze);
+  --color-brand-bronze-deep: var(--brand-bronze-deep);
+
+  /* Legacy color names — back-compat for components that still use
+     bg-bronze, text-navy, text-steel, etc. Resolve to the new canonical
+     brand tokens (NOT self-referencing). */
+  --color-background:    var(--surface-white);
+  --color-foreground:    var(--ink-charcoal);
+  --color-steel:         var(--ink-steel);
+  --color-navy:          var(--brand-navy);
+  --color-bronze:        var(--brand-bronze);
+  --color-dark-bronze:   var(--brand-bronze-deep);
+  --color-light-steel:   var(--ink-muted);
+  --color-charcoal:      var(--ink-charcoal);
+  --color-black:         oklch(0% 0 0);
+  --color-light-grey:    var(--surface-fog);
+  --color-dark-charcoal: oklch(15% 0.005 250);
+
+  --font-sans:  var(--font-inter);
   --font-serif: var(--font-cormorant);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  overflow-x: hidden; /* Prevent horizontal scroll from animations */
+  background: var(--surface-white);
+  color: var(--ink-charcoal);
+  font-family: var(--font-body);
+  overflow-x: hidden;
 }
 
 html {
   scroll-behavior: smooth;
-  /* Optimize: Enable momentum scrolling on iOS */
   -webkit-overflow-scrolling: touch;
-  /* Optimize: Improve scroll performance */
-  scroll-padding-top: 150px; /* Account for fixed header */
+  scroll-padding-top: 150px;
 }
 
-/* Shiny Text Effect */
-.shiny-text {
-  color: #ffffff;
-  font-weight: 400;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0.6) 38%,
-    rgba(255, 255, 255, 0.9) 45%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 0.9) 55%,
-    rgba(255, 255, 255, 0.6) 62%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  animation: shine 4s linear infinite;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.3);
-  filter: brightness(1.2);
-  will-change: background-position; /* Optimize: Hint browser to optimize this layer for animation */
+/* ===========================================================================
+   Eyebrow utility — replaces the inline tracking/uppercase/text-bronze cluster
+   used 15+ times across the site. Apply with className="eyebrow".
+   =========================================================================== */
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--type-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--brand-bronze);
+  line-height: 1.4;
 }
 
-@keyframes shine {
-  0% {
-    background-position: 200%;
+/* Light variant for use on dark backgrounds (final CTA band, hero overlays) */
+.eyebrow-on-dark {
+  color: var(--brand-bronze);
+}
+
+/* ===========================================================================
+   Reduced motion — global disable, plus targeted neutralization of any
+   surviving infinite gradient-text or shimmer references.
+   =========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-  100% {
-    background-position: -200%;
-  }
-}
 
-.shiny-text.disabled {
-  animation: none;
-}
-
-/* Metallic Gold Button Effect */
-.gold-button {
-  position: relative;
-  background: linear-gradient(135deg, 
-    #B8956A 0%, 
-    #E2C799 25%, 
-    #B8956A 50%, 
-    #E2C799 75%, 
-    #B8956A 100%
-  );
-  background-size: 200% auto;
-  color: var(--color-navy) !important;
-  border: 1px solid rgba(138, 109, 75, 0.5);
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-  z-index: 1;
-}
-
-.gold-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: 0.6s;
-  z-index: -1;
-}
-
-.gold-button:hover {
-  background-position: right center;
-  box-shadow: 
-    0 8px 20px rgba(184, 149, 106, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  transform: translateY(-1px);
-}
-
-.gold-button:hover::before {
-  left: 100%;
-}
-.steel-text {
-  background: linear-gradient(135deg, #C0C0C0 0%, #F5F5F5 25%, #808080 50%, #C0C0C0 75%, #F5F5F5 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: inline-block;
-  animation: steelShine 4s linear infinite;
-  will-change: background-position; /* Optimize: Hint browser to optimize this layer for animation */
-}
-
-@keyframes steelShine {
-  0% {
-    background-position: 200%;
-  }
-  100% {
-    background-position: -200%;
+  html {
+    scroll-behavior: auto;
   }
 }

@@ -45,10 +45,10 @@ const QUESTIONS: Question[] = [
     hint: "Select the option that best describes the other vehicle.",
     icon: Truck,
     options: [
-      { id: "semi", label: "Yes — semi/18-wheeler", subtitle: "Tractor-trailers, big rigs", points: 20 },
-      { id: "delivery", label: "Yes — delivery or box truck", subtitle: "Amazon, FedEx, UPS, moving trucks", points: 15 },
-      { id: "other_commercial", label: "Yes — other commercial vehicle", subtitle: "Dump trucks, tankers, buses", points: 10 },
-      { id: "passenger", label: "No — passenger vehicle only", subtitle: "Regular cars, SUVs, pickups", points: 0, offRampReason: "non-commercial" },
+      { id: "semi", label: "Yes, semi or 18-wheeler", subtitle: "Tractor-trailers, big rigs", points: 20 },
+      { id: "delivery", label: "Yes, delivery or box truck", subtitle: "Amazon, FedEx, UPS, moving trucks", points: 15 },
+      { id: "other_commercial", label: "Yes, other commercial vehicle", subtitle: "Dump trucks, tankers, buses", points: 10 },
+      { id: "passenger", label: "No, passenger vehicle only", subtitle: "Regular cars, SUVs, pickups", points: 0, offRampReason: "non-commercial" },
     ],
   },
   {
@@ -58,7 +58,7 @@ const QUESTIONS: Question[] = [
     icon: Calendar,
     options: [
       { id: "30_days", label: "Within the last 30 days", subtitle: "Recent accident", points: 30 },
-      { id: "1_6_months", label: "1–6 months ago", subtitle: "Evidence is still relatively fresh", points: 20 },
+      { id: "1_6_months", label: "1 to 6 months ago", subtitle: "Evidence is still relatively fresh", points: 20 },
       { id: "6_24_months", label: "6 months to 2 years ago", subtitle: "Approaching deadline", points: 10 },
       { id: "over_2_years", label: "More than 2 years ago", subtitle: "Statute of limitations may have expired", points: 0, offRampReason: "statute-expired" },
     ],
@@ -71,7 +71,7 @@ const QUESTIONS: Question[] = [
     options: [
       { id: "truck_driver", label: "The truck driver or trucking company", subtitle: "Clearly their fault", points: 50 },
       { id: "shared", label: "Shared fault", subtitle: "Both parties contributed", points: 20 },
-      { id: "not_sure", label: "I'm not sure — still being investigated", subtitle: "Fault often requires expert investigation", points: 25 },
+      { id: "not_sure", label: "I'm not sure, still being investigated", subtitle: "Fault often requires expert investigation", points: 25 },
       { id: "me", label: "I was primarily at fault", subtitle: "More than 50% my fault", points: 0, offRampReason: "at-fault" },
     ],
   },

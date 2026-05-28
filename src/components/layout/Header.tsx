@@ -4,11 +4,31 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
+
+import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
 import { useModal } from "@/context/ModalContext";
+
+/**
+ * Header — site header per REDESIGN-PLAN.md §5 (Phase 5).
+ *
+ * Changes from the previous version:
+ *   • Auto-hide on scroll-down is DISABLED on the homepage (Q6). On the home
+ *     page the header is always visible. On other pages, the auto-hide
+ *     behavior is preserved but the on-load bug is fixed: the initial state
+ *     defaults to visible, not hidden.
+ *   • The scroll-callback's "hide at the top" branch (the source of the
+ *     reported on-load and flaky-appearance bugs) is removed. The header is
+ *     visible at the top of every page.
+ *   • The click-outside useEffect's dependency array is corrected to include
+ *     isLocationsDropdownOpen (was P2 audit finding).
+ *   • "Slip n' Fall's" -> "Slip and Fall" in the service-areas list (Q10),
+ *     matching the PracticeAreas section.
+ *   • The unused `isHovered` state (set by onMouseEnter/onMouseLeave on the
+ *     header but never read) is removed.
+ */
 
 const SERVICE_AREAS = [
   { title: "Car Accidents", href: "/practice-areas/car-accidents" },
@@ -17,7 +37,7 @@ const SERVICE_AREAS = [
   { title: "Pedestrian Accidents", href: "/practice-areas/pedestrian-accidents" },
   { title: "Wrongful Death", href: "/practice-areas/wrongful-death" },
   { title: "Dog Bites", href: "/practice-areas/dog-bites" },
-  { title: "Slip n' Fall's", href: "/practice-areas/slip-and-fall" },
+  { title: "Slip and Fall", href: "/practice-areas/slip-and-fall" },
   { title: "Medical Malpractice", href: "/practice-areas/medical-malpractice" },
 ];
 
@@ -30,12 +50,15 @@ const LOCATIONS = [
 export const Header = () => {
   const { openModal } = useModal();
   const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  // Default to VISIBLE — fixes the on-load bug where the header was hidden
+  // on first render until a scroll event fired.
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isLocationsDropdownOpen, setIsLocationsDropdownOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  
+
   const lastScrollYRef = useRef(0);
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
   const locationsDropdownRef = useRef<HTMLDivElement>(null);
@@ -43,77 +66,79 @@ export const Header = () => {
   const locationsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Determine current location display name
-  const currentLocation = LOCATIONS.find(loc => {
-    if (loc.href === "/") return pathname === "/";
-    return pathname.startsWith(loc.href);
-  })?.title || "Locations";
+  const currentLocation =
+    LOCATIONS.find((loc) => {
+      if (loc.href === "/") return pathname === "/";
+      return pathname.startsWith(loc.href);
+    })?.title || "Locations";
 
-  // Use Framer Motion's useScroll for performant scroll tracking
   const { scrollY } = useScroll();
 
-  // Handle scroll events efficiently
+  // Scroll-driven header visibility.
+  // On the homepage: never hide. The phone CTA staying visible is more
+  // valuable than a cleaner aesthetic for a crisis-stage visitor.
+  // On other pages: hide on scroll-down past 200px, show on scroll-up.
+  // The header is visible at the top of every page (no "hide near 0" branch).
   useMotionValueEvent(scrollY, "change", (latest) => {
-    // If mobile menu is open, don't hide header based on scroll
     if (isMobileMenuOpen) return;
+    if (isHomePage) return;
 
     const currentScrollY = latest;
     const lastScrollY = lastScrollYRef.current;
-    
-    // Threshold for showing the header after scrolling away from the top
-    const scrollThreshold = 100;
+    const HIDE_THRESHOLD = 200;
 
-    if (currentScrollY < scrollThreshold) {
-      // Hide at the very top
-      setIsHeaderVisible(false);
-    } else {
-      // Logic for showing on scroll up, hiding on scroll down
-      if (Math.abs(currentScrollY - lastScrollY) > 5) {
-        if (currentScrollY > lastScrollY) {
-          // Scrolling down - hide
-          setIsHeaderVisible(false);
-        } else {
-          // Scrolling up - show
-          setIsHeaderVisible(true);
-        }
+    if (currentScrollY < HIDE_THRESHOLD) {
+      // Near the top of the page: always visible.
+      setIsHeaderVisible(true);
+    } else if (Math.abs(currentScrollY - lastScrollY) > 8) {
+      if (currentScrollY > lastScrollY) {
+        setIsHeaderVisible(false); // scrolling down
+      } else {
+        setIsHeaderVisible(true); // scrolling up
       }
     }
-    
+
     lastScrollYRef.current = currentScrollY;
   });
 
   const headerY = isHeaderVisible ? 0 : -180;
 
-  // Header should be static and opaque on mobile, animated on desktop
+  // Mobile detection — needed to skip the desktop hide-on-scroll transform.
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Lock scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isMobileMenuOpen]);
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside.
+  // (Audit P2 fix: previous dependency array was missing isLocationsDropdownOpen.)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(event.target as Node)) {
+      if (
+        servicesDropdownRef.current &&
+        !servicesDropdownRef.current.contains(event.target as Node)
+      ) {
         setIsServicesDropdownOpen(false);
       }
-      if (locationsDropdownRef.current && !locationsDropdownRef.current.contains(event.target as Node)) {
+      if (
+        locationsDropdownRef.current &&
+        !locationsDropdownRef.current.contains(event.target as Node)
+      ) {
         setIsLocationsDropdownOpen(false);
       }
     };
@@ -125,21 +150,17 @@ export const Header = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isServicesDropdownOpen]);
+  }, [isServicesDropdownOpen, isLocationsDropdownOpen]);
 
-  // Cleanup timeout on unmount
+  // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
-      if (dropdownTimeoutRef.current) {
-        clearTimeout(dropdownTimeoutRef.current);
-      }
-      if (locationsTimeoutRef.current) {
-        clearTimeout(locationsTimeoutRef.current);
-      }
+      if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+      if (locationsTimeoutRef.current) clearTimeout(locationsTimeoutRef.current);
     };
   }, []);
 
-  // Handle dropdown hover with delay
+  // Dropdown hover handlers
   const handleMouseEnter = () => {
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
@@ -167,26 +188,32 @@ export const Header = () => {
       setIsLocationsDropdownOpen(false);
     }, 150);
   };
-  
+
+  const navLinkClass =
+    "text-navy hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm";
+
   const navLinks = (
     <>
-      <Link href="/about" className="text-navy hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm">About</Link>
-      
-      <div 
+      <Link href="/about" className={navLinkClass}>
+        About
+      </Link>
+
+      <div
         ref={servicesDropdownRef}
         className="relative"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <button
-          className="text-navy hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm flex items-center gap-1"
-        >
+        <button className={`${navLinkClass} flex items-center gap-1`}>
           Service Areas
-          <svg 
-            className={`w-4 h-4 transition-transform duration-200 ${isServicesDropdownOpen ? 'rotate-180' : ''}`}
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            className={`w-4 h-4 transition-transform duration-200 ${
+              isServicesDropdownOpen ? "rotate-180" : ""
+            }`}
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
@@ -205,7 +232,7 @@ export const Header = () => {
             <div className="py-2">
               {SERVICE_AREAS.map((area, index) => (
                 <React.Fragment key={area.href}>
-                    <Link
+                  <Link
                     href={area.href}
                     className="block px-6 py-3 text-navy hover:text-bronze hover:bg-navy/5 transition-colors font-sans text-xs tracking-[0.2em] uppercase"
                     onClick={() => setIsServicesDropdownOpen(false)}
@@ -213,7 +240,7 @@ export const Header = () => {
                     {area.title}
                   </Link>
                   {index < SERVICE_AREAS.length - 1 && (
-                    <div className="h-[1px] bg-navy/5 mx-4" />
+                    <div className="h-[1px] bg-navy/5 mx-4" aria-hidden="true" />
                   )}
                 </React.Fragment>
               ))}
@@ -221,40 +248,44 @@ export const Header = () => {
           </motion.div>
         )}
       </div>
-      <Link href="/reviews" className="text-navy hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm">Reviews</Link>
-      <Link href="/contact" onClick={openModal} className="text-navy hover:text-bronze transition-colors font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs 2xl:text-sm text-left">Contact</Link>
+
+      <Link href="/reviews" className={navLinkClass}>
+        Reviews
+      </Link>
+      <Link href="/contact" onClick={openModal} className={`${navLinkClass} text-left`}>
+        Contact
+      </Link>
     </>
   );
 
   return (
     <motion.header
-      style={{ 
+      style={{
         y: isMobile ? 0 : headerY,
       }}
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      initial={false}
+      className="fixed top-0 left-0 right-0 z-50"
+      initial={{ y: 0 }}
       animate={{ y: isMobile ? 0 : headerY }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Main Header: Logo, Nav, Phone, CTA */}
       <div className="bg-white shadow-sm border-b-[1px] border-navy/10 py-2 sm:py-3 md:py-4">
         <Container className="2xl:max-w-[95vw] relative z-10">
           <div className="flex items-center justify-between gap-8">
             {/* Logo */}
-            <Link href="/" className="flex items-center text-navy shrink-0" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link
+              href="/"
+              className="flex items-center text-navy shrink-0"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
               <div className="relative h-10 w-48 sm:h-14 sm:w-64 md:h-16 md:w-[320px] 2xl:h-20 2xl:w-[400px]">
                 <Image
                   src="/carter-logo-v2.png"
-                  alt="Carter Law Wins"
+                  alt="The Carter Law Firm"
                   fill
                   className="object-contain object-left"
                   priority
-                  style={{ 
-                    background: 'transparent',
-                    backgroundColor: 'transparent'
-                  }}
+                  sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, (max-width: 1536px) 320px, 400px"
                 />
               </div>
             </Link>
@@ -266,15 +297,22 @@ export const Header = () => {
 
             {/* Phone & CTA - Desktop */}
             <div className="hidden md:flex items-center gap-6 2xl:gap-8 shrink-0">
-              <a href="tel:9156211818" className="group flex items-center gap-2 text-navy/70 text-[10px] 2xl:text-xs font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase hover:text-navy transition-all duration-300">
-                <Phone className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-navy" />
+              <a
+                href="tel:9156211818"
+                className="group flex items-center gap-2 text-navy/70 text-[10px] 2xl:text-xs font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase hover:text-navy transition-all duration-300"
+                aria-label="Call (915) 621-1818"
+              >
+                <Phone
+                  className="h-3 w-3 2xl:h-4 2xl:w-4 transition-colors duration-300 group-hover:text-navy"
+                  aria-hidden="true"
+                />
                 (915) 621-1818
               </a>
-              <Button 
+              <Button
                 size="sm"
                 noFloat
                 onClick={openModal}
-                className="px-4 py-1.5 2xl:px-6 2xl:py-2 gold-button"
+                className="px-4 py-1.5 2xl:px-6 2xl:py-2"
               >
                 Free Case Review
               </Button>
@@ -282,17 +320,18 @@ export const Header = () => {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden relative z-[70] flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 text-navy focus:outline-none"
+              className="md:hidden relative z-[70] flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 rounded-sm"
               onClick={(e) => {
                 e.preventDefault();
                 setIsMobileMenuOpen(!isMobileMenuOpen);
               }}
-              aria-label="Toggle Menu"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? (
-                <X className="h-8 w-8 sm:h-10 sm:w-10 text-bronze" />
+                <X className="h-8 w-8 sm:h-10 sm:w-10 text-bronze" aria-hidden="true" />
               ) : (
-                <Menu className="h-8 w-8 sm:h-10 sm:w-10 text-navy" />
+                <Menu className="h-8 w-8 sm:h-10 sm:w-10 text-navy" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -303,21 +342,22 @@ export const Header = () => {
       <div className="hidden md:block bg-light-grey/80 backdrop-blur-sm border-b border-navy/5">
         <Container className="2xl:max-w-[95vw]">
           <div className="flex justify-end py-1.5">
-            <div 
+            <div
               ref={locationsDropdownRef}
               className="relative"
               onMouseEnter={handleLocationsMouseEnter}
               onMouseLeave={handleLocationsMouseLeave}
             >
-              <button
-                className="text-navy/60 hover:text-bronze transition-colors font-sans font-bold tracking-[0.2em] uppercase text-[10px] flex items-center gap-1.5"
-              >
+              <button className="text-navy/60 hover:text-bronze transition-colors font-sans font-bold tracking-[0.2em] uppercase text-[10px] flex items-center gap-1.5">
                 <span className="text-bronze/50">Office:</span> {currentLocation}
-                <svg 
-                  className={`w-3 h-3 transition-transform duration-200 ${isLocationsDropdownOpen ? 'rotate-180' : ''}`}
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className={`w-3 h-3 transition-transform duration-200 ${
+                    isLocationsDropdownOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -344,7 +384,7 @@ export const Header = () => {
                           {loc.title}
                         </Link>
                         {index < LOCATIONS.length - 1 && (
-                          <div className="h-[1px] bg-navy/5 mx-2" />
+                          <div className="h-[1px] bg-navy/5 mx-2" aria-hidden="true" />
                         )}
                       </React.Fragment>
                     ))}
@@ -366,22 +406,21 @@ export const Header = () => {
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-0 z-[65] bg-white flex flex-col pt-24 pb-12 px-8 overflow-y-auto md:hidden"
           >
-            {/* Explicit Close Button inside Overlay */}
-            <button 
+            <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="absolute top-6 right-6 text-navy/50 hover:text-bronze p-2 transition-colors"
-              aria-label="Close Menu"
+              aria-label="Close menu"
             >
-              <X className="h-8 w-8" />
+              <X className="h-8 w-8" aria-hidden="true" />
             </button>
-            <nav className="flex flex-col gap-6 text-center">
+            <nav className="flex flex-col gap-6 text-center" aria-label="Mobile navigation">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <Link 
-                  href="/about" 
+                <Link
+                  href="/about"
                   className="text-2xl font-sans font-bold text-navy hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -395,7 +434,7 @@ export const Header = () => {
                 transition={{ delay: 0.2 }}
                 className="flex flex-col gap-4"
               >
-                <span className="text-bronze font-sans uppercase tracking-[0.3em] text-[10px] font-bold">Service Areas</span>
+                <span className="eyebrow text-center">Service Areas</span>
                 <div className="flex flex-col gap-3">
                   {SERVICE_AREAS.map((area) => (
                     <Link
@@ -416,7 +455,7 @@ export const Header = () => {
                 transition={{ delay: 0.3 }}
                 className="flex flex-col gap-4"
               >
-                <span className="text-bronze font-sans uppercase tracking-[0.3em] text-[10px] font-bold">Locations</span>
+                <span className="eyebrow text-center">Locations</span>
                 <div className="flex flex-col gap-3">
                   {LOCATIONS.map((loc) => (
                     <Link
@@ -436,8 +475,8 @@ export const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <Link 
-                  href="/reviews" 
+                <Link
+                  href="/reviews"
                   className="text-2xl font-sans font-bold text-navy hover:text-bronze transition-colors tracking-[0.2em] uppercase"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -450,7 +489,7 @@ export const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <button 
+                <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     openModal();
@@ -462,25 +501,29 @@ export const Header = () => {
               </motion.div>
             </nav>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
               className="mt-auto flex flex-col gap-6 items-center"
             >
-              <div className="h-[1px] w-12 bg-bronze/30" />
-              <a href="tel:9156211818" className="flex items-center gap-3 text-navy text-lg font-sans font-bold tracking-[0.2em] uppercase">
-                <Phone className="h-5 w-5 text-bronze" />
+              <div className="h-[1px] w-12 bg-bronze/30" aria-hidden="true" />
+              <a
+                href="tel:9156211818"
+                className="flex items-center gap-3 text-navy text-lg font-sans font-bold tracking-[0.2em] uppercase"
+                aria-label="Call (915) 621-1818"
+              >
+                <Phone className="h-5 w-5 text-bronze" aria-hidden="true" />
                 (915) 621-1818
               </a>
-              <Button 
+              <Button
                 size="lg"
                 noFloat
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   openModal();
                 }}
-                className="w-full py-5 gold-button"
+                className="w-full py-5"
               >
                 Free Case Review
               </Button>

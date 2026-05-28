@@ -1,121 +1,172 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
 import { Container } from "@/components/ui/Container";
+import {
+  useReducedMotionPref,
+  fadeRiseVariants,
+  staggerVariants,
+} from "@/lib/motion";
 
-import { FEATURED_RESULTS } from "@/lib/services-data";
+/**
+ * ResultsGallery — restructured per REDESIGN-PLAN.md §4.4 (Phase 4).
+ *
+ * Old: 4 equal-weight cards in a 2x2 grid, each with hover:bg-navy/text-white
+ *      flip. Section heading used italic-bronze emphasis.
+ *
+ * New: One featured result (the largest, $3.2M trucking — aligns with the
+ *      firm's brand positioning) at full width, then the other three
+ *      results in a row beneath. Hierarchy without removing data. The "Proven
+ *      Results." italic-bronze is gone — one italic-bronze instance per
+ *      page, in the Hero only (Q2). "See all results" link added to keep the
+ *      door open without claiming this is exhaustive.
+ */
 
-const RESULTS = FEATURED_RESULTS.map((res, index) => ({
-  id: index,
-  amount: res.amount,
-  category: res.caseType,
-  details: res.context
-}));
+interface Result {
+  id: string;
+  amount: string;
+  type: string;
+  description: string;
+}
 
-// Double results for a seamless CSS loop
-const MARQUEE_ITEMS = [...RESULTS, ...RESULTS];
+const RESULTS: Result[] = [
+  {
+    id: "1",
+    amount: "$3.2M",
+    type: "Trucking accident",
+    description: "Recovered for a victim of a commercial vehicle collision on I-10.",
+  },
+  {
+    id: "2",
+    amount: "$1.8M",
+    type: "Wrongful death",
+    description: "Settlement for the family of a victim killed by a negligent driver.",
+  },
+  {
+    id: "3",
+    amount: "$950K",
+    type: "Slip and fall",
+    description: "Premises liability case against a major commercial property owner.",
+  },
+  {
+    id: "4",
+    amount: "$725K",
+    type: "Car accident",
+    description: "Insurance dispute resolution for a high-impact collision.",
+  },
+];
+
+const FEATURED = RESULTS[0];
+const SECONDARY = RESULTS.slice(1);
 
 export const ResultsGallery = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const reducedMotion = useReducedMotionPref();
+
+  const fadeRise = fadeRiseVariants(reducedMotion);
+  const stagger = staggerVariants(reducedMotion, 0.08);
+
   return (
-    <section 
-      className="relative w-full py-24 lg:py-32 bg-white overflow-hidden border-y border-navy/5"
+    <section
+      ref={containerRef}
+      className="relative w-full py-24 lg:py-32 bg-white overflow-hidden"
+      aria-labelledby="results-heading"
     >
-      <style jsx global>{`
-        @keyframes marquee {
-          0% { 
-            transform: translate3d(0, 0, 0); 
-          }
-          100% { 
-            transform: translate3d(-50%, 0, 0); 
-          }
-        }
-        .animate-marquee {
-          animation: marquee 60s linear infinite;
-          will-change: transform;
-        }
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
+      <Container>
+        {/* Header */}
+        <motion.div
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={stagger}
+          className="text-center mb-16 lg:mb-24"
+        >
+          <motion.p variants={fadeRise} className="eyebrow mb-4">
+            Verdicts &amp; Settlements
+          </motion.p>
+          <motion.h2
+            id="results-heading"
+            variants={fadeRise}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-navy leading-tight"
+          >
+            Proven results.
+          </motion.h2>
+          <motion.div
+            initial={reducedMotion ? false : { opacity: 0, scaleX: 0 }}
+            animate={isInView ? { opacity: 1, scaleX: 1 } : reducedMotion ? { opacity: 1, scaleX: 1 } : {}}
+            transition={reducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="h-[2px] w-24 bg-bronze mx-auto mt-8 origin-center"
+          />
+        </motion.div>
 
-      <Container className="mb-12 md:mb-20">
-        <div className="text-center px-4">
-          <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-            Proven Outcomes
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy mb-6">
-            Our Recent <span className="text-bronze italic">Results.</span>
-          </h2>
-          <div className="h-[2px] w-12 bg-bronze mx-auto" />
-        </div>
-      </Container>
-
-      {/* Mobile: Single Column Stack | Desktop: Optimized CSS Marquee */}
-      <div className="relative">
-        {/* Mobile View */}
-        <div className="flex flex-col gap-6 px-6 md:hidden">
-          {RESULTS.slice(0, 6).map((item) => (
-            <div
-              key={item.id}
-              className="relative w-full p-8 bg-white border border-navy/10 shadow-lg rounded-sm flex flex-col justify-between"
-            >
-              <div className="space-y-6">
-                <div className="space-y-3">
-                  <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-bronze">
-                    {item.category}
-                  </div>
-                  <h3 className="text-4xl font-serif font-bold text-navy tracking-tight">
-                    {item.amount}
-                  </h3>
-                </div>
-                <div className="h-[1px] w-12 bg-bronze/30" />
-                <p className="text-steel text-base leading-relaxed font-sans italic">
-                  &quot;{item.details}&quot;
-                </p>
-              </div>
-              <div className="flex items-center gap-4 text-navy/10 mt-8">
-                <div className="text-[9px] font-bold uppercase tracking-widest">Official Firm Record</div>
-              </div>
+        {/* Featured result — full width, larger amount, primary trust signal */}
+        <motion.article
+          initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-5%" }}
+          transition={reducedMotion ? { duration: 0 } : { duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="relative bg-navy text-white rounded-[12px] p-10 lg:p-16 mb-8 overflow-hidden"
+          style={{ boxShadow: "var(--shadow-elevated)" }}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 md:gap-12 items-center">
+            <div>
+              <p className="text-sm text-bronze tracking-widest uppercase font-bold mb-3">
+                {FEATURED.type}
+              </p>
+              <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-bold leading-none">
+                {FEATURED.amount}
+              </p>
             </div>
+            <p className="text-lg md:text-xl text-white/85 leading-relaxed font-sans md:border-l md:border-white/15 md:pl-12">
+              {FEATURED.description}
+            </p>
+          </div>
+        </motion.article>
+
+        {/* Secondary results — tighter row of three */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {SECONDARY.map((result, index) => (
+            <motion.article
+              key={result.id}
+              initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-5%" }}
+              transition={
+                reducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.32, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }
+              }
+              className="bg-light-grey p-8 rounded-[12px] border border-navy/10"
+              style={{ boxShadow: "var(--shadow-card)" }}
+            >
+              <p className="text-xs text-bronze tracking-widest uppercase font-bold mb-2">
+                {result.type}
+              </p>
+              <p className="text-4xl md:text-5xl font-serif font-bold text-navy leading-none mb-4">
+                {result.amount}
+              </p>
+              <p className="text-base text-steel leading-relaxed font-sans">
+                {result.description}
+              </p>
+            </motion.article>
           ))}
         </div>
 
-        {/* Desktop View: Marquee */}
-        <div className="hidden md:flex whitespace-nowrap overflow-hidden">
-          <div className="flex animate-marquee gap-8 px-4">
-            {MARQUEE_ITEMS.map((item, idx) => (
-              <div
-                key={`${item.id}-${idx}`}
-                className="relative w-[340px] h-[520px] shrink-0 p-10 bg-white border border-navy/10 shadow-xl rounded-sm flex flex-col justify-between whitespace-normal transition-all duration-300 hover:border-bronze hover:shadow-2xl group"
-              >
-                {/* Header Content */}
-                <div className="space-y-8">
-                  <div className="space-y-4">
-                    <div className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-bronze">
-                      {item.category}
-                    </div>
-                    <h3 className="text-5xl font-serif font-bold text-navy tracking-tight group-hover:text-bronze transition-colors">
-                      {item.amount}
-                    </h3>
-                  </div>
-
-                  <div className="h-[1px] w-12 bg-bronze/30" />
-
-                  <p className="text-steel text-lg leading-relaxed font-sans italic opacity-90 group-hover:opacity-100 transition-opacity">
-                    &quot;{item.details}&quot;
-                  </p>
-                </div>
-
-                {/* Footer Label */}
-                <div className="flex items-center gap-4 text-navy/10 mt-auto">
-                  <div className="text-[9px] font-bold uppercase tracking-widest">Official Firm Record</div>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* See all results — keeps the door open without claiming exhaustive list */}
+        <div className="text-center mt-12">
+          <Link
+            href="/reviews"
+            className="inline-flex items-center gap-2 eyebrow text-bronze hover:text-dark-bronze focus-visible:outline-none focus-visible:underline"
+          >
+            See all results
+            <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </Link>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

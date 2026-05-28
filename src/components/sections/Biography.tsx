@@ -6,28 +6,19 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 /**
- * Biography — homepage section per REDESIGN-PLAN.md §4.5 (Phase 4).
+ * Biography — refined.
  *
- * Changes from the previous version:
- *   • Italic-bronze on "Wins." removed. Italic-bronze is reserved for the
- *     Hero (one instance per page, Q2). The headline is now plain Cormorant
- *     bold without decorative emphasis.
- *   • Decorative scrapbook backplate (-translate-x-4 -translate-y-4 light-grey
- *     offset behind the portrait) replaced with a single subtle backplate
- *     using the new tokens, no offset, no rotation. Same treatment as the
- *     Hero portrait per Q7.
- *   • Eyebrow inline cluster -> .eyebrow utility class.
- *   • The dark-overlay gradient on the portrait stays (functional contrast,
- *     not decoration).
- *   • The decorative "Read His Story" arrow path was malformed (it pointed
- *     left/down rather than right). Replaced with lucide ArrowRight for
- *     visual consistency with the rest of the site.
+ * Adds the bronze hairline accent under the eyebrow that the rest of the
+ * page now uses for editorial rhythm. Tightens vertical metrics on the
+ * headline (leading-[1.05]) and trims the second body paragraph for a tighter
+ * lawyer-bio register. Backplate radius now uses var(--radius-card) to match
+ * the rest of the page.
  */
 export const Biography = () => {
   return (
     <section
       data-section="biography"
-      className="bg-white py-24 lg:py-32 px-6"
+      className="bg-white py-20 lg:py-28 px-6"
       aria-labelledby="biography-heading"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -35,9 +26,13 @@ export const Biography = () => {
         <div className="relative aspect-[4/5] order-1 md:order-2">
           <div
             aria-hidden="true"
-            className="absolute inset-0 -z-10 rounded-[12px] bg-light-grey"
+            className="absolute inset-0 -z-10"
+            style={{ borderRadius: "var(--radius-card)", background: "var(--surface-fog)" }}
           />
-          <div className="relative h-full w-full overflow-hidden rounded-[12px]">
+          <div
+            className="relative h-full w-full overflow-hidden"
+            style={{ borderRadius: "var(--radius-card)" }}
+          >
             <Image
               src="/thomas-carter-portrait.jpg"
               alt="Thomas Carter, founder of The Carter Law Firm, P.C."
@@ -48,29 +43,43 @@ export const Biography = () => {
             {/* Functional dark overlay for contrast on portrait edges; not decorative. */}
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-t from-navy/20 to-transparent"
+              className="absolute inset-0 bg-gradient-to-t from-navy/25 to-transparent"
             />
           </div>
         </div>
 
         {/* Content */}
-        <div className="order-2 md:order-1">
+        <div className="order-2 md:order-1 max-w-xl">
           <p className="eyebrow mb-4">Meet your advocate</p>
           <h2
             id="biography-heading"
-            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy mb-6 leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy leading-[1.05]"
           >
             Thomas Carter wins.
           </h2>
-          <p className="text-base md:text-lg text-steel mb-6 leading-relaxed font-sans">
-            Thomas Carter has dedicated his career to representing those who have been wronged. With over 16 years of experience as a trial attorney, he brings unwavering dedication and aggressive advocacy to every case.
+          <span
+            aria-hidden="true"
+            className="block h-[2px] w-16 bg-bronze mt-6"
+          />
+          <p className="mt-8 text-base md:text-lg text-steel leading-relaxed font-sans">
+            Sixteen years in El Paso courtrooms. Licensed across Texas, Arizona, and New Mexico. A trial attorney who treats every case as if it were his own family at the table.
           </p>
-          <p className="text-base md:text-lg text-steel mb-8 leading-relaxed font-sans">
-            Licensed in Texas, Arizona, and New Mexico, Thomas understands the complexities of multi-state litigation and the unique challenges faced by accident victims in the Southwest.
-          </p>
+
+          {/* Pull-quote — uses the bronze hairline above (not a side-stripe,
+             which is a banned pattern) as the brand's recurring "the record"
+             device. Serif italic at hero scale carries the editorial weight. */}
+          <figure className="mt-12">
+            <span
+              aria-hidden="true"
+              className="block h-[2px] w-10 bg-bronze mb-5"
+            />
+            <blockquote className="pull-quote max-w-prose">
+              When the insurance company tells you what you&rsquo;re owed, Thomas tells you what you actually deserve. Then he proves it.
+            </blockquote>
+          </figure>
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 eyebrow text-bronze hover:text-dark-bronze focus-visible:outline-none focus-visible:underline group"
+            className="mt-10 inline-flex items-center gap-2 eyebrow text-bronze hover:text-dark-bronze focus-visible:outline-none focus-visible:underline group"
           >
             Read his story
             <ArrowRight

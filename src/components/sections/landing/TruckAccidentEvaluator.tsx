@@ -213,11 +213,11 @@ export const TruckAccidentEvaluator = () => {
   };
 
   const getValueRange = (score: number) => {
-    if (score >= 180) return "$500K – $2.5M+";
-    if (score >= 130) return "$150K – $750K";
-    if (score >= 80) return "$50K – $250K";
-    if (score >= 40) return "$15K – $75K";
-    return "$5K – $25K";
+    if (score >= 180) return "$500K to $2.5M+";
+    if (score >= 130) return "$150K to $750K";
+    if (score >= 80) return "$50K to $250K";
+    if (score >= 40) return "$15K to $75K";
+    return "$5K to $25K";
   };
 
   const score = calculateScore();

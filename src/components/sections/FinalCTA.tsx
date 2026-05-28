@@ -8,44 +8,52 @@ import { Container } from "@/components/ui/Container";
 import { useModal } from "@/context/ModalContext";
 
 /**
- * FinalCTA — closing CTA band per REDESIGN-PLAN.md §4.8 (Phase 4).
+ * FinalCTA — refined closing band.
  *
- * The service-marketing landing pattern calls for a closing CTA that
- * restates the Hero's offer for a visitor who scrolled through the page
- * without converting. Background is dark navy per Q3 — a high-contrast
- * close that anchors the bottom of the page without re-introducing the
- * offer's specifics.
- *
- * Two CTAs:
- *   • Primary (modal trigger) — Get a free case review
- *   • Secondary (click-to-call) — (915) 621-1818
- *
- * Trust line below: "Available 24/7. Hablamos español." — keeps the
- * bilingual signal visible at the bottom of the page even though the
- * Spanish-locale tree is a separate engagement.
+ * Refinement pass:
+ *   • Adds bronze hairline accent above the eyebrow for editorial rhythm.
+ *   • Phone CTA now uses the canonical <Button variant="outline"> instead of
+ *     a hand-rolled anchor — same focus ring tokens, same hover behavior
+ *     as the rest of the site.
+ *   • Trust line gets a slight type bump and dot-separator style for
+ *     readability on the dark surface.
  */
 export const FinalCTA = () => {
   const { openModal } = useModal();
 
   return (
     <section
-      className="relative w-full bg-navy py-24 lg:py-32 text-white overflow-hidden"
+      className="relative w-full bg-navy py-32 lg:py-40 text-white overflow-hidden"
       aria-labelledby="final-cta-heading"
     >
       <Container>
-        <div className="max-w-3xl mx-auto text-center space-y-8">
-          <p className="eyebrow">Ready to talk?</p>
+        <div className="max-w-3xl mx-auto text-center">
+          {/* Closing marker — pairs the bronze hairline with a numeric 04 to
+             complete the homepage's 00 / 01 / 02 / 03 / 04 cadence. */}
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <span
+              className="section-marker text-bronze"
+              aria-hidden="true"
+            >
+              04
+            </span>
+            <span
+              aria-hidden="true"
+              className="h-[2px] w-12 bg-bronze"
+            />
+            <p className="eyebrow eyebrow-on-dark">Ready to talk?</p>
+          </div>
           <h2
             id="final-cta-heading"
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.05]"
           >
             Free case review. No fee unless we win.
           </h2>
-          <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl mx-auto font-sans">
+          <p className="mt-8 text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl mx-auto font-sans">
             Talk to a lawyer today. We respond within one hour, 24/7.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4">
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
             <Button
               size="lg"
               noFloat
@@ -65,8 +73,8 @@ export const FinalCTA = () => {
             </a>
           </div>
 
-          <p className="text-sm text-white/70 font-sans pt-4">
-            Available 24/7. Hablamos espa&ntilde;ol.
+          <p className="mt-10 text-sm md:text-base text-white/70 font-sans">
+            Available 24/7  &middot;  Hablamos espa&ntilde;ol  &middot;  Licensed in TX, AZ, NM
           </p>
         </div>
       </Container>

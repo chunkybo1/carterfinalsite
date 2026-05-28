@@ -154,6 +154,40 @@ html {
 }
 
 /* ===========================================================================
+   Pull-quote utility — the brand's editorial italic moment. Cormorant italic
+   at display scale with tighter leading. Reserved for the rare narrative
+   beat (a single line on the page, max). Pair with a 2px bronze hairline
+   above to invoke the brand's "the record" device. Apply with
+   className="pull-quote".
+   =========================================================================== */
+
+.pull-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.18;
+  color: var(--brand-navy);
+  letter-spacing: -0.005em;
+}
+
+.pull-quote-on-dark {
+  color: var(--surface-white);
+}
+
+/* Section-marker numeric prefix — the brand's numbered section device.
+   Used in PracticeAreas opener ("02 · Practice Areas"). Cormorant bold, bronze,
+   sized to read as a magazine-volume rather than a counter. */
+
+.section-marker {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1;
+  color: var(--brand-bronze);
+}
+
+/* ===========================================================================
    Reduced motion — global disable, plus targeted neutralization of any
    surviving infinite gradient-text or shimmer references.
    =========================================================================== */

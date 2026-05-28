@@ -33,18 +33,34 @@ export default function Home(props: {
       <Hero showContent={true} />
       <HeroCTA />
 
-      <section className="py-24 bg-light-grey" aria-labelledby="evaluator-heading">
-        <div className="max-w-4xl mx-auto px-4 text-center mb-12">
-          <p className="eyebrow mb-4">Free Evaluation</p>
-          <h2
-            id="evaluator-heading"
-            className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-navy mb-4"
-          >
-            Free truck accident case evaluation.
-          </h2>
-          <p className="text-lg text-steel max-w-2xl mx-auto">
-            Find out what your claim is actually worth before you sign anything. Take this free 60-second evaluation to see if you qualify for a maximum payout.
-          </p>
+      <section
+        className="py-16 lg:py-20 bg-light-grey"
+        aria-labelledby="evaluator-heading"
+      >
+        <div className="max-w-7xl mx-auto px-6 mb-12">
+          {/* Numbered opener — "00 · Free Evaluation" — primer for the
+             01/02/03 triplet that follows on the page. */}
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-4 mb-6">
+              <span className="section-marker" aria-hidden="true">
+                00
+              </span>
+              <span
+                aria-hidden="true"
+                className="h-[2px] w-12 bg-bronze"
+              />
+              <p className="eyebrow">Free Evaluation</p>
+            </div>
+            <h2
+              id="evaluator-heading"
+              className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-navy leading-[1.05]"
+            >
+              Find out what your case is actually worth.
+            </h2>
+            <p className="mt-6 text-lg md:text-xl text-steel font-serif italic leading-relaxed max-w-2xl">
+              Sixty seconds. No registration. The same questions Thomas asks new clients in the first call.
+            </p>
+          </div>
         </div>
         <TruckAccidentEvaluator />
       </section>

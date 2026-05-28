@@ -396,7 +396,7 @@ export const NativeCaseReviewForm = ({
         <button
           type="submit"
           disabled={state === "submitting"}
-          className={`w-full inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm bg-bronze text-white border border-dark-bronze hover:bg-dark-bronze active:bg-dark-bronze transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 ${
+          className={`w-full inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm bg-bronze text-brand-navy-deep border border-dark-bronze hover:bg-dark-bronze active:bg-dark-bronze transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 ${
             isDark ? "focus-visible:ring-offset-navy" : "focus-visible:ring-offset-white"
           } disabled:opacity-60 disabled:cursor-not-allowed`}
         >

@@ -1,198 +1,168 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion } from "framer-motion";
-import { Phone } from "lucide-react";
+import React from "react";
 import Image from "next/image";
+import { Phone, Calendar, MapPin } from "lucide-react";
 
-import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { useModal } from "@/context/ModalContext";
-import {
-  useReducedMotionPref,
-  fadeRiseVariants,
-  staggerVariants,
-} from "@/lib/motion";
 
 /**
- * Hero — homepage hero section.
+ * Hero — homepage hero (post-audit).
  *
- * Per REDESIGN-PLAN.md §4.1 (Phase 2):
- *   • Visible H1 (no sr-only sibling).
- *   • Headline: "El Paso's truck accident lawyer. We win these cases."
- *     The italic-bronze emphasis lands here on "We win these cases" — and
- *     this is the only italic-bronze instance on the entire homepage.
- *   • Subline: 16 years / TX-AZ-NM / no fee unless we win.
- *   • Primary CTA opens the case-review modal (dual-intent: urgent contact
- *     and case review). Secondary CTA is click-to-call.
- *   • Trust strip below the CTAs absorbs the standalone JurisdictionBar.
- *   • Portrait sits on a single subtle backplate — no rotation, no
- *     decorative double-frame.
- *   • Reduced-motion is honored: motion variants gated on the
- *     useReducedMotionPref() hook.
+ * Audit finding 1 (cycler removed). The headline is now a single static H1
+ * with the italic-bronze emphasis baked in as the second sentence — the one
+ * signature italic-bronze moment per page that the plan reserved.
+ *
+ * Audit finding 4 (backplate cleanup). The portrait backplate is now a
+ * solid bronze/15 surface with no backdrop-blur and no translate offset.
+ *
+ * Audit finding 5 (trust strip removed). The three-fact subline carries the
+ * jurisdiction / tenure / contingency-promise signals on its own; the
+ * duplicate trust strip below the CTAs is gone. "Hablamos español" now
+ * lives in the Final CTA footer and (header CTA copy in a future pass).
  */
-export const HeroSection = ({
-  showContent = true,
-}: {
+
+interface HeroSectionProps {
   showContent?: boolean;
   videoOnly?: boolean;
   contentOnly?: boolean;
-}) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { openModal } = useModal();
-  const reducedMotion = useReducedMotionPref();
+}
 
-  const fadeRise = fadeRiseVariants(reducedMotion);
-  const stagger = staggerVariants(reducedMotion, 0.08);
+export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
+  const { openModal } = useModal();
+
+  if (!showContent) return null;
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full min-h-screen overflow-hidden pt-20"
+    <section
+      className="relative w-full min-h-[88svh] lg:min-h-[92svh] flex items-center bg-brand-navy-deep text-white overflow-hidden"
+      aria-labelledby="hero-headline"
     >
-      {/* Background photograph + dim overlay for legibility */}
-      <div className="absolute inset-0 z-0">
+      {/* Background image — Thomas Carter portrait, treated as ambient */}
+      <div className="absolute inset-0 -z-10">
         <Image
           src="/hero-bg.png"
           alt=""
           fill
-          className="object-cover object-center"
           priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover object-[center_30%]"
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-black/55 z-10" aria-hidden="true" />
+        {/* Functional dim layers for legibility — not decorative */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-brand-navy-deep/85 via-brand-navy-deep/70 to-brand-navy-deep/40"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-brand-navy-deep/60 to-transparent"
+        />
       </div>
 
-      <Container className="h-full relative z-20">
-        <div className="relative w-full h-full flex flex-col lg:flex-row items-center gap-12 py-12 lg:py-20">
-          {/* LEFT — Content */}
-          <motion.div
-            initial="hidden"
-            animate={showContent ? "visible" : "hidden"}
-            variants={stagger}
-            className="w-full lg:w-1/2 flex flex-col justify-center text-left items-start"
-          >
-            <div className="max-w-2xl">
-              {/* Eyebrow */}
-              <motion.p variants={fadeRise} className="eyebrow mb-6">
-                El Paso&rsquo;s Truck Accident Champion
-              </motion.p>
+      {/* Content */}
+      <Container className="relative z-20 py-24 md:py-28 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Headline column */}
+          <div className="lg:col-span-7 text-center lg:text-left">
+            {/* Eyebrow with location */}
+            <p className="eyebrow eyebrow-on-dark mb-5 inline-flex items-center gap-2">
+              <MapPin className="h-3 w-3 text-bronze" aria-hidden="true" />
+              El Paso, TX
+            </p>
 
-              {/* H1 — promoted from h2; no sr-only sibling */}
-              <motion.h1
-                variants={fadeRise}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-bold leading-[1.05] tracking-tight text-white mb-8"
+            {/* Headline — single static H1, italic-bronze on the second sentence */}
+            <h1
+              id="hero-headline"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-bold leading-[1.04] mb-8 text-white"
+            >
+              <span className="block">El Paso&rsquo;s truck accident lawyer.</span>
+              <span className="block italic text-bronze">We win these cases.</span>
+            </h1>
+
+            {/* Three-fact credentials line — jurisdiction / tenure / contingency.
+               Treated as a credentials bar with hairline separators rather than
+               body prose. Each fact reads as its own statement. */}
+            <ul
+              className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start justify-center lg:justify-start gap-x-6 gap-y-3 mb-10 text-base md:text-lg text-white/85 font-sans"
+              aria-label="Firm credentials"
+            >
+              <li className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="h-1 w-6 bg-bronze"
+                />
+                <span>16 years in El Paso courtrooms</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="h-1 w-6 bg-bronze"
+                />
+                <span>Licensed in TX, AZ, NM</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="h-1 w-6 bg-bronze"
+                />
+                <span>No fee unless we win</span>
+              </li>
+            </ul>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <button
+                onClick={openModal}
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm bg-bronze text-brand-navy-deep border border-dark-bronze hover:bg-dark-bronze hover:text-brand-navy-deep transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy-deep"
               >
-                El Paso&rsquo;s truck accident lawyer.{" "}
-                <span className="italic text-bronze">
-                  We win these cases.
-                </span>
-              </motion.h1>
+                <Calendar className="h-4 w-4" aria-hidden="true" />
+                Free Case Review
+              </button>
 
-              {/* Subline — three concrete facts; no em-dash, no claim */}
-              <motion.p
-                variants={fadeRise}
-                className="text-lg md:text-xl font-sans text-white/90 leading-relaxed max-w-xl mb-10"
+              <a
+                href="tel:9156211818"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm border-2 border-white text-white hover:bg-white hover:text-brand-navy-deep transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy-deep"
+                aria-label="Call Carter Law at (915) 621-1818"
               >
-                16 years in El Paso courtrooms. Licensed in Texas, Arizona, and New Mexico. No fee unless we win.
-              </motion.p>
-
-              {/* CTAs — primary (modal, dual-intent) + secondary (click-to-call) */}
-              <motion.div
-                variants={fadeRise}
-                className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
-              >
-                <Button
-                  size="lg"
-                  noFloat
-                  className="w-full sm:w-auto text-base shadow-md"
-                  onClick={openModal}
-                >
-                  Get a free case review
-                </Button>
-
-                <a
-                  href="tel:9156211818"
-                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 text-base font-sans font-bold uppercase tracking-wider rounded-sm border-2 border-white text-white hover:bg-white hover:text-navy transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-                  aria-label="Call Carter Law at (915) 621-1818"
-                >
-                  <Phone className="h-4 w-4" aria-hidden="true" />
-                  Call (915) 621-1818
-                </a>
-              </motion.div>
-
-              {/* Trust strip — absorbs the standalone JurisdictionBar.
-                  Single inline row visible in the first viewport on mobile. */}
-              <motion.ul
-                variants={fadeRise}
-                className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-white/80 font-sans text-sm"
-                aria-label="Firm credentials"
-              >
-                <li className="flex items-center gap-2">
-                  <span
-                    aria-hidden="true"
-                    className="inline-block h-1.5 w-1.5 rounded-full bg-bronze"
-                  />
-                  Licensed in TX, AZ &amp; NM
-                </li>
-                <li className="flex items-center gap-2">
-                  <span
-                    aria-hidden="true"
-                    className="inline-block h-1.5 w-1.5 rounded-full bg-bronze"
-                  />
-                  16 years of trial experience
-                </li>
-                <li className="flex items-center gap-2">
-                  <span
-                    aria-hidden="true"
-                    className="inline-block h-1.5 w-1.5 rounded-full bg-bronze"
-                  />
-                  No fee unless we win
-                </li>
-                <li className="flex items-center gap-2">
-                  <span
-                    aria-hidden="true"
-                    className="inline-block h-1.5 w-1.5 rounded-full bg-bronze"
-                  />
-                  Hablamos espa&ntilde;ol
-                </li>
-              </motion.ul>
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                Call (915) 621-1818
+              </a>
             </div>
-          </motion.div>
+          </div>
 
-          {/* RIGHT — Portrait */}
-          <motion.div
-            initial={{ opacity: reducedMotion ? 1 : 0, scale: reducedMotion ? 1 : 0.96 }}
-            animate={{
-              opacity: showContent || reducedMotion ? 1 : 0,
-              scale: showContent || reducedMotion ? 1 : 0.96,
-            }}
-            transition={
-              reducedMotion
-                ? { duration: 0 }
-                : { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.24 }
-            }
-            className="w-full lg:w-1/2 relative flex justify-center lg:justify-end"
-          >
-            <div className="relative w-full max-w-[500px] aspect-[4/5] lg:aspect-square">
-              {/* Single subtle backplate — replaces the previous double rotated
-                  decorative frames. No rotation, no second frame. */}
+          {/* Portrait column — solid backplate, no blur, no offset */}
+          <div className="lg:col-span-5 hidden lg:block">
+            <div className="relative aspect-[4/5] max-w-md mx-auto">
               <div
                 aria-hidden="true"
-                className="absolute inset-0 -z-10 rounded-[12px] bg-white/8"
+                className="absolute inset-0 -z-10 bg-bronze/15"
+                style={{ borderRadius: "var(--radius-card)" }}
               />
-              <Image
-                src="/thomas-carter-portrait.png"
-                alt="Thomas Carter, founder of The Carter Law Firm, P.C."
-                fill
-                className="object-contain object-bottom"
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <div
+                className="relative h-full w-full overflow-hidden bg-navy/40"
+                style={{ borderRadius: "var(--radius-card)" }}
+              >
+                <Image
+                  src="/thomas-carter-portrait.jpg"
+                  alt="Thomas Carter, founder of The Carter Law Firm, P.C."
+                  fill
+                  priority
+                  quality={88}
+                  sizes="(max-width: 1024px) 0px, 40vw"
+                  className="object-cover"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-brand-navy-deep/45 via-transparent to-transparent"
+                />
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </Container>
-    </div>
+    </section>
   );
 };

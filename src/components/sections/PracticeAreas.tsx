@@ -26,20 +26,16 @@ import {
 } from "@/lib/motion";
 
 /**
- * PracticeAreas — restructured per REDESIGN-PLAN.md §4.6 (Phase 3).
+ * PracticeAreas — refined.
  *
- * Old: 8 identical equal-weight cards in a 3-column grid (audit anti-pattern).
- * New: 2 featured cards (Truck Accidents, Car Accidents) at the top, then a
- *      compact 6-row list for the remaining practices. Card count drops from
- *      8 to 2 to address the user's explicit anti-slop note (Q5).
+ * Header converted to the editorial left-aligned pattern used by
+ * ResultsGallery and GoogleReviews so the page now reads as a cohesive
+ * editorial spread rather than three centered SaaS sections.
  *
- * Other changes:
- *   • Section heading is no longer italic-bronze. Italic-bronze is reserved
- *     for the Hero only (Q2). Bronze hairline accent under the heading stays.
- *   • "Slip n' Fall's" -> "Slip and Fall" (Q10).
- *   • Reduced-motion gates all entrance variants.
- *   • Featured cards keep the subtle hover-photograph reveal; secondary list
- *     does not (Q5).
+ * Featured cards keep their two-column layout but the hover photograph
+ * reveal is bumped to 0.08 opacity so it actually reads (3% was below the
+ * just-noticeable-difference threshold). Card titles step up in size; lucide
+ * icon container is bigger and switches surface, not just color, on hover.
  */
 
 interface FeaturedArea {
@@ -129,33 +125,46 @@ export const PracticeAreas = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full py-24 lg:py-32 bg-light-grey overflow-hidden"
+      className="relative w-full py-20 lg:py-28 bg-light-grey overflow-hidden"
       aria-labelledby="practice-areas-heading"
     >
       <Container>
-        {/* Header */}
+        {/* Header — numbered section opener. Breaks the eyebrow + serif headline + hairline
+           pattern repeated by ResultsGallery and GoogleReviews. The numeric prefix
+           ("02 · Practice Areas") establishes editorial cadence and reads as
+           magazine-volume rather than SaaS-template. */}
         <motion.div
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={stagger}
-          className="mb-16 lg:mb-24 text-center"
+          className="max-w-3xl mb-16 lg:mb-20"
         >
-          <motion.p variants={fadeRise} className="eyebrow mb-4">
-            Practice Areas
-          </motion.p>
+          <motion.div
+            variants={fadeRise}
+            className="flex items-center gap-4 mb-6"
+          >
+            <span className="section-marker" aria-hidden="true">
+              02
+            </span>
+            <span
+              aria-hidden="true"
+              className="h-[2px] w-12 bg-bronze"
+            />
+            <p className="eyebrow">Practice Areas</p>
+          </motion.div>
           <motion.h2
             id="practice-areas-heading"
             variants={fadeRise}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-navy leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-navy leading-[1.05]"
           >
             Truck accidents are what we do.
           </motion.h2>
-          <motion.div
-            initial={reducedMotion ? false : { opacity: 0, scaleX: 0 }}
-            animate={isInView ? { opacity: 1, scaleX: 1 } : reducedMotion ? { opacity: 1, scaleX: 1 } : {}}
-            transition={reducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="h-[2px] w-24 bg-bronze mx-auto mt-8 origin-center"
-          />
+          <motion.p
+            variants={fadeRise}
+            className="mt-6 text-lg md:text-xl text-steel font-serif italic leading-relaxed max-w-2xl"
+          >
+            Trucking is our specialty. We represent injured Texans, Arizonans, and New Mexicans across the personal-injury spectrum.
+          </motion.p>
         </motion.div>
 
         {/* Featured row — 2 cards (Truck, Car) */}
@@ -166,19 +175,24 @@ export const PracticeAreas = () => {
               initial={reducedMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-5%" }}
-              transition={reducedMotion ? { duration: 0 } : { duration: 0.4, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative bg-white border border-navy/10 p-8 md:p-10 rounded-[12px] overflow-hidden transition-shadow duration-200"
+              transition={
+                reducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.4, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }
+              }
+              className="group relative bg-white border border-navy/10 p-8 md:p-10 rounded-[12px] overflow-hidden transition-shadow duration-200 hover:shadow-lg"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-light-grey transition-colors duration-200 group-hover:bg-bronze">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-light-grey transition-colors duration-200 group-hover:bg-bronze">
                     <area.icon
-                      className="h-6 w-6 text-bronze transition-colors duration-200 group-hover:text-white"
+                      className="h-7 w-7 text-bronze transition-colors duration-200 group-hover:text-white"
                       aria-hidden="true"
+                      strokeWidth={1.5}
                     />
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-navy">
+                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-navy leading-tight">
                     {area.title}
                   </h3>
                 </div>
@@ -199,8 +213,8 @@ export const PracticeAreas = () => {
                 </Link>
               </div>
 
-              {/* Subtle background photograph reveal on hover (kept for featured row only per Q5) */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 pointer-events-none">
+              {/* Background photograph reveal on hover (kept for featured row only) */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none">
                 <Image
                   src={area.image}
                   alt=""

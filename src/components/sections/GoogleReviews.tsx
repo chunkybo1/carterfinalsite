@@ -2,92 +2,185 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { Star, Quote } from "lucide-react";
+
 import { Container } from "@/components/ui/Container";
-import { Star } from "lucide-react";
+import {
+  useReducedMotionPref,
+  fadeRiseVariants,
+  staggerVariants,
+} from "@/lib/motion";
 import { CLIENT_TESTIMONIALS } from "@/lib/services-data";
 
+/**
+ * GoogleReviews — refined homepage testimonials section.
+ *
+ * Replaces the previous version, which still carried several pre-redesign
+ * patterns that the rest of the page has moved past:
+ *   • A bronze-colored standalone word in the heading ("Clients" in bronze)
+ *     read as decorative emphasis, not weight contrast.
+ *   • Three equal-weight cards in a uniform grid — the identical-card-grid
+ *     anti-pattern flagged for PracticeAreas and ResultsGallery.
+ *   • Raw `tracking-[0.3em] uppercase text-[10px] font-bold text-bronze`
+ *     clusters duplicating the .eyebrow utility.
+ *   • A decorative Google "G" SVG floating in each card with no purpose.
+ *   • Mixed radii (`rounded-sm`, `rounded-xl`, `rounded-md`).
+ *
+ * New structure mirrors ResultsGallery: a featured testimonial in a
+ * full-width navy block (the strongest review, used as the trust anchor),
+ * then two compact secondary testimonials in a row beneath. Hierarchy without
+ * dropping data.
+ */
 export const GoogleReviews = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-10%" });
+  const reducedMotion = useReducedMotionPref();
+
+  const fadeRise = fadeRiseVariants(reducedMotion);
+  const stagger = staggerVariants(reducedMotion, 0.08);
+
+  // Featured testimonial = the first in the list. Pick the strongest review
+  // there if the data ever changes.
+  const featured = CLIENT_TESTIMONIALS[0];
+  const secondary = CLIENT_TESTIMONIALS.slice(1, 3);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-white py-24 lg:py-32 overflow-hidden border-y border-navy/5">
+    <section
+      ref={containerRef}
+      className="relative w-full bg-white py-20 lg:py-28 overflow-hidden"
+      aria-labelledby="reviews-heading"
+    >
       <Container>
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row items-center md:items-end justify-between mb-16 gap-8 text-center md:text-left">
-          <div className="max-w-2xl">
-            <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-              Client Testimonials
-            </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy leading-tight">
-              Our Satisfied<br /> 
-              <span className="text-bronze">Clients</span>
-            </h2>
-          </div>
-          
-          {/* Global Rating Badge */}
-          <div className="flex flex-col items-center md:items-end bg-white p-6 rounded-xl shadow-md border border-navy/5">
-            <div className="flex gap-1 mb-2">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-bronze text-bronze" />
-              ))}
-            </div>
-            <p className="text-navy font-serif text-xl font-bold">5.0 / 5.0 Rating</p>
-            <p className="text-steel text-xs uppercase tracking-widest mt-1">Based on 99+ Reviews</p>
-          </div>
-        </div>
+        {/* Header — numbered section opener ("03 · In their own words").
+           Closes the homepage triplet (01 Results, 02 Practice Areas, 03 Reviews). */}
+        <motion.div
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={stagger}
+          className="max-w-3xl mb-16 lg:mb-20"
+        >
+          <motion.div
+            variants={fadeRise}
+            className="flex items-center gap-4 mb-6"
+          >
+            <span className="section-marker" aria-hidden="true">
+              03
+            </span>
+            <span
+              aria-hidden="true"
+              className="h-[2px] w-12 bg-bronze"
+            />
+            <p className="eyebrow">In their own words</p>
+          </motion.div>
+          <motion.h2
+            id="reviews-heading"
+            variants={fadeRise}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-navy leading-[1.05]"
+          >
+            What clients tell us afterward.
+          </motion.h2>
+        </motion.div>
 
-        {/* Review Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {CLIENT_TESTIMONIALS.map((review, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative bg-white p-10 border border-navy/10 shadow-lg hover:shadow-xl transition-all duration-500 rounded-sm"
-            >
-              <div className="flex items-center gap-4 mb-8">
-                {/* Avatar Placeholder */}
-                <div className="w-12 h-12 rounded-full bg-light-grey flex items-center justify-center text-bronze font-bold text-lg">
-                  {review.name.charAt(0)}
-                </div>
+        {/* Featured testimonial — full width, navy surface, strongest trust anchor */}
+        {featured && (
+          <motion.figure
+            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-5%" }}
+            transition={
+              reducedMotion
+                ? { duration: 0 }
+                : { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+            }
+            className="relative bg-navy text-white rounded-[12px] p-10 lg:p-16 mb-8 overflow-hidden"
+            style={{ boxShadow: "var(--shadow-elevated)" }}
+          >
+            <Quote
+              aria-hidden="true"
+              strokeWidth={1}
+              className="absolute top-8 right-8 h-20 w-20 text-bronze/15"
+            />
+            <div className="relative z-10 max-w-3xl">
+              <div className="flex items-center gap-4 mb-6">
+                <p className="font-serif text-3xl md:text-4xl font-bold text-white leading-none">
+                  5.0
+                </p>
                 <div>
-                  <p className="text-navy font-sans font-bold uppercase tracking-widest text-xs">
-                    {review.name}
-                  </p>
-                  <p className="text-steel text-[10px] uppercase tracking-tighter">
-                    Verified Client
+                  <div className="flex gap-1" aria-hidden="true">
+                    {[...Array(featured.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-3.5 h-3.5 fill-bronze text-bronze"
+                        strokeWidth={0}
+                      />
+                    ))}
+                  </div>
+                  <p className="eyebrow eyebrow-on-dark mt-1">
+                    Across 99+ Google reviews
                   </p>
                 </div>
               </div>
+              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-serif leading-snug text-white">
+                {`“${featured.quote}”`}
+              </blockquote>
+              <figcaption className="mt-8 flex items-center gap-4">
+                <span
+                  aria-hidden="true"
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-bronze font-serif text-xl font-bold"
+                >
+                  {featured.name.charAt(0)}
+                </span>
+                <span>
+                  <span className="block text-base font-sans font-semibold text-white">
+                    {featured.name}
+                  </span>
+                  <span className="block eyebrow eyebrow-on-dark mt-0.5">
+                    {featured.caseType}
+                  </span>
+                </span>
+              </figcaption>
+            </div>
+          </motion.figure>
+        )}
 
-              <div className="flex gap-1 mb-6">
+        {/* Secondary row — two compact testimonials, light surface */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {secondary.map((review, index) => (
+            <motion.figure
+              key={`${review.name}-${index}`}
+              initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-5%" }}
+              transition={
+                reducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.32, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }
+              }
+              className="bg-light-grey p-8 rounded-[12px] border border-navy/10"
+              style={{ boxShadow: "var(--shadow-card)" }}
+            >
+              <div className="flex gap-1 mb-4" aria-hidden="true">
                 {[...Array(review.rating)].map((_, i) => (
-                  <Star key={i} className="w-3 h-3 fill-bronze text-bronze" />
+                  <Star
+                    key={i}
+                    className="w-3.5 h-3.5 fill-bronze text-bronze"
+                    strokeWidth={0}
+                  />
                 ))}
               </div>
-
-              <blockquote className="text-lg text-navy font-serif leading-relaxed italic mb-8 relative">
-                <span className="absolute -top-4 -left-4 text-6xl text-bronze/10 font-serif">&ldquo;</span>
-                &quot;{review.quote}&quot;
+              <blockquote className="text-base md:text-lg text-navy font-serif leading-relaxed mb-6">
+                {`“${review.quote}”`}
               </blockquote>
-
-              <div className="pt-6 border-t border-navy/5 flex justify-between items-center">
-                <p className="text-steel text-[9px] uppercase tracking-widest font-bold">
-                  {review.caseType}
-                </p>
-                <div className="opacity-20 group-hover:opacity-40 transition-opacity">
-                  <svg className="w-5 h-5 fill-navy" viewBox="0 0 24 24">
-                    <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.92 3.32-2.12 4.36-1.4 1.2-3.56 2.12-6.2 2.12-4.4 0-8.04-3.56-8.04-8s3.64-8 8.04-8c2.4 0 4.16.92 5.48 2.2l2.32-2.32C17.84 2.52 15.4 1.44 12.48 1.44 6.68 1.44 2 6.16 2 12s4.68 10.56 10.48 10.56c3.12 0 5.48-1.04 7.28-2.92 1.88-1.88 2.48-4.52 2.48-6.72 0-.64-.04-1.28-.12-1.92h-9.64z"/>
-                  </svg>
-                </div>
-              </div>
-            </motion.div>
+              <figcaption>
+                <span className="block text-sm font-sans font-semibold text-navy">
+                  {review.name}
+                </span>
+                <span className="block eyebrow mt-1">{review.caseType}</span>
+              </figcaption>
+            </motion.figure>
           ))}
         </div>
       </Container>
     </section>
   );
 };
-

@@ -37,8 +37,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const reducedMotion = useReducedMotionPref();
 
     const variants = {
+      // Bronze surface uses navy-deep text for AA-AAA contrast (~7:1 vs 3.3:1
+      // for white on bronze). Swap applied per audit finding #3.
       primary:
-        "bg-bronze text-white hover:bg-brand-bronze-deep hover:text-white active:bg-brand-bronze-deep " +
+        "bg-bronze text-brand-navy-deep hover:bg-brand-bronze-deep hover:text-brand-navy-deep active:bg-brand-bronze-deep " +
         "border border-dark-bronze shadow-sm",
       secondary:
         "bg-white text-navy border-2 border-navy/10 hover:bg-light-grey hover:text-navy",

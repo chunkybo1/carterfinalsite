@@ -13,17 +13,17 @@ import {
 } from "@/lib/motion";
 
 /**
- * ResultsGallery — restructured per REDESIGN-PLAN.md §4.4 (Phase 4).
+ * ResultsGallery — refined.
  *
- * Old: 4 equal-weight cards in a 2x2 grid, each with hover:bg-navy/text-white
- *      flip. Section heading used italic-bronze emphasis.
+ * Centered header replaced with a left-aligned header that matches
+ * GoogleReviews and gives the page a more editorial, less SaaS-template
+ * rhythm. Aggregate microcopy added beside the section title ("$50M+
+ * recovered") since the redesign rule is "show wins, don't claim them" —
+ * pairing the headline with a real aggregate keeps it concrete without
+ * tipping into hero-metric SaaS pattern.
  *
- * New: One featured result (the largest, $3.2M trucking — aligns with the
- *      firm's brand positioning) at full width, then the other three
- *      results in a row beneath. Hierarchy without removing data. The "Proven
- *      Results." italic-bronze is gone — one italic-bronze instance per
- *      page, in the Hero only (Q2). "See all results" link added to keep the
- *      door open without claiming this is exhaustive.
+ * Card surface and shadow tokens unchanged; only typography rhythm and
+ * column structure refined.
  */
 
 interface Result {
@@ -38,25 +38,29 @@ const RESULTS: Result[] = [
     id: "1",
     amount: "$3.2M",
     type: "Trucking accident",
-    description: "Recovered for a victim of a commercial vehicle collision on I-10.",
+    description:
+      "Recovered for a victim of a commercial vehicle collision on I-10.",
   },
   {
     id: "2",
     amount: "$1.8M",
     type: "Wrongful death",
-    description: "Settlement for the family of a victim killed by a negligent driver.",
+    description:
+      "Settlement for the family of a victim killed by a negligent driver.",
   },
   {
     id: "3",
     amount: "$950K",
     type: "Slip and fall",
-    description: "Premises liability case against a major commercial property owner.",
+    description:
+      "Premises liability case against a major commercial property owner.",
   },
   {
     id: "4",
     amount: "$725K",
     type: "Car accident",
-    description: "Insurance dispute resolution for a high-impact collision.",
+    description:
+      "Insurance dispute resolution for a high-impact collision.",
   },
 ];
 
@@ -74,33 +78,51 @@ export const ResultsGallery = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full py-24 lg:py-32 bg-white overflow-hidden"
+      className="relative w-full py-32 lg:py-40 bg-white overflow-hidden"
       aria-labelledby="results-heading"
     >
       <Container>
-        {/* Header */}
+        {/* Header — numbered section opener ("01 · Verdicts & Settlements")
+           paired with a right-aligned aggregate. The numbered marker is the
+           brand's recurring magazine-volume device. */}
         <motion.div
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={stagger}
-          className="text-center mb-16 lg:mb-24"
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 lg:mb-20"
         >
-          <motion.p variants={fadeRise} className="eyebrow mb-4">
-            Verdicts &amp; Settlements
-          </motion.p>
-          <motion.h2
-            id="results-heading"
-            variants={fadeRise}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-navy leading-tight"
-          >
-            Proven results.
-          </motion.h2>
+          <div className="max-w-2xl">
+            <motion.div
+              variants={fadeRise}
+              className="flex items-center gap-4 mb-6"
+            >
+              <span className="section-marker" aria-hidden="true">
+                01
+              </span>
+              <span
+                aria-hidden="true"
+                className="h-[2px] w-12 bg-bronze"
+              />
+              <p className="eyebrow">Verdicts &amp; Settlements</p>
+            </motion.div>
+            <motion.h2
+              id="results-heading"
+              variants={fadeRise}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-navy leading-[1.05]"
+            >
+              Wins on the record.
+            </motion.h2>
+          </div>
+
           <motion.div
-            initial={reducedMotion ? false : { opacity: 0, scaleX: 0 }}
-            animate={isInView ? { opacity: 1, scaleX: 1 } : reducedMotion ? { opacity: 1, scaleX: 1 } : {}}
-            transition={reducedMotion ? { duration: 0 } : { duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="h-[2px] w-24 bg-bronze mx-auto mt-8 origin-center"
-          />
+            variants={fadeRise}
+            className="md:text-right"
+          >
+            <p className="font-serif text-3xl md:text-4xl font-bold text-navy leading-tight">
+              $50M+ recovered
+            </p>
+            <p className="eyebrow mt-1">For our clients to date</p>
+          </motion.div>
         </motion.div>
 
         {/* Featured result — full width, larger amount, primary trust signal */}
@@ -108,15 +130,17 @@ export const ResultsGallery = () => {
           initial={reducedMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-5%" }}
-          transition={reducedMotion ? { duration: 0 } : { duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={
+            reducedMotion
+              ? { duration: 0 }
+              : { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+          }
           className="relative bg-navy text-white rounded-[12px] p-10 lg:p-16 mb-8 overflow-hidden"
           style={{ boxShadow: "var(--shadow-elevated)" }}
         >
           <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 md:gap-12 items-center">
             <div>
-              <p className="text-sm text-bronze tracking-widest uppercase font-bold mb-3">
-                {FEATURED.type}
-              </p>
+              <p className="eyebrow eyebrow-on-dark mb-4">{FEATURED.type}</p>
               <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-bold leading-none">
                 {FEATURED.amount}
               </p>
@@ -143,9 +167,7 @@ export const ResultsGallery = () => {
               className="bg-light-grey p-8 rounded-[12px] border border-navy/10"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
-              <p className="text-xs text-bronze tracking-widest uppercase font-bold mb-2">
-                {result.type}
-              </p>
+              <p className="eyebrow mb-3">{result.type}</p>
               <p className="text-4xl md:text-5xl font-serif font-bold text-navy leading-none mb-4">
                 {result.amount}
               </p>

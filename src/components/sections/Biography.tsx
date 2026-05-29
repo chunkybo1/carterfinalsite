@@ -95,7 +95,7 @@ export const Biography = () => {
           <div className="mt-12 pt-8 border-t border-bronze/20">
             <p className="eyebrow mb-4">Recognition</p>
             <ul
-              className="flex flex-wrap items-baseline gap-x-5 gap-y-2 text-navy/80 font-serif italic"
+              className="flex flex-wrap items-baseline gap-x-5 gap-y-2 text-navy/80 font-serif"
               aria-label="Professional recognition"
             >
               <li className="text-base md:text-lg">Super Lawyers</li>

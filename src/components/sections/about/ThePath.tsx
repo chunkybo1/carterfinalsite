@@ -212,7 +212,7 @@ const AboutCTASection = () => {
               </div>
               
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
-                Ready for a Lawyer Who <span className="text-bronze italic">Fights?</span>
+                Ready for a Lawyer Who <span className="text-brand-gold font-bold">Fights?</span>
               </h2>
               
               <p className="text-lg text-light-steel/80 leading-relaxed">

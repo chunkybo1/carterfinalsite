@@ -36,7 +36,7 @@ export const StrategicFAQ = ({ faqs }: StrategicFAQProps) => {
               return (
                 <div 
                   key={index}
-                  className="bg-white border border-gray-200 rounded-sm overflow-hidden transition-all duration-300 hover:border-bronze/30 shadow-sm"
+                  className="bg-white border border-gray-200 rounded-[12px] overflow-hidden transition-all duration-300 hover:border-brand-gold/30 shadow-[var(--shadow-card)]"
                 >
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : index)}

@@ -41,7 +41,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       // for white on bronze). Swap applied per audit finding #3.
       primary:
         "bg-bronze text-brand-navy-deep hover:bg-brand-bronze-deep hover:text-brand-navy-deep active:bg-brand-bronze-deep " +
-        "border border-dark-bronze shadow-sm",
+        "border border-dark-bronze shadow-[var(--shadow-card)]",
       secondary:
         "bg-white text-navy border-2 border-navy/10 hover:bg-light-grey hover:text-navy",
       outline:

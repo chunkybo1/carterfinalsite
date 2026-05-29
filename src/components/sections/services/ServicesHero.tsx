@@ -51,13 +51,6 @@ export const ServicesHero = () => {
             variants={fadeRise}
             className="flex items-center gap-4 mb-6"
           >
-            <span className="section-marker" aria-hidden="true">
-              01
-            </span>
-            <span
-              aria-hidden="true"
-              className="h-[2px] w-12 bg-bronze"
-            />
             <p className="eyebrow eyebrow-on-dark">Practice Areas</p>
           </motion.div>
 

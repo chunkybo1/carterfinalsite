@@ -96,13 +96,6 @@ export const ResultsGallery = () => {
               variants={fadeRise}
               className="flex items-center gap-4 mb-6"
             >
-              <span className="section-marker" aria-hidden="true">
-                01
-              </span>
-              <span
-                aria-hidden="true"
-                className="h-[2px] w-12 bg-bronze"
-              />
               <p className="eyebrow">Verdicts &amp; Settlements</p>
             </motion.div>
             <motion.h2
@@ -118,7 +111,7 @@ export const ResultsGallery = () => {
             variants={fadeRise}
             className="md:text-right"
           >
-            <p className="font-serif text-3xl md:text-4xl font-bold text-navy leading-tight">
+            <p className="font-sans text-3xl md:text-4xl font-bold text-navy leading-tight lining-tabular">
               $50M+ recovered
             </p>
             <p className="eyebrow mt-1">For our clients to date</p>
@@ -141,7 +134,7 @@ export const ResultsGallery = () => {
           <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 md:gap-12 items-center">
             <div>
               <p className="eyebrow eyebrow-on-dark mb-4">{FEATURED.type}</p>
-              <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-bold leading-none">
+              <p className="text-6xl md:text-7xl lg:text-8xl font-sans font-bold leading-none lining-tabular">
                 {FEATURED.amount}
               </p>
             </div>
@@ -168,7 +161,7 @@ export const ResultsGallery = () => {
               style={{ boxShadow: "var(--shadow-card)" }}
             >
               <p className="eyebrow mb-3">{result.type}</p>
-              <p className="text-4xl md:text-5xl font-serif font-bold text-navy leading-none mb-4">
+              <p className="text-4xl md:text-5xl font-sans font-bold text-navy leading-none mb-4 lining-tabular">
                 {result.amount}
               </p>
               <p className="text-base text-steel leading-relaxed font-sans">

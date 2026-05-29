@@ -53,13 +53,6 @@ export default function Home(props: {
              01/02/03 triplet that follows on the page. */}
           <div className="max-w-3xl">
             <div className="flex items-center gap-4 mb-6">
-              <span className="section-marker" aria-hidden="true">
-                00
-              </span>
-              <span
-                aria-hidden="true"
-                className="h-[2px] w-12 bg-bronze"
-              />
               <p className="eyebrow">Free Evaluation</p>
             </div>
             <h2
@@ -68,7 +61,7 @@ export default function Home(props: {
             >
               Find out what your case is actually worth.
             </h2>
-            <p className="mt-6 text-lg md:text-xl text-steel font-serif italic leading-relaxed max-w-2xl">
+            <p className="mt-6 text-lg md:text-xl text-steel font-serif leading-relaxed max-w-2xl">
               Sixty seconds. No registration. The same questions Thomas asks new clients in the first call.
             </p>
           </div>

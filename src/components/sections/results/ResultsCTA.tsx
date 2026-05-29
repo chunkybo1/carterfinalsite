@@ -21,8 +21,6 @@ export const ResultsCTA = () => {
       <Container>
         <div className="max-w-3xl mx-auto text-center">
           <div className="flex items-center justify-center gap-4 mb-6">
-            <span className="section-marker text-bronze" aria-hidden="true">02</span>
-            <span aria-hidden="true" className="h-[2px] w-12 bg-bronze" />
             <p className="eyebrow eyebrow-on-dark">Your case</p>
           </div>
           <h2

@@ -25,8 +25,6 @@ export const ResultsHero = () => {
           className="max-w-4xl"
         >
           <div className="flex items-center gap-4 mb-6">
-            <span className="section-marker" aria-hidden="true">01</span>
-            <span aria-hidden="true" className="h-[2px] w-12 bg-bronze" />
             <p className="eyebrow">Verdicts &amp; Settlements</p>
           </div>
           <h1
@@ -40,14 +38,14 @@ export const ResultsHero = () => {
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-baseline gap-6">
             <div>
-              <p className="font-serif font-bold text-navy text-4xl md:text-5xl leading-none">
+              <p className="font-sans font-bold text-navy text-4xl md:text-5xl leading-none lining-tabular">
                 $50M+
               </p>
               <p className="eyebrow mt-2">Recovered to date</p>
             </div>
             <span aria-hidden="true" className="hidden sm:block w-px h-12 bg-navy/15" />
             <div>
-              <p className="font-serif font-bold text-navy text-4xl md:text-5xl leading-none">
+              <p className="font-sans font-bold text-navy text-4xl md:text-5xl leading-none lining-tabular">
                 $3.2M
               </p>
               <p className="eyebrow mt-2">Largest trucking verdict</p>

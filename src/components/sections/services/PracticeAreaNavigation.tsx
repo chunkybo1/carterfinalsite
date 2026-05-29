@@ -90,13 +90,6 @@ export const PracticeAreaNavigation = () => {
             variants={fadeRise}
             className="flex items-center gap-4 mb-6"
           >
-            <span className="section-marker" aria-hidden="true">
-              02
-            </span>
-            <span
-              aria-hidden="true"
-              className="h-[2px] w-12 bg-bronze"
-            />
             <p className="eyebrow">By Specialty</p>
           </motion.div>
 
@@ -109,113 +102,127 @@ export const PracticeAreaNavigation = () => {
           </motion.h2>
           <motion.p
             variants={fadeRise}
-            className="mt-6 text-lg md:text-xl text-steel font-serif italic leading-relaxed max-w-2xl"
+            className="mt-6 text-lg md:text-xl text-steel font-serif leading-relaxed max-w-2xl"
           >
             We represent injured Texans, Arizonans, and New Mexicans across the personal-injury spectrum. Trucking is the specialty.
           </motion.p>
         </motion.div>
 
-        {/* Featured row — 2 cards with image, icon, title, blurb. */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {featured.map((area, index) => {
-            const Icon = area.Icon;
-            return (
-              <motion.article
-                key={area.href}
-                initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-5%" }}
-                transition={
-                  reducedMotion
-                    ? { duration: 0 }
-                    : { duration: 0.4, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }
-                }
-                className="group relative bg-white border border-navy/10 rounded-[12px] overflow-hidden flex flex-col"
-                style={{ boxShadow: "var(--shadow-card)" }}
-              >
-                {/* Image */}
-                <Link href={area.href} className="relative h-56 md:h-64 overflow-hidden bg-navy/5" aria-hidden="true" tabIndex={-1}>
-                  <Image
-                    src={area.imageSrc}
-                    alt=""
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-navy/35 via-navy/10 to-transparent"
-                  />
-                </Link>
-
-                {/* Content */}
-                <div className="p-8 md:p-10 flex flex-col flex-grow">
-                  <div className="flex items-center gap-4 mb-5">
-                    <span
+        {/* Grid Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          {/* Featured row — 2 cards with image, icon, title, blurb. */}
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+            {featured.map((area, index) => {
+              const Icon = area.Icon;
+              return (
+                <motion.article
+                  key={area.href}
+                  initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-5%" }}
+                  transition={
+                    reducedMotion
+                      ? { duration: 0 }
+                      : { duration: 0.4, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }
+                  }
+                  className="group relative bg-white border border-navy/10 rounded-[12px] overflow-hidden flex flex-col h-full"
+                  style={{ boxShadow: "var(--shadow-card)" }}
+                >
+                  {/* Image */}
+                  <Link href={area.href} className="relative h-56 md:h-64 overflow-hidden bg-navy/5" aria-hidden="true" tabIndex={-1}>
+                    <Image
+                      src={area.imageSrc}
+                      alt=""
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div
                       aria-hidden="true"
-                      className="flex h-12 w-12 items-center justify-center rounded-full bg-light-grey transition-colors duration-200 group-hover:bg-bronze"
+                      className="absolute inset-0 bg-gradient-to-t from-navy/35 via-navy/10 to-transparent"
+                    />
+                  </Link>
+
+                  {/* Content */}
+                  <div className="p-8 md:p-10 flex flex-col flex-grow">
+                    <div className="flex items-center gap-4 mb-5">
+                      <span
+                        aria-hidden="true"
+                        className="flex h-12 w-12 items-center justify-center rounded-full bg-light-grey transition-colors duration-200 group-hover:bg-brand-gold"
+                      >
+                        <Icon
+                          className="h-6 w-6 text-brand-gold transition-colors duration-200 group-hover:text-white"
+                          strokeWidth={2.5}
+                          aria-hidden="true"
+                        />
+                      </span>
+                      <h3 className="text-2xl md:text-3xl font-serif font-bold text-navy leading-tight">
+                        {area.title}
+                      </h3>
+                    </div>
+                    <p className="text-base md:text-lg text-steel font-sans leading-relaxed mb-8 max-w-prose">
+                      {area.blurb}
+                    </p>
+                    <Link
+                      href={area.href}
+                      className="mt-auto inline-flex items-center gap-2 eyebrow text-brand-gold hover:text-brand-gold focus-visible:outline-none focus-visible:underline"
                     >
-                      <Icon
-                        className="h-6 w-6 text-bronze transition-colors duration-200 group-hover:text-white"
-                        strokeWidth={1.5}
+                      Learn more
+                      <ArrowRight
+                        className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform duration-200"
                         aria-hidden="true"
                       />
-                    </span>
-                    <h3 className="text-2xl md:text-3xl font-serif font-bold text-navy leading-tight">
-                      {area.title}
-                    </h3>
+                    </Link>
                   </div>
-                  <p className="text-base md:text-lg text-steel font-sans leading-relaxed mb-8 max-w-prose">
-                    {area.blurb}
-                  </p>
-                  <Link
-                    href={area.href}
-                    className="mt-auto inline-flex items-center gap-2 eyebrow text-bronze hover:text-dark-bronze focus-visible:outline-none focus-visible:underline"
-                  >
-                    Learn more
-                    <ArrowRight
-                      className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform duration-200"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                </div>
-              </motion.article>
-            );
-          })}
-        </div>
-
-        {/* Secondary list — quiet text rows, no cards. */}
-        <div>
-          <p className="eyebrow mb-6">Also handled</p>
-          <ul
-            className="max-w-3xl divide-y divide-[var(--color-divider)] border-y border-[var(--color-divider)] bg-white rounded-[12px] overflow-hidden"
-            aria-label="Other practice areas"
-          >
-            {secondary.map((area) => {
-              const Icon = area.icon;
-              return (
-                <li key={area.href}>
-                  <Link
-                    href={area.href}
-                    className="group flex items-center gap-4 px-6 py-4 transition-colors duration-200 hover:bg-light-grey focus-visible:outline-none focus-visible:bg-light-grey"
-                  >
-                    <Icon
-                      className="h-5 w-5 text-bronze flex-shrink-0"
-                      strokeWidth={1.5}
-                      aria-hidden="true"
-                    />
-                    <span className="flex-1 text-base md:text-lg text-navy font-sans group-hover:text-bronze transition-colors duration-200">
-                      {area.title}
-                    </span>
-                    <ChevronRight
-                      className="h-4 w-4 text-light-steel group-hover:text-bronze transform group-hover:translate-x-1 transition-all duration-200"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                </li>
+                </motion.article>
               );
             })}
-          </ul>
+          </div>
+
+          {/* Secondary list — quiet text rows inside the 3rd card. */}
+          <motion.div
+            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-5%" }}
+            transition={
+              reducedMotion
+                ? { duration: 0 }
+                : { duration: 0.4, delay: 0.16, ease: [0.22, 1, 0.36, 1] }
+            }
+            className="flex flex-col bg-white border border-navy/10 rounded-[12px] p-6 lg:p-8"
+            style={{ boxShadow: "var(--shadow-card)" }}
+          >
+            <p className="eyebrow mb-6">Also handled</p>
+            <ul
+              className="flex-1 flex flex-col justify-center divide-y divide-[var(--color-divider)]"
+              aria-label="Other practice areas"
+            >
+              {secondary.map((area) => {
+                const Icon = area.icon;
+                return (
+                  <li key={area.href}>
+                    <Link
+                      href={area.href}
+                      className="group flex items-center gap-4 py-4 transition-colors duration-200 focus-visible:outline-none"
+                    >
+                      <Icon
+                        className="h-5 w-5 text-brand-gold flex-shrink-0"
+                        strokeWidth={2.5}
+                        aria-hidden="true"
+                      />
+                      <span className="flex-1 text-base md:text-lg text-navy font-sans group-hover:text-brand-gold transition-colors duration-200">
+                        {area.title}
+                      </span>
+                      <ChevronRight
+                        className="h-4 w-4 text-light-steel group-hover:text-brand-gold transform group-hover:translate-x-1 transition-all duration-200"
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </motion.div>
         </div>
       </Container>
     </section>

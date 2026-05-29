@@ -70,7 +70,7 @@ export const LandingHero = () => {
             className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] mb-8"
           >
             The Trucking Company Already Has a Lawyer. <br className="hidden md:block" />
-            <span className="text-bronze italic">You Should Too.</span>
+            <span className="text-brand-gold font-bold">You Should Too.</span>
           </motion.h1>
 
           <motion.p

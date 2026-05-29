@@ -270,7 +270,7 @@ export const Header = () => {
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       {/* Main Header: Logo, Nav, Phone, CTA */}
-      <div className="bg-white shadow-sm border-b-[1px] border-navy/10 py-2 sm:py-3 md:py-4">
+      <div className="bg-white shadow-[var(--shadow-card)] border-b-[1px] border-navy/10 py-2 sm:py-3 md:py-4">
         <Container className="2xl:max-w-[95vw] relative z-10">
           <div className="flex items-center justify-between gap-8">
             {/* Logo */}

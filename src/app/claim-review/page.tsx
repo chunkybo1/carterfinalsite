@@ -42,7 +42,7 @@ export default function ClaimReviewPage() {
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
             Trucking Companies Have a{" "}
-            <span className="text-bronze italic">Secret Formula</span>{" "}
+            <span className="text-brand-gold font-bold">Secret Formula</span>{" "}
             to Minimize Your Payout.
           </h1>
 

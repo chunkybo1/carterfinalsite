@@ -67,7 +67,7 @@ export const AboutHero = () => {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.05] tracking-tight">
               El Paso personal injury attorney Thomas Carter.
             </h1>
-            <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic font-bold text-bronze leading-[1.05] tracking-tight">
+            <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-brand-gold leading-[1.05] tracking-tight">
               Advocacy runs in the family.
             </p>
           </div>
@@ -79,7 +79,7 @@ export const AboutHero = () => {
 
           {/* Supporting Quote */}
           <div className="pt-6 border-t border-white/10">
-            <p className="text-base sm:text-lg md:text-xl font-serif italic text-white leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl font-serif text-white leading-relaxed">
               &quot;Every case is someone's whole life. I treat it that way.&quot;
             </p>
           </div>

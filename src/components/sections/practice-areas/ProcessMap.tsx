@@ -57,11 +57,7 @@ export const ProcessMap = () => {
                   {/* Step Number & Icon Circle */}
                   <div className="relative mb-8">
                     <div className="w-20 h-20 rounded-full bg-white border border-bronze/30 shadow-xl flex items-center justify-center relative z-10">
-                      <Icon className="w-8 h-8 text-bronze" />
-                    </div>
-                    {/* Background Number */}
-                    <div className="absolute -top-4 -right-4 text-4xl font-serif font-bold text-navy/5 italic">
-                      {step.id}
+                      <Icon className="w-8 h-8 text-brand-gold" strokeWidth={2.5} />
                     </div>
                   </div>
 

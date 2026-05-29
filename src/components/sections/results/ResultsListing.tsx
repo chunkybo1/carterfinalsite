@@ -99,7 +99,7 @@ export const ResultsListing = () => {
 
               {/* Right column — narrative */}
               <div className="max-w-3xl">
-                <p className="text-lg md:text-xl text-navy font-serif italic leading-relaxed mb-6">
+                <p className="text-lg md:text-xl text-navy font-serif leading-relaxed mb-6">
                   {result.context}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -122,7 +122,7 @@ export const ResultsListing = () => {
         </ul>
 
         {/* Disclaimer */}
-        <p className="mt-16 pt-8 border-t border-bronze/20 text-xs md:text-sm text-steel italic leading-relaxed max-w-3xl font-sans">
+        <p className="mt-16 pt-8 border-t border-bronze/20 text-xs md:text-sm text-steel leading-relaxed max-w-3xl font-sans">
           Past results do not guarantee future outcomes. Each case is unique and depends on its specific facts, applicable law, and the strength of available evidence. Settlement amounts reflect gross recovery before attorneys&rsquo; fees, costs, and any liens or subrogation interests. The Carter Law Firm, P.C. has been representing injured clients in El Paso since the firm was founded. Thomas Carter is licensed to practice in Texas, Arizona, and New Mexico.
         </p>
       </Container>

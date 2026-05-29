@@ -63,13 +63,6 @@ export const GoogleReviews = () => {
             variants={fadeRise}
             className="flex items-center gap-4 mb-6"
           >
-            <span className="section-marker" aria-hidden="true">
-              03
-            </span>
-            <span
-              aria-hidden="true"
-              className="h-[2px] w-12 bg-bronze"
-            />
             <p className="eyebrow">In their own words</p>
           </motion.div>
           <motion.h2

@@ -76,10 +76,10 @@ export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
             {/* Headline — single static H1, italic-bronze on the second sentence */}
             <h1
               id="hero-headline"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-bold leading-[1.04] mb-8 text-white"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-semibold leading-[1.05] tracking-tight mb-8 text-white"
             >
               <span className="block">El Paso&rsquo;s truck accident lawyer.</span>
-              <span className="block italic text-bronze">We win these cases.</span>
+              <span className="block font-bold text-brand-gold mt-2">We win these cases.</span>
             </h1>
 
             {/* Three-fact credentials line — jurisdiction / tenure / contingency.
@@ -124,7 +124,7 @@ export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
                 className="flex flex-col sm:flex-row items-center sm:items-baseline justify-center lg:justify-start gap-y-4 gap-x-6 font-sans"
               >
                 <li className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <span className="font-serif font-bold text-bronze text-2xl md:text-3xl leading-none">
+                  <span className="font-sans font-bold text-bronze text-2xl md:text-3xl leading-none lining-tabular">
                     $50M+
                   </span>
                   <span className="eyebrow eyebrow-on-dark mt-2 text-white/70">
@@ -136,7 +136,7 @@ export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
                   className="hidden sm:block w-px h-10 bg-white/20"
                 />
                 <li className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <span className="font-serif font-bold text-bronze text-2xl md:text-3xl leading-none">
+                  <span className="font-sans font-bold text-bronze text-2xl md:text-3xl leading-none lining-tabular">
                     $3.2M
                   </span>
                   <span className="eyebrow eyebrow-on-dark mt-2 text-white/70">
@@ -148,7 +148,7 @@ export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
                   className="hidden sm:block w-px h-10 bg-white/20"
                 />
                 <li className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <span className="font-serif font-bold text-bronze text-2xl md:text-3xl leading-none">
+                  <span className="font-sans font-bold text-bronze text-2xl md:text-3xl leading-none lining-tabular">
                     5.0&#9733;
                   </span>
                   <span className="eyebrow eyebrow-on-dark mt-2 text-white/70">

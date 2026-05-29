@@ -112,7 +112,7 @@ export default function ReviewsContent() {
             ))}
           </div>
 
-          <p className="text-center text-gray-500 text-xs mt-10 italic">
+          <p className="text-center text-gray-500 text-xs mt-10">
             * Past results do not guarantee future outcomes. Each case is unique.
           </p>
         </Container>
@@ -154,7 +154,7 @@ export default function ReviewsContent() {
                     <Star key={i} className="w-4 h-4 fill-bronze text-bronze" />
                   ))}
                 </div>
-                <p className="text-lg text-white font-serif leading-relaxed italic mb-8">
+                <p className="text-lg text-white font-serif leading-relaxed mb-8">
                   &quot;{testimonial.quote}&quot;
                 </p>
                 <div className="pt-6 border-t border-white/10">

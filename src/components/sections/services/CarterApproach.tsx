@@ -62,7 +62,7 @@ export const CarterApproach = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 + index * 0.2 }}
-              className="bg-white border border-gray-200 p-8 md:p-10 rounded-lg shadow-sm"
+              className="bg-white border border-gray-200 p-8 md:p-10 rounded-[12px] shadow-[var(--shadow-card)]"
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="text-4xl md:text-5xl font-serif font-bold text-bronze">

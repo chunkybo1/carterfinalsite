@@ -31,16 +31,6 @@ export const FinalCTA = () => {
           {/* Closing marker — pairs the bronze hairline with a numeric 04 to
              complete the homepage's 00 / 01 / 02 / 03 / 04 cadence. */}
           <div className="flex items-center justify-center gap-4 mb-6">
-            <span
-              className="section-marker text-bronze"
-              aria-hidden="true"
-            >
-              04
-            </span>
-            <span
-              aria-hidden="true"
-              className="h-[2px] w-12 bg-bronze"
-            />
             <p className="eyebrow eyebrow-on-dark">Ready to talk?</p>
           </div>
           <h2

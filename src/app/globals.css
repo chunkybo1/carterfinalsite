@@ -7,43 +7,36 @@
    =========================================================================== */
 
 :root {
-  /* --- Surfaces (tinted neutrals; never pure white/black) --- */
-  --surface-white:   oklch(99.5% 0.003 250);
-  --surface-fog:     oklch(96.5% 0.005 250);
-  --surface-mist:    oklch(94% 0.005 250);
-
-  /* --- Ink --- */
-  --ink-charcoal:    oklch(20.5% 0.005 250);
-  --ink-steel:       oklch(40% 0.02 250);
-  --ink-muted:       oklch(63% 0.025 250);
-  --ink-onbrand:     oklch(99.5% 0.003 250);
-
-  /* --- Brand --- */
-  --brand-navy:        oklch(31% 0.06 250);
-  --brand-navy-deep:   oklch(22% 0.05 250);
-  --brand-bronze:      oklch(70% 0.075 75);
-  --brand-bronze-deep: oklch(55% 0.07 75);
-
-  /* --- Semantic --- */
-  --color-focus:       var(--brand-bronze-deep);
-  --color-divider:     oklch(90% 0.005 250);
+  /* --- Brand (Updated Colors) --- */
+  --brand-navy:      #0E2A47;
+  --brand-gold:      #C8A24B;
+  --ink:             #14181F;
+  --paper:           #F4F6F8;
+  --line:            #E2E6EA;
+  
+  --surface-white:   #FFFFFF;
+  --surface-fog:     var(--paper);
 
   /* --- Typography --- */
-  --font-display:  var(--font-cormorant), Georgia, serif;
-  --font-body:     var(--font-inter), system-ui, sans-serif;
+  --font-display:  var(--font-fraunces), Georgia, serif;
+  --font-body:     var(--font-hanken), system-ui, sans-serif;
 
-  --type-display:  clamp(2.5rem, 6vw, 5rem);
-  --type-headline: clamp(2rem, 4vw, 3rem);
-  --type-title:    1.5rem;
-  --type-body-lg:  1.125rem;
-  --type-body:     1rem;
-  --type-label:    0.75rem;
+  /* Type scale: 14 / 16 / 18 / 24 / 32 / 48 / 72px */
+  --type-display:  4.5rem; /* 72px */
+  --type-headline: 3rem; /* 48px */
+  --type-title:    2rem; /* 32px */
+  --type-subtitle: 1.5rem; /* 24px */
+  --type-body-lg:  1.125rem; /* 18px */
+  --type-body:     1rem; /* 16px */
+  --type-label:    0.875rem; /* 14px */
 
   --leading-display:  1.05;
-  --leading-headline: 1.1;
+  --leading-headline: 1.05;
   --leading-body:     1.6;
+  --tracking-display: -0.02em;
+  --tracking-headline: -0.01em;
 
-  --tracking-label:   0.18em;
+  --tracking-label:   0.12em;
 
   /* --- Shadows (semantic, three levels) --- */
   --shadow-card:     0 1px 2px oklch(20% 0.005 250 / 0.04),
@@ -90,34 +83,32 @@
   --color-surface-white:   var(--surface-white);
   --color-surface-fog:     var(--surface-fog);
   --color-surface-mist:    var(--surface-mist);
-  --color-ink-charcoal:    var(--ink-charcoal);
-  --color-ink-steel:       var(--ink-steel);
-  --color-ink-muted:       var(--ink-muted);
-  --color-ink-onbrand:     var(--ink-onbrand);
+  --color-ink-charcoal:    var(--ink);
+  --color-ink-steel:       #404040;
+  --color-ink-muted:       #808080;
+  --color-ink-onbrand:     var(--surface-white);
 
   /* Brand */
   --color-brand-navy:        var(--brand-navy);
-  --color-brand-navy-deep:   var(--brand-navy-deep);
-  --color-brand-bronze:      var(--brand-bronze);
-  --color-brand-bronze-deep: var(--brand-bronze-deep);
+  --color-brand-navy-deep:   var(--brand-navy);
+  --color-brand-gold:        var(--brand-gold);
+  --color-brand-gold-deep:   var(--brand-gold);
 
-  /* Legacy color names — back-compat for components that still use
-     bg-bronze, text-navy, text-steel, etc. Resolve to the new canonical
-     brand tokens (NOT self-referencing). */
+  /* Legacy color names */
   --color-background:    var(--surface-white);
-  --color-foreground:    var(--ink-charcoal);
-  --color-steel:         var(--ink-steel);
+  --color-foreground:    var(--ink);
+  --color-steel:         #404040;
   --color-navy:          var(--brand-navy);
-  --color-bronze:        var(--brand-bronze);
-  --color-dark-bronze:   var(--brand-bronze-deep);
-  --color-light-steel:   var(--ink-muted);
-  --color-charcoal:      var(--ink-charcoal);
+  --color-bronze:        var(--brand-gold);
+  --color-dark-bronze:   var(--brand-gold);
+  --color-light-steel:   #808080;
+  --color-charcoal:      var(--ink);
   --color-black:         oklch(0% 0 0);
   --color-light-grey:    var(--surface-fog);
-  --color-dark-charcoal: oklch(15% 0.005 250);
+  --color-dark-charcoal: var(--ink);
 
-  --font-sans:  var(--font-inter);
-  --font-serif: var(--font-cormorant);
+  --font-sans:  var(--font-hanken);
+  --font-serif: var(--font-fraunces);
 }
 
 body {
@@ -144,13 +135,13 @@ html {
   font-weight: 600;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--brand-bronze);
+  color: var(--brand-gold);
   line-height: 1.4;
 }
 
 /* Light variant for use on dark backgrounds (final CTA band, hero overlays) */
 .eyebrow-on-dark {
-  color: var(--brand-bronze);
+  color: var(--brand-gold);
 }
 
 /* ===========================================================================
@@ -163,7 +154,6 @@ html {
 
 .pull-quote {
   font-family: var(--font-display);
-  font-style: italic;
   font-weight: 500;
   font-size: clamp(1.5rem, 2.6vw, 2.25rem);
   line-height: 1.18;
@@ -191,6 +181,11 @@ html {
    Reduced motion — global disable, plus targeted neutralization of any
    surviving infinite gradient-text or shimmer references.
    =========================================================================== */
+
+.lining-tabular {
+  font-family: var(--font-body);
+  font-variant-numeric: lining-nums tabular-nums;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *,

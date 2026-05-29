@@ -87,6 +87,26 @@ export const Biography = () => {
               aria-hidden="true"
             />
           </Link>
+
+          {/* Recognition — type-only badges. Real third-party validators
+             carried as text marks rather than logos so nothing is invented.
+             Bronze hairline above ties to the same record-of-fact device used
+             elsewhere. */}
+          <div className="mt-12 pt-8 border-t border-bronze/20">
+            <p className="eyebrow mb-4">Recognition</p>
+            <ul
+              className="flex flex-wrap items-baseline gap-x-5 gap-y-2 text-navy/80 font-serif italic"
+              aria-label="Professional recognition"
+            >
+              <li className="text-base md:text-lg">Super Lawyers</li>
+              <li aria-hidden="true" className="text-bronze/60">&middot;</li>
+              <li className="text-base md:text-lg">Martindale-Hubbell AV Preeminent</li>
+              <li aria-hidden="true" className="text-bronze/60">&middot;</li>
+              <li className="text-base md:text-lg">Best Lawyers in America</li>
+              <li aria-hidden="true" className="text-bronze/60">&middot;</li>
+              <li className="text-base md:text-lg">Million Dollar Advocates Forum</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

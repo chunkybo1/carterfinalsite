@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/sections/Hero";
 import { HeroCTA } from "@/components/sections/HeroCTA";
+import { EvaluatorEntry } from "@/components/sections/landing/EvaluatorEntry";
 import { TruckAccidentEvaluator } from "@/components/sections/landing/TruckAccidentEvaluator";
 import { PracticeAreas } from "@/components/sections/PracticeAreas";
 import { ResultsGallery } from "@/components/sections/practice-areas/ResultsGallery";
@@ -22,6 +23,16 @@ export default function Home(props: {
   React.use(props.searchParams);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const evaluatorRef = useRef<HTMLDivElement>(null);
+  const [evaluatorOpen, setEvaluatorOpen] = useState(false);
+
+  const handleStartEvaluator = () => {
+    setEvaluatorOpen(true);
+    // Defer to next tick so the evaluator has mounted before scrolling.
+    requestAnimationFrame(() => {
+      evaluatorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
 
   return (
     <main
@@ -62,7 +73,17 @@ export default function Home(props: {
             </p>
           </div>
         </div>
-        <TruckAccidentEvaluator />
+
+        {/* Single-question gate — front-loads the 7-step evaluator with a
+           binary qualifier so crisis-stage users don't have to commit to a
+           form to start. Yes -> opens evaluator and scrolls to it. */}
+        {!evaluatorOpen && <EvaluatorEntry onYes={handleStartEvaluator} />}
+
+        {evaluatorOpen && (
+          <div ref={evaluatorRef} className="scroll-mt-24">
+            <TruckAccidentEvaluator />
+          </div>
+        )}
       </section>
 
       <ResultsGallery />

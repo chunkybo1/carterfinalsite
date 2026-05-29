@@ -22,11 +22,9 @@ export const StrategicFAQ = ({ faqs }: StrategicFAQProps) => {
       <Container>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-              Clear Answers
-            </div>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy mb-6">
-              Strategic <span className="text-bronze">FAQs</span>
+            <p className="eyebrow mb-4">Clear Answers</p>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy leading-[1.05] mb-6">
+              Strategic FAQs.
             </h2>
             <div className="h-[2px] w-12 bg-bronze mx-auto" />
           </div>

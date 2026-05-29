@@ -60,19 +60,15 @@ export const AboutHero = () => {
       <div className="relative z-20 w-full md:w-[55%] min-h-screen flex flex-col justify-center pl-6 md:pl-12 lg:pl-20 pr-6 md:pr-12 lg:pr-16 py-20 bg-navy md:bg-transparent order-2">
         <div className="space-y-6 md:space-y-10 max-w-2xl">
           {/* Eyebrow */}
-          <div className="text-[10px] sm:text-xs font-sans font-bold tracking-[0.3em] text-bronze uppercase">
-            Lead Attorney
-          </div>
+          <p className="eyebrow eyebrow-on-dark">Lead Attorney</p>
 
           {/* Headline */}
           <div className="space-y-1">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] tracking-tight">
-              El Paso Personal Injury Attorney{" "}
-              <span className="text-bronze italic">Thomas Carter</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.05] tracking-tight">
+              El Paso personal injury attorney Thomas Carter.
             </h1>
-            <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] tracking-tight">
-              <span className="text-bronze">Advocacy Runs</span>{" "}
-              <span className="text-bronze italic">in the Family.</span>
+            <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic font-bold text-bronze leading-[1.05] tracking-tight">
+              Advocacy runs in the family.
             </p>
           </div>
 

@@ -20,11 +20,9 @@ export const CaseTypesGrid = ({ caseTypes }: CaseTypesGridProps) => {
       <Container>
         <div className="flex flex-col items-center text-center mb-16">
           <div className="max-w-3xl mx-auto">
-            <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-              Comprehensive Representation
-            </div>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
-              Types of Cases <span className="text-bronze">We Handle.</span>
+            <p className="eyebrow eyebrow-on-dark mb-4">Comprehensive Representation</p>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-[1.05]">
+              Cases we handle.
             </h2>
           </div>
         </div>

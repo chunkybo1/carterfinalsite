@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Impeccable live mode session state (per-machine, not project source)
+.impeccable/

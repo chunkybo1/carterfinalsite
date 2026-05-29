@@ -23,7 +23,7 @@ export const AboutCTA = () => {
           >
             {/* Headline */}
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              Your Fight. Our <span className="text-bronze">Legacy.</span>
+              Your fight. Our legacy.
             </h2>
 
             {/* Supporting Copy */}

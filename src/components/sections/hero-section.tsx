@@ -86,7 +86,7 @@ export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
                Treated as a credentials bar with hairline separators rather than
                body prose. Each fact reads as its own statement. */}
             <ul
-              className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start justify-center lg:justify-start gap-x-6 gap-y-3 mb-10 text-base md:text-lg text-white/85 font-sans"
+              className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start justify-center lg:justify-start gap-x-6 gap-y-3 mb-8 text-base md:text-lg text-white/85 font-sans"
               aria-label="Firm credentials"
             >
               <li className="flex items-center gap-3">
@@ -111,6 +111,52 @@ export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
                 <span>No fee unless we win</span>
               </li>
             </ul>
+
+            {/* Results strip — concrete proof above the fold. "Show wins, don't
+               claim them" per PRODUCT.md. Three real numbers separated by
+               bronze dots, sized as supporting metrics rather than competing
+               with the H1. Hairline above signals a record-of-fact boundary. */}
+            <div
+              className="mb-10 pt-6 border-t border-bronze/30 max-w-2xl mx-auto lg:mx-0"
+              aria-label="Track record"
+            >
+              <ul
+                className="flex flex-col sm:flex-row items-center sm:items-baseline justify-center lg:justify-start gap-y-4 gap-x-6 font-sans"
+              >
+                <li className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span className="font-serif font-bold text-bronze text-2xl md:text-3xl leading-none">
+                    $50M+
+                  </span>
+                  <span className="eyebrow eyebrow-on-dark mt-2 text-white/70">
+                    Recovered for clients
+                  </span>
+                </li>
+                <li
+                  aria-hidden="true"
+                  className="hidden sm:block w-px h-10 bg-white/20"
+                />
+                <li className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span className="font-serif font-bold text-bronze text-2xl md:text-3xl leading-none">
+                    $3.2M
+                  </span>
+                  <span className="eyebrow eyebrow-on-dark mt-2 text-white/70">
+                    Largest trucking verdict
+                  </span>
+                </li>
+                <li
+                  aria-hidden="true"
+                  className="hidden sm:block w-px h-10 bg-white/20"
+                />
+                <li className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span className="font-serif font-bold text-bronze text-2xl md:text-3xl leading-none">
+                    5.0&#9733;
+                  </span>
+                  <span className="eyebrow eyebrow-on-dark mt-2 text-white/70">
+                    99+ Google reviews
+                  </span>
+                </li>
+              </ul>
+            </div>
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">

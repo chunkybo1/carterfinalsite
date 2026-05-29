@@ -26,7 +26,7 @@ export const ConsultationCTA = () => {
             className="text-center mb-12"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy mb-6">
-              Ready to <span className="text-bronze">Fight Back?</span>
+              Ready to fight back?
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
               Every case is someone&apos;s whole life. We treat it that way. Get a free consultation and let&apos;s discuss how we can help you seek the justice and compensation you deserve.

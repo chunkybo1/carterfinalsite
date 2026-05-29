@@ -42,12 +42,10 @@ export const TheCommunity = () => {
             transition={{ duration: 0.8 }}
             className="mb-16 text-center"
           >
-            <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-              The Community
-            </div>
+            <p className="eyebrow eyebrow-on-dark mb-4">The Community</p>
             <div className="h-[2px] w-20 bg-bronze mx-auto mb-6" />
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              Beyond the <span className="text-bronze">Courtroom</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-[1.05] mb-6">
+              Beyond the courtroom.
             </h2>
             <p className="text-lg text-light-steel leading-relaxed max-w-3xl mx-auto">
               The advocacy mission extends beyond individual cases. Thomas's involvement in El Paso and the region demonstrates that the 'fighter' identity doesn't clock out—it permeates how he moves through the community.

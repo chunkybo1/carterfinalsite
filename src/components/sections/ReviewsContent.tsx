@@ -32,14 +32,11 @@ export default function ReviewsContent() {
           >
             <div className="flex items-center justify-center gap-3 mb-6">
               <Scale className="w-8 h-8 text-bronze" />
-              <span className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase">
-                Proven Results
-              </span>
+              <span className="eyebrow">Proven Results</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] mb-6">
-              El Paso Personal Injury Lawyer{" "}
-              <span className="text-bronze">Client Reviews</span>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.05] mb-6">
+              El Paso personal injury client reviews.
             </h1>
             
             <p className="text-xl text-light-steel max-w-2xl mx-auto leading-relaxed">
@@ -71,11 +68,9 @@ export default function ReviewsContent() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-              Case Results
-            </div>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white">
-              Proven Settlements <span className="text-bronze">& Verdicts.</span>
+            <p className="eyebrow mb-4">Case Results</p>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-[1.05]">
+              Proven settlements and verdicts.
             </h2>
           </motion.div>
 
@@ -133,11 +128,9 @@ export default function ReviewsContent() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-              Client Testimonials
-            </div>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white">
-              Hear From Those <span className="text-bronze">We&apos;ve Helped.</span>
+            <p className="eyebrow mb-4">Client Testimonials</p>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-[1.05]">
+              Hear from those we&rsquo;ve helped.
             </h2>
           </motion.div>
 
@@ -195,9 +188,7 @@ export default function ReviewsContent() {
           >
             <div className="flex items-center justify-center gap-3 mb-4">
               <Trophy className="w-5 h-5 text-bronze" />
-              <span className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase">
-                Professional Recognition
-              </span>
+              <span className="eyebrow">Professional Recognition</span>
             </div>
           </motion.div>
 
@@ -229,8 +220,8 @@ export default function ReviewsContent() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-              Ready to Discuss <span className="text-bronze">Your Case?</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-[1.05] mb-6">
+              Ready to discuss your case?
             </h2>
             <p className="text-light-steel text-lg mb-10 leading-relaxed">
               Every case we take on receives the same dedication and fight. 

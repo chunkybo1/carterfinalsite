@@ -51,6 +51,7 @@ export const Header = () => {
   const { openModal } = useModal();
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isSpanishPage = pathname.startsWith("/es");
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // Default to VISIBLE — fixes the on-load bug where the header was hidden
@@ -341,7 +342,63 @@ export const Header = () => {
       {/* Standalone Location Bar */}
       <div className="hidden md:block bg-light-grey/80 backdrop-blur-sm border-b border-navy/5">
         <Container className="2xl:max-w-[95vw]">
-          <div className="flex justify-end py-1.5">
+          <div className="flex items-center justify-between py-1.5">
+            {/* Left: live Google rating — pulls trust above the fold on every page */}
+            <div className="flex items-center gap-5">
+            <Link
+              href="/reviews"
+              className="group flex items-center gap-2 text-navy/70 hover:text-bronze transition-colors font-sans tracking-[0.04em] text-[11px]"
+              aria-label="Read our 99+ Google reviews"
+            >
+              <span className="flex items-center gap-0.5 text-bronze" aria-hidden="true">
+                <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M12 2L14.85 8.43L21.82 9.16L16.32 13.79L17.91 20.6L12 17.27L6.09 20.6L7.68 13.79L2.18 9.16L9.15 2.57L12 2Z"/></svg>
+                <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M12 2L14.85 8.43L21.82 9.16L16.32 13.79L17.91 20.6L12 17.27L6.09 20.6L7.68 13.79L2.18 9.16L9.15 2.57L12 2Z"/></svg>
+                <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M12 2L14.85 8.43L21.82 9.16L16.32 13.79L17.91 20.6L12 17.27L6.09 20.6L7.68 13.79L2.18 9.16L9.15 2.57L12 2Z"/></svg>
+                <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M12 2L14.85 8.43L21.82 9.16L16.32 13.79L17.91 20.6L12 17.27L6.09 20.6L7.68 13.79L2.18 9.16L9.15 2.57L12 2Z"/></svg>
+                <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M12 2L14.85 8.43L21.82 9.16L16.32 13.79L17.91 20.6L12 17.27L6.09 20.6L7.68 13.79L2.18 9.16L9.15 2.57L12 2Z"/></svg>
+              </span>
+              <span className="font-semibold">5.0</span>
+              <span className="text-navy/40" aria-hidden="true">&middot;</span>
+              <span className="underline-offset-2 group-hover:underline">99+ Google reviews</span>
+            </Link>
+
+            {/* Language switcher — bilingual capture is a primary outcome
+               per PRODUCT.md. Surfacing it in the persistent top strip makes
+               Spanish a peer, not a translation tucked behind a flag icon. */}
+            <div
+              className="flex items-center gap-1 font-sans text-[11px] tracking-[0.04em]"
+              role="group"
+              aria-label="Language"
+            >
+              <Link
+                href="/"
+                className={`px-1.5 py-0.5 transition-colors ${
+                  isSpanishPage
+                    ? "text-navy/50 hover:text-bronze"
+                    : "text-bronze font-semibold underline underline-offset-4 decoration-bronze"
+                }`}
+                aria-current={isSpanishPage ? undefined : "page"}
+              >
+                EN
+              </Link>
+              <span aria-hidden="true" className="text-navy/30">/</span>
+              <Link
+                href="/es/abogado-de-accidentes"
+                className={`px-1.5 py-0.5 transition-colors ${
+                  isSpanishPage
+                    ? "text-bronze font-semibold underline underline-offset-4 decoration-bronze"
+                    : "text-navy/50 hover:text-bronze"
+                }`}
+                aria-current={isSpanishPage ? "page" : undefined}
+                hrefLang="es"
+                lang="es"
+              >
+                ES
+              </Link>
+            </div>
+            </div>
+
+            {/* Right: office picker */}
             <div
               ref={locationsDropdownRef}
               className="relative"

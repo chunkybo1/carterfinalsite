@@ -52,13 +52,11 @@ export const MeetAdvocate = ({ headline, text }: MeetAdvocateProps) => {
             className="space-y-8"
           >
             <div className="inline-block">
-              <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-                The Human Element
-              </div>
+              <p className="eyebrow eyebrow-on-dark mb-4">The Human Element</p>
               <div className="h-[2px] w-12 bg-bronze" />
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white leading-[1.05]">
               {headline}
             </h2>
 

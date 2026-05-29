@@ -31,11 +31,9 @@ export const ProcessMap = () => {
     <section className="relative w-full bg-[#F9F9F9] py-24 lg:py-32 overflow-hidden">
       <Container>
         <div className="text-center mb-20">
-          <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-            Our Strategic Journey
-          </div>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy mb-6">
-            The Path to <span className="text-bronze">Justice</span>
+          <p className="eyebrow mb-4">Our Strategic Journey</p>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy leading-[1.05] mb-6">
+            The path to justice.
           </h2>
           <div className="h-[2px] w-20 bg-bronze mx-auto" />
         </div>

@@ -178,10 +178,11 @@ export const ResultsGallery = () => {
           ))}
         </div>
 
-        {/* See all results — keeps the door open without claiming exhaustive list */}
+        {/* See all results — links to the dedicated results page added in
+           the marketing-audit strategic pass. */}
         <div className="text-center mt-12">
           <Link
-            href="/reviews"
+            href="/results"
             className="inline-flex items-center gap-2 eyebrow text-bronze hover:text-dark-bronze focus-visible:outline-none focus-visible:underline"
           >
             See all results

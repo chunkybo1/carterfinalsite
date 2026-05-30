@@ -163,7 +163,7 @@ export default function ReviewsContent() {
                   </p>
                   <div className="flex items-center justify-between mt-1">
                     <p className="text-gray-500 text-[10px] uppercase tracking-tighter">
-                      {testimonial.location}
+                      El Paso, TX
                     </p>
                     <p className="text-gray-600 text-[9px] uppercase tracking-tighter">
                       {testimonial.caseType}

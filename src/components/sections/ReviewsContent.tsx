@@ -230,7 +230,7 @@ export default function ReviewsContent() {
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/contact" className="group">
-                <button className="flex items-center gap-3 bg-bronze text-navy px-8 py-4 font-sans font-bold uppercase tracking-widest text-sm hover:bg-white transition-colors duration-300">
+                <button className="flex items-center gap-3 bg-ink-charcoal text-white px-8 py-4 border border-bronze/50 hover:border-bronze hover:bg-black font-sans font-bold uppercase tracking-widest text-sm transition-colors duration-300">
                   Free Case Review
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>

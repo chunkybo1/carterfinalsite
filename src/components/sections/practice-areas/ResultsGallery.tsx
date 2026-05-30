@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { Container } from "@/components/ui/Container";
+import { MetricFigure } from "@/components/ui/MetricFigure";
 import {
   useReducedMotionPref,
   fadeRiseVariants,
@@ -30,42 +31,54 @@ interface Result {
   id: string;
   amount: string;
   type: string;
-  description: string;
+  description?: string;
+  tag?: string;
+  isEmphasis?: boolean;
 }
 
 const RESULTS: Result[] = [
   {
-    id: "1",
-    amount: "$3.2M",
-    type: "Trucking accident",
-    description:
-      "Recovered for a victim of a commercial vehicle collision on I-10.",
+    id: "semi",
+    amount: "$650,000",
+    type: "18 Wheeler/Semi-Truck",
+    isEmphasis: true,
   },
   {
-    id: "2",
-    amount: "$1.8M",
-    type: "Wrongful death",
+    id: "tbi",
+    amount: "$100,000",
+    type: "Car Accident (TBI)",
     description:
-      "Settlement for the family of a victim killed by a negligent driver.",
+      "Client suffered a mild traumatic brain injury following a collision",
+    isEmphasis: true,
   },
   {
-    id: "3",
-    amount: "$950K",
-    type: "Slip and fall",
+    id: "dog",
+    amount: "$250,000",
+    type: "Dog Bite",
     description:
-      "Premises liability case against a major commercial property owner.",
+      "Client suffered severe lacerations and scarring from a dog attack",
+    tag: "Official Firm Record",
   },
   {
-    id: "4",
-    amount: "$725K",
-    type: "Car accident",
+    id: "car",
+    amount: "$100,000",
+    type: "Car Accident",
     description:
-      "Insurance dispute resolution for a high-impact collision.",
+      "Client involved in a serious motor vehicle collision causing injury",
+    tag: "Official Firm Record",
+  },
+  {
+    id: "slip",
+    amount: "$50,000",
+    type: "Slip N' Fall",
+    description:
+      "Client slipped on an unmarked wet floor in a retail store",
+    tag: "Official Firm Record",
   },
 ];
 
-const FEATURED = RESULTS[0];
-const SECONDARY = RESULTS.slice(1);
+const FEATURED = RESULTS.filter((r) => r.isEmphasis);
+const SECONDARY = RESULTS.filter((r) => !r.isEmphasis);
 
 export const ResultsGallery = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -111,38 +124,49 @@ export const ResultsGallery = () => {
             variants={fadeRise}
             className="md:text-right"
           >
-            <p className="font-sans text-3xl md:text-4xl font-bold text-navy leading-tight lining-tabular">
-              $50M+ recovered
+            <p className="text-navy leading-tight">
+              <MetricFigure value="$50M+" className="text-3xl md:text-4xl" />
+              <span className="font-serif font-bold text-2xl md:text-3xl"> recovered</span>
             </p>
             <p className="eyebrow mt-1">For our clients to date</p>
           </motion.div>
         </motion.div>
 
-        {/* Featured result — full width, larger amount, primary trust signal */}
-        <motion.article
-          initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-5%" }}
-          transition={
-            reducedMotion
-              ? { duration: 0 }
-              : { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
-          }
-          className="relative bg-navy text-white rounded-[12px] p-10 lg:p-16 mb-8 overflow-hidden"
-          style={{ boxShadow: "var(--shadow-elevated)" }}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 md:gap-12 items-center">
-            <div>
-              <p className="eyebrow eyebrow-on-dark mb-4">{FEATURED.type}</p>
-              <p className="text-6xl md:text-7xl lg:text-8xl font-sans font-bold leading-none lining-tabular">
-                {FEATURED.amount}
-              </p>
-            </div>
-            <p className="text-lg md:text-xl text-white/85 leading-relaxed font-sans md:border-l md:border-white/15 md:pl-12">
-              {FEATURED.description}
-            </p>
-          </div>
-        </motion.article>
+        {/* Featured results — emphasized (TBI and Semi-Truck) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {FEATURED.map((result, index) => (
+            <motion.article
+              key={result.id}
+              initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-5%" }}
+              transition={
+                reducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.4, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }
+              }
+              className="relative bg-navy text-white rounded-[12px] p-8 lg:p-12 overflow-hidden flex flex-col"
+              style={{ boxShadow: "var(--shadow-elevated)" }}
+            >
+              <div className="flex items-start justify-between mb-6 gap-4">
+                <p className="eyebrow eyebrow-on-dark">{result.type}</p>
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-bronze text-navy whitespace-nowrap">
+                  Major Recovery
+                </span>
+              </div>
+              <MetricFigure
+                value={result.amount}
+                className="text-5xl md:text-6xl lg:text-7xl text-white mb-6"
+              />
+              <span aria-hidden="true" className="metric-rule mb-6" />
+              {result.description && (
+                <p className="text-base md:text-lg text-white/85 leading-relaxed font-sans mt-auto">
+                  {result.description}
+                </p>
+              )}
+            </motion.article>
+          ))}
+        </div>
 
         {/* Secondary results — tighter row of three */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -157,16 +181,25 @@ export const ResultsGallery = () => {
                   ? { duration: 0 }
                   : { duration: 0.32, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }
               }
-              className="bg-light-grey p-8 rounded-[12px] border border-navy/10"
+              className="bg-light-grey p-8 rounded-[12px] border border-navy/10 flex flex-col"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
               <p className="eyebrow mb-3">{result.type}</p>
-              <p className="text-4xl md:text-5xl font-sans font-bold text-navy leading-none mb-4 lining-tabular">
-                {result.amount}
-              </p>
-              <p className="text-base text-steel leading-relaxed font-sans">
+              <MetricFigure
+                value={result.amount}
+                className="text-4xl md:text-5xl text-navy"
+              />
+              <span aria-hidden="true" className="metric-rule mb-4" />
+              <p className="text-base text-steel leading-relaxed font-sans mb-6">
                 {result.description}
               </p>
+              {result.tag && (
+                <div className="mt-auto pt-4 border-t border-navy/5">
+                  <p className="text-xs font-bold tracking-wider uppercase text-bronze">
+                    {result.tag}
+                  </p>
+                </div>
+              )}
             </motion.article>
           ))}
         </div>

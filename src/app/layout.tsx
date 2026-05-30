@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Fraunces, Hanken_Grotesk } from "next/font/google";
+import { Cormorant_Garamond, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
 import { LocalBusinessSchema } from "@/components/seo/SchemaOrg";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
-  axes: ["SOFT", "opsz"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
 const hanken = Hanken_Grotesk({
   variable: "--font-hanken",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -64,7 +64,7 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body
-        className={`${fraunces.variable} ${hanken.variable} antialiased`}
+        className={`${cormorant.variable} ${hanken.variable} antialiased`}
       >
         <Providers>
           {children}

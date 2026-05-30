@@ -137,16 +137,38 @@ export const NativeCaseReviewForm = ({
       return;
     }
 
-    // Submit (placeholder — wiring lives in a later engagement)
+    // Submit to GoHighLevel via their backend forms submit endpoint
     setState("submitting");
     try {
-      // eslint-disable-next-line no-console
-      console.log("[NativeCaseReviewForm] submit (placeholder)", fields);
-      // Simulate a network round-trip so loading state is visible during testing.
-      await new Promise((resolve) => setTimeout(resolve, 600));
+      const ghlPayload = {
+        formId: "6wNw6u81ALfekVKiIo7b",
+        full_name: fields.name,
+        phone: fields.phone,
+        email: fields.email,
+        // Send description as message. If the form doesn't have a field for it, 
+        // it might be ignored, but we include it just in case.
+        message: fields.description,
+      };
+
+      const formData = new FormData();
+      formData.append("formData", JSON.stringify(ghlPayload));
+
+      const res = await fetch("https://backend.leadconnectorhq.com/forms/submit", {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+        },
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error(`Submission failed with status: ${res.status}`);
+      }
+
       setState("success");
       setFields({ name: "", phone: "", email: "", description: "" });
-    } catch {
+    } catch (error) {
+      console.error("[NativeCaseReviewForm] Error submitting form:", error);
       setState("error");
     }
   };
@@ -396,7 +418,7 @@ export const NativeCaseReviewForm = ({
         <button
           type="submit"
           disabled={state === "submitting"}
-          className={`w-full inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm bg-bronze text-brand-navy-deep border border-dark-bronze hover:bg-dark-bronze active:bg-dark-bronze transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 ${
+          className={`w-full inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-extrabold uppercase tracking-wider rounded-sm bg-ink-charcoal text-white border border-bronze/40 hover:bg-brand-navy-deep hover:border-bronze active:bg-brand-navy-deep transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 ${
             isDark ? "focus-visible:ring-offset-navy" : "focus-visible:ring-offset-white"
           } disabled:opacity-60 disabled:cursor-not-allowed`}
         >

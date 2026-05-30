@@ -44,18 +44,18 @@ export const HeroCTA = () => {
             <div className="mt-10 flex justify-center lg:justify-start">
               <a
                 href="tel:9156211818"
-                className="group inline-flex items-center gap-4 text-navy hover:text-bronze transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey rounded-sm"
+                className="group inline-flex items-center gap-4 text-navy hover:text-brand-navy-tint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey rounded-sm"
                 aria-label="Call Carter Law at (915) 621-1818, available 24/7"
               >
                 <span
                   aria-hidden="true"
-                  className="flex h-16 w-16 items-center justify-center rounded-full bg-bronze text-brand-navy-deep shadow-md transition-colors duration-200 group-hover:bg-dark-bronze"
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-navy/[0.06] text-navy transition-colors duration-200 group-hover:bg-navy/10"
                 >
-                  <Phone className="h-7 w-7" />
+                  <Phone className="h-5 w-5" strokeWidth={1.5} />
                 </span>
                 <span className="text-left">
                   <span className="eyebrow block mb-1">Call 24/7 for free</span>
-                  <span className="text-2xl md:text-3xl font-serif font-bold block">
+                  <span className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold block leading-none lining-tabular">
                     (915) 621-1818
                   </span>
                 </span>
@@ -63,7 +63,7 @@ export const HeroCTA = () => {
             </div>
 
             <div className="mt-10 inline-flex flex-col gap-2 lg:items-start items-center">
-              <span aria-hidden="true" className="h-[2px] w-12 bg-bronze" />
+              <span aria-hidden="true" className="h-[2px] w-12 bg-navy/20" />
               <p className="text-sm text-steel font-sans">
                 No fee unless we win. Hablamos espa&ntilde;ol.
               </p>

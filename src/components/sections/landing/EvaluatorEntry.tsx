@@ -52,7 +52,7 @@ export const EvaluatorEntry = ({
               <button
                 type="button"
                 onClick={onYes}
-                className="flex-1 inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm bg-bronze text-brand-navy-deep border border-dark-bronze hover:bg-dark-bronze hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-extrabold uppercase tracking-wider rounded-sm bg-ink-charcoal text-white border border-bronze/40 hover:bg-brand-navy-deep hover:border-bronze transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey"
               >
                 Yes
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -60,7 +60,7 @@ export const EvaluatorEntry = ({
               <button
                 type="button"
                 onClick={() => setBranch("no")}
-                className="flex-1 inline-flex items-center justify-center px-7 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm border-2 border-navy text-navy hover:bg-navy hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey"
+                className="flex-1 inline-flex items-center justify-center px-7 py-4 text-base font-sans font-extrabold uppercase tracking-wider rounded-sm border-2 border-navy text-navy hover:bg-navy hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey"
               >
                 No
               </button>
@@ -95,7 +95,7 @@ export const EvaluatorEntry = ({
             <div className="flex flex-col sm:flex-row items-stretch gap-3 max-w-2xl">
               <a
                 href="tel:9156211818"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm bg-bronze text-brand-navy-deep border border-dark-bronze hover:bg-dark-bronze hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 text-base font-sans font-extrabold uppercase tracking-wider rounded-sm bg-ink-charcoal text-white border border-bronze/40 hover:bg-brand-navy-deep hover:border-bronze transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey"
                 aria-label="Call Carter Law at (915) 621-1818, available 24/7"
               >
                 <Phone className="w-4 h-4" aria-hidden="true" />
@@ -103,7 +103,7 @@ export const EvaluatorEntry = ({
               </a>
               <Link
                 href="/services"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm border-2 border-navy text-navy hover:bg-navy hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 text-base font-sans font-extrabold uppercase tracking-wider rounded-sm border-2 border-navy text-navy hover:bg-navy hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-light-grey"
               >
                 See practice areas
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />

@@ -35,13 +35,13 @@ export const ResultsCTA = () => {
           <div className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-sans font-bold uppercase tracking-wider rounded-sm bg-bronze text-brand-navy-deep border border-dark-bronze hover:bg-dark-bronze hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-navy w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-sans font-extrabold uppercase tracking-wider rounded-sm bg-ink-charcoal text-white border border-bronze/50 hover:border-bronze hover:bg-black transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-navy w-full sm:w-auto"
             >
               Free Case Review
             </Link>
             <a
               href="tel:9156211818"
-              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 text-base font-sans font-bold uppercase tracking-wider rounded-sm border-2 border-white text-white hover:bg-white hover:text-navy transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 text-base font-sans font-extrabold uppercase tracking-wider rounded-sm border-2 border-white text-white hover:bg-white hover:text-navy transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
               aria-label="Call Carter Law at (915) 621-1818"
             >
               <Phone className="w-4 h-4" aria-hidden="true" />

@@ -290,7 +290,7 @@ export const TruckAccidentEvaluator = () => {
         transition={{ duration: 0.5 }}
       >
         <div className="bg-black px-8 md:px-10 py-8 text-center relative overflow-hidden">
-          <div className="absolute inset-0 opacity-50 bg-[url('/hero-bg.png')] bg-cover bg-center" />
+          <div className="absolute inset-0 opacity-50 bg-[url('/boxing-match.png')] bg-cover bg-center" />
           <div className="relative z-10">
             <div className="w-12 h-12 rounded-full bg-bronze/20 flex items-center justify-center mx-auto mb-4">
               <CheckCircle2 className="w-6 h-6 text-bronze" />
@@ -305,7 +305,7 @@ export const TruckAccidentEvaluator = () => {
                   We can help your family pursue justice and accountability.
                 </h3>
                 <p className="text-blue-100 text-sm max-w-md mx-auto">
-                  Estimated compensation for your family's losses: <span className="font-bold text-white">{valueRange}</span>
+                  Estimated compensation for your family&apos;s losses: <span className="font-bold text-white">{valueRange}</span>
                 </p>
               </>
             ) : (
@@ -326,7 +326,7 @@ export const TruckAccidentEvaluator = () => {
             <div className="flex gap-3 bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
               <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
               <p className="text-sm text-red-800 leading-relaxed">
-                <strong>Time-sensitive:</strong> Don't take any further action until you've spoken with an attorney. Some signed agreements can be challenged within a limited window.
+                <strong>Time-sensitive:</strong> Don&apos;t take any further action until you&apos;ve spoken with an attorney. Some signed agreements can be challenged within a limited window.
               </p>
             </div>
           )}

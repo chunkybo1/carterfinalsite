@@ -47,7 +47,7 @@ export const AboutCTA = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-2 border-bronze text-bronze hover:bg-bronze/10 font-serif font-bold uppercase tracking-wider"
+                className="border-2 border-bronze text-bronze hover:bg-bronze/10 font-serif font-extrabold uppercase tracking-wider"
                 onClick={() => {
                   window.location.href = "tel:9156211818";
                 }}

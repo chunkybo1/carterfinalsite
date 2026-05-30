@@ -42,7 +42,7 @@ export const GoogleReviews = () => {
   // Featured testimonial = the first in the list. Pick the strongest review
   // there if the data ever changes.
   const featured = CLIENT_TESTIMONIALS[0];
-  const secondary = CLIENT_TESTIMONIALS.slice(1, 3);
+  const secondary = CLIENT_TESTIMONIALS.slice(1, 5);
 
   return (
     <section
@@ -64,6 +64,15 @@ export const GoogleReviews = () => {
             className="flex items-center gap-4 mb-6"
           >
             <p className="eyebrow">In their own words</p>
+            <div className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-full">
+              <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <span className="text-xs font-bold text-gray-700">Google Reviews</span>
+            </div>
           </motion.div>
           <motion.h2
             id="reviews-heading"
@@ -85,17 +94,17 @@ export const GoogleReviews = () => {
                 ? { duration: 0 }
                 : { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
             }
-            className="relative bg-navy text-white rounded-[12px] p-10 lg:p-16 mb-8 overflow-hidden"
+            className="relative bg-navy text-white rounded-[12px] p-8 lg:p-10 mb-8 overflow-hidden max-w-4xl mx-auto"
             style={{ boxShadow: "var(--shadow-elevated)" }}
           >
             <Quote
               aria-hidden="true"
               strokeWidth={1}
-              className="absolute top-8 right-8 h-20 w-20 text-bronze/15"
+              className="absolute top-6 right-6 h-16 w-16 text-bronze/15"
             />
-            <div className="relative z-10 max-w-3xl">
+            <div className="relative z-10">
               <div className="flex items-center gap-4 mb-6">
-                <p className="font-serif text-3xl md:text-4xl font-bold text-white leading-none">
+                <p className="font-serif text-2xl md:text-3xl font-bold text-white leading-none">
                   5.0
                 </p>
                 <div>
@@ -113,18 +122,18 @@ export const GoogleReviews = () => {
                   </p>
                 </div>
               </div>
-              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-serif leading-snug text-white">
+              <blockquote className="text-xl md:text-2xl font-serif leading-relaxed text-white whitespace-pre-wrap">
                 {`“${featured.quote}”`}
               </blockquote>
               <figcaption className="mt-8 flex items-center gap-4">
                 <span
                   aria-hidden="true"
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-bronze font-serif text-xl font-bold"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-bronze font-serif text-lg font-bold"
                 >
                   {featured.name.charAt(0)}
                 </span>
                 <span>
-                  <span className="block text-base font-sans font-semibold text-white">
+                  <span className="block text-sm font-sans font-semibold text-white">
                     {featured.name}
                   </span>
                   <span className="block eyebrow eyebrow-on-dark mt-0.5">
@@ -136,8 +145,8 @@ export const GoogleReviews = () => {
           </motion.figure>
         )}
 
-        {/* Secondary row — two compact testimonials, light surface */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Secondary row — compact testimonials, light surface */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {secondary.map((review, index) => (
             <motion.figure
               key={`${review.name}-${index}`}
@@ -149,7 +158,7 @@ export const GoogleReviews = () => {
                   ? { duration: 0 }
                   : { duration: 0.32, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }
               }
-              className="bg-light-grey p-8 rounded-[12px] border border-navy/10"
+              className="bg-light-grey p-6 lg:p-8 rounded-[12px] border border-navy/10 flex flex-col h-full"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
               <div className="flex gap-1 mb-4" aria-hidden="true">
@@ -161,10 +170,10 @@ export const GoogleReviews = () => {
                   />
                 ))}
               </div>
-              <blockquote className="text-base md:text-lg text-navy font-serif leading-relaxed mb-6">
+              <blockquote className="text-sm md:text-base text-navy font-serif leading-relaxed mb-6 whitespace-pre-wrap flex-grow">
                 {`“${review.quote}”`}
               </blockquote>
-              <figcaption>
+              <figcaption className="mt-auto pt-4 border-t border-navy/5">
                 <span className="block text-sm font-sans font-semibold text-navy">
                   {review.name}
                 </span>

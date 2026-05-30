@@ -7,8 +7,9 @@
    =========================================================================== */
 
 :root {
-  /* --- Brand (Updated Colors) --- */
-  --brand-navy:      #0E2A47;
+  /* --- Brand (Updated Colors — logo-matched 3-tone system) --- */
+  --brand-navy:      #13294A;
+  --brand-navy-tint: #1C355F;
   --brand-gold:      #C8A24B;
   --ink:             #14181F;
   --paper:           #F4F6F8;
@@ -18,7 +19,7 @@
   --surface-fog:     var(--paper);
 
   /* --- Typography --- */
-  --font-display:  var(--font-fraunces), Georgia, serif;
+  --font-display:  var(--font-cormorant), Georgia, serif;
   --font-body:     var(--font-hanken), system-ui, sans-serif;
 
   /* Type scale: 14 / 16 / 18 / 24 / 32 / 48 / 72px */
@@ -91,6 +92,7 @@
   /* Brand */
   --color-brand-navy:        var(--brand-navy);
   --color-brand-navy-deep:   var(--brand-navy);
+  --color-brand-navy-tint:   var(--brand-navy-tint);
   --color-brand-gold:        var(--brand-gold);
   --color-brand-gold-deep:   var(--brand-gold);
 
@@ -107,8 +109,8 @@
   --color-light-grey:    var(--surface-fog);
   --color-dark-charcoal: var(--ink);
 
-  --font-sans:  var(--font-hanken);
-  --font-serif: var(--font-fraunces);
+  --font-sans:  var(--font-hanken), system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, serif;
 }
 
 body {
@@ -135,13 +137,15 @@ html {
   font-weight: 600;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--brand-gold);
+  color: var(--brand-navy);
   line-height: 1.4;
 }
 
-/* Light variant for use on dark backgrounds (final CTA band, hero overlays) */
+/* Light variant for use on dark backgrounds (final CTA band, hero overlays).
+   Muted white keeps eyebrows off the gold diet; gold is reserved for CTAs
+   and the single metric-rule accent. */
 .eyebrow-on-dark {
-  color: var(--brand-gold);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* ===========================================================================
@@ -174,7 +178,96 @@ html {
   font-weight: 700;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   line-height: 1;
-  color: var(--brand-bronze);
+  color: var(--brand-navy);
+}
+
+/* ===========================================================================
+   Metric / stat utility — unified treatment for display figures ($50M+, $3.2M,
+   5.0). Display face, heavy weight, lining tabular figures so they align. Used
+   in both the hero stat trio and the verdict cards so the numbers read as one
+   designed system. Pair with .metric-rule for the baseline accent.
+   =========================================================================== */
+
+.metric {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.metric-affix {
+  font-size: 0.55em;
+  font-weight: 600;
+  vertical-align: baseline;
+}
+
+.metric-suffix {
+  font-size: 0.5em;
+  font-weight: 600;
+  vertical-align: super;
+  margin-left: 0.05em;
+}
+
+.metric-rule {
+  display: block;
+  height: 2px;
+  width: 2.5rem;
+  background: var(--brand-gold);
+  margin-top: 0.75rem;
+}
+
+/* ===========================================================================
+   Headline accent — the one "signature" emphasis moment in a hero headline.
+   A static vertical gold-leaf gradient (lighter top, deeper bottom) gives the
+   gold real dimension instead of a flat fill. Pair with .headline-underline
+   for the editorial swash. Reserved for a single phrase per hero.
+   =========================================================================== */
+
+.headline-accent {
+  background-image: linear-gradient(
+    175deg,
+    #F0D894 0%,
+    var(--brand-gold) 52%,
+    #A07C36 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  /* Subtle separation from the video behind it. */
+  filter: drop-shadow(0 1px 1px rgba(8, 18, 33, 0.35));
+}
+
+.headline-underline {
+  position: absolute;
+  left: 0;
+  bottom: -0.12em;
+  height: 0.08em;
+  width: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--brand-gold) 0%, #E6CB7A 100%);
+}
+
+/* ===========================================================================
+   Results marquee — the auto-scrolling "wins ticker" beneath the hero. The
+   track holds two identical copies of the verdict list; translating it -50%
+   loops seamlessly. Pauses on hover. Under reduced motion the animation is
+   killed and the viewport becomes a normal horizontally-scrollable row.
+   =========================================================================== */
+
+@keyframes results-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.results-marquee-track {
+  animation: results-marquee 48s linear infinite;
+  will-change: transform;
+}
+
+.results-marquee-viewport:hover .results-marquee-track {
+  animation-play-state: paused;
 }
 
 /* ===========================================================================
@@ -195,6 +288,15 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .results-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .results-marquee-viewport {
+    overflow-x: auto;
   }
 
   html {

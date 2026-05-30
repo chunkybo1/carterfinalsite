@@ -36,176 +36,144 @@ export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
 
   return (
     <section
-      className="relative w-full min-h-[88svh] lg:min-h-[92svh] flex items-center bg-brand-navy-deep text-white overflow-hidden"
+      className="relative w-full min-h-[88svh] lg:min-h-[92svh] flex items-center text-white overflow-hidden"
       aria-labelledby="hero-headline"
     >
-      {/* Background image — Thomas Carter portrait, treated as ambient */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/hero-bg.png"
-          alt=""
-          fill
-          priority
-          quality={85}
-          sizes="100vw"
-          className="object-cover object-[center_30%]"
+      {/* Background video — ambient commercial reel */}
+      <div className="absolute inset-0 z-0 bg-[#0E2A47]">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          src="/cartercommercial.mp4"
+          className="absolute inset-0 w-full h-full object-cover object-center"
           aria-hidden="true"
         />
-        {/* Functional dim layers for legibility — not decorative */}
+        {/* Functional dim layer for legibility over moving video */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-brand-navy-deep/85 via-brand-navy-deep/70 to-brand-navy-deep/40"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-brand-navy-deep/60 to-transparent"
+          className="absolute inset-0 bg-[#0E2A47]/60"
         />
       </div>
 
       {/* Content */}
       <Container className="relative z-20 py-24 md:py-28 lg:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Headline column */}
-          <div className="lg:col-span-7 text-center lg:text-left">
-            {/* Eyebrow with location */}
-            <p className="eyebrow eyebrow-on-dark mb-5 inline-flex items-center gap-2">
-              <MapPin className="h-3 w-3 text-bronze" aria-hidden="true" />
-              El Paso, TX
-            </p>
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+          {/* Eyebrow with location */}
+          <p className="eyebrow eyebrow-on-dark mb-5 inline-flex items-center gap-2">
+            <MapPin className="h-3 w-3 text-brand-gold" aria-hidden="true" />
+            El Paso, TX
+          </p>
 
-            {/* Headline — single static H1, italic-bronze on the second sentence */}
-            <h1
-              id="hero-headline"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-semibold leading-[1.05] tracking-tight mb-8 text-white"
-            >
-              <span className="block">El Paso&rsquo;s truck accident lawyer.</span>
-              <span className="block font-bold text-brand-gold mt-2">We win these cases.</span>
-            </h1>
+          {/* Headline — single eye-catching line. The adversary phrase carries
+             the one signature gold-leaf accent (gradient fill + underline swash)
+             reserved for the hero. */}
+          <h1
+            id="hero-headline"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-bold leading-[1.05] mb-8 text-white [text-shadow:0_2px_24px_rgba(8,18,33,0.45)]"
+          >
+            El Paso&rsquo;s trucking companies{" "}
+            <span className="relative inline-block font-bold whitespace-nowrap">
+              <span className="headline-accent">know our name.</span>
+              <span aria-hidden="true" className="headline-underline" />
+            </span>
+          </h1>
 
-            {/* Three-fact credentials line — jurisdiction / tenure / contingency.
-               Treated as a credentials bar with hairline separators rather than
-               body prose. Each fact reads as its own statement. */}
+          {/* Three-fact credentials line — jurisdiction / tenure / contingency.
+             Treated as a credentials bar with hairline separators rather than
+             body prose. Each fact reads as its own statement. */}
+          <ul
+            className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10 text-base md:text-lg text-white/85 font-sans"
+            aria-label="Firm credentials"
+          >
+            <li className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="h-1 w-6 bg-brand-gold"
+              />
+              <span>16 years in El Paso courtrooms</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="h-1 w-6 bg-brand-gold"
+              />
+              <span>Licensed in TX, AZ, NM</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="h-1 w-6 bg-brand-gold"
+              />
+              <span>No fee unless we win</span>
+            </li>
+          </ul>
+
+          {/* Results strip — concrete proof above the fold. */}
+          <div
+            className="mb-10 pt-8 border-t border-brand-gold/30 w-full"
+            aria-label="Track record"
+          >
             <ul
-              className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start justify-center lg:justify-start gap-x-6 gap-y-3 mb-8 text-base md:text-lg text-white/85 font-sans"
-              aria-label="Firm credentials"
+              className="flex flex-col sm:flex-row items-center sm:items-baseline justify-center gap-y-6 gap-x-12 font-sans"
             >
-              <li className="flex items-center gap-3">
-                <span
-                  aria-hidden="true"
-                  className="h-1 w-6 bg-bronze"
-                />
-                <span>16 years in El Paso courtrooms</span>
+              <li className="flex flex-col items-center text-center">
+                <span className="metric text-white text-4xl md:text-5xl">
+                  500<span className="metric-suffix text-brand-gold">+</span>
+                </span>
+                <span aria-hidden="true" className="metric-rule" />
+                <span className="eyebrow eyebrow-on-dark mt-3">
+                  Cases litigated
+                </span>
               </li>
-              <li className="flex items-center gap-3">
-                <span
-                  aria-hidden="true"
-                  className="h-1 w-6 bg-bronze"
-                />
-                <span>Licensed in TX, AZ, NM</span>
+              <li
+                aria-hidden="true"
+                className="hidden sm:block w-px h-12 bg-white/15"
+              />
+              <li className="flex flex-col items-center text-center">
+                <span className="metric text-white text-4xl md:text-5xl">
+                  24<span className="metric-suffix text-brand-gold">/</span>7
+                </span>
+                <span aria-hidden="true" className="metric-rule" />
+                <span className="eyebrow eyebrow-on-dark mt-3">
+                  Direct attorney access
+                </span>
               </li>
-              <li className="flex items-center gap-3">
-                <span
-                  aria-hidden="true"
-                  className="h-1 w-6 bg-bronze"
-                />
-                <span>No fee unless we win</span>
+              <li
+                aria-hidden="true"
+                className="hidden sm:block w-px h-12 bg-white/15"
+              />
+              <li className="flex flex-col items-center text-center">
+                <span className="metric text-white text-4xl md:text-5xl">
+                  5.0<span className="metric-suffix text-brand-gold">&#9733;</span>
+                </span>
+                <span aria-hidden="true" className="metric-rule" />
+                <span className="eyebrow eyebrow-on-dark mt-3">
+                  99+ Google reviews
+                </span>
               </li>
             </ul>
-
-            {/* Results strip — concrete proof above the fold. "Show wins, don't
-               claim them" per PRODUCT.md. Three real numbers separated by
-               bronze dots, sized as supporting metrics rather than competing
-               with the H1. Hairline above signals a record-of-fact boundary. */}
-            <div
-              className="mb-10 pt-6 border-t border-bronze/30 max-w-2xl mx-auto lg:mx-0"
-              aria-label="Track record"
-            >
-              <ul
-                className="flex flex-col sm:flex-row items-center sm:items-baseline justify-center lg:justify-start gap-y-4 gap-x-6 font-sans"
-              >
-                <li className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <span className="font-sans font-bold text-bronze text-2xl md:text-3xl leading-none lining-tabular">
-                    $50M+
-                  </span>
-                  <span className="eyebrow eyebrow-on-dark mt-2 text-white/70">
-                    Recovered for clients
-                  </span>
-                </li>
-                <li
-                  aria-hidden="true"
-                  className="hidden sm:block w-px h-10 bg-white/20"
-                />
-                <li className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <span className="font-sans font-bold text-bronze text-2xl md:text-3xl leading-none lining-tabular">
-                    $3.2M
-                  </span>
-                  <span className="eyebrow eyebrow-on-dark mt-2 text-white/70">
-                    Largest trucking verdict
-                  </span>
-                </li>
-                <li
-                  aria-hidden="true"
-                  className="hidden sm:block w-px h-10 bg-white/20"
-                />
-                <li className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <span className="font-sans font-bold text-bronze text-2xl md:text-3xl leading-none lining-tabular">
-                    5.0&#9733;
-                  </span>
-                  <span className="eyebrow eyebrow-on-dark mt-2 text-white/70">
-                    99+ Google reviews
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button
-                onClick={openModal}
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm bg-bronze text-brand-navy-deep border border-dark-bronze hover:bg-dark-bronze hover:text-brand-navy-deep transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy-deep"
-              >
-                <Calendar className="h-4 w-4" aria-hidden="true" />
-                Free Case Review
-              </button>
-
-              <a
-                href="tel:9156211818"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-sans font-bold uppercase tracking-wider rounded-sm border-2 border-white text-white hover:bg-white hover:text-brand-navy-deep transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy-deep"
-                aria-label="Call Carter Law at (915) 621-1818"
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" />
-                Call (915) 621-1818
-              </a>
-            </div>
           </div>
 
-          {/* Portrait column — solid backplate, no blur, no offset */}
-          <div className="lg:col-span-5 hidden lg:block">
-            <div className="relative aspect-[4/5] max-w-md mx-auto">
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 -z-10 bg-bronze/15"
-                style={{ borderRadius: "var(--radius-card)" }}
-              />
-              <div
-                className="relative h-full w-full overflow-hidden bg-navy/40"
-                style={{ borderRadius: "var(--radius-card)" }}
-              >
-                <Image
-                  src="/thomas-carter-portrait.jpg"
-                  alt="Thomas Carter, founder of The Carter Law Firm, P.C."
-                  fill
-                  priority
-                  quality={88}
-                  sizes="(max-width: 1024px) 0px, 40vw"
-                  className="object-cover"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-brand-navy-deep/45 via-transparent to-transparent"
-                />
-              </div>
-            </div>
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+            <button
+              onClick={openModal}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-sans font-extrabold uppercase tracking-wider rounded-[12px] bg-brand-gold text-brand-navy border border-brand-gold hover:bg-white hover:border-white hover:text-brand-navy transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy shadow-[var(--shadow-card)]"
+            >
+              <Calendar className="h-4 w-4" aria-hidden="true" />
+              Free Case Review
+            </button>
+
+            <a
+              href="tel:9156211818"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-sans font-extrabold uppercase tracking-wider rounded-[12px] border-2 border-white text-white hover:bg-white hover:text-brand-navy transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy shadow-[var(--shadow-card)]"
+              aria-label="Call Carter Law at (915) 621-1818"
+            >
+              <Phone className="h-4 w-4" aria-hidden="true" />
+              Call (915) 621-1818
+            </a>
           </div>
         </div>
       </Container>

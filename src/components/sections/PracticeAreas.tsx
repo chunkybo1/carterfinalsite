@@ -125,7 +125,7 @@ export const PracticeAreas = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full py-20 lg:py-28 bg-light-grey overflow-hidden"
+      className="relative w-full py-24 lg:py-32 bg-navy overflow-hidden"
       aria-labelledby="practice-areas-heading"
     >
       <Container>
@@ -143,18 +143,18 @@ export const PracticeAreas = () => {
             variants={fadeRise}
             className="flex items-center gap-4 mb-6"
           >
-            <p className="eyebrow">Practice Areas</p>
+            <p className="eyebrow eyebrow-on-dark">Practice Areas</p>
           </motion.div>
           <motion.h2
             id="practice-areas-heading"
             variants={fadeRise}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-navy leading-[1.05]"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.05]"
           >
             Truck accidents are what we do.
           </motion.h2>
           <motion.p
             variants={fadeRise}
-            className="mt-6 text-lg md:text-xl text-steel font-serif leading-relaxed max-w-2xl"
+            className="mt-6 text-lg md:text-xl text-white/70 font-serif leading-relaxed max-w-2xl"
           >
             Trucking is our specialty. We represent injured Texans, Arizonans, and New Mexicans across the personal-injury spectrum.
           </motion.p>
@@ -180,14 +180,14 @@ export const PracticeAreas = () => {
               >
                 <div className="relative z-10 flex flex-col flex-1">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-light-grey transition-colors duration-200 group-hover:bg-brand-gold">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-navy/[0.06] transition-all duration-200 group-hover:bg-navy/[0.15] group-hover:scale-105">
                       <area.icon
-                        className="h-7 w-7 text-brand-gold transition-colors duration-200 group-hover:text-white"
+                        className="h-7 w-7 text-navy"
                         aria-hidden="true"
-                        strokeWidth={2.5}
+                        strokeWidth={1.5}
                       />
                     </div>
-                    <h3 className="text-2xl md:text-3xl font-serif font-bold text-navy leading-tight">
+                    <h3 className="text-2xl md:text-3xl font-serif font-bold text-navy group-hover:text-black transition-colors duration-200 leading-tight">
                       {area.title}
                     </h3>
                   </div>
@@ -198,7 +198,7 @@ export const PracticeAreas = () => {
 
                   <Link
                     href={area.href}
-                    className="mt-auto inline-flex items-center gap-2 eyebrow text-brand-gold hover:text-brand-gold focus-visible:outline-none focus-visible:underline"
+                    className="mt-auto inline-flex items-center gap-2 eyebrow text-brand-gold hover:text-brand-gold focus-visible:outline-none focus-visible:underline group-hover:gap-3 transition-all"
                   >
                     Learn more
                     <ArrowRight
@@ -208,8 +208,8 @@ export const PracticeAreas = () => {
                   </Link>
                 </div>
 
-                {/* Background photograph reveal on hover (kept for featured row only) */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none">
+                {/* Background photograph (always visible translucent background) */}
+                <div className="absolute inset-0 opacity-[0.06] group-hover:opacity-[0.15] transition-opacity duration-500 pointer-events-none">
                   <Image
                     src={area.image}
                     alt=""
@@ -247,15 +247,15 @@ export const PracticeAreas = () => {
                     className="group flex items-center gap-4 py-4 transition-colors duration-200 focus-visible:outline-none"
                   >
                     <area.icon
-                      className="h-5 w-5 text-brand-gold flex-shrink-0"
+                      className="h-5 w-5 text-navy flex-shrink-0"
                       aria-hidden="true"
-                      strokeWidth={2.5}
+                      strokeWidth={1.5}
                     />
-                    <span className="flex-1 text-base md:text-lg text-navy font-sans group-hover:text-brand-gold transition-colors duration-200">
+                    <span className="flex-1 text-base md:text-lg text-navy font-sans group-hover:text-brand-navy-tint transition-colors duration-200">
                       {area.title}
                     </span>
                     <ChevronRight
-                      className="h-4 w-4 text-light-steel group-hover:text-brand-gold transform group-hover:translate-x-1 transition-all duration-200"
+                      className="h-4 w-4 text-light-steel group-hover:text-navy transform group-hover:translate-x-1 transition-all duration-200"
                       aria-hidden="true"
                     />
                   </Link>

@@ -37,11 +37,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const reducedMotion = useReducedMotionPref();
 
     const variants = {
-      // Bronze surface uses navy-deep text for AA-AAA contrast (~7:1 vs 3.3:1
-      // for white on bronze). Swap applied per audit finding #3.
+      // Deep ink surface with white text for maximal contrast and an
+      // authoritative, premium feel. A 1px bronze hairline keeps the gold as a
+      // restrained accent rather than a full fill.
       primary:
-        "bg-bronze text-brand-navy-deep hover:bg-brand-bronze-deep hover:text-brand-navy-deep active:bg-brand-bronze-deep " +
-        "border border-dark-bronze shadow-[var(--shadow-card)]",
+        "bg-ink-charcoal text-white hover:bg-brand-navy-deep active:bg-brand-navy-deep " +
+        "border border-bronze/40 hover:border-bronze shadow-[var(--shadow-card)]",
       secondary:
         "bg-white text-navy border-2 border-navy/10 hover:bg-light-grey hover:text-navy",
       outline:
@@ -51,9 +52,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizes = {
-      sm: "px-4 py-1.5 text-sm font-sans font-bold uppercase tracking-wider",
-      md: "px-5 py-2.5 text-base font-sans font-bold uppercase tracking-wider",
-      lg: "px-7 py-3.5 text-lg font-sans font-bold uppercase tracking-wider",
+      sm: "px-4 py-1.5 text-sm font-sans font-extrabold uppercase tracking-wider",
+      md: "px-5 py-2.5 text-base font-sans font-extrabold uppercase tracking-wider",
+      lg: "px-7 py-3.5 text-lg font-sans font-extrabold uppercase tracking-wider",
     };
 
     return (

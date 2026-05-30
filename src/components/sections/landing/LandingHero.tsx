@@ -92,7 +92,7 @@ export const LandingHero = () => {
           >
             <a
               href="tel:9156211818"
-              className="group flex items-center justify-center gap-3 bg-bronze hover:bg-white text-white hover:text-navy px-8 py-4 border border-transparent font-serif font-bold uppercase tracking-widest transition-all duration-300 shadow-xl rounded-sm"
+              className="group flex items-center justify-center gap-3 bg-ink-charcoal hover:bg-black text-white px-8 py-4 border border-bronze/50 hover:border-bronze font-serif font-bold uppercase tracking-widest transition-all duration-300 shadow-xl rounded-sm"
             >
               <Phone className="w-5 h-5" />
               <span>(915) 621-1818</span>

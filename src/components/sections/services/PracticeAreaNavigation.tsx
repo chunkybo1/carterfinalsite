@@ -148,11 +148,11 @@ export const PracticeAreaNavigation = () => {
                     <div className="flex items-center gap-4 mb-5">
                       <span
                         aria-hidden="true"
-                        className="flex h-12 w-12 items-center justify-center rounded-full bg-light-grey transition-colors duration-200 group-hover:bg-brand-gold"
+                        className="flex h-12 w-12 items-center justify-center rounded-full bg-navy/[0.06] transition-colors duration-200 group-hover:bg-navy/10"
                       >
                         <Icon
-                          className="h-6 w-6 text-brand-gold transition-colors duration-200 group-hover:text-white"
-                          strokeWidth={2.5}
+                          className="h-6 w-6 text-navy"
+                          strokeWidth={1.5}
                           aria-hidden="true"
                         />
                       </span>
@@ -206,15 +206,15 @@ export const PracticeAreaNavigation = () => {
                       className="group flex items-center gap-4 py-4 transition-colors duration-200 focus-visible:outline-none"
                     >
                       <Icon
-                        className="h-5 w-5 text-brand-gold flex-shrink-0"
-                        strokeWidth={2.5}
+                        className="h-5 w-5 text-navy flex-shrink-0"
+                        strokeWidth={1.5}
                         aria-hidden="true"
                       />
-                      <span className="flex-1 text-base md:text-lg text-navy font-sans group-hover:text-brand-gold transition-colors duration-200">
+                      <span className="flex-1 text-base md:text-lg text-navy font-sans group-hover:text-brand-navy-tint transition-colors duration-200">
                         {area.title}
                       </span>
                       <ChevronRight
-                        className="h-4 w-4 text-light-steel group-hover:text-brand-gold transform group-hover:translate-x-1 transition-all duration-200"
+                        className="h-4 w-4 text-light-steel group-hover:text-navy transform group-hover:translate-x-1 transition-all duration-200"
                         aria-hidden="true"
                       />
                     </Link>

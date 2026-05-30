@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
+import { MetricFigure } from "@/components/ui/MetricFigure";
 
 /**
  * ResultsHero — case-results page top.
@@ -36,19 +37,17 @@ export const ResultsHero = () => {
           <p className="mt-8 text-lg md:text-xl text-steel leading-relaxed max-w-2xl font-sans">
             Recent recoveries for clients across El Paso, Texas, Arizona, and New Mexico. Each entry is an actual case the firm represented. Names and personal details are redacted; the outcomes are not.
           </p>
-          <div className="mt-10 flex flex-col sm:flex-row items-baseline gap-6">
+          <div className="mt-10 flex flex-col sm:flex-row items-start gap-6">
             <div>
-              <p className="font-sans font-bold text-navy text-4xl md:text-5xl leading-none lining-tabular">
-                $50M+
-              </p>
-              <p className="eyebrow mt-2">Recovered to date</p>
+              <MetricFigure value="$50M+" className="text-navy text-4xl md:text-5xl" />
+              <span aria-hidden="true" className="metric-rule" />
+              <p className="eyebrow mt-3">Recovered to date</p>
             </div>
             <span aria-hidden="true" className="hidden sm:block w-px h-12 bg-navy/15" />
             <div>
-              <p className="font-sans font-bold text-navy text-4xl md:text-5xl leading-none lining-tabular">
-                $3.2M
-              </p>
-              <p className="eyebrow mt-2">Largest trucking verdict</p>
+              <MetricFigure value="$3.2M" className="text-navy text-4xl md:text-5xl" />
+              <span aria-hidden="true" className="metric-rule" />
+              <p className="eyebrow mt-3">Largest trucking verdict</p>
             </div>
           </div>
         </motion.div>

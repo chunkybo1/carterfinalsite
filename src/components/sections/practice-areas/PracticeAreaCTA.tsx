@@ -28,9 +28,7 @@ export const PracticeAreaCTA = ({ title, subtitle }: PracticeAreaCTAProps) => {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-6">
-              Free Consultation
-            </div>
+            <p className="eyebrow eyebrow-on-dark mb-6">Free Consultation</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-8 leading-tight">
               {title}
             </h2>

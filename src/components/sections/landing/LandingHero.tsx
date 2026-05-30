@@ -70,7 +70,7 @@ export const LandingHero = () => {
             className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] mb-8"
           >
             The Trucking Company Already Has a Lawyer. <br className="hidden md:block" />
-            <span className="text-bronze italic">You Should Too.</span>
+            <span className="text-brand-gold font-bold">You Should Too.</span>
           </motion.h1>
 
           <motion.p
@@ -92,7 +92,7 @@ export const LandingHero = () => {
           >
             <a
               href="tel:9156211818"
-              className="group flex items-center justify-center gap-3 bg-bronze hover:bg-white text-white hover:text-navy px-8 py-4 border border-transparent font-serif font-bold uppercase tracking-widest transition-all duration-300 shadow-xl rounded-sm"
+              className="group flex items-center justify-center gap-3 bg-ink-charcoal hover:bg-black text-white px-8 py-4 border border-bronze/50 hover:border-bronze font-serif font-bold uppercase tracking-widest transition-all duration-300 shadow-xl rounded-sm"
             >
               <Phone className="w-5 h-5" />
               <span>(915) 621-1818</span>

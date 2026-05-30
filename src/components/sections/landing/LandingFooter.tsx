@@ -13,7 +13,7 @@ export const LandingFooter = () => {
           <Link href="/" className="block mb-6">
             <div className="relative h-14 w-60 opacity-80 hover:opacity-100 transition-opacity">
               <Image
-                src="/carter-logo-white.png"
+                src="/carter-logo-v2.png"
                 alt="Carter Law Wins"
                 fill
                 className="object-contain object-center"

@@ -28,9 +28,9 @@ export const FinalCTA = () => {
 
             <a
               href="tel:9156211818"
-              className="group inline-flex items-center gap-4 bg-bronze hover:bg-white text-white hover:text-navy px-8 py-4 transition-all duration-300 shadow-xl rounded-sm"
+              className="group inline-flex items-center gap-4 bg-ink-charcoal hover:bg-black text-white px-8 py-4 border border-bronze/50 hover:border-bronze transition-all duration-300 shadow-xl rounded-sm"
             >
-              <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center group-hover:bg-navy/10 transition-colors">
+              <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-bronze/20 transition-colors">
                 <Phone className="w-6 h-6" />
               </div>
               <div className="text-left">

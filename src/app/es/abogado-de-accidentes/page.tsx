@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://www.carterlawwins.com/es/abogado-de-accidentes",
+    languages: {
+      "en-US": "https://www.carterlawwins.com",
+      "es-MX": "https://www.carterlawwins.com/es/abogado-de-accidentes",
+      "x-default": "https://www.carterlawwins.com",
+    },
   },
 };
 

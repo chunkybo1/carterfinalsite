@@ -931,24 +931,33 @@ export const FEATURED_RESULTS = [
 
 export const CLIENT_TESTIMONIALS = [
   {
-    name: "Maria Rodriguez",
-    location: "El Paso, TX",
+    name: "Regan Garcia",
     caseType: "Car Accident",
-    quote: "After my accident, I was overwhelmed. The insurance company kept calling with low offers, and I didn't know what to do. Carter Law took over everything. They fought for me when I couldn't fight for myself, and they got me a settlement that changed my life. I can't recommend them enough.",
+    quote: "Very pleased with Mr. Carter and his team. State Farm tried to low-ball me an offer for my injuries, but Carter knew and fought for what I deserved. In the end, my settlement was nearly 10x the amount of State Farm’s initial offer.\n\nThis would not have happened without Mr. Carter and his team.\n\nThank you guys, from the bottom of my heart!",
     rating: 5
   },
   {
-    name: "James Thompson",
-    location: "El Paso, TX",
-    caseType: "Medical Malpractice",
-    quote: "When the hospital made a mistake during my surgery, I thought I had no options. Carter Law proved otherwise. They were thorough, they communicated with me every step of the way, and they never backed down. The result exceeded my expectations.",
+    name: "Monica Webster Lowe",
+    caseType: "Personal Injury",
+    quote: "Thank you to the Carter Law Firm for representing my nephew to the fullest and treating him like a human being and seeing yourselves in him!! I see why Mr. Carter is known as THE BULLDOG!! He takes his job very seriously and will fight for you! Way to represent Thurgood Marshall School of Law (TMSL) my fellow alum!! Carter Law Wins!!",
     rating: 5
   },
   {
-    name: "Sarah Martinez",
-    location: "El Paso, TX",
-    caseType: "Wrongful Death",
-    quote: "Losing my husband was devastating. Carter Law helped our family seek justice and secure our financial future. They treated us with compassion and respect while fighting fiercely for what we deserved. We're forever grateful.",
+    name: "michael martin",
+    caseType: "Personal Injury",
+    quote: "I had the pleasure of working directly with Mr. Carter and I highly recommend Carter Law Firm! Their team is incredibly professional, knowledgeable, and truly dedicated to their clients. They guided me through a complex legal issue with clarity and confidence, always keeping me informed and at ease. Their attention to detail and commitment to achieving the best outcome really stood out. If you’re looking for reliable legal support, this is the firm to go to!",
+    rating: 5
+  },
+  {
+    name: "Cristina Barraza",
+    caseType: "Car Accident",
+    quote: "Super thankful for everyone at The Carter Law Firm. Worked with them for a car accident I had and I did not have to do a thing. They took care of everything for me and kept me updated every single step of the way in a timely manner. Extremely grateful it was this easy as I had other things to stress about like the total loss of my car. I definitely recommend this law firm they will take great care of you!",
+    rating: 5
+  },
+  {
+    name: "Tamz S.",
+    caseType: "Personal Injury",
+    quote: "Carter law is by far the best!! They have taken excellent care of through one of the ugliest experiences I have been through. The advocated for me, and I appreciate they way they care. Not only are they helpful, but they are attentive and listen!!! Best part about Carter is, “Carter Law Wins”!!!!",
     rating: 5
   }
 ];

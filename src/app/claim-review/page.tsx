@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { UnbrandedHeader } from "@/components/sections/landing/UnbrandedHeader";
 import { UnbrandedFooter } from "@/components/sections/landing/UnbrandedFooter";
-import { ClaimEvaluationQuiz } from "@/components/sections/landing/ClaimEvaluationQuiz";
+import { TruckAccidentEvaluator } from "@/components/sections/landing/TruckAccidentEvaluator";
 
 export const metadata: Metadata = {
   title: "Free Truck Accident Claim Evaluation | See What You're Owed",
@@ -42,7 +42,7 @@ export default function ClaimReviewPage() {
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
             Trucking Companies Have a{" "}
-            <span className="text-bronze italic">Secret Formula</span>{" "}
+            <span className="text-brand-gold font-bold">Secret Formula</span>{" "}
             to Minimize Your Payout.
           </h1>
 
@@ -61,7 +61,7 @@ export default function ClaimReviewPage() {
 
       {/* Quiz Section */}
       <section className="py-12 bg-[#F2F4F7] flex-1">
-        <ClaimEvaluationQuiz />
+        <TruckAccidentEvaluator />
       </section>
 
       <UnbrandedFooter />

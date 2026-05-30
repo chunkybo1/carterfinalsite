@@ -44,12 +44,10 @@ export const CarterApproach = () => {
           transition={{ duration: 0.8 }}
           className="mb-12"
         >
-          <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-            Our Methodology
-          </div>
+          <p className="eyebrow mb-4">Our Methodology</p>
           <div className="h-[2px] w-20 bg-bronze mb-6" />
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy mb-6 leading-tight">
-            The Carter <span className="text-bronze">Approach</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-navy leading-[1.05] mb-6">
+            The Carter approach.
           </h2>
           <p className="text-lg text-gray-700 leading-relaxed max-w-2xl">
             Every case is different. Our methodology never is. These three pillars guide how we investigate, prepare, and fight for every client.
@@ -64,7 +62,7 @@ export const CarterApproach = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 + index * 0.2 }}
-              className="bg-white border border-gray-200 p-8 md:p-10 rounded-lg shadow-sm"
+              className="bg-white border border-gray-200 p-8 md:p-10 rounded-[12px] shadow-[var(--shadow-card)]"
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="text-4xl md:text-5xl font-serif font-bold text-bronze">

@@ -2,115 +2,74 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Button } from "@/components/ui/Button";
-import { ArrowDown } from "lucide-react";
-import { useModal } from "@/context/ModalContext";
 
+import { Container } from "@/components/ui/Container";
+import {
+  useReducedMotionPref,
+  fadeRiseVariants,
+  staggerVariants,
+} from "@/lib/motion";
+
+/**
+ * ServicesHero — refined.
+ *
+ * Removed:
+ *   - Decorative skewed bronze gradient block on the right.
+ *   - Top/bottom black gradient overlays (purely decorative).
+ *   - Animate-bounce chevron at the bottom (unnecessary motion).
+ *   - "Your Battle. Our Expertise." italic-bronze pattern (banned: parallel
+ *     two-word fragments / X-meets-Y rhythm under a period).
+ *   - Raw `tracking-[0.4em] text-[10px]` cluster (use .eyebrow utility).
+ *
+ * Replaced with a quiet numbered-marker hero matching the homepage cadence.
+ * The /services page now reads as the same brand surface as the homepage,
+ * not a different sub-site.
+ */
 export const ServicesHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-10%" });
-  const { openModal } = useModal();
+  const isInView = useInView(containerRef, { once: true, margin: "-20%" });
+  const reducedMotion = useReducedMotionPref();
 
-  const handleScrollToPracticeAreas = () => {
-    const element = document.getElementById("practice-areas");
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
+  const fadeRise = fadeRiseVariants(reducedMotion);
+  const stagger = staggerVariants(reducedMotion, 0.08);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen w-full bg-navy overflow-hidden">
-      {/* Diagonal Split - Navy Left, Abstract Right */}
-      <div className="relative w-full h-full flex flex-col md:flex-row">
-        {/* LEFT SIDE: Content (Navy) */}
-        <div className="relative z-20 w-full md:w-[55%] h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 py-20">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-8"
-            >
-            {/* Eyebrow */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-[10px] font-sans font-bold tracking-[0.3em] text-bronze uppercase"
-            >
-              What We Fight For
-            </motion.div>
-
-            {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight tracking-tight"
-            >
-              Your Battle. <span className="text-bronze">Our Expertise.</span>
-            </motion.h1>
-
-            {/* Supporting Copy */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-lg md:text-xl text-light-steel leading-relaxed max-w-2xl"
-            >
-              When you&apos;re facing the aftermath of an injury, you need more than legal representation—you need a fighter who understands your battle and knows how to win. Every case is someone&apos;s whole life. We treat it that way.
-            </motion.p>
-
-            {/* Dual CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 pt-4"
-            >
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={openModal}
-              >
-                Schedule Free Consultation
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-2 border-bronze text-bronze hover:bg-bronze/10 font-serif font-bold uppercase tracking-wider"
-                onClick={handleScrollToPracticeAreas}
-              >
-                Explore Practice Areas
-                <ArrowDown className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* RIGHT SIDE: Abstract Visual with Diagonal Cut */}
-        <div 
-          className="absolute top-0 right-0 h-full w-full md:w-[55%] z-10 hidden md:block"
-          style={{
-            clipPath: "polygon(15% 0, 100% 0, 100% 100%, 0% 100%)",
-          }}
+    <section
+      ref={containerRef}
+      className="relative w-full bg-navy text-white py-32 lg:py-40 overflow-hidden"
+      aria-labelledby="services-hero-heading"
+    >
+      <Container>
+        <motion.div
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={stagger}
+          className="max-w-3xl"
         >
-          <div className="relative w-full h-full bg-gradient-to-br from-navy via-[#1a2d47] to-[#0f1d2f]">
-            {/* Abstract Shapes/Pattern */}
-            <div className="absolute inset-0 opacity-20">
-              <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-bronze/30 rounded-full blur-3xl" />
-              <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-bronze/20 rounded-full blur-3xl" />
-            </div>
-            
-            {/* Subtle Grid Pattern */}
-            <div 
-              className="absolute inset-0 opacity-[0.03]"
-              style={{
-                backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
-                backgroundSize: '60px 60px'
-              }}
-            />
-          </div>
-        </div>
-      </div>
+          {/* Numbered marker — sits in the homepage cadence sequence. */}
+          <motion.div
+            variants={fadeRise}
+            className="flex items-center gap-4 mb-6"
+          >
+            <p className="eyebrow eyebrow-on-dark">Practice Areas</p>
+          </motion.div>
+
+          <motion.h1
+            id="services-hero-heading"
+            variants={fadeRise}
+            className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.05] mb-8 text-white"
+          >
+            What we handle, and how we handle it.
+          </motion.h1>
+
+          <motion.p
+            variants={fadeRise}
+            className="pull-quote pull-quote-on-dark max-w-2xl text-white/90"
+          >
+            Sixteen years standing with the injured against the powerful. We don&rsquo;t just take cases. We try them.
+          </motion.p>
+        </motion.div>
+      </Container>
     </section>
   );
 };
-

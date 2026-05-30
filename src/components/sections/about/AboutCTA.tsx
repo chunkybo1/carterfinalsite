@@ -23,7 +23,7 @@ export const AboutCTA = () => {
           >
             {/* Headline */}
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              Your Fight. Our <span className="text-bronze">Legacy.</span>
+              Your fight. Our legacy.
             </h2>
 
             {/* Supporting Copy */}
@@ -47,7 +47,7 @@ export const AboutCTA = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-2 border-bronze text-bronze hover:bg-bronze/10 font-serif font-bold uppercase tracking-wider"
+                className="border-2 border-bronze text-bronze hover:bg-bronze/10 font-serif font-extrabold uppercase tracking-wider"
                 onClick={() => {
                   window.location.href = "tel:9156211818";
                 }}
@@ -63,7 +63,7 @@ export const AboutCTA = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="mt-16 pt-12 border-t border-white/10"
             >
-              <p className="text-lg font-serif italic text-light-steel leading-relaxed max-w-2xl mx-auto mb-4">
+            <p className="text-lg font-serif text-ink-muted leading-relaxed max-w-2xl mx-auto mb-4">
                 &quot;The first conversation is about understanding your situation—not selling you on working with me. If you're considering whether to call, consider this: you deserve to know your options, and that conversation costs you nothing. Let's talk about what happened and what comes next.&quot;
               </p>
               <p className="text-sm text-gray-400 font-serif">— Thomas Carter</p>

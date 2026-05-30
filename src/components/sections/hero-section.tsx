@@ -1,174 +1,182 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import { motion, useInView, useScroll, useMotionValueEvent, useTransform } from "framer-motion";
-import { Volume2, VolumeX } from "lucide-react";
-// GoldParticles import removed
-import { HTML5Video } from "@/components/ui/HTML5Video";
-import { Button } from "@/components/ui/Button";
+import React from "react";
+import Image from "next/image";
+import { Phone, Calendar, MapPin } from "lucide-react";
+
+import { Container } from "@/components/ui/Container";
 import { useModal } from "@/context/ModalContext";
 
-export const HeroSection = ({ 
-  showContent = false,
-  videoOnly = false,
-  contentOnly = false
-}: { 
+/**
+ * Hero — homepage hero (post-audit).
+ *
+ * Audit finding 1 (cycler removed). The headline is now a single static H1
+ * with the italic-bronze emphasis baked in as the second sentence — the one
+ * signature italic-bronze moment per page that the plan reserved.
+ *
+ * Audit finding 4 (backplate cleanup). The portrait backplate is now a
+ * solid bronze/15 surface with no backdrop-blur and no translate offset.
+ *
+ * Audit finding 5 (trust strip removed). The three-fact subline carries the
+ * jurisdiction / tenure / contingency-promise signals on its own; the
+ * duplicate trust strip below the CTAs is gone. "Hablamos español" now
+ * lives in the Final CTA footer and (header CTA copy in a future pass).
+ */
+
+interface HeroSectionProps {
   showContent?: boolean;
   videoOnly?: boolean;
   contentOnly?: boolean;
-}) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const videoContainerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+}
+
+export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
   const { openModal } = useModal();
-  
-  // Optimize: Track visibility to pause video when not in viewport
-  const isInView = useInView(containerRef, { 
-    once: false, 
-    margin: "-20%", 
-    amount: 0.1 
-  });
-  
-  const [shouldAnimate, setShouldAnimate] = useState(true);
-  const [videoReady, setVideoReady] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
-  
-  const { scrollY } = useScroll();
-  const buttonScrollOpacity = useTransform(scrollY, [0, 200], [1, 0]);
 
-  // Update animation state based on visibility
-  useEffect(() => {
-    setShouldAnimate(isInView);
-  }, [isInView]);
-  
-  // Handle video ready callback
-  const handleVideoReady = () => {
-    setVideoReady(true);
-  };
-
-  // Animation Variants
-  const sublineVariants = {
-    hidden: { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)", y: 20, opacity: 0 },
-    visible: { 
-      clipPath: "polygon(0 100%, 100% 100%, 100% 0%, 0 0%)", 
-      y: 0, 
-      opacity: 1,
-    }
-  };
-
+  if (!showContent) return null;
 
   return (
-    <div ref={containerRef} className={`relative w-full h-screen ${contentOnly ? 'bg-transparent pointer-events-none' : 'bg-navy'} overflow-hidden`}>
-      {/* Background Fallback Gradient (Visible while video loads or on slow devices) */}
-      {!contentOnly && (
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy/90 to-black z-0" />
-      )}
-
-      <div className="relative w-full h-full flex flex-col md:flex-row">
-        
-        {/* LEFT SIDE: Content */}
-        {!videoOnly && (
-          <div className="relative z-20 w-full h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pointer-events-none text-center items-center">
-            <div className="relative pointer-events-auto pt-32 md:pt-40 max-w-4xl">
-              {/* Visually Hidden H1 for SEO */}
-              <h1 className="sr-only">El Paso personal injury lawyer</h1>
-
-              {/* Subline */}
-              <div className="mt-2 md:mt-4 relative inline-block w-full">
-                <div className="overflow-hidden pb-3">
-                  <motion.h2
-                    initial="hidden"
-                    animate={showContent ? "visible" : "hidden"}
-                    variants={sublineVariants}
-                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.9 }}
-                    className="text-5xl sm:text-6xl md:text-7xl lg:text-[6vw] font-serif font-bold leading-[1.1] tracking-tight text-white/90 break-words whitespace-normal pb-3"
-                  >
-                    El Paso&apos;s Personal Injury Champion
-                  </motion.h2>
-                </div>
-              </div>
-
-              {/* Tagline Text */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={showContent ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
-                className="mt-6 md:mt-8"
-              >
-                <p className="text-xs sm:text-sm md:text-base font-sans font-medium tracking-[0.2em] sm:tracking-[0.3em] text-white/70 uppercase leading-relaxed">
-                Over $2.1 Million Recovered for the Injured. We don’t just take cases—we win them.
-                </p>
-              </motion.div>
-
-              {/* CTA Button */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: showContent ? 1 : 0 }}
-                transition={{ delay: 2.0, duration: 0.8 }}
-                className="mt-10 md:mt-12 flex justify-center"
-              >
-                <Button 
-                  size="lg"
-                  noFloat
-                  className="w-full sm:w-auto text-base gold-button shadow-xl"
-                  onClick={openModal}
-                >
-                  Talk To Us
-                </Button>
-              </motion.div>
-            </div>
-          </div>
-        )}
-
-        {/* RIGHT SIDE: Video Full Width */}
-        {!contentOnly && (
-          <div 
-            ref={videoContainerRef}
-            className="absolute right-0 top-0 w-full h-full z-10"
-          >
-            <div className="relative w-full h-full overflow-hidden">
-                {/* HTML5 Video with Ken Burns Effect */}
-                <HTML5Video
-                  videoSrc="/videos/hero-video.mp4"
-                  autoplay={true}
-                  loop={true}
-                  muted={isMuted}
-                  playsInline={true}
-                  shouldAnimate={shouldAnimate}
-                  onLoadedData={handleVideoReady}
-                  pauseWhenNotVisible={true}
-                  containerRef={containerRef as React.RefObject<HTMLDivElement | null>}
-                  isInView={isInView}
-                  videoRef={videoRef as React.RefObject<HTMLVideoElement | null>}
-                />
-
-                {/* Dark Overlay for better text readability */}
-                <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
-
-                {/* Mute/Unmute Toggle */}
-                <motion.button
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: videoReady ? 1 : 0 }}
-                  style={{ opacity: buttonScrollOpacity }}
-                  onClick={() => setIsMuted(!isMuted)}
-                  className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-30 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-sm transition-all duration-300 group"
-                  title={isMuted ? "Unmute" : "Mute"}
-                >
-                  {isMuted ? (
-                    <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-white/70 group-hover:text-white transition-colors" />
-                  ) : (
-                    <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-all" />
-                  )}
-                </motion.button>
-            </div>
-          </div>
-        )}
-        
-        {/* Mobile Overlay Gradient - Increased intensity for readability */}
-        {!contentOnly && (
-          <div className="md:hidden absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent z-15 pointer-events-none" />
-        )}
+    <section
+      className="relative w-full min-h-[88svh] lg:min-h-[92svh] flex items-center text-white overflow-hidden"
+      aria-labelledby="hero-headline"
+    >
+      {/* Background video — ambient commercial reel */}
+      <div className="absolute inset-0 z-0 bg-[#0E2A47]">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          src="/cartercommercial.mp4"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          aria-hidden="true"
+        />
+        {/* Functional dim layer for legibility over moving video */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[#0E2A47]/60"
+        />
       </div>
-    </div>
+
+      {/* Content */}
+      <Container className="relative z-20 py-24 md:py-28 lg:py-32">
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+          {/* Eyebrow with location */}
+          <p className="eyebrow eyebrow-on-dark mb-5 inline-flex items-center gap-2">
+            <MapPin className="h-3 w-3 text-brand-gold" aria-hidden="true" />
+            El Paso, TX
+          </p>
+
+          {/* Headline — single eye-catching line. The adversary phrase carries
+             the one signature gold-leaf accent (gradient fill + underline swash)
+             reserved for the hero. */}
+          <h1
+            id="hero-headline"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-bold leading-[1.05] mb-8 text-white [text-shadow:0_2px_24px_rgba(8,18,33,0.45)]"
+          >
+            El Paso&rsquo;s trucking companies{" "}
+            <span className="relative inline-block font-bold whitespace-nowrap">
+              <span className="headline-accent">know our name.</span>
+              <span aria-hidden="true" className="headline-underline" />
+            </span>
+          </h1>
+
+          {/* Three-fact credentials line — jurisdiction / tenure / contingency.
+             Treated as a credentials bar with hairline separators rather than
+             body prose. Each fact reads as its own statement. */}
+          <ul
+            className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10 text-base md:text-lg text-white/85 font-sans"
+            aria-label="Firm credentials"
+          >
+            <li className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="h-1 w-6 bg-brand-gold"
+              />
+              <span>16 years in El Paso courtrooms</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="h-1 w-6 bg-brand-gold"
+              />
+              <span>Licensed in TX, AZ, NM</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="h-1 w-6 bg-brand-gold"
+              />
+              <span>No fee unless we win</span>
+            </li>
+          </ul>
+
+          {/* Results strip — concrete proof above the fold. */}
+          <div
+            className="mb-10 pt-8 border-t border-brand-gold/30 w-full"
+            aria-label="Track record"
+          >
+            <ul
+              className="flex flex-col sm:flex-row items-center sm:items-baseline justify-center gap-y-6 gap-x-12 font-sans"
+            >
+              <li className="flex flex-col items-center text-center">
+                <span className="metric text-white text-4xl md:text-5xl">
+                  500<span className="metric-suffix text-brand-gold">+</span>
+                </span>
+                <span aria-hidden="true" className="metric-rule" />
+                <span className="eyebrow eyebrow-on-dark mt-3">
+                  Cases litigated
+                </span>
+              </li>
+              <li
+                aria-hidden="true"
+                className="hidden sm:block w-px h-12 bg-white/15"
+              />
+              <li className="flex flex-col items-center text-center">
+                <span className="metric text-white text-4xl md:text-5xl">
+                  24<span className="metric-suffix text-brand-gold">/</span>7
+                </span>
+                <span aria-hidden="true" className="metric-rule" />
+                <span className="eyebrow eyebrow-on-dark mt-3">
+                  Direct attorney access
+                </span>
+              </li>
+              <li
+                aria-hidden="true"
+                className="hidden sm:block w-px h-12 bg-white/15"
+              />
+              <li className="flex flex-col items-center text-center">
+                <span className="metric text-white text-4xl md:text-5xl">
+                  5.0<span className="metric-suffix text-brand-gold">&#9733;</span>
+                </span>
+                <span aria-hidden="true" className="metric-rule" />
+                <span className="eyebrow eyebrow-on-dark mt-3">
+                  99+ Google reviews
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+            <button
+              onClick={openModal}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-sans font-extrabold uppercase tracking-wider rounded-[12px] bg-brand-gold text-brand-navy border border-brand-gold hover:bg-white hover:border-white hover:text-brand-navy transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy shadow-[var(--shadow-card)]"
+            >
+              <Calendar className="h-4 w-4" aria-hidden="true" />
+              Free Case Review
+            </button>
+
+            <a
+              href="tel:9156211818"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-sans font-extrabold uppercase tracking-wider rounded-[12px] border-2 border-white text-white hover:bg-white hover:text-brand-navy transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy shadow-[var(--shadow-card)]"
+              aria-label="Call Carter Law at (915) 621-1818"
+            >
+              <Phone className="h-4 w-4" aria-hidden="true" />
+              Call (915) 621-1818
+            </a>
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 };

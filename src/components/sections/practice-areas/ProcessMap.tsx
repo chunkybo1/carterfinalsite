@@ -31,11 +31,9 @@ export const ProcessMap = () => {
     <section className="relative w-full bg-[#F9F9F9] py-24 lg:py-32 overflow-hidden">
       <Container>
         <div className="text-center mb-20">
-          <div className="text-[10px] font-sans font-bold text-bronze tracking-[0.3em] uppercase mb-4">
-            Our Strategic Journey
-          </div>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy mb-6">
-            The Path to <span className="text-bronze">Justice</span>
+          <p className="eyebrow mb-4">Our Strategic Journey</p>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy leading-[1.05] mb-6">
+            The path to justice.
           </h2>
           <div className="h-[2px] w-20 bg-bronze mx-auto" />
         </div>
@@ -59,11 +57,7 @@ export const ProcessMap = () => {
                   {/* Step Number & Icon Circle */}
                   <div className="relative mb-8">
                     <div className="w-20 h-20 rounded-full bg-white border border-bronze/30 shadow-xl flex items-center justify-center relative z-10">
-                      <Icon className="w-8 h-8 text-bronze" />
-                    </div>
-                    {/* Background Number */}
-                    <div className="absolute -top-4 -right-4 text-4xl font-serif font-bold text-navy/5 italic">
-                      {step.id}
+                      <Icon className="w-8 h-8 text-brand-gold" strokeWidth={2.5} />
                     </div>
                   </div>
 

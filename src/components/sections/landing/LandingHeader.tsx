@@ -15,7 +15,7 @@ export const LandingHeader = () => {
           <Link href="/" className="flex items-center text-white">
             <div className="relative h-10 w-48 sm:h-12 sm:w-56 md:h-14 md:w-64">
               <Image
-                src="/carter-logo-white.png"
+                src="/carter-logo-v2.png"
                 alt="Carter Law Wins"
                 fill
                 className="object-contain object-left"
@@ -27,7 +27,7 @@ export const LandingHeader = () => {
           {/* Phone CTA */}
           <a
             href="tel:9156211818"
-            className="group flex items-center gap-3 bg-bronze hover:bg-white text-white hover:text-navy px-4 py-2 sm:px-6 sm:py-2.5 transition-all duration-300 font-serif font-bold uppercase tracking-wider text-xs sm:text-sm shadow-lg"
+            className="group flex items-center gap-3 bg-ink-charcoal hover:bg-black text-white px-4 py-2 sm:px-6 sm:py-2.5 border border-bronze/50 hover:border-bronze transition-all duration-300 font-serif font-extrabold uppercase tracking-wider text-xs sm:text-sm shadow-lg"
           >
             <Phone className="w-4 h-4" />
             <span className="hidden sm:inline">Call Now:</span> (915) 621-1818

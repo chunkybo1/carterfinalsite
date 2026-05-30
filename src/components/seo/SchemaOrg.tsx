@@ -10,7 +10,7 @@ export function LocalBusinessSchema() {
     name: "The Carter Law Firm, P.C.",
     alternateName: "Carter Law Wins",
     url: "https://www.carterlawwins.com",
-    logo: "https://www.carterlawwins.com/carter-logo-white.png",
+    logo: "https://www.carterlawwins.com/carter-logo-v2.png",
     image: "https://www.carterlawwins.com/thomas-carter-portrait.jpg",
     description:
       "The Carter Law Firm, P.C. is a personal injury law firm in El Paso, TX, representing accident victims across Texas, Arizona, and New Mexico. Led by attorney Thomas Carter.",

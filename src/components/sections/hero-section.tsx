@@ -66,34 +66,18 @@ export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
             El Paso, TX
           </p>
 
-          {/* Headline — single eye-catching line. The adversary phrase carries
-             the one signature gold-leaf accent (gradient fill + underline swash)
-             reserved for the hero. */}
           <h1
             id="hero-headline"
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-bold leading-[1.05] mb-8 text-white [text-shadow:0_2px_24px_rgba(8,18,33,0.45)]"
           >
-            El Paso&rsquo;s trucking companies{" "}
-            <span className="relative inline-block font-bold whitespace-nowrap">
-              <span className="headline-accent">know our name.</span>
-              <span aria-hidden="true" className="headline-underline" />
-            </span>
+            Truck Accident and Injury Attorneys
           </h1>
 
-          {/* Three-fact credentials line — jurisdiction / tenure / contingency.
-             Treated as a credentials bar with hairline separators rather than
-             body prose. Each fact reads as its own statement. */}
+          {/* Credentials line — jurisdiction / contingency promise. */}
           <ul
             className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10 text-base md:text-lg text-white/85 font-sans"
             aria-label="Firm credentials"
           >
-            <li className="flex items-center gap-3">
-              <span
-                aria-hidden="true"
-                className="h-1 w-6 bg-brand-gold"
-              />
-              <span>16 years in El Paso courtrooms</span>
-            </li>
             <li className="flex items-center gap-3">
               <span
                 aria-hidden="true"
@@ -120,11 +104,14 @@ export const HeroSection = ({ showContent = true }: HeroSectionProps) => {
             >
               <li className="flex flex-col items-center text-center">
                 <span className="metric text-white text-4xl md:text-5xl">
-                  500<span className="metric-suffix text-brand-gold">+</span>
+                  16<span className="metric-suffix text-brand-gold">+</span>
                 </span>
                 <span aria-hidden="true" className="metric-rule" />
                 <span className="eyebrow eyebrow-on-dark mt-3">
-                  Cases litigated
+                  <span className="bg-gradient-to-br from-[#F0D894] via-brand-gold to-[#A07C36] bg-clip-text text-transparent">
+                    years
+                  </span>{" "}
+                  of trial experience
                 </span>
               </li>
               <li

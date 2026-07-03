@@ -1,24 +1,15 @@
 "use client";
 
-import { NativeCaseReviewForm } from "@/components/ui/NativeCaseReviewForm";
+import CRMForm from "@/components/ui/CRMForm";
 
 interface CaseReviewFormProps {
-  /** When true, render the dark-surface variant (used inside the modal). */
+  /** Retained for backward compatibility; the GoHighLevel iframe is variant-agnostic. */
   dark?: boolean;
 }
 
 /**
- * CaseReviewForm — backward-compat wrapper that delegates to the new
- * NativeCaseReviewForm. The previous implementation rendered a
- * GoHighLevel iframe; the new implementation is a native React form
- * (visual + structural; submit handler is a placeholder).
+ * CaseReviewForm — thin wrapper around the GoHighLevel iframe embed (CRMForm).
  */
-export const CaseReviewForm = ({ dark = false }: CaseReviewFormProps) => {
-  return (
-    <NativeCaseReviewForm
-      variant={dark ? "dark" : "light"}
-      heading="Free case review"
-      subheading="Tell us about your accident. We respond within 1 hour, 24/7."
-    />
-  );
+export const CaseReviewForm = ({ dark: _dark = false }: CaseReviewFormProps) => {
+  return <CRMForm />;
 };

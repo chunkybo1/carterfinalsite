@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { Phone } from "lucide-react";
 
 import { Container } from "@/components/ui/Container";
-import { NativeCaseReviewForm } from "@/components/ui/NativeCaseReviewForm";
+import CRMForm from "@/components/ui/CRMForm";
 
 /**
  * HeroCTA — talk-to-a-lawyer band beneath the Hero.
@@ -70,13 +70,9 @@ export const HeroCTA = () => {
             </div>
           </div>
 
-          {/* RIGHT — Native case-review form (visual + structural; submit is a placeholder) */}
+          {/* RIGHT — GoHighLevel case-review form embed */}
           <div className="relative">
-            <NativeCaseReviewForm
-              variant="light"
-              heading="Free case review"
-              subheading="Tell us about your accident. We respond within 1 hour, 24/7."
-            />
+            <CRMForm />
           </div>
         </div>
       </Container>

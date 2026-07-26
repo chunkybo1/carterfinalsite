@@ -280,6 +280,104 @@ html {
   font-variant-numeric: lining-nums tabular-nums;
 }
 
+/* ===========================================================================
+   Legal prose — shared typographic treatment for the Privacy Policy, Terms of
+   Service, and Disclaimer pages. Serif section headings, comfortable sans body,
+   and restrained list styling so long-form legal copy stays readable.
+   =========================================================================== */
+
+.legal-prose {
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--type-body-lg);
+  line-height: var(--leading-body);
+}
+
+.legal-prose > * + * {
+  margin-top: 1.25rem;
+}
+
+.legal-prose h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--type-title);
+  line-height: 1.15;
+  letter-spacing: var(--tracking-headline);
+  color: var(--brand-navy);
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.legal-prose h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.legal-prose h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--type-body-lg);
+  color: var(--brand-navy);
+  margin-top: 1.75rem;
+}
+
+.legal-prose p {
+  color: var(--ink-steel, #404040);
+}
+
+.legal-prose a {
+  color: var(--brand-navy);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--motion-fast) var(--ease-out);
+}
+
+.legal-prose a:hover {
+  color: var(--brand-gold);
+}
+
+.legal-prose ul,
+.legal-prose ol {
+  padding-left: 1.5rem;
+  color: var(--ink-steel, #404040);
+}
+
+.legal-prose ul {
+  list-style: none;
+}
+
+.legal-prose ul > li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.legal-prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--brand-gold);
+}
+
+.legal-prose ol {
+  list-style: decimal;
+}
+
+.legal-prose li + li {
+  margin-top: 0.6rem;
+}
+
+.legal-prose strong {
+  color: var(--brand-navy);
+  font-weight: 700;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
